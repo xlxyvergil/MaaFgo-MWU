@@ -150,6 +150,8 @@ jobs:
         shell: bash
         run: |
           uv pip install pywin32 --system
+          # 复制 pywin32 相关文件到 build
+          python -c "import win32gui, win32con, win32api, win32process; import shutil, os, sys; site_packages = os.path.dirname(win32gui.__file__); build_deps = 'build/deps'; os.makedirs(build_deps, exist_ok=True); [shutil.copytree(os.path.join(site_packages, d), os.path.join(build_deps, d), dirs_exist_ok=True) for d in ['win32', 'win32com', 'pywin32_system32'] if os.path.exists(os.path.join(site_packages, d))]; [shutil.copy2(os.path.join(site_packages, f), build_deps) for f in os.listdir(site_packages) if f.startswith(('win32', 'pythoncom', 'pywintypes')) and f.endswith(('.pyd', '.dll'))]"
 
       - name: Download Dependencies
         shell: bash
