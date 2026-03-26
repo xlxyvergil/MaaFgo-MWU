@@ -1,109 +1,87 @@
 {
-    // 本文件主要定义了通用 UI 的行为和显示内容
-    // 可参考文档和示例添加更多您需要的功能
-    // 文档：https://maafw.xyz/docs/3.3-ProjectInterfaceV2
-    // 示例：https://github.com/MaaXYZ/MaaFramework/blob/main/sample/interface.json
     "interface_version": 2,
-    "name": "MaaXXX",
-    "description": "这是一个使用 MaaFramework 创建的新项目。",
-    "contact": "QQ群: 123456789",
+    "name": "MaaFgo",
+    "description": "FGO自动战斗工具",
+    "contact": "QQ群: 无",
     "license": "MIT",
-    "welcome": "首次使用！欢迎使用 MAA!",
-    // 填写项目地址和版本号可实现自动更新功能
-    "github": "https://github.com/MaaXYZ/MaaPracticeBoilerplate",
+    "welcome": "首次使用！欢迎使用 MaaFgo!",
+    "github": "https://github.com/xlxyvergil/MaaFgo",
     "version": "1.0.0",
-    // Mirror酱为第三方分发服务，新项目默认关闭
-    // 若有需要请联系 Mirror酱 开通，直接自行开启是无法使用的
-    // "mirrorchyan_rid": "MaaXXX",
-    // "mirrorchyan_multiplatform": true,
+    "languages": {
+        "zh_cn": "./i18n/zh_cn.json"
+    },
     "controller": [
         {
-            "name": "安卓端",
+            "name": "安卓设备",
             "type": "Adb",
-            "display_short_side": 720 // 默认缩放分辨率的短边长度
+            "display_short_side": 720
         },
         {
-            "name": "桌面端",
+            "name": "Win32",
+            "label": "Win32控制器",
             "type": "Win32",
+            "description": "标准Win32控制器",
             "win32": {
                 "class_regex": ".*",
-                "window_regex": "Visual Studio",
-                // 截图及控制方式，请根据项目实际情况修改
-                // 文档: https://maafw.xyz/docs/2.4-ControlMethods
-                "screencap": "PrintWindow", // 截图方式
-                "mouse": "PostMessageWithCursorPos", // 鼠标控制方式
-                "keyboard": "PostMessageWithCursorPos" // 键盘控制方式
+                "window_regex": "BBchannel",
+                "screenshot": "PrintWindow",
+                "input": "Seize"
             }
         }
     ],
     "resource": [
         {
-            "name": "官服",
+            "name": "B服",
             "path": [
                 "./resource"
             ]
-        },
-        {
-            "name": "B 服",
-            "path": [
-                "./resource",
-                "./resource_bilibili"
-            ]
         }
     ],
-    // 可选的 agent 示例
-    // "agent": {
-    //     "child_exec": "python",
-    //     "child_args": [
-    //         "./agent/main.py"
-    //     ]
-    // },
-    "task": [
-        {
-            "name": "普通任务",
-            "entry": "MyTask1"
-        },
-        {
-            "name": "选项任务",
-            "entry": "MyTask2",
-            "option": [
-                "任务选项1"
-            ]
-        },
-        {
-            "name": "参数任务",
-            "entry": "MyTask3",
-            "option": [
-                "任务选项1"
-            ],
-            "pipeline_override": {}
-        },
-        {
-            "name": "带Custom的任务",
-            "entry": "MyTask4"
-        }
-    ],
+    "task": [],
     "option": {
-        "任务选项1": {
-            "type": "select",
-            "cases": [
-                {
-                    "name": "文本1",
-                    "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本1"
-                        }
-                    }
-                },
-                {
-                    "name": "文本2",
-                    "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本2"
-                        }
-                    }
-                }
-            ]
-        }
+
+    },
+    "import": [
+        "./options/登录.json",
+        "./options/种树.json",
+        "./options/日常战斗.json",
+        "./options/关闭游戏.json",
+        "./options/chapter.json",
+        "./options/team_index.json",
+        "./options/bbc_team_config.json",
+        "./options/bbc_run_count.json",
+        "./options/apple_type.json",
+        "./options/support_order_mismatch.json",
+        "./options/team_config_error.json",
+        "./options/quests/quest_冬木.json",
+        "./options/quests/quest_奥尔良.json",
+        "./options/quests/quest_七丘之城.json",
+        "./options/quests/quest_俄刻阿诺斯.json",
+        "./options/quests/quest_伦敦.json",
+        "./options/quests/quest_合众为一.json",
+        "./options/quests/quest_卡美洛.json",
+        "./options/quests/quest_巴比伦尼亚.json",
+        "./options/quests/quest_新宿.json",
+        "./options/quests/quest_雅戈泰.json",
+        "./options/quests/quest_下总国.json",
+        "./options/quests/quest_塞勒姆.json",
+        "./options/quests/quest_阿纳斯塔西娅.json",
+        "./options/quests/quest_诸神黄昏.json",
+        "./options/quests/quest_SIN.json",
+        "./options/quests/quest_由伽刹多罗.json",
+        "./options/quests/quest_亚特兰蒂斯.json",
+        "./options/quests/quest_奥林波斯.json",
+        "./options/quests/quest_阿瓦隆勒菲.json",
+        "./options/quests/quest_纳维米克特兰.json",
+        "./options/quests/quest_平安京.json",
+        "./options/quests/quest_Traum.json",
+        "./options/quests/quest_Ordeal Call.json",
+        "./options/quests/quest_平面之月.json"
+    ],
+    "agent": {
+        "child_exec": "python",
+        "child_args": [
+            "./agent/main.py"
+        ]
     }
 }
