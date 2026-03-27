@@ -1,17 +1,155 @@
 import json
 import os
 import time
-import win32gui
-import win32con
-import win32api
-import win32process
+import socket
+import struct
 import subprocess
+import threading
+import urllib.request
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
-from maa.controller import Win32Controller
 
-from maa.define import MaaWin32ScreencapMethodEnum, MaaWin32InputMethodEnum
+
+# BBC HTTP API 配置
+BBC_HTTP_HOST = "127.0.0.1"
+BBC_HTTP_PORT = 25002
+BBC_TCP_PORT = 25001
+BBC_BASE_URL = f"http://{BBC_HTTP_HOST}:{BBC_HTTP_PORT}"
+
+
+def _http_get(path: str) -> dict:
+    """HTTP GET 请求"""
+    try:
+        url = f"{BBC_BASE_URL}{path}"
+        with urllib.request.urlopen(url, timeout=5) as resp:
+            return json.loads(resp.read().decode('utf-8'))
+    except Exception as e:
+        print(f"[HTTP GET Error] {path}: {e}")
+        return {}
+
+
+def _http_post(path: str, data: dict = None) -> dict:
+    """HTTP POST 请求"""
+    try:
+        url = f"{BBC_BASE_URL}{path}"
+        body = json.dumps(data, ensure_ascii=False).encode('utf-8') if data else b''
+        req = urllib.request.Request(url, data=body, method='POST')
+        req.add_header('Content-Type', 'application/json')
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            return json.loads(resp.read().decode('utf-8'))
+    except Exception as e:
+        print(f"[HTTP POST Error] {path}: {e}")
+        return {}
+
+
+def _wait_for_bbc_services(timeout: int = 30) -> bool:
+    """等待 BBC HTTP 和 TCP 服务就绪"""
+    start_time = time.time()
+    http_ready = False
+    
+    while time.time() - start_time < timeout:
+        if not http_ready:
+            try:
+                resp = _http_get('/status')
+                if resp.get('status') == 'running':
+                    http_ready = True
+                    print(f"[BBC] HTTP 服务已就绪")
+                    return True
+            except:
+                pass
+        time.sleep(0.5)
+    
+    print(f"[BBC] 服务启动超时")
+    return False
+
+
+def _popup_response(popup_id: str, action: str) -> bool:
+    """发送弹窗决策到 BBC"""
+    result = _http_post('/popup/response', {'id': popup_id, 'action': action})
+    return result.get('success', False)
+
+
+class BbcTcpClient:
+    """BBC TCP 客户端 - 接收弹窗事件"""
+    
+    def __init__(self):
+        self.sock = None
+        self.running = False
+        self.popup_callbacks = []
+        self.thread = None
+    
+    def connect(self, timeout: int = 10) -> bool:
+        """连接到 BBC TCP 服务"""
+        try:
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.sock.settimeout(timeout)
+            self.sock.connect((BBC_HTTP_HOST, BBC_TCP_PORT))
+            self.sock.settimeout(None)
+            print(f"[TCP] 已连接到 BBC TCP 服务 {BBC_HTTP_HOST}:{BBC_TCP_PORT}")
+            return True
+        except Exception as e:
+            print(f"[TCP] 连接失败: {e}")
+            return False
+    
+    def start_listening(self):
+        """启动监听线程"""
+        self.running = True
+        self.thread = threading.Thread(target=self._receive_loop, daemon=True)
+        self.thread.start()
+    
+    def _receive_loop(self):
+        """接收循环"""
+        while self.running:
+            try:
+                length_bytes = self._recv_all(4)
+                if not length_bytes:
+                    break
+                length = struct.unpack('>I', length_bytes)[0]
+                
+                data = self._recv_all(length)
+                if not data:
+                    break
+                
+                popup_data = json.loads(data.decode('utf-8'))
+                print(f"[TCP] 收到弹窗: {popup_data.get('title', 'Unknown')}")
+                
+                for callback in self.popup_callbacks:
+                    try:
+                        callback(popup_data)
+                    except Exception as e:
+                        print(f"[TCP] 回调错误: {e}")
+                        
+            except Exception as e:
+                if self.running:
+                    print(f"[TCP] 接收错误: {e}")
+                break
+        
+        print("[TCP] 接收循环结束")
+    
+    def _recv_all(self, n: int) -> bytes:
+        """接收指定字节数的数据"""
+        data = b''
+        while len(data) < n:
+            try:
+                packet = self.sock.recv(n - len(data))
+                if not packet:
+                    return None
+                data += packet
+            except socket.timeout:
+                continue
+            except Exception as e:
+                return None
+        return data
+    
+    def stop(self):
+        """停止监听"""
+        self.running = False
+        if self.sock:
+            try:
+                self.sock.close()
+            except:
+                pass
 
 
 def _parse_single_param(argv: CustomAction.RunArg) -> str:
@@ -130,7 +268,7 @@ class ExecuteBbcTask(CustomAction):
         run_count = int(run_count)
         print(f"[ExecuteBbcTask] run_count={run_count}, apple_type={apple_type}, support_order_mismatch={support_order_mismatch}, team_config_error={team_config_error}")
         
-        print(f"[123456] run_count={run_count}, apple_type={apple_type}")
+        print(f"[ExecuteBbcTask] run_count={run_count}, apple_type={apple_type}")
         
         # 2. 启动BBC进程
         bbc_exe_path = os.path.join(BBC_PATH, 'dist', 'BBchannel64', 'BBchannel.exe')
@@ -138,180 +276,134 @@ class ExecuteBbcTask(CustomAction):
             print(f"BBC可执行文件不存在: {bbc_exe_path}")
             return CustomAction.RunResult(success=False)
         
-        os.startfile(bbc_exe_path)
-        print("[2/5] BBC进程已启动，等待窗口...")
-        time.sleep(3)
+        print("[2/3] 启动 BBC 进程...")
+        subprocess.Popen(bbc_exe_path, shell=True)
         
-        # 3. 查找并关闭免责声明窗口，确认已关闭
-        print("[3/5] 查找并关闭免责声明窗口...")
-        attempt = 0
-        while True:
-            attempt += 1
-            disclaimer_hwnd = self._find_window_by_title("免责声明！")
-            if disclaimer_hwnd:
-                print(f"[3/5] 检测到免责声明窗口（尝试 {attempt}），正在关闭...")
-                self._close_window_by_title("免责声明！")
-                time.sleep(1)
-            else:
-                print("[3/5] 免责声明窗口已关闭")
-                break
-        
-        # 4. 查找BBC窗口
-        print("[4/5] 查找BBC窗口...")
-        bbc_hwnd = None
-        attempt = 0
-        while True:
-            attempt += 1
-            bbc_hwnd = self._find_window_by_title("BBchannel")
-            if bbc_hwnd:
-                print(f"[4/5] BBC窗口已找到，hwnd={bbc_hwnd}（尝试 {attempt}）")
-                break
-            time.sleep(1)
-        
-        # 5. 执行刷本次数节点并监控战斗结束
-        print("[5/5] 执行刷本次数节点并监控战斗结束...")
-        if not self._execute_bbc_battle(context, bbc_hwnd, run_count, apple_type, support_order_mismatch, team_config_error):
-            print("[5/5] 错误：BBC战斗执行失败")
+        # 3. 执行BBC战斗并监控结束
+        print("[3/3] 执行BBC战斗并监控结束...")
+        if not self._execute_bbc_battle(context, run_count, apple_type, support_order_mismatch, team_config_error):
+            print("[ExecuteBbcTask] 错误：BBC战斗执行失败")
             return CustomAction.RunResult(success=False)
         
         print("ExecuteBbcTask: 任务已完成")
         return True
     
-    def _find_window_by_title(self, title):
-        """根据标题查找窗口"""
-        def callback(hwnd, extra):
-            if win32gui.IsWindowVisible(hwnd):
-                window_title = win32gui.GetWindowText(hwnd)
-                if title in window_title:
-                    extra.append(hwnd)
-        
-        matches = []
-        win32gui.EnumWindows(callback, matches)
-        return matches[0] if matches else None
-    
-    def _close_window_by_title(self, title):
-        """根据标题关闭窗口"""
-        hwnd = self._find_window_by_title(title)
-        if hwnd:
-            # 发送关闭消息
-            win32gui.PostMessage(hwnd, win32con.WM_CLOSE, 0, 0)
-            return True
-        return False
-    
-
-    
-    def _execute_bbc_battle(self, context, bbc_hwnd, run_count, apple_type, support_order_mismatch=False, team_config_error=False):
-        """执行BBC战斗流程并监控结束"""
+    def _execute_bbc_battle(self, context, run_count, apple_type, support_order_mismatch=False, team_config_error=False):
+        """执行BBC战斗流程 - 使用 HTTP API 和 TCP 通信"""
         try:
-            from maa.controller import Win32Controller
-            from maa.tasker import Tasker
-            from maa.define import MaaWin32ScreencapMethodEnum, MaaWin32InputMethodEnum
+            # 等待 BBC HTTP 服务就绪
+            print("[BBC] 等待 HTTP 服务就绪...")
+            if not _wait_for_bbc_services(timeout=30):
+                print("[BBC] HTTP 服务未就绪")
+                return False
             
-            # 创建控制器实例，明确配置截图和输入方式
-            controller = Win32Controller(
-                bbc_hwnd,
-                screencap_method=MaaWin32ScreencapMethodEnum.PrintWindow,
-                mouse_method=MaaWin32InputMethodEnum.Seize,
-                keyboard_method=MaaWin32InputMethodEnum.Seize
-            )
+            # 连接 TCP 服务接收弹窗
+            print("[BBC] 连接 TCP 服务...")
+            tcp_client = BbcTcpClient()
+            if not tcp_client.connect(timeout=10):
+                print("[BBC] TCP 连接失败")
+                return False
             
-            # 连接控制器
-            controller.post_connection().wait()
-            
-            # 使用共享资源
-            resource = context.tasker.resource if hasattr(context, 'tasker') and context.tasker else None
-            if not resource:
-                from maa.resource import Resource
-                resource = Resource()
-                # 加载资源（使用正确的资源路径）
-                resource.post_bundle("./assets/resource").wait()
-            
-            # 创建 tasker 并绑定控制器
-            tasker = Tasker()
-            tasker.bind(resource, controller)
-            
-            # 执行任务 - 点击刷本次数，设置执行次数和选择苹果的节点
-            # 直接使用 apple_type（已经是中文）
-            selected_apple = apple_type if apple_type else "金苹果"  # 默认金苹果
-            
-            print(f"[ExecuteBbcTask] 选择的苹果类型: {selected_apple}")
-            
-            pipeline_override = {
-                "输入运行次数": {
-                    "action": {"type": "InputText", "param": {"input_text": str(run_count)}},
-                    "next": [selected_apple, "[JumpBack]选苹果"]  # 根据用户选择的苹果类型动态变更 next 节点
-                },
-                "执行BBC任务": {
-                    "run_count": run_count,
-                    "apple_type": apple_type
-                }
+            # 存储弹窗处理配置和状态
+            popup_config = {
+                'support_order_mismatch': support_order_mismatch,
+                'team_config_error': team_config_error,
+                'battle_ended': False  # 战斗结束标志
             }
             
-            # 执行任务
-            print(f"[ExecuteBbcTask] 执行 点击刷本次数 任务，pipeline_override: {pipeline_override}")
-            result = tasker.post_task("点击刷本次数", pipeline_override).wait().succeeded
-            print(f"[ExecuteBbcTask] 点击刷本次数 任务执行结果: {result}")
+            # 战斗结束弹窗标题
+            BATTLE_END_POPUPS = ['脚本停止！', '正在结束任务！', '未设置等级需求', '其他任务运行中']
             
-            # 阶段1：弹窗检测（只检测用户选择"继续"的弹窗）
-            if support_order_mismatch:
-                popup_node_map = {
-                    "助战排序不符合": "助战排序不符合_继续"
-                }
+            def handle_popup(popup_data):
+                """处理弹窗事件"""
+                popup_id = popup_data.get('id')
+                title = popup_data.get('title', '')
                 
-                # 每隔15秒检测一次，持续2次
-                for i in range(2):
-                    print(f"等待15秒后第{i+1}次弹窗检测...")
-                    time.sleep(15)
-                    print(f"开始第{i+1}次弹窗检测...")
-                    popup_hwnd = self._find_window_by_title("助战排序不符合")
-                    if popup_hwnd:
-                        print(f"检测到弹窗: 助战排序不符合")
-                        print(f"用户配置为继续，执行弹窗处理节点: 助战排序不符合")
-                        result = tasker.post_task("助战排序不符合_继续").wait().succeeded
-                        print(f"弹窗处理节点执行结果: {result}")
+                print(f"[Popup] 收到弹窗: {title}")
+                
+                # 检查是否是战斗结束弹窗
+                for end_title in BATTLE_END_POPUPS:
+                    if end_title in title:
+                        print(f"[Popup] 检测到战斗结束弹窗: {title}")
+                        popup_config['battle_ended'] = True
+                        # 发送确认关闭弹窗
+                        _popup_response(popup_id, 'ok')
+                        return
+                
+                # 免责声明 - BBC 端自动处理
+                if '免责声明' in title:
+                    print("[Popup] 免责声明 - 等待 BBC 自动处理")
+                    return
+                
+                # 助战排序不符合
+                if '助战排序不符合' in title:
+                    action = 'ok' if popup_config['support_order_mismatch'] else 'cancel'
+                    print(f"[Popup] 助战排序不符合 - 发送 {action} 决策")
+                    _popup_response(popup_id, action)
+                    return
+                
+                # 队伍配置错误
+                if '队伍配置错误' in title:
+                    action = 'ok' if popup_config['team_config_error'] else 'cancel'
+                    print(f"[Popup] 队伍配置错误 - 发送 {action} 决策")
+                    _popup_response(popup_id, action)
+                    return
+                
+                # 自动连接失败 - askokcancel 类型
+                if '自动连接失败' in title:
+                    # 确定=重试(ok)，取消=中断(cancel，视为结束)
+                    action = 'ok'  # 默认重试
+                    print(f"[Popup] 自动连接失败 - 发送 {action} 决策")
+                    _popup_response(popup_id, action)
+                    return
             
-            # 阶段2：战斗结束检测
-            print("开始监控BBC战斗结束...")
-            battle_end_windows = ["脚本停止！", "正在结束任务！", "助战排序不符合"]
-            # 如果用户未开启"忽视队伍配置错误"，则加入检测列表
-            if not team_config_error:
-                battle_end_windows.append("队伍配置错误！")
+            tcp_client.popup_callbacks.append(handle_popup)
+            tcp_client.start_listening()
             
-            while True:
-                for window_title in battle_end_windows:
-                    if self._find_window_by_title(window_title):
-                        print(f"检测到战斗结束窗口: {window_title}")
-                        # 强制关闭BBC
-                        print("强制关闭BBC...")
-                        try:
-                            win32gui.PostMessage(bbc_hwnd, win32con.WM_CLOSE, 0, 0)
-                            time.sleep(2)
-                            if win32gui.IsWindow(bbc_hwnd):
-                                print("优雅关闭失败，强制kill进程...")
-                                _, pid = win32process.GetWindowThreadProcessId(bbc_hwnd)
-                                subprocess.run(['taskkill', '/F', '/PID', str(pid)], capture_output=True)
-                        except Exception as e:
-                            print(f"关闭BBC时出错: {e}")
-                            try:
-                                subprocess.run(['taskkill', '/F', '/IM', 'BBchannel.exe'], capture_output=True)
-                            except:
-                                pass
-                        
-                        # BBC关闭后再关闭控制器
-                        print("关闭控制器连接...")
-                        controller.post_inactive().wait()
-                        return True
-                
-                # 如果用户开启了"忽视队伍配置错误"，检测到该弹窗时执行节点而不是关闭
-                if team_config_error and self._find_window_by_title("队伍配置错误！"):
-                    print("检测到弹窗: 队伍配置错误！")
-                    print(f"用户配置为继续，执行弹窗处理节点: 队伍配置错误！")
-                    result = tasker.post_task("队伍配置错误_继续").wait().succeeded
-                    print(f"弹窗处理节点执行结果: {result}")
-                    # 执行后继续检测
-                    continue
-                
-                time.sleep(5)
+            # 通过 HTTP API 设置运行参数
+            print(f"[BBC] 设置运行次数: {run_count}")
+            _http_post('/set/runcount', {'times': run_count})
+            
+            apple_type_map = {
+                '金苹果': 'gold', '银苹果': 'silver', '蓝苹果': 'blue',
+                '铜苹果': 'copper', '彩苹果': 'colorful'
+            }
+            api_apple_type = apple_type_map.get(apple_type, 'gold')
+            print(f"[BBC] 设置苹果类型: {api_apple_type}")
+            _http_post('/set/appletype', {'type': api_apple_type})
+            
+            print("[BBC] 设置战斗类型: continuous")
+            _http_post('/set/battletype', {'type': 'continuous'})
+            
+            # 启动战斗
+            print("[BBC] 启动战斗...")
+            result = _http_post('/start')
+            if not result.get('success'):
+                print(f"[BBC] 启动战斗失败: {result}")
+                tcp_client.stop()
+                return False
+            
+            # 监控战斗结束
+            print("[BBC] 开始监控战斗...")
+            battle_ended = self._monitor_battle_http(tcp_client, popup_config)
+            
+            # 停止 TCP 客户端
+            tcp_client.stop()
+            
+            return battle_ended
+            
         except Exception as e:
-            print(f"执行BBC战斗流程出错: {e}")
+            print(f"[BBC] 执行战斗流程出错: {e}")
+            import traceback
+            traceback.print_exc()
             return False
+    
+    def _monitor_battle_http(self, tcp_client: BbcTcpClient, popup_config: dict) -> bool:
+        """通过 TCP 弹窗消息监控战斗结束"""
+        while True:
+            time.sleep(1)
+            
+            # 检查是否收到战斗结束弹窗
+            if popup_config.get('battle_ended'):
+                print("[Monitor] 收到战斗结束弹窗，战斗结束")
+                return True
