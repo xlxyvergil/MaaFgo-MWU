@@ -5,92 +5,69 @@ import socket
 import struct
 import subprocess
 import threading
-import urllib.request
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
 
 
-# BBC HTTP API 配置
-BBC_HTTP_HOST = "127.0.0.1"
-BBC_HTTP_PORT = 25002
+# BBC TCP 配置
+BBC_TCP_HOST = "127.0.0.1"
 BBC_TCP_PORT = 25001
-BBC_BASE_URL = f"http://{BBC_HTTP_HOST}:{BBC_HTTP_PORT}"
-
-
-def _http_get(path: str) -> dict:
-    """HTTP GET 请求"""
-    try:
-        url = f"{BBC_BASE_URL}{path}"
-        with urllib.request.urlopen(url, timeout=5) as resp:
-            return json.loads(resp.read().decode('utf-8'))
-    except Exception as e:
-        print(f"[HTTP GET Error] {path}: {e}")
-        return {}
-
-
-def _http_post(path: str, data: dict = None) -> dict:
-    """HTTP POST 请求"""
-    try:
-        url = f"{BBC_BASE_URL}{path}"
-        body = json.dumps(data, ensure_ascii=False).encode('utf-8') if data else b''
-        req = urllib.request.Request(url, data=body, method='POST')
-        req.add_header('Content-Type', 'application/json')
-        with urllib.request.urlopen(req, timeout=5) as resp:
-            return json.loads(resp.read().decode('utf-8'))
-    except Exception as e:
-        print(f"[HTTP POST Error] {path}: {e}")
-        return {}
-
-
-def _wait_for_bbc_services(timeout: int = 30) -> bool:
-    """等待 BBC HTTP 和 TCP 服务就绪"""
-    start_time = time.time()
-    http_ready = False
-    
-    while time.time() - start_time < timeout:
-        if not http_ready:
-            try:
-                resp = _http_get('/status')
-                if resp.get('status') == 'running':
-                    http_ready = True
-                    print(f"[BBC] HTTP 服务已就绪")
-                    return True
-            except:
-                pass
-        time.sleep(0.5)
-    
-    print(f"[BBC] 服务启动超时")
-    return False
-
-
-def _popup_response(popup_id: str, action: str) -> bool:
-    """发送弹窗决策到 BBC"""
-    result = _http_post('/popup/response', {'id': popup_id, 'action': action})
-    return result.get('success', False)
 
 
 class BbcTcpClient:
-    """BBC TCP 客户端 - 接收弹窗事件"""
+    """BBC TCP 客户端 - 发送命令和接收弹窗事件"""
     
     def __init__(self):
         self.sock = None
         self.running = False
         self.popup_callbacks = []
         self.thread = None
+        self._lock = threading.Lock()
+        self._response_event = threading.Event()
+        self._last_response = None
     
     def connect(self, timeout: int = 10) -> bool:
         """连接到 BBC TCP 服务"""
         try:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock.settimeout(timeout)
-            self.sock.connect((BBC_HTTP_HOST, BBC_TCP_PORT))
+            self.sock.connect((BBC_TCP_HOST, BBC_TCP_PORT))
             self.sock.settimeout(None)
-            print(f"[TCP] 已连接到 BBC TCP 服务 {BBC_HTTP_HOST}:{BBC_TCP_PORT}")
+            print(f"[TCP] 已连接到 BBC TCP 服务 {BBC_TCP_HOST}:{BBC_TCP_PORT}")
             return True
         except Exception as e:
             print(f"[TCP] 连接失败: {e}")
             return False
+    
+    def send_command(self, cmd: str, args: dict = None, timeout: int = 10) -> dict:
+        """发送命令并等待响应"""
+        if not self.sock:
+            return {'success': False, 'error': 'Not connected'}
+        
+        data = {'cmd': cmd, 'args': args or {}}
+        try:
+            with self._lock:
+                self._response_event.clear()
+                self._last_response = None
+                
+                msg = json.dumps(data, ensure_ascii=False).encode('utf-8')
+                msg_with_len = len(msg).to_bytes(4, 'big') + msg
+                self.sock.sendall(msg_with_len)
+            
+            # 等待响应
+            if self._response_event.wait(timeout):
+                return self._last_response or {'success': False, 'error': 'No response'}
+            else:
+                return {'success': False, 'error': 'Timeout waiting for response'}
+        except Exception as e:
+            print(f"[TCP] 发送命令失败: {e}")
+            return {'success': False, 'error': str(e)}
+    
+    def _set_response(self, response: dict):
+        """设置响应（内部使用）"""
+        self._last_response = response
+        self._response_event.set()
     
     def start_listening(self):
         """启动监听线程"""
@@ -111,14 +88,29 @@ class BbcTcpClient:
                 if not data:
                     break
                 
-                popup_data = json.loads(data.decode('utf-8'))
-                print(f"[TCP] 收到弹窗: {popup_data.get('title', 'Unknown')}")
+                msg = json.loads(data.decode('utf-8'))
+                msg_type = msg.get('type', '')
                 
-                for callback in self.popup_callbacks:
-                    try:
-                        callback(popup_data)
-                    except Exception as e:
-                        print(f"[TCP] 回调错误: {e}")
+                # 处理响应
+                if msg_type == '':
+                    # 这是命令响应
+                    self._set_response(msg)
+                elif msg_type == 'popup':
+                    # 弹窗事件
+                    print(f"[TCP] 收到弹窗: {msg.get('title', 'Unknown')}")
+                    for callback in self.popup_callbacks:
+                        try:
+                            callback(msg)
+                        except Exception as e:
+                            print(f"[TCP] 回调错误: {e}")
+                elif msg_type == 'popup_closed':
+                    # 弹窗关闭通知
+                    print(f"[TCP] 弹窗已关闭: {msg.get('title', 'Unknown')}")
+                    for callback in self.popup_callbacks:
+                        try:
+                            callback(msg)
+                        except Exception as e:
+                            print(f"[TCP] 回调错误: {e}")
                         
             except Exception as e:
                 if self.running:
@@ -150,6 +142,26 @@ class BbcTcpClient:
                 self.sock.close()
             except:
                 pass
+
+
+def _wait_for_bbc_tcp(timeout: int = 30) -> bool:
+    """等待 BBC TCP 服务就绪"""
+    start_time = time.time()
+    
+    while time.time() - start_time < timeout:
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(2)
+            sock.connect((BBC_TCP_HOST, BBC_TCP_PORT))
+            sock.close()
+            print(f"[BBC] TCP 服务已就绪")
+            return True
+        except:
+            pass
+        time.sleep(0.5)
+    
+    print(f"[BBC] TCP 服务启动超时")
+    return False
 
 
 def _parse_single_param(argv: CustomAction.RunArg) -> str:
@@ -268,8 +280,6 @@ class ExecuteBbcTask(CustomAction):
         run_count = int(run_count)
         print(f"[ExecuteBbcTask] run_count={run_count}, apple_type={apple_type}, support_order_mismatch={support_order_mismatch}, team_config_error={team_config_error}")
         
-        print(f"[ExecuteBbcTask] run_count={run_count}, apple_type={apple_type}")
-        
         # 2. 启动BBC进程
         bbc_exe_path = os.path.join(BBC_PATH, 'dist', 'BBchannel64', 'BBchannel.exe')
         if not os.path.exists(bbc_exe_path):
@@ -289,15 +299,15 @@ class ExecuteBbcTask(CustomAction):
         return CustomAction.RunResult(success=True)
     
     def _execute_bbc_battle(self, context, run_count, apple_type, support_order_mismatch=False, team_config_error=False):
-        """执行BBC战斗流程 - 使用 HTTP API 和 TCP 通信"""
+        """执行BBC战斗流程 - 使用纯 TCP 通信"""
         try:
-            # 等待 BBC HTTP 服务就绪
-            print("[BBC] 等待 HTTP 服务就绪...")
-            if not _wait_for_bbc_services(timeout=30):
-                print("[BBC] HTTP 服务未就绪")
+            # 等待 BBC TCP 服务就绪
+            print("[BBC] 等待 TCP 服务就绪...")
+            if not _wait_for_bbc_tcp(timeout=30):
+                print("[BBC] TCP 服务未就绪")
                 return False
             
-            # 连接 TCP 服务接收弹窗
+            # 连接 TCP 服务
             print("[BBC] 连接 TCP 服务...")
             tcp_client = BbcTcpClient()
             if not tcp_client.connect(timeout=10):
@@ -316,10 +326,27 @@ class ExecuteBbcTask(CustomAction):
             
             def handle_popup(popup_data):
                 """处理弹窗事件"""
+                popup_type = popup_data.get('type', '')
+                
+                if popup_type == 'popup_closed':
+                    # 弹窗关闭通知
+                    title = popup_data.get('title', '')
+                    print(f"[Popup] 弹窗已关闭: {title}")
+                    # 检查是否是战斗结束弹窗
+                    for end_title in BATTLE_END_POPUPS:
+                        if end_title in title:
+                            popup_config['battle_ended'] = True
+                            return
+                    return
+                
+                if popup_type != 'popup':
+                    return
+                
                 popup_id = popup_data.get('id')
                 title = popup_data.get('title', '')
+                popup_func_type = popup_data.get('popup_type', '')
                 
-                print(f"[Popup] 收到弹窗: {title}")
+                print(f"[Popup] 收到弹窗: {title} (type={popup_func_type})")
                 
                 # 检查是否是战斗结束弹窗
                 for end_title in BATTLE_END_POPUPS:
@@ -327,7 +354,7 @@ class ExecuteBbcTask(CustomAction):
                         print(f"[Popup] 检测到战斗结束弹窗: {title}")
                         popup_config['battle_ended'] = True
                         # 发送确认关闭弹窗
-                        _popup_response(popup_id, 'ok')
+                        tcp_client.send_command('popup_response', {'id': popup_id, 'action': 'ok'})
                         return
                 
                 # 免责声明 - BBC 端自动处理
@@ -337,32 +364,32 @@ class ExecuteBbcTask(CustomAction):
                 
                 # 助战排序不符合
                 if '助战排序不符合' in title:
-                    action = 'ok' if popup_config['support_order_mismatch'] else 'cancel'
+                    action = 'yes' if popup_config['support_order_mismatch'] else 'no'
                     print(f"[Popup] 助战排序不符合 - 发送 {action} 决策")
-                    _popup_response(popup_id, action)
+                    tcp_client.send_command('popup_response', {'id': popup_id, 'action': action})
                     return
                 
                 # 队伍配置错误
                 if '队伍配置错误' in title:
                     action = 'ok' if popup_config['team_config_error'] else 'cancel'
                     print(f"[Popup] 队伍配置错误 - 发送 {action} 决策")
-                    _popup_response(popup_id, action)
+                    tcp_client.send_command('popup_response', {'id': popup_id, 'action': action})
                     return
                 
-                # 自动连接失败 - askokcancel 类型
+                # 自动连接失败 - askretrycancel 类型
                 if '自动连接失败' in title:
-                    # 确定=重试(ok)，取消=中断(cancel，视为结束)
-                    action = 'ok'  # 默认重试
+                    # 确定=重试(retry)，取消=中断(cancel，视为结束)
+                    action = 'retry'  # 默认重试
                     print(f"[Popup] 自动连接失败 - 发送 {action} 决策")
-                    _popup_response(popup_id, action)
+                    tcp_client.send_command('popup_response', {'id': popup_id, 'action': action})
                     return
             
             tcp_client.popup_callbacks.append(handle_popup)
             tcp_client.start_listening()
             
-            # 通过 HTTP API 设置运行参数
+            # 通过 TCP 命令设置运行参数
             print(f"[BBC] 设置运行次数: {run_count}")
-            _http_post('/set/runcount', {'times': run_count})
+            tcp_client.send_command('set_runcount', {'times': run_count})
             
             apple_type_map = {
                 '金苹果': 'gold', '银苹果': 'silver', '蓝苹果': 'blue',
@@ -370,14 +397,14 @@ class ExecuteBbcTask(CustomAction):
             }
             api_apple_type = apple_type_map.get(apple_type, 'gold')
             print(f"[BBC] 设置苹果类型: {api_apple_type}")
-            _http_post('/set/appletype', {'type': api_apple_type})
+            tcp_client.send_command('set_appletype', {'type': api_apple_type})
             
             print("[BBC] 设置战斗类型: continuous")
-            _http_post('/set/battletype', {'type': 'continuous'})
+            tcp_client.send_command('set_battletype', {'type': 'continuous'})
             
             # 启动战斗
             print("[BBC] 启动战斗...")
-            result = _http_post('/start')
+            result = tcp_client.send_command('start')
             if not result.get('success'):
                 print(f"[BBC] 启动战斗失败: {result}")
                 tcp_client.stop()
@@ -385,7 +412,7 @@ class ExecuteBbcTask(CustomAction):
             
             # 监控战斗结束
             print("[BBC] 开始监控战斗...")
-            battle_ended = self._monitor_battle_http(tcp_client, popup_config)
+            battle_ended = self._monitor_battle(tcp_client, popup_config)
             
             # 停止 TCP 客户端
             tcp_client.stop()
@@ -398,7 +425,7 @@ class ExecuteBbcTask(CustomAction):
             traceback.print_exc()
             return False
     
-    def _monitor_battle_http(self, tcp_client: BbcTcpClient, popup_config: dict) -> bool:
+    def _monitor_battle(self, tcp_client: BbcTcpClient, popup_config: dict) -> bool:
         """通过 TCP 弹窗消息监控战斗结束"""
         while True:
             time.sleep(1)
