@@ -22,6 +22,57 @@ permissions:
   actions: write
 
 jobs:
+  download-python-embed:
+    needs: meta
+    strategy:
+      matrix:
+        include:
+          - os: win
+            arch: x86_64
+            runs-on: windows-2025
+          - os: win
+            arch: aarch64
+            runs-on: windows-11-arm
+          - os: macos
+            arch: x86_64
+            runs-on: macos-15-intel
+          - os: macos
+            arch: aarch64
+            runs-on: macos-15
+          - os: linux
+            arch: x86_64
+            runs-on: ubuntu-24.04
+          - os: linux
+            arch: aarch64
+            runs-on: ubuntu-24.04-arm
+      fail-fast: false
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6.2.0
+        with:
+          python-version: '3.12'
+          architecture: ${{ matrix.arch == 'x86_64' && 'x64' || 'arm64' }}
+
+      - name: Download Python embed
+        shell: bash
+        run: |
+          python ./tools/install_python.py ./python
+
+      - name: Install maafw
+        shell: bash
+        run: |
+          ./python/python.exe -m pip install maafw==5.9.2 || ./python/bin/python -m pip install maafw==5.9.2
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: python-embed-${{ matrix.os }}-${{ matrix.arch }}
+          path: ./python
+
   meta:
     runs-on: ubuntu-slim
     steps:
@@ -68,62 +119,6 @@ jobs:
       is_release: ${{ steps.set_tag.outputs.is_release }}
       is_prerelease: ${{ steps.set_tag.outputs.is_prerelease }}
       repo_name: ${{ steps.set_tag.outputs.repo_name }}
-
-  download-python-embed:
-    needs: meta
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-24.04
-            platform: linux
-            arch: x86_64
-
-          - os: ubuntu-24.04-arm
-            platform: linux
-            arch: aarch64
-
-          - os: macos-15-intel
-            platform: macos
-            arch: x86_64
-
-          - os: macos-15
-            platform: macos
-            arch: aarch64
-
-          - os: windows-2025
-            platform: win
-            arch: x86_64
-
-          - os: windows-11-arm
-            platform: win
-            arch: aarch64
-      fail-fast: false
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          submodules: true
-
-      - name: Set up Python
-        uses: actions/setup-python@v6.2.0
-        with:
-          python-version: '3.12'
-          architecture: ${{ matrix.arch == 'x86_64' && 'x64' || 'arm64' }}
-
-      - name: Download Python embed
-        shell: bash
-        run: |
-          python ./tools/install_python.py ./python
-
-      - name: Install maafw
-        shell: bash
-        run: |
-          ./python/python.exe -m pip install maafw==5.9.2 || ./python/bin/python -m pip install maafw==5.9.2
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: python-embed-${{ matrix.platform }}-${{ matrix.arch }}
-          path: ./python
 
   build:
     env:

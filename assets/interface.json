@@ -88,7 +88,7 @@
         "./options/quests/quest_平面之月.json"
     ],
     "agent": {
-        "child_exec": "./python/python.exe",
+        "child_exec": "python",
         "child_args": [
             "./agent/main.py"
         ]
