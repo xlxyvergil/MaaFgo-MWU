@@ -1,4 +1,5 @@
 import sys
+import os
 
 from maa.agent.agent_server import AgentServer
 from maa.tasker import Tasker
@@ -9,7 +10,10 @@ import sequential_tasks_action
 
 
 def main():
-    Tasker.set_log_dir("./debug")
+    # 使用相对于 agent 文件的绝对路径
+    agent_dir = os.path.dirname(os.path.abspath(__file__))
+    log_dir = os.path.join(os.path.dirname(agent_dir), 'logs')
+    Tasker.set_log_dir(log_dir)
 
     if len(sys.argv) < 2:
         print("Usage: python main.py <socket_id>")

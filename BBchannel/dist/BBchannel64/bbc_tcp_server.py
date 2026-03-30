@@ -21,6 +21,13 @@ _tcp_clients_lock = threading.Lock()
 _popup_wait_dict = {}
 _popup_wait_lock = None
 
+# 当前任务参数（用于弹窗自动处理）
+_current_task_args = {}
+
+# 任务结束标志（当用户选择取消时设置）
+_task_should_end = False
+_task_end_reason = ''
+
 def update_bb_window(bb_window):
     """更新全局 bb_window 引用"""
     global _bb_window_global
@@ -44,34 +51,6 @@ def _remove_popup_from_queue(popup_id):
     
     for p in temp_list:
         popup_event_queue.put(p)
-
-def _broadcast_to_clients(data):
-    """向所有 TCP 客户端广播消息"""
-    global _tcp_clients, _tcp_clients_lock
-    if not _tcp_clients:
-        return
-    
-    import json
-    try:
-        msg = json.dumps(data, ensure_ascii=False).encode('utf-8')
-        msg_with_len = len(msg).to_bytes(4, 'big') + msg
-        
-        with _tcp_clients_lock:
-            disconnected = []
-            for client in _tcp_clients:
-                try:
-                    client.sendall(msg_with_len)
-                except:
-                    disconnected.append(client)
-            
-            for client in disconnected:
-                _tcp_clients.remove(client)
-                try:
-                    client.close()
-                except:
-                    pass
-    except Exception as e:
-        log_to_file(f"[TCP] 广播失败: {e}")
 
 def start_tcp_server(bb_window, port=25001):
     """启动 TCP 服务器"""
@@ -101,7 +80,16 @@ def start_tcp_server(bb_window, port=25001):
         'askretrycancel': messagebox.askretrycancel
     }
     
-    CONTROLLED_POPUPS = ["免责声明", "助战排序不符合", "队伍配置错误", "自动连接失败", "脚本停止！", "正在结束任务！"]
+    CONTROLLED_POPUPS = [
+        "免责声明！",           # showinfo
+        "自动连接失败",         # askokcancel (MuMu/雷电)
+        "助战排序不符合",       # askyesno
+        "队伍配置错误！",       # askokcancel
+        "正在结束任务！",       # showwarning
+        "脚本停止！",           # showwarning
+        "其他任务运行中",       # showwarning
+        "自动关机中！"          # askyesno
+    ]
     
     def create_popup_wrapper(func_name, original_func):
         def wrapper(title, message, **kwargs):
@@ -140,8 +128,45 @@ def start_tcp_server(bb_window, port=25001):
             popup_event_queue.put(popup_data)
             log_to_file(f"[Popup] {title}")
             
-            # TCP 广播
-            _broadcast_to_clients(popup_data)
+            # 免责声明：延迟2秒后自动确认
+            if '免责声明' in title:
+                def auto_disclaimer():
+                    time.sleep(2)
+                    _resolve_popup(popup_id, 'ok')
+                    log_to_file("[Auto] 免责声明已自动确认")
+                threading.Thread(target=auto_disclaimer, daemon=True).start()
+            
+            # 助战排序不符合：根据参数处理
+            elif '助战排序不符合' in title:
+                def auto_assist():
+                    global _task_should_end, _task_end_reason
+                    time.sleep(0.5)
+                    support_continue = _current_task_args.get('support_order_mismatch', True)
+                    if support_continue:
+                        action = 'yes'
+                    else:
+                        action = 'no'
+                        _task_should_end = True
+                        _task_end_reason = 'assist_order_mismatch_cancelled'
+                    _resolve_popup(popup_id, action)
+                    log_to_file(f"[Auto] 助战排序已自动处理: {action}")
+                threading.Thread(target=auto_assist, daemon=True).start()
+            
+            # 队伍配置错误：根据参数处理
+            elif '队伍配置错误' in title:
+                def auto_team():
+                    global _task_should_end, _task_end_reason
+                    time.sleep(0.5)
+                    team_continue = _current_task_args.get('team_config_error', True)
+                    if team_continue:
+                        action = 'ok'
+                    else:
+                        action = 'cancel'
+                        _task_should_end = True
+                        _task_end_reason = 'team_config_error_cancelled'
+                    _resolve_popup(popup_id, action)
+                    log_to_file(f"[Auto] 队伍配置已自动处理: {action}")
+                threading.Thread(target=auto_team, daemon=True).start()
             
             return create_controlled_dialog(func_name, title, message, popup_id, original_func, **kwargs)
         return wrapper
@@ -185,15 +210,7 @@ def start_tcp_server(bb_window, port=25001):
             # 从队列移除
             _remove_popup_from_queue(popup_id)
             
-            # 推送弹窗已关闭的信息给所有客户端
-            close_notify = {
-                'type': 'popup_closed',
-                'id': popup_id,
-                'title': title,
-                'result': popup_data['value']
-            }
-            _broadcast_to_clients(close_notify)
-            log_to_file(f"[TCP] 弹窗关闭通知已广播: {popup_id}")
+            # 弹窗关闭通知功能已移除
             
             # 免责声明关闭后，导入模块
             if "免责声明" in title:
@@ -428,6 +445,11 @@ def start_tcp_server(bb_window, port=25001):
                         return {'success': True}
                     else:
                         return {'success': False, 'message': 'Popup not found or resolved'}
+            
+            elif command == 'run_bbc_task':
+                # 执行完整BBC任务流程
+                result = api_run_bbc_task(args)
+                return result
             
             else:
                 return {'success': False, 'error': f'Unknown command: {command}'}
@@ -692,6 +714,143 @@ def api_start_battle(page):
     except Exception as e:
         log_to_file(f"[API Error] Start battle: {e}")
         return False
+
+def api_run_bbc_task(args):
+    """执行完整BBC任务流程"""
+    import time
+    global _current_task_args, _task_should_end, _task_end_reason
+    
+    # 重置结束标志
+    _task_should_end = False
+    _task_end_reason = ''
+    
+    team_config = args.get('team_config', '')
+    run_count = args.get('run_count', 1)
+    apple_type = args.get('apple_type', 'gold')
+    battle_type = args.get('battle_type', 'continuous')
+    connect = args.get('connect', 'auto')
+    support_order_mismatch = args.get('support_order_mismatch', False)
+    team_config_error = args.get('team_config_error', False)
+    mumu_path = args.get('mumu_path', '')
+    mumu_index = args.get('mumu_index', 0)
+    ld_path = args.get('ld_path', '')
+    ld_index = args.get('ld_index', 0)
+    manual_port = args.get('manual_port', '')
+    
+    # 保存参数到全局变量，供弹窗处理使用
+    _current_task_args = {
+        'support_order_mismatch': support_order_mismatch,
+        'team_config_error': team_config_error
+    }
+    
+    log_to_file(f"[Task] 开始执行BBC任务: config={team_config}, count={run_count}")
+    
+    # 等待免责声明关闭（自动处理，等待足够时间）
+    log_to_file("[Task] 等待免责声明...")
+    time.sleep(5)  # 等待5秒确保免责声明已处理
+    
+    # 执行连接
+    log_to_file(f"[Task] 连接方式: {connect}")
+    
+    # 检查bb_window是否已设置
+    if _bb_window_global is None:
+        log_to_file("[Task Error] bb_window 未设置")
+        return {'success': False, 'reason': 'bb_window_not_set'}
+    
+    if connect == 'auto':
+        # auto模式：不执行连接，依赖BBC自动连接
+        log_to_file("[Task] auto模式：跳过手动连接，依赖BBC自动连接")
+    elif connect == 'mumu' and mumu_path:
+        log_to_file("[Task] 连接MuMu模拟器...")
+        if not api_connect_mumu(_bb_window_global, type('Args', (), {
+            'path': mumu_path, 'index': mumu_index
+        })()):
+            return {'success': False, 'reason': 'mumu_connect_failed'}
+    elif connect == 'ldplayer' and ld_path:
+        log_to_file("[Task] 连接雷电模拟器...")
+        if not api_connect_ld(_bb_window_global, type('Args', (), {
+            'path': ld_path, 'index': ld_index
+        })()):
+            return {'success': False, 'reason': 'ldplayer_connect_failed'}
+    elif connect == 'manual' and manual_port:
+        log_to_file("[Task] 连接ADB...")
+        if not api_connect_adb(_bb_window_global, type('Args', (), {
+            'ip': manual_port
+        })()):
+            return {'success': False, 'reason': 'adb_connect_failed'}
+    else:
+        log_to_file(f"[Task] 未知的连接方式或参数不足: {connect}")
+    
+    # 等待连接完成
+    time.sleep(1)
+    
+    # 加载配置
+    log_to_file(f"[Task] 加载配置: {team_config}")
+    if not api_load_config(_bb_window_global, team_config):
+        return {'success': False, 'reason': 'config_load_failed'}
+    
+    # 设置参数
+    page = _bb_window_global.pages[0]
+    api_set_run_times(page, run_count)
+    api_set_apple_type(page, apple_type)
+    api_set_battle_type(page, battle_type)
+    
+    # 启动战斗
+    log_to_file("[Task] 启动战斗...")
+    if not api_start_battle(page):
+        return {'success': False, 'reason': 'start_battle_failed'}
+    
+    # 轮询等待战斗结束
+    log_to_file("[Task] 等待战斗结束...")
+    # 无限等待战斗结束
+    while True:
+        # 检查是否有结束弹窗
+        # 通过检查popup队列中是否有停止相关弹窗
+        temp_list = []
+        battle_ended = False
+        end_reason = ''
+        while not popup_event_queue.empty():
+            try:
+                p = popup_event_queue.get_nowait()
+                temp_list.append(p)
+                title = p.get('title', '')
+                # 判断为战斗结束的弹窗
+                end_popups = ['脚本停止！']
+                if any(popup in title for popup in end_popups):
+                    battle_ended = True
+                    end_reason = p.get('message', '')
+            except:
+                break
+        for p in temp_list:
+            popup_event_queue.put(p)
+        
+        # 检查是否用户选择取消
+        if _task_should_end:
+            log_to_file(f"[Task] 用户选择取消，结束任务: {_task_end_reason}")
+            return {'success': False, 'reason': _task_end_reason}
+        
+        if battle_ended:
+            log_to_file(f"[Task] 战斗结束: {end_reason}")
+            # 关闭结束弹窗
+            end_popups = ['脚本停止！']
+            for p in temp_list:
+                title = p.get('title', '')
+                if any(popup in title for popup in end_popups):
+                    popup_id = p.get('id')
+                    if popup_id:
+                        _resolve_popup(popup_id, 'ok')
+                        log_to_file(f"[Task] 已关闭结束弹窗: {title}")
+            return {'success': True, 'reason': 'completed', 'detail': end_reason}
+        
+        time.sleep(1)
+
+def _resolve_popup(popup_id, action):
+    """处理弹窗响应"""
+    with _popup_wait_lock:
+        popup_info = _popup_wait_dict.get(popup_id)
+        if popup_info and popup_info.get('status') == 'waiting':
+            popup_info['result'] = action
+            popup_info['status'] = 'resolved'
 
 def log_to_file(msg):
     """写入日志"""
