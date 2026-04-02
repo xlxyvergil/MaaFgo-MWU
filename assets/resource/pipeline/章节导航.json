@@ -1,28 +1,28 @@
 {
-    "$__mpe_config_新建Pipeline4": {
+    "$__mpe_config_章节导航": {
         "$__mpe_code": {
-            "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\章节导航.json",
-            "filename": "新建Pipeline4",
-            "isModifiedExternally": false,
-            "lastSyncTime": 1774270486472,
             "prefix": "",
+            "lastSyncTime": 1775132988506,
+            "isModifiedExternally": false,
+            "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\章节导航.json",
             "savedViewport": {
-                "x": 740,
-                "y": 786,
-                "zoom": 1
+                "x": 867,
+                "y": 761,
+                "zoom": 0.76
             },
+            "filename": "章节导航",
             "version": "v1.2.3"
         }
     },
-    "$__mpe_external_主线记录1导航_新建Pipeline4": {
+    "$__mpe_external_主线记录1导航_章节导航": {
         "$__mpe_code": {
             "position": {
-                "x": 767,
-                "y": -89
+                "x": 807,
+                "y": -111
             }
         }
     },
-    "$__mpe_external_冬木导航_新建Pipeline4": {
+    "$__mpe_external_冬木导航_章节导航": {
         "$__mpe_code": {
             "position": {
                 "x": 802,
@@ -51,6 +51,25 @@
         },
         "next": [
             "c冬木"
+        ]
+    },
+    "$__mpe_external_Ordeal Call_章节导航": {
+        "$__mpe_code": {
+            "position": {
+                "x": 793,
+                "y": 87
+            }
+        }
+    },
+    "cOrdeal Call": {
+        "$__mpe_code": {
+            "position": {
+                "x": 401,
+                "y": 33
+            }
+        },
+        "next": [
+            "Ordeal Call"
         ]
     }
 }

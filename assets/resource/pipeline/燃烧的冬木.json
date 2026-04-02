@@ -1,36 +1,22 @@
 {
-    "$__mpe_config_新建Pipeline4": {
+    "$__mpe_config_燃烧的冬木": {
         "$__mpe_code": {
-            "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\燃烧的冬木.json",
-            "filename": "新建Pipeline4",
-            "isModifiedExternally": false,
-            "lastSyncTime": 1775052093140,
             "prefix": "",
+            "lastSyncTime": 1775132932908,
+            "isModifiedExternally": false,
+            "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\燃烧的冬木.json",
+            "savedViewport": {
+                "x": 146,
+                "y": 543,
+                "zoom": 0.76
+            },
+            "filename": "燃烧的冬木",
             "version": "v1.2.3"
         }
     },
     "q未确认坐标X-A": {
-        "$__mpe_code": {
-            "position": {
-                "x": 2077,
-                "y": -281
-            }
-        },
-        "action": {
-            "param": {
-                "target": [
-                    449,
-                    191,
-                    2,
-                    4
-                ]
-            },
-            "type": "Click"
-        },
-        "next": [
-            "宅邸残迹"
-        ],
         "recognition": {
+            "type": "TemplateMatch",
             "param": {
                 "roi": [
                     359,
@@ -41,25 +27,32 @@
                 "template": [
                     "未确认坐标X-A.png"
                 ]
-            },
-            "type": "TemplateMatch"
-        }
-    },
-    "冬木": {
-        "$__mpe_code": {
-            "position": {
-                "x": 796,
-                "y": -12
             }
         },
         "action": {
-            "param": {},
-            "type": "Click"
+            "type": "Click",
+            "param": {
+                "target": [
+                    449,
+                    191,
+                    2,
+                    4
+                ]
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 2077,
+                "y": -281
+            }
         },
         "next": [
-            "冬木放大"
-        ],
+            "宅邸残迹"
+        ]
+    },
+    "冬木": {
         "recognition": {
+            "type": "TemplateMatch",
             "param": {
                 "roi": [
                     200,
@@ -71,9 +64,21 @@
                     "燃烧的冬木.png"
                 ],
                 "threshold": 0.7
-            },
-            "type": "TemplateMatch"
-        }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 796,
+                "y": -12
+            }
+        },
+        "next": [
+            "冬木放大"
+        ]
     },
     "冬木关卡选择": {
         "$__mpe_code": {
@@ -87,13 +92,8 @@
         ]
     },
     "冬木向上": {
-        "$__mpe_code": {
-            "position": {
-                "x": 1427,
-                "y": -47
-            }
-        },
         "action": {
+            "type": "Swipe",
             "param": {
                 "begin": [
                     39,
@@ -109,24 +109,24 @@
                         1
                     ]
                 ]
-            },
-            "type": "Swipe"
+            }
+        },
+        "post_wait_freezes": 500,
+        "repeat": 2,
+        "repeat_delay": 1000,
+        "$__mpe_code": {
+            "position": {
+                "x": 1427,
+                "y": -47
+            }
         },
         "next": [
             "冬木关卡选择"
-        ],
-        "post_wait_freezes": 500,
-        "repeat": 2,
-        "repeat_delay": 1000
+        ]
     },
     "冬木寻找": {
-        "$__mpe_code": {
-            "position": {
-                "x": 780,
-                "y": 257
-            }
-        },
         "action": {
+            "type": "Swipe",
             "param": {
                 "begin": [
                     1211,
@@ -145,12 +145,25 @@
                         16
                     ]
                 ]
-            },
-            "type": "Swipe"
+            }
         },
-        "post_wait_freezes": 500
+        "post_wait_freezes": 500,
+        "$__mpe_code": {
+            "position": {
+                "x": 780,
+                "y": 257
+            }
+        }
     },
     "冬木导航": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "主线记录1-1.png"
+                ]
+            }
+        },
         "$__mpe_code": {
             "position": {
                 "x": 386,
@@ -161,24 +174,11 @@
             "冬木",
             "冬木寻找",
             "[JumpBack]冬木寻找"
-        ],
-        "recognition": {
-            "param": {
-                "template": [
-                    "主线记录1-1.png"
-                ]
-            },
-            "type": "TemplateMatch"
-        }
+        ]
     },
     "冬木放大": {
-        "$__mpe_code": {
-            "position": {
-                "x": 1148,
-                "y": -31
-            }
-        },
         "action": {
+            "type": "MultiSwipe",
             "param": {
                 "swipes": [
                     {
@@ -216,34 +216,39 @@
                         ]
                     }
                 ]
-            },
-            "type": "MultiSwipe"
+            }
+        },
+        "post_wait_freezes": 1000,
+        "repeat": 3,
+        "repeat_delay": 500,
+        "$__mpe_code": {
+            "position": {
+                "x": 1148,
+                "y": -31
+            }
         },
         "next": [
             "冬木向上"
-        ],
-        "post_wait_freezes": 1000,
-        "repeat": 3,
-        "repeat_delay": 500
+        ]
     },
     "宅邸残迹": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "q未确认坐标X-A.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
         "$__mpe_code": {
             "position": {
                 "x": 2387,
                 "y": -269
             }
-        },
-        "action": {
-            "param": {},
-            "type": "Click"
-        },
-        "recognition": {
-            "param": {
-                "template": [
-                    "q未确认坐标X-A.png"
-                ]
-            },
-            "type": "TemplateMatch"
         }
     }
 }

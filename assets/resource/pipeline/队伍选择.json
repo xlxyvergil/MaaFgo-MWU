@@ -2,13 +2,13 @@
     "$__mpe_config_队伍选择": {
         "$__mpe_code": {
             "prefix": "",
-            "lastSyncTime": 1775063778849,
+            "lastSyncTime": 1775132720194,
             "isModifiedExternally": false,
             "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\队伍选择.json",
             "savedViewport": {
-                "x": 950,
-                "y": 478,
-                "zoom": 0.44
+                "x": -1435,
+                "y": 131,
+                "zoom": 0.8
             },
             "filename": "队伍选择",
             "version": "v1.2.3"
@@ -22,10 +22,53 @@
             }
         }
     },
+    "点击队伍编制": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    653,
+                    13,
+                    611,
+                    690
+                ],
+                "template": [
+                    "队伍编制.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    892,
+                    140,
+                    201,
+                    62
+                ]
+            }
+        },
+        "pre_wait_freezes": 1000,
+        "$__mpe_code": {
+            "position": {
+                "x": 1413,
+                "y": 269
+            }
+        },
+        "next": [
+            "队伍编制-移动"
+        ]
+    },
     "编队": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
+                "roi": [
+                    213,
+                    518,
+                    181,
+                    176
+                ],
                 "template": [
                     "编队.png"
                 ]
@@ -38,18 +81,24 @@
         "pre_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 1504,
-                "y": 391
+                "x": 1132,
+                "y": 276
             }
         },
         "next": [
-            "队伍编制"
+            "点击队伍编制"
         ]
     },
     "菜单": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
+                "roi": [
+                    1082,
+                    565,
+                    197,
+                    144
+                ],
                 "template": [
                     "菜单.png"
                 ]
@@ -62,8 +111,8 @@
         "pre_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 1501,
-                "y": 672
+                "x": 1125,
+                "y": 634
             }
         }
     },
@@ -163,10 +212,11 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 2661,
-                "y": 644
+                "x": 2678,
+                "y": 616
             }
         }
     },
@@ -197,8 +247,8 @@
         "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 2659,
-                "y": 51
+                "x": 2657,
+                "y": 92
             }
         }
     },
@@ -321,8 +371,8 @@
         "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 2683,
-                "y": 2875
+                "x": 2692,
+                "y": 2901
             }
         }
     },
@@ -362,7 +412,7 @@
         "$__mpe_code": {
             "position": {
                 "x": 2703,
-                "y": 1704
+                "y": 1726
             }
         }
     },
@@ -401,8 +451,8 @@
         "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 2823,
-                "y": -1038
+                "x": 2816,
+                "y": -1012
             }
         }
     },
@@ -442,7 +492,7 @@
         "$__mpe_code": {
             "position": {
                 "x": 2828,
-                "y": -1608
+                "y": -1576
             }
         }
     },
@@ -501,7 +551,7 @@
         "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 2839,
+                "x": 2846,
                 "y": -3262
             }
         }
@@ -541,8 +591,8 @@
         "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 2832,
-                "y": -4414
+                "x": 2842,
+                "y": -4348
             }
         }
     },
@@ -562,12 +612,13 @@
         "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 3488,
-                "y": 388
+                "x": 3528,
+                "y": 401
             }
         }
     },
     "队伍界面决定": {
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 3172,
@@ -588,10 +639,11 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 3499,
-                "y": 189
+                "x": 3529,
+                "y": 188
             }
         },
         "next": [
@@ -599,11 +651,28 @@
         ]
     },
     "队伍编制": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2009,
+                "y": 350
+            }
+        },
+        "next": [
+            "队伍1"
+        ]
+    },
+    "队伍编制-移动": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
+                "roi": [
+                    0,
+                    299,
+                    37,
+                    110
+                ],
                 "template": [
-                    "队伍编制.png"
+                    "左移动.png"
                 ]
             }
         },
@@ -611,22 +680,24 @@
             "type": "Click",
             "param": {
                 "target": [
-                    892,
-                    140,
-                    201,
-                    62
+                    14,
+                    359,
+                    1,
+                    1
                 ]
             }
         },
-        "pre_wait_freezes": 1000,
+        "post_wait_freezes": 1000,
+        "repeat": 2,
+        "repeat_delay": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 1976,
-                "y": 331
+                "x": 1714,
+                "y": 323
             }
         },
         "next": [
-            "队伍1"
+            "队伍编制"
         ]
     },
     "队伍编制1": {
@@ -638,6 +709,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2656,
@@ -663,10 +735,11 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 2707,
-                "y": 3180
+                "x": 2698,
+                "y": 3153
             }
         },
         "next": [
@@ -688,6 +761,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2697,
@@ -713,10 +787,11 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 2692,
-                "y": 1995
+                "x": 2684,
+                "y": 1960
             }
         },
         "next": [
@@ -738,6 +813,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2717,
@@ -763,10 +839,11 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 2715,
-                "y": 854
+                "x": 2694,
+                "y": 832
             }
         },
         "next": [
@@ -788,6 +865,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2837,
@@ -813,6 +891,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2654,
@@ -838,6 +917,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2755,
@@ -863,6 +943,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2842,
@@ -888,6 +969,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2842,
@@ -913,6 +995,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2852,
@@ -938,6 +1021,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2853,
@@ -963,6 +1047,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2841,
@@ -988,6 +1073,7 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 2846,
@@ -1001,8 +1087,8 @@
     "队伍选择": {
         "$__mpe_code": {
             "position": {
-                "x": 937,
-                "y": 489
+                "x": 792,
+                "y": 372
             }
         },
         "next": [

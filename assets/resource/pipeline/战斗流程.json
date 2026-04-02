@@ -2,13 +2,13 @@
     "$__mpe_config_战斗流程": {
         "$__mpe_code": {
             "prefix": "",
-            "lastSyncTime": 1775064560551,
+            "lastSyncTime": 1775133977953,
             "isModifiedExternally": false,
             "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\战斗流程.json",
             "savedViewport": {
-                "x": -724,
-                "y": -363,
-                "zoom": 1
+                "x": -790,
+                "y": 167,
+                "zoom": 0.76
             },
             "filename": "战斗流程",
             "version": "v1.2.3"
@@ -36,6 +36,7 @@
             "失败2",
             "撤退",
             "战斗结束-主界面",
+            "战斗结束关闭",
             "[JumpBack]完成"
         ]
     },
@@ -60,6 +61,9 @@
         },
         "next": [
             "好友申请界面"
+        ],
+        "on_error": [
+            "回主界面"
         ]
     },
     "失败2": {
@@ -77,12 +81,15 @@
         },
         "$__mpe_code": {
             "position": {
-                "x": 2197,
-                "y": 763
+                "x": 2188,
+                "y": 762
             }
         },
         "next": [
             "撤退"
+        ],
+        "on_error": [
+            "回主界面"
         ]
     },
     "好友申请界面": {
@@ -100,8 +107,8 @@
         },
         "$__mpe_code": {
             "position": {
-                "x": 2196,
-                "y": 260
+                "x": 2231,
+                "y": 268
             }
         },
         "next": [
@@ -122,8 +129,8 @@
         },
         "$__mpe_code": {
             "position": {
-                "x": 2176,
-                "y": 1370
+                "x": 2175,
+                "y": 1707
             }
         }
     },
@@ -142,18 +149,27 @@
         },
         "$__mpe_code": {
             "position": {
-                "x": 2204,
-                "y": 457
+                "x": 2198,
+                "y": 483
             }
         },
         "next": [
             "失败2"
+        ],
+        "on_error": [
+            "回主界面"
         ]
     },
     "战斗结束-主界面": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
+                "roi": [
+                    1060,
+                    560,
+                    208,
+                    155
+                ],
                 "template": [
                     "菜单.png"
                 ]
@@ -163,6 +179,35 @@
             "position": {
                 "x": 2175,
                 "y": 1201
+            }
+        },
+        "next": [
+            "回主界面"
+        ]
+    },
+    "战斗结束关闭": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    4,
+                    4,
+                    187,
+                    86
+                ],
+                "template": [
+                    "关闭2.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 2177,
+                "y": 1458
             }
         },
         "next": [

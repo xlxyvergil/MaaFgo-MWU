@@ -1,50 +1,54 @@
 {
-    "$__mpe_config_新建Pipeline7": {
+    "$__mpe_config_种树": {
         "$__mpe_code": {
             "prefix": "",
-            "lastSyncTime": 1775052983540,
+            "lastSyncTime": 1775132202212,
             "isModifiedExternally": false,
-            "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\种树.json",
+            "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\login.json",
             "savedViewport": {
-                "x": 1017,
-                "y": 360,
-                "zoom": 0.87
+                "x": 203,
+                "y": 441,
+                "zoom": 0.82
             },
-            "filename": "新建Pipeline7",
+            "filename": "种树",
             "version": "v1.2.3"
         }
     },
-    "菜单关闭判断": {
+    "$__mpe_external_回主界面_种树": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2077,
+                "y": 333
+            }
+        }
+    },
+    "主界面菜单": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "template": [
-                    "菜单关闭.png"
-                ]
+                    "主菜单.png"
+                ],
+                "green_mask": true
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": -279,
-                "y": 45
+                "x": -321,
+                "y": 52
             }
         },
         "next": [
             "商店"
         ]
     },
-    "商店-菜单": {
+    "买不了取消": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "template": [
-                    "菜单.png"
-                ],
-                "roi": [
-                    1057,
-                    569,
-                    222,
-                    138
+                    "取消.png"
                 ]
             }
         },
@@ -52,20 +56,16 @@
             "type": "Click",
             "param": {}
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": -283,
-                "y": 241
+                "x": 1318,
+                "y": 291
             }
-        }
-    },
-    "$__mpe_external_回主界面_新建Pipeline7": {
-        "$__mpe_code": {
-            "position": {
-                "x": 2068,
-                "y": 358
-            }
-        }
+        },
+        "next": [
+            "回主界面"
+        ]
     },
     "买不了果实": {
         "recognition": {
@@ -76,25 +76,15 @@
                 ]
             }
         },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    481,
-                    527,
-                    1,
-                    1
-                ]
-            }
-        },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 906,
-                "y": 309
+                "x": 878,
+                "y": 306
             }
         },
         "next": [
-            "回主界面"
+            "买不了取消"
         ]
     },
     "交换树苗": {
@@ -110,6 +100,7 @@
             "type": "Click",
             "param": {}
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 1492,
@@ -133,6 +124,7 @@
             "type": "Click",
             "param": {}
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 263,
@@ -156,6 +148,7 @@
             "type": "Click",
             "param": {}
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 1789,
@@ -167,21 +160,29 @@
         ]
     },
     "商店": {
-        "action": {
-            "type": "Click",
+        "recognition": {
+            "type": "FeatureMatch",
             "param": {
-                "target": [
-                    808,
-                    602,
-                    1,
-                    1
+                "roi": [
+                    725,
+                    533,
+                    167,
+                    152
+                ],
+                "template": [
+                    "商店.png"
                 ]
             }
         },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": -23,
-                "y": 151
+                "x": -44,
+                "y": 39
             }
         },
         "next": [
@@ -189,15 +190,38 @@
             "[JumpBack]寻找兑换青铜树苗"
         ]
     },
-    "商店种树": {
+    "商店-菜单": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1057,
+                    569,
+                    222,
+                    138
+                ],
+                "template": [
+                    "菜单.png"
+                ]
+            }
+        },
         "action": {
             "type": "Click",
             "param": {}
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": -565,
-                "y": 166
+                "x": -579,
+                "y": 347
+            }
+        }
+    },
+    "商店种树": {
+        "$__mpe_code": {
+            "position": {
+                "x": -876,
+                "y": 157
             }
         },
         "next": [
@@ -225,10 +249,11 @@
                 ]
             }
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
-                "x": 263,
-                "y": 255
+                "x": 252,
+                "y": 324
             }
         }
     },
@@ -242,10 +267,37 @@
         },
         "$__mpe_code": {
             "position": {
-                "x": -829,
-                "y": 141
+                "x": -1169,
+                "y": 143
             }
         }
+    },
+    "菜单关闭判断": {
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    1043,
+                    389,
+                    233,
+                    325
+                ],
+                "template": [
+                    "菜单关闭.png"
+                ],
+                "green_mask": true
+            }
+        },
+        "post_wait_freezes": 1000,
+        "$__mpe_code": {
+            "position": {
+                "x": -573,
+                "y": 49
+            }
+        },
+        "next": [
+            "主界面菜单"
+        ]
     },
     "购买树苗": {
         "action": {
@@ -261,6 +313,7 @@
         },
         "repeat": 3,
         "repeat_delay": 300,
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 1218,
@@ -284,6 +337,7 @@
             "type": "Click",
             "param": {}
         },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 580,
@@ -304,10 +358,7 @@
                 ]
             }
         },
-        "action": {
-            "type": "Click",
-            "param": {}
-        },
+        "post_wait_freezes": 1000,
         "$__mpe_code": {
             "position": {
                 "x": 888,

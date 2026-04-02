@@ -1,20 +1,20 @@
 {
-    "$__mpe_config_新建Pipeline6": {
+    "$__mpe_config_login": {
         "$__mpe_code": {
-            "prefix": "",
-            "lastSyncTime": 1774271764534,
-            "isModifiedExternally": false,
             "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\login.json",
+            "filename": "login",
+            "isModifiedExternally": false,
+            "lastSyncTime": 1775132340094,
+            "prefix": "",
             "savedViewport": {
-                "x": 1116,
-                "y": 266,
-                "zoom": 1
+                "x": 1147,
+                "y": 195,
+                "zoom": 0.76
             },
-            "filename": "新建Pipeline6",
             "version": "v1.2.3"
         }
     },
-    "$__mpe_external_回主界面_新建Pipeline6": {
+    "$__mpe_external_回主界面_login": {
         "$__mpe_code": {
             "position": {
                 "x": 654,
@@ -23,16 +23,13 @@
         }
     },
     "关闭公告": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "method": 5,
-                "template": "gonggao.png",
-                "threshold": 0.7
+        "$__mpe_code": {
+            "position": {
+                "x": 312,
+                "y": 467
             }
         },
         "action": {
-            "type": "Click",
             "param": {
                 "target": [
                     1214,
@@ -40,71 +37,131 @@
                     62,
                     49
                 ]
-            }
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 312,
-                "y": 467
-            }
+            },
+            "type": "Click"
         },
         "next": [
             "回主界面"
-        ]
+        ],
+        "post_wait_freezes": 2000,
+        "recognition": {
+            "param": {
+                "method": 5,
+                "template": "gonggao.png",
+                "threshold": 0.7
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "开始更新": {
+        "$__mpe_code": {
+            "position": {
+                "x": 621,
+                "y": 814
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "阶段判断循环"
+        ],
+        "post_wait_freezes": 2000,
+        "recognition": {
+            "param": {
+                "template": [
+                    "开始更新资料.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
     },
     "开始游戏": {
+        "$__mpe_code": {
+            "position": {
+                "x": 322,
+                "y": -202
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "登录"
+        ],
+        "post_wait_freezes": 2000,
         "recognition": {
-            "type": "TemplateMatch",
             "param": {
                 "method": 5,
                 "template": "login2.png",
                 "threshold": 0.7
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "打开游戏": {
+        "$__mpe_code": {
+            "position": {
+                "x": -506,
+                "y": 266
             }
         },
         "action": {
-            "type": "Click",
-            "param": {}
+            "param": {
+                "package": "com.bilibili.fatego"
+            },
+            "type": "StartApp"
         },
+        "next": [
+            "阶段判断循环"
+        ]
+    },
+    "更新": {
         "$__mpe_code": {
             "position": {
-                "x": 327,
-                "y": -177
+                "x": 312,
+                "y": 811
             }
         },
         "next": [
-            "登录"
-        ]
-    },
-    "等待登录": {
-        "$__mpe_code": {
-            "position": {
-                "x": 320,
-                "y": 798
-            }
+            "开始更新"
+        ],
+        "post_wait_freezes": 2000,
+        "recognition": {
+            "param": {
+                "green_mask": true,
+                "template": [
+                    "更新.png"
+                ]
+            },
+            "type": "TemplateMatch"
         }
     },
     "登录": {
+        "$__mpe_code": {
+            "position": {
+                "x": 309,
+                "y": 146
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "关闭公告"
+        ],
+        "post_wait_freezes": 2000,
         "recognition": {
-            "type": "TemplateMatch",
             "param": {
                 "method": 5,
                 "template": "login3.png",
                 "threshold": 0.7
-            }
-        },
-        "action": {
-            "type": "Click",
-            "param": {}
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": 313,
-                "y": 172
-            }
-        },
-        "next": [
-            "关闭公告"
-        ]
+            },
+            "type": "TemplateMatch"
+        }
     },
     "登录识别": {
         "$__mpe_code": {
@@ -117,6 +174,15 @@
             "打开游戏"
         ]
     },
+    "等待登录": {
+        "$__mpe_code": {
+            "position": {
+                "x": 315,
+                "y": 1154
+            }
+        },
+        "post_wait_freezes": 5000
+    },
     "阶段判断循环": {
         "$__mpe_code": {
             "position": {
@@ -128,24 +194,9 @@
             "开始游戏",
             "登录",
             "关闭公告",
+            "更新",
             "[JumpBack]等待登录"
-        ]
-    },
-    "打开游戏": {
-        "action": {
-            "type": "StartApp",
-            "param": {
-                "package": "com.bilibili.fatego"
-            }
-        },
-        "$__mpe_code": {
-            "position": {
-                "x": -507,
-                "y": 277
-            }
-        },
-        "next": [
-            "阶段判断循环"
-        ]
+        ],
+        "post_wait_freezes": 2000
     }
 }

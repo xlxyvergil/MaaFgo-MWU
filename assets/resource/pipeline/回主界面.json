@@ -2,12 +2,12 @@
     "$__mpe_config_回主界面": {
         "$__mpe_code": {
             "prefix": "",
-            "lastSyncTime": 1775064671051,
+            "lastSyncTime": 1775132065419,
             "isModifiedExternally": false,
             "filePath": "D:\\fgo\\MaaFgo\\assets\\resource\\pipeline\\回主界面.json",
             "savedViewport": {
-                "x": 235,
-                "y": 578,
+                "x": -114,
+                "y": 500,
                 "zoom": 1
             },
             "filename": "回主界面",
@@ -25,20 +25,13 @@
         },
         "action": {
             "type": "Click",
-            "param": {
-                "target": [
-                    435,
-                    562,
-                    1,
-                    1
-                ]
-            }
+            "param": {}
         },
         "post_wait_freezes": 500,
         "$__mpe_code": {
             "position": {
-                "x": 1454,
-                "y": -84
+                "x": 1456,
+                "y": -62
             }
         },
         "next": [
@@ -64,7 +57,7 @@
         },
         "next": [
             "主界面判断-退出游戏",
-            "[JumpBack]主界面判断-返回"
+            "[JumpBack]主界面判断-返回2"
         ]
     },
     "主界面判断-返回": {
@@ -79,8 +72,25 @@
         "post_wait_freezes": 500,
         "$__mpe_code": {
             "position": {
-                "x": 1046,
-                "y": 243
+                "x": 744,
+                "y": 287
+            }
+        }
+    },
+    "主界面判断-返回2": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": [
+                    111
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "$__mpe_code": {
+            "position": {
+                "x": 1110,
+                "y": 294
             }
         }
     },
@@ -107,8 +117,8 @@
     "二次确认-关闭": {
         "$__mpe_code": {
             "position": {
-                "x": 1831,
-                "y": -53
+                "x": 1835,
+                "y": -37
             }
         }
     },
@@ -123,8 +133,8 @@
         },
         "$__mpe_code": {
             "position": {
-                "x": 1448,
-                "y": -290
+                "x": 1453,
+                "y": -285
             }
         },
         "next": [
