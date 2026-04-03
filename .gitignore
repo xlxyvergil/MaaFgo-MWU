@@ -447,15 +447,8 @@ deps/tools/*
 build
 install
 
-# BBchannel - 仅保留这三个文件，其余全部忽略
+# BBchannel - 完全禁止上传
 BBchannel/
-!BBchannel/dist/
-BBchannel/dist/*
-!BBchannel/dist/BBchannel64/
-BBchannel/dist/BBchannel64/*
-!BBchannel/dist/BBchannel64/_ctypes.pyd
-!BBchannel/dist/BBchannel64/_ctypes_orig.pyd
-!BBchannel/dist/BBchannel64/bbc_tcp_server.py
 
 # Tools
 tools/ImageCropper/**/*.png
