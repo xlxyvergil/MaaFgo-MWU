@@ -32,7 +32,6 @@ def update_bb_window(bb_window):
     """更新全局 bb_window 引用"""
     global _bb_window_global
     _bb_window_global = bb_window
-    log_to_file(f"[TCP-Server] bb_window updated: {bb_window}")
 
 def _remove_popup_from_queue(popup_id):
     """从队列中移除指定弹窗"""
@@ -126,14 +125,12 @@ def start_tcp_server(bb_window, port=25001):
                 'message': fix_encoding(message)
             }
             popup_event_queue.put(popup_data)
-            log_to_file(f"[Popup] {title}")
             
             # 免责声明：延迟2秒后自动确认
             if '免责声明' in title:
                 def auto_disclaimer():
                     time.sleep(2)
                     _resolve_popup(popup_id, 'ok')
-                    log_to_file("[Auto] 免责声明已自动确认")
                 threading.Thread(target=auto_disclaimer, daemon=True).start()
             
             # 助战排序不符合：根据参数处理
@@ -149,7 +146,6 @@ def start_tcp_server(bb_window, port=25001):
                         _task_should_end = True
                         _task_end_reason = 'assist_order_mismatch_cancelled'
                     _resolve_popup(popup_id, action)
-                    log_to_file(f"[Auto] 助战排序已自动处理: {action}")
                 threading.Thread(target=auto_assist, daemon=True).start()
             
             # 队伍配置错误：根据参数处理
@@ -165,7 +161,6 @@ def start_tcp_server(bb_window, port=25001):
                         _task_should_end = True
                         _task_end_reason = 'team_config_error_cancelled'
                     _resolve_popup(popup_id, action)
-                    log_to_file(f"[Auto] 队伍配置已自动处理: {action}")
                 threading.Thread(target=auto_team, daemon=True).start()
             
             return create_controlled_dialog(func_name, title, message, popup_id, original_func, **kwargs)
@@ -194,7 +189,6 @@ def start_tcp_server(bb_window, port=25001):
                         hwnd = user32.FindWindowW(None, title)
                         if hwnd:
                             user32.PostMessageW(hwnd, WM_CLOSE, 0, 0)
-                            log_to_file(f"[Popup] 发送关闭消息: {title}")
                         break
                 time.sleep(0.1)
             
@@ -203,7 +197,6 @@ def start_tcp_server(bb_window, port=25001):
                 hwnd = user32.FindWindowW(None, title)
                 if not hwnd:
                     # 弹窗已关闭
-                    log_to_file(f"[Popup] 弹窗已确认关闭: {title}")
                     break
                 time.sleep(0.1)
             
@@ -214,7 +207,6 @@ def start_tcp_server(bb_window, port=25001):
             
             # 免责声明关闭后，导入模块
             if "免责声明" in title:
-                log_to_file("[Auto] 免责声明已关闭，开始导入模块")
                 ensure_imports()
         
         t = threading.Thread(target=monitor, daemon=True)
@@ -246,7 +238,6 @@ def start_tcp_server(bb_window, port=25001):
     
     def handle_client(client, addr):
         """处理客户端连接"""
-        log_to_file(f"[TCP] Client connected: {addr}")
         with _tcp_clients_lock:
             _tcp_clients.append(client)
         
@@ -284,7 +275,7 @@ def start_tcp_server(bb_window, port=25001):
                 client.sendall(len(resp_bytes).to_bytes(4, 'big') + resp_bytes)
                 
         except Exception as e:
-            log_to_file(f"[TCP] Client error: {e}")
+            pass
         finally:
             with _tcp_clients_lock:
                 if client in _tcp_clients:
@@ -293,7 +284,7 @@ def start_tcp_server(bb_window, port=25001):
                 client.close()
             except:
                 pass
-            log_to_file(f"[TCP] Client disconnected: {addr}")
+            pass
     
     def ensure_imports():
         """确保模块已导入（延迟导入，避免在免责声明前初始化）"""
@@ -303,9 +294,8 @@ def start_tcp_server(bb_window, port=25001):
         
         try:
             from consts import Consts as CT
-            log_to_file("[Import] CT imported")
         except Exception as e:
-            log_to_file(f"[Import Warning] CT: {e}")
+            pass
             class MockCT:
                 Gold = "gold"; Silver = "silver"; Copper = "copper"
                 Blue = "blue"; Colorful = "colorful"
@@ -314,20 +304,17 @@ def start_tcp_server(bb_window, port=25001):
         
         try:
             from device import Windows, LDdevice, Mumudevice
-            log_to_file("[Import] device imported")
         except Exception as e:
-            log_to_file(f"[Import Warning] device: {e}")
+            pass
         
         try:
             from FGObattle import Battle
-            log_to_file("[Import] Battle imported")
         except Exception as e:
-            log_to_file(f"[Import Warning] Battle: {e}")
+            pass
     
     def handle_command(cmd):
         """处理命令"""
         ensure_imports()
-        log_to_file(f"[API] handle_command raw: {cmd}, type={type(cmd)}")
         
         # 确保 cmd 是 dict
         if isinstance(cmd, list):
@@ -340,7 +327,7 @@ def start_tcp_server(bb_window, port=25001):
         if not isinstance(args, dict):
             args = {}
         
-        log_to_file(f"[API] command={command}, args={args}")
+        pass
         
         try:
             if command == 'connect_mumu':
@@ -368,14 +355,12 @@ def start_tcp_server(bb_window, port=25001):
             elif command == 'set_appletype':
                 page = _bb_window_global.pages[0]
                 apple_type = args.get('type')
-                log_to_file(f"[API] set_appletype: {apple_type}, page={page}, appleSet={page.appleSet}")
                 api_set_apple_type(page, apple_type)
                 return {'success': True}
             
             elif command == 'set_runcount':
                 page = _bb_window_global.pages[0]
                 times = args.get('times')
-                log_to_file(f"[API] set_runcount: {times}, page={page}, appleSet={page.appleSet}")
                 api_set_run_times(page, times)
                 return {'success': True}
             
@@ -456,7 +441,6 @@ def start_tcp_server(bb_window, port=25001):
                 
         except Exception as e:
             import traceback
-            log_to_file(f"[Command Error] {command}: {e}")
             return {'success': False, 'error': str(e), 'traceback': traceback.format_exc()}
     
     def run_server():
@@ -466,14 +450,12 @@ def start_tcp_server(bb_window, port=25001):
         sock.listen(5)
         tcp_server_instance = sock
         print(f"[TCP-Server] Started on 127.0.0.1:{port}")
-        log_to_file(f"[TCP-Server] Started on port {port}")
         
         while True:
             try:
                 client, addr = sock.accept()
                 threading.Thread(target=handle_client, args=(client, addr), daemon=True).start()
             except Exception as e:
-                log_to_file(f"[TCP] Server error: {e}")
                 break
     
     threading.Thread(target=run_server, daemon=True).start()
@@ -519,7 +501,6 @@ def api_connect_mumu(bb, args):
         bb.updateConnectLst(page.idx)
         return True
     except Exception as e:
-        log_to_file(f"[API Error] MuMu connect: {e}")
         return False
 
 def api_set_apple_type(page, apple_type):
@@ -571,7 +552,6 @@ def api_load_config(bb, filename):
         # 1. 构建文件路径
         config_path = os.path.join("settings", filename)
         if not os.path.exists(config_path):
-            log_to_file(f"[LoadConfig] 配置文件不存在: {config_path}")
             return False
         
         # 2. 读取配置
@@ -592,17 +572,15 @@ def api_load_config(bb, filename):
                 page.reset()
                 break
             except Exception as e:
-                log_to_file(f"[LoadConfig] reset error: {e}, retry...")
                 import traceback
                 traceback.print_exc()
         
         # 6. 保存配置
         bb.saveJsons()
         
-        log_to_file(f"[LoadConfig] 配置已加载: {filename}")
         return True
     except Exception as e:
-        log_to_file(f"[LoadConfig] Error: {e}")
+        pass
         import traceback
         traceback.print_exc()
         return False
@@ -670,8 +648,7 @@ def api_connect_adb(bb, args):
         # 使用 airtest 内置的 adb
         adb_path = os.path.join(os.path.dirname(sys.executable), "airtest", "core", "android", "static", "adb", "windows")
         if not os.path.exists(os.path.join(adb_path, "adb.exe")):
-            log_to_file(f"[API错误] 找不到 adb.exe: {adb_path}")
-            return False
+                return False
         
         # 执行 adb connect
         from bbcmd import cmd
@@ -712,7 +689,6 @@ def api_start_battle(page):
         page.start.event_generate("<Button-1>", x=btn_x, y=btn_y)
         return True
     except Exception as e:
-        log_to_file(f"[API Error] Start battle: {e}")
         return False
 
 def api_run_bbc_task(args):
@@ -743,49 +719,36 @@ def api_run_bbc_task(args):
         'team_config_error': team_config_error
     }
     
-    log_to_file(f"[Task] 开始执行BBC任务: config={team_config}, count={run_count}")
-    
     # 等待免责声明关闭（自动处理，等待足够时间）
-    log_to_file("[Task] 等待免责声明...")
     time.sleep(5)  # 等待5秒确保免责声明已处理
     
     # 执行连接
-    log_to_file(f"[Task] 连接方式: {connect}")
-    
     # 检查bb_window是否已设置
     if _bb_window_global is None:
-        log_to_file("[Task Error] bb_window 未设置")
         return {'success': False, 'reason': 'bb_window_not_set'}
     
     if connect == 'auto':
         # auto模式：不执行连接，依赖BBC自动连接
-        log_to_file("[Task] auto模式：跳过手动连接，依赖BBC自动连接")
+        pass
     elif connect == 'mumu' and mumu_path:
-        log_to_file("[Task] 连接MuMu模拟器...")
         if not api_connect_mumu(_bb_window_global, type('Args', (), {
             'path': mumu_path, 'index': mumu_index
         })()):
             return {'success': False, 'reason': 'mumu_connect_failed'}
     elif connect == 'ldplayer' and ld_path:
-        log_to_file("[Task] 连接雷电模拟器...")
         if not api_connect_ld(_bb_window_global, type('Args', (), {
             'path': ld_path, 'index': ld_index
         })()):
             return {'success': False, 'reason': 'ldplayer_connect_failed'}
     elif connect == 'manual' and manual_port:
-        log_to_file("[Task] 连接ADB...")
         if not api_connect_adb(_bb_window_global, type('Args', (), {
             'ip': manual_port
         })()):
             return {'success': False, 'reason': 'adb_connect_failed'}
-    else:
-        log_to_file(f"[Task] 未知的连接方式或参数不足: {connect}")
-    
     # 等待连接完成
     time.sleep(1)
     
     # 加载配置
-    log_to_file(f"[Task] 加载配置: {team_config}")
     if not api_load_config(_bb_window_global, team_config):
         return {'success': False, 'reason': 'config_load_failed'}
     
@@ -796,12 +759,10 @@ def api_run_bbc_task(args):
     api_set_battle_type(page, battle_type)
     
     # 启动战斗
-    log_to_file("[Task] 启动战斗...")
     if not api_start_battle(page):
         return {'success': False, 'reason': 'start_battle_failed'}
     
     # 轮询等待战斗结束
-    log_to_file("[Task] 等待战斗结束...")
     # 无限等待战斗结束
     while True:
         # 检查是否有结束弹窗
@@ -826,11 +787,9 @@ def api_run_bbc_task(args):
         
         # 检查是否用户选择取消
         if _task_should_end:
-            log_to_file(f"[Task] 用户选择取消，结束任务: {_task_end_reason}")
             return {'success': False, 'reason': _task_end_reason}
         
         if battle_ended:
-            log_to_file(f"[Task] 战斗结束: {end_reason}")
             # 关闭结束弹窗
             end_popups = ['脚本停止！']
             for p in temp_list:
@@ -839,7 +798,6 @@ def api_run_bbc_task(args):
                     popup_id = p.get('id')
                     if popup_id:
                         _resolve_popup(popup_id, 'ok')
-                        log_to_file(f"[Task] 已关闭结束弹窗: {title}")
             return {'success': True, 'reason': 'completed', 'detail': end_reason}
         
         time.sleep(1)
@@ -852,14 +810,3 @@ def _resolve_popup(popup_id, action):
             popup_info['result'] = action
             popup_info['status'] = 'resolved'
 
-def log_to_file(msg):
-    """写入日志"""
-    try:
-        import os
-        from datetime import datetime
-        log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bbc_tcp_server.log')
-        with open(log_path, 'a', encoding='utf-8') as f:
-            f.write(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}\n")
-            f.flush()
-    except:
-        pass
