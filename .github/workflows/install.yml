@@ -383,23 +383,37 @@ jobs:
       - name: List downloaded artifacts
         run: |
           echo "=== Release directory structure ==="
-          find release -type f | head -50
+          ls -lha release/
           echo "=================================="
+          find release -maxdepth 2 -type d
 
       - name: Package Avalonia artifacts
         run: |
-          mkdir -p release-packed
-          cd release
-          for f in *; do
+          set -e
+          WORKSPACE_DIR="$(pwd)"
+          mkdir -p "${WORKSPACE_DIR}/release-packed"
+          
+          echo "Contents of release/:"
+          ls -lha "${WORKSPACE_DIR}/release/"
+          
+          for f in "${WORKSPACE_DIR}/release"/*; do
             if [ -d "$f" ] && echo "$f" | grep -q "Avalonia"; then
-              # Extract arch from name like MaaFGO-Avalonia-win-x86_64-v1.1.13
-              arch=$(echo "$f" | sed 's/MaaFGO-Avalonia-win-//; s/-v[0-9].*//')
-              echo "Packaging: $f -> MaaFGO-Avalonia-win-${arch}.zip"
-              (cd "$f" && zip -r "../../release-packed/MaaFGO-Avalonia-win-${arch}.zip" .)
+              dirname=$(basename "$f")
+              arch=$(echo "$dirname" | sed 's/MaaFGO-Avalonia-win-//; s/-v[0-9].*//')
+              echo "Packaging: $dirname -> MaaFGO-Avalonia-win-${arch}.zip"
+              zip -r "${WORKSPACE_DIR}/release-packed/MaaFGO-Avalonia-win-${arch}.zip" "$f/"
             fi
           done
+          
           echo "=== Packed files ==="
-          ls -lh release-packed/
+          ls -lh "${WORKSPACE_DIR}/release-packed/"
+
+      - name: List final release structure
+        run: |
+          echo "=== MWU files ==="
+          find release -name "*.7z" -type f
+          echo "=== Avalonia files ==="
+          find release-packed -name "*.zip" -type f 2>/dev/null || echo "No zip files found"
 
       - uses: softprops/action-gh-release@v2.2.2
         with:
