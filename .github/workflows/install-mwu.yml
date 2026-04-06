@@ -189,22 +189,13 @@ jobs:
         run: |
           ./build/python/python.exe -m pip install -r requirements.txt
 
-      - name: Fix bbc_team_config for MWU (use text instead of scan_select)
+      - name: Fix bbc_team_config scan_dir for MWU
         shell: pwsh
         run: |
           $configFile = "./build/options/bbc_team_config.json"
-          if (Test-Path $configFile) {
-            $content = Get-Content $configFile -Raw
-            # Change type from scan_select to text
-            $content = $content -replace '"type": "scan_select"', '"type": "text"'
-            # Remove scan_dir and scan_filter fields
-            $content = $content -replace '"scan_dir": "./BBchannel/settings",\r?\n\s*', ''
-            $content = $content -replace '"scan_filter": "\*\.json",\r?\n\s*', ''
-            # Update description
-            $content = $content -replace '"description": "选择 BBC 队伍配置文件"', '"description": "BBchannel/settings 目录下的配置文件名，如: Caber_Caber_哈贝喵.json"'
-            Set-Content $configFile $content -NoNewline
-            Write-Host "Fixed bbc_team_config.json for MWU"
-          }
+          $content = Get-Content $configFile -Raw
+          $content = $content -replace './BBchannel/settings', 'resource/BBchannel/settings'
+          Set-Content $configFile $content -NoNewline
 
       - name: Get clean version
         id: get_version
