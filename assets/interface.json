@@ -6,7 +6,7 @@
     "license": "MIT",
     "welcome": "首次使用！欢迎使用 MaaFgo!",
     "github": "https://github.com/xlxyvergil/MaaFgo-MWU",
-    "version": "1.0.27",
+    "version": "1.0.0",
     "languages": {
         "zh_cn": "./i18n/zh_cn.json"
     },
@@ -26,9 +26,7 @@
         }
     ],
     "task": [],
-    "option": {
-
-    },
+    "option": {},
     "import": [
         "./options/登录.json",
         "./options/种树.json",
