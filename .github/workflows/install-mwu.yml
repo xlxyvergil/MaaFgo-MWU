@@ -189,15 +189,24 @@ jobs:
         run: |
           ./build/python/python.exe -m pip install -r requirements.txt
 
+      - name: Get clean version
+        id: get_version
+        shell: bash
+        run: |
+          tag="${{ env.tag }}"
+          # Remove v prefix and any suffix like Avalonia or MWU
+          version=$(echo "$tag" | sed 's/^v//; s/Avalonia$//; s/MWU$//')
+          echo "clean_version=$version" >> $GITHUB_OUTPUT
+
       - name: Compress Final Artifact
         run: |
-          7z a -t7z -mx=9 -mmt -ms -r ${{ env.repo_name }}-MWU-${{ matrix.platform }}-${{ matrix.arch }}-${{ env.tag }}.7z "./build/*"
+          7z a -t7z -mx=9 -mmt -ms -r ${{ env.repo_name }}-MWU-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}.7z "./build/*"
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ env.repo_name }}-MWU-${{ matrix.platform }}-${{ matrix.arch }}-${{ env.tag }}
-          path: ${{ env.repo_name }}-MWU-${{ matrix.platform }}-${{ matrix.arch }}-${{ env.tag }}.7z
+          name: ${{ env.repo_name }}-MWU-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}
+          path: ${{ env.repo_name }}-MWU-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}.7z
 
   changelog:
     name: Generate changelog

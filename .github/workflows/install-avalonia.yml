@@ -183,9 +183,18 @@ jobs:
           python ./install.py ${{ needs.meta.outputs.tag }} ${{ matrix.os }} ${{ matrix.arch }}
           cd ..
 
+      - name: Get version without suffix
+        id: get_version
+        shell: bash
+        run: |
+          tag="${{ needs.meta.outputs.tag }}"
+          # Remove v prefix and any suffix like Avalonia or MWU
+          version=$(echo "$tag" | sed 's/^v//; s/Avalonia$//; s/MWU$//')
+          echo "version=$version" >> $GITHUB_OUTPUT
+
       - uses: actions/upload-artifact@v4
         with:
-          name: MaaFGO-Avalonia-${{ matrix.os }}-${{ matrix.arch }}
+          name: MaaFGO-Avalonia-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}
           path: "install"
 
   changelog:
@@ -221,10 +230,14 @@ jobs:
         with:
           path: assets
 
-      - run: |
+      - name: Package artifacts
+        run: |
           cd assets
           for f in *; do
-            (cd $f && zip -r ../$f-${{ needs.meta.outputs.tag }}.zip .)
+            # Extract version from directory name and remove suffix
+            version=$(echo "$f" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | head -1 || echo "${{ needs.meta.outputs.tag }}")
+            clean_version=$(echo "$version" | sed 's/^v//; s/Avalonia$//; s/MWU$//')
+            (cd $f && zip -r ../MaaFGO-Avalonia-win-${{ matrix.arch }}-v${clean_version}.zip .)
           done
           
       - uses: softprops/action-gh-release@v2
