@@ -399,9 +399,11 @@ jobs:
           for f in "${WORKSPACE_DIR}/release"/*; do
             if [ -d "$f" ] && echo "$f" | grep -q "Avalonia"; then
               dirname=$(basename "$f")
-              arch=$(echo "$dirname" | sed 's/MaaFGO-Avalonia-win-//; s/-v[0-9].*//')
-              echo "Packaging: $dirname -> MaaFGO-Avalonia-win-${arch}.zip"
-              zip -r "${WORKSPACE_DIR}/release-packed/MaaFGO-Avalonia-win-${arch}.zip" "$f/"
+              # Extract arch from name like MaaFGO-Avalonia-win-x86_64-v1.1.13
+              arch=$(echo "$dirname" | sed 's/MaaFGO-Avalonia-win-//; s/-v[0-9].*$//')
+              version=$(echo "$dirname" | grep -oP 'v[0-9]+\.[0-9]+\.[0-9]+')
+              echo "Packaging: $dirname -> MaaFGO-Avalonia-win-${arch}-${version}.zip"
+              zip -r "${WORKSPACE_DIR}/release-packed/MaaFGO-Avalonia-win-${arch}-${version}.zip" "$f/"
             fi
           done
           
