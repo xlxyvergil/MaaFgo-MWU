@@ -403,7 +403,8 @@ jobs:
               arch=$(echo "$dirname" | sed 's/MaaFGO-Avalonia-win-//; s/-v[0-9].*$//')
               version=$(echo "$dirname" | grep -oP 'v[0-9]+\.[0-9]+\.[0-9]+')
               echo "Packaging: $dirname -> MaaFGO-Avalonia-win-${arch}-${version}.zip"
-              zip -r "${WORKSPACE_DIR}/release-packed/MaaFGO-Avalonia-win-${arch}-${version}.zip" "$f/"
+              # Use -j to junk paths and only store filenames, then cd into directory
+              (cd "$f" && zip -r "${WORKSPACE_DIR}/release-packed/MaaFGO-Avalonia-win-${arch}-${version}.zip" .)
             fi
           done
           
