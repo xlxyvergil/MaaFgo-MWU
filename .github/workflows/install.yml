@@ -1,9 +1,8 @@
-name: install
-
 on:
   push:
     tags:
-      - "v*"
+      - "v[0-9]+.[0-9]+.[0-9]+.*"
+      - "v[0-9]+.[0-9]+.[0-9]+[a-zA-Z]+*"  
     branches:
       - "**"
     paths:
@@ -25,19 +24,24 @@ permissions:
 
 jobs:
   meta:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - id: set_tag
         run: |
           # 检查标签格式
-          is_release=${{ startsWith(github.ref, 'refs/tags/v') }}
-          tag=$(git describe --tags --match "v*" ${{ github.ref }} || true)
-          if [[ $tag != v* ]]; then
+          if [[ ${{ github.ref }} =~ ^refs/tags/v[0-9]+\.[0-9]+\.[0-9]+([a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*)?$ ]]; then
+            is_release=true
+            tag=${GITHUB_REF#refs/tags/}
+            echo "Release tag format is valid: $tag"
+          else
+            is_release=false
+            # 获取最新的发布标签
             tag=$(curl -sX GET "https://api.github.com/repos/${{ github.repository }}/releases/latest" --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' | awk '/tag_name/{print $4}' FS='["]')
-            if [[ $tag != v* ]]; then
+            if [[ ! $tag =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?$ ]]; then
+              echo "No valid release tag found, using v0.0.0"
               tag="v0.0.0"
             fi
             tag=$(date "+$tag-%y%m%d-$(git rev-parse --short HEAD)")
@@ -77,6 +81,22 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - os: ubuntu-24.04
+            platform: linux
+            arch: x86_64
+
+          - os: ubuntu-24.04-arm
+            platform: linux
+            arch: aarch64
+
+          - os: macos-15-intel
+            platform: macos
+            arch: x86_64
+
+          - os: macos-15
+            platform: macos
+            arch: aarch64
+
           - os: windows-2025
             platform: win
             arch: x86_64
@@ -90,7 +110,7 @@ jobs:
 
     steps:
       - name: Check-out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: true
 
@@ -116,43 +136,6 @@ jobs:
           cp -r assets/options build/options
           cp -r assets/i18n build/i18n
           cp -r bbcdll build/bbcdll
-
-      - name: Generate MWU Agent Main
-        shell: bash
-        run: |
-          cat > build/agent/main.py << 'EOF'
-          import os
-          import sys
-
-          from maa.agent.agent_server import AgentServer
-          from maa.tasker import Tasker
-
-          import bbc_action
-          import sequential_tasks_action
-
-
-          def main():
-              # 使用相对于 agent 文件的绝对路径
-              agent_dir = os.path.dirname(os.path.abspath(__file__))
-              log_dir = os.path.join(os.path.dirname(agent_dir), 'logs')
-              Tasker.set_log_dir(log_dir)
-
-              if len(sys.argv) < 2:
-                  print("Usage: python main.py <socket_id>")
-                  print("socket_id is provided by AgentIdentifier.")
-                  sys.exit(1)
-
-              socket_id = sys.argv[-1]
-
-              AgentServer.start_up(socket_id)
-              AgentServer.join()
-              AgentServer.shut_down()
-
-
-          if __name__ == "__main__":
-              main()
-          EOF
-
       - name: Download Dependencies
         shell: bash
         run: |
@@ -293,6 +276,11 @@ jobs:
         run: |
           ./install/python/python.exe -m pip install -r requirements.txt
 
+      - name: Prepare Avalonia main.py
+        shell: bash
+        run: |
+          cp agent/main-Avalonia.py agent/main.py
+
       - name: Install
         shell: pwsh
         run: |
@@ -307,7 +295,7 @@ jobs:
 
           cd tools
           python -m pip install json-with-comments
-          python ./install.py ${{ needs.meta.outputs.tag }} ${{ matrix.os }} ${{ matrix.arch }}
+          python ./install-Avalonia.py ${{ needs.meta.outputs.tag }} ${{ matrix.os }} ${{ matrix.arch }}
           cd ..
 
       - name: Get version without suffix
@@ -325,13 +313,12 @@ jobs:
 
   changelog:
     name: Generate changelog
-    needs: meta
     runs-on: ubuntu-latest
     outputs:
       release_body: ${{ steps.git-cliff.outputs.content }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -340,66 +327,46 @@ jobs:
         id: git-cliff
         with:
           config: .github/cliff.toml
-          args: >-
-            -vv --latest --strip header
-            ${{ needs.meta.outputs.is_prerelease == 'false' && '--tag-pattern "^v[0-9]+\\.[0-9]+\\.[0-9]+[A-Za-z0-9_]*$"' || '' }}
+          args: -vv --latest --strip header
         env:
           OUTPUT: CHANGES.md
           GITHUB_REPO: ${{ github.repository }}
 
+  debug:
+    if: ${{ needs.meta.outputs.is_release == 'false' }}
+    runs-on: ubuntu-slim
+    needs: [meta, build-mwu, build-avalonia, changelog]
+    steps:
+      - name: Show Outputs
+        run: |
+          echo "Tag: ${{ needs.meta.outputs.tag }}"
+          echo "Is Release: ${{ needs.meta.outputs.is_release }}"
+          echo "Is Pre-release: ${{ needs.meta.outputs.is_prerelease }}"
+          echo "Changelog:"
+          echo "${{ needs.changelog.outputs.release_body }}"
+
   release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
     needs: [meta, build-mwu, build-avalonia, changelog]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8.0.1
         with:
           path: release
 
-      - name: List downloaded artifacts
-        run: |
-          echo "=== Release directory structure ==="
-          ls -lha release/
-          echo "=================================="
-          find release -maxdepth 2 -type d
-
-      - name: Package Avalonia artifacts
-        run: |
-          set -e
-          WORKSPACE_DIR="$(pwd)"
-          mkdir -p "${WORKSPACE_DIR}/release-packed"
-          
-          echo "Contents of release/:"
-          ls -lha "${WORKSPACE_DIR}/release/"
-          
-          for f in "${WORKSPACE_DIR}/release"/*; do
-            if [ -d "$f" ] && echo "$f" | grep -q "Avalonia"; then
-              dirname=$(basename "$f")
-              # Extract arch from name like MaaFGO-Avalonia-win-x86_64-v1.1.13
-              arch=$(echo "$dirname" | sed 's/MaaFGO-Avalonia-win-//; s/-v[0-9].*$//')
-              version=$(echo "$dirname" | grep -oP 'v[0-9]+\.[0-9]+\.[0-9]+')
-              echo "Packaging: $dirname -> MaaFGO-Avalonia-win-${arch}-${version}.zip"
-              # Use -j to junk paths and only store filenames, then cd into directory
-              (cd "$f" && zip -r "${WORKSPACE_DIR}/release-packed/MaaFGO-Avalonia-win-${arch}-${version}.zip" .)
-            fi
-          done
-          
-          echo "=== Packed files ==="
-          ls -lh "${WORKSPACE_DIR}/release-packed/"
-
-      - name: List final release structure
-        run: |
-          echo "=== MWU files ==="
-          find release -name "*.7z" -type f
-          echo "=== Avalonia files ==="
-          find release-packed -name "*.zip" -type f 2>/dev/null || echo "No zip files found"
-
       - uses: softprops/action-gh-release@v2.2.2
         with:
-          files: |
-            release/**/*.7z
-            release-packed/*.zip
+          files: release/**/*.7z
           tag_name: ${{ needs.meta.outputs.tag }}
           body: ${{ needs.changelog.outputs.release_body }}
           draft: false
           prerelease: ${{ needs.meta.outputs.is_prerelease == 'true' }}
+
+#      - name: Trigger MirrorChyanUploading
+#        if: ${{ needs.meta.outputs.is_release == 'true' }}
+#        shell: bash
+#        run: |
+#          gh workflow run --repo $GITHUB_REPOSITORY mirrorchyan.yml -f tag=${{ needs.meta.outputs.tag }}
+#          gh workflow run --repo $GITHUB_REPOSITORY mirrorchyan_release_note.yml -f tag=${{ needs.meta.outputs.tag }}
+#        env:
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

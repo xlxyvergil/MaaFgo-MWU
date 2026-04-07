@@ -1,26 +1,19 @@
-import os
 import sys
-
-# 设置工作目录为项目根目录（agent 的上级目录）
-current_file_path = os.path.abspath(__file__)
-current_script_dir = os.path.dirname(current_file_path)
-project_root_dir = os.path.dirname(current_script_dir)
-if os.getcwd() != project_root_dir:
-    os.chdir(project_root_dir)
-
-# 将脚本目录添加到 sys.path
-if current_script_dir not in sys.path:
-    sys.path.insert(0, current_script_dir)
+import os
 
 from maa.agent.agent_server import AgentServer
-from maa.toolkit import Toolkit
+from maa.tasker import Tasker
 
+# 先导入自定义 Action 模块，让装饰器注册
 import bbc_action
 import sequential_tasks_action
 
 
 def main():
-    Toolkit.init_option("./")
+    # 使用相对于 agent 文件的绝对路径
+    agent_dir = os.path.dirname(os.path.abspath(__file__))
+    log_dir = os.path.join(os.path.dirname(agent_dir), 'logs')
+    Tasker.set_log_dir(log_dir)
 
     if len(sys.argv) < 2:
         print("Usage: python main.py <socket_id>")

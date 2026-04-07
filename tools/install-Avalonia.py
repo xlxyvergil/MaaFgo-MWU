@@ -99,6 +99,7 @@ def install_deps():
 
 
 
+
 def install_resource():
 
     configure_ocr_model()
@@ -113,10 +114,32 @@ def install_resource():
         install_path,
     )
 
+    # Copy options and i18n directories
+    if (working_dir / "assets" / "options").exists():
+        shutil.copytree(
+            working_dir / "assets" / "options",
+            install_path / "options",
+            dirs_exist_ok=True,
+        )
+    if (working_dir / "assets" / "i18n").exists():
+        shutil.copytree(
+            working_dir / "assets" / "i18n",
+            install_path / "i18n",
+            dirs_exist_ok=True,
+        )
+
     with open(install_path / "interface.json", "r", encoding="utf-8") as f:
         interface = jsonc.load(f)
 
     interface["version"] = version
+
+    # 设置 agent 使用内置 Python
+    if os_name == "win":
+        interface["agent"]["child_exec"] = r"./python/python.exe"
+    elif os_name == "macos":
+        interface["agent"]["child_exec"] = r"./python/bin/python3"
+    else:
+        interface["agent"]["child_exec"] = r"python3"
 
     with open(install_path / "interface.json", "w", encoding="utf-8") as f:
         jsonc.dump(interface, f, ensure_ascii=False, indent=4)
@@ -134,9 +157,25 @@ def install_chores():
 
 
 def install_agent():
+    # 复制 agent 目录，但排除 main.py（MWU版本）
     shutil.copytree(
         working_dir / "agent",
         install_path / "agent",
+        ignore=shutil.ignore_patterns("main.py"),
+        dirs_exist_ok=True,
+    )
+    # 将 main-Avalonia.py 重命名为 main.py
+    avalonia_main = install_path / "agent" / "main-Avalonia.py"
+    target_main = install_path / "agent" / "main.py"
+    if avalonia_main.exists():
+        shutil.move(str(avalonia_main), str(target_main))
+
+
+def install_bbcdll():
+    """复制 bbcdll 目录"""
+    shutil.copytree(
+        working_dir / "bbcdll",
+        install_path / "bbcdll",
         dirs_exist_ok=True,
     )
 
@@ -146,5 +185,6 @@ if __name__ == "__main__":
     install_resource()
     install_chores()
     install_agent()
+    install_bbcdll()
 
     print(f"Install to {install_path} successfully.")
