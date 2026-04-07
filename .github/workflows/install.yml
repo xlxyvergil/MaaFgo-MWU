@@ -74,22 +74,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-24.04
-            platform: linux
-            arch: x86_64
-
-          - os: ubuntu-24.04-arm
-            platform: linux
-            arch: aarch64
-
-          - os: macos-15-intel
-            platform: macos
-            arch: x86_64
-
-          - os: macos-15
-            platform: macos
-            arch: aarch64
-
           - os: windows-2025
             platform: win
             arch: x86_64
