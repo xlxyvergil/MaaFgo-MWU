@@ -124,7 +124,7 @@ jobs:
         uses: robinraju/release-downloader@v1
         with:
           repository: ravizhan/MWU
-          tag: v0.12.2
+          latest: true
           fileName: MWU-${{ matrix.platform }}-${{ matrix.arch }}-*.7z
           out-file-path: ./
           token: ${{ secrets.GITHUB_TOKEN }}

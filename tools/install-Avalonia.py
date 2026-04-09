@@ -116,11 +116,18 @@ def install_resource():
 
     # Copy options and i18n directories
     if (working_dir / "assets" / "options").exists():
+        # 复制 options 目录，但排除 MWU 版本的 bbc_team_config.json
         shutil.copytree(
             working_dir / "assets" / "options",
             install_path / "options",
+            ignore=shutil.ignore_patterns("bbc_team_config.json"),
             dirs_exist_ok=True,
         )
+        # 将 bbc_team_config-Avalonia.json 重命名为 bbc_team_config.json
+        avalonia_config = install_path / "options" / "bbc_team_config-Avalonia.json"
+        target_config = install_path / "options" / "bbc_team_config.json"
+        if avalonia_config.exists():
+            shutil.move(str(avalonia_config), str(target_config))
     if (working_dir / "assets" / "i18n").exists():
         shutil.copytree(
             working_dir / "assets" / "i18n",
@@ -157,11 +164,11 @@ def install_chores():
 
 
 def install_agent():
-    # 复制 agent 目录，但排除 main.py（MWU版本）
+    # 复制 agent 目录，但排除 MWU 版本文件
     shutil.copytree(
         working_dir / "agent",
         install_path / "agent",
-        ignore=shutil.ignore_patterns("main.py"),
+        ignore=shutil.ignore_patterns("main.py", "bbc_action.py"),
         dirs_exist_ok=True,
     )
     # 将 main-Avalonia.py 重命名为 main.py
@@ -169,6 +176,12 @@ def install_agent():
     target_main = install_path / "agent" / "main.py"
     if avalonia_main.exists():
         shutil.move(str(avalonia_main), str(target_main))
+    
+    # 将 bbc_action-Avalonia.py 重命名为 bbc_action.py
+    avalonia_bbc = install_path / "agent" / "bbc_action-Avalonia.py"
+    target_bbc = install_path / "agent" / "bbc_action.py"
+    if avalonia_bbc.exists():
+        shutil.move(str(avalonia_bbc), str(target_bbc))
 
 
 def install_bbcdll():
