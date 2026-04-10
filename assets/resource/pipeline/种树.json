@@ -233,18 +233,19 @@
             "交换树苗"
         ],
         "post_wait_freezes": 1000,
-        "repeat": 3,
-        "repeat_delay": 300,
         "recognition": {
             "type": "DirectHit"
-        }
+        },
+        "repeat": 3,
+        "repeat_delay": 300
     },
     "青铜果实": {
         "action": {
             "type": "Click"
         },
         "next": [
-            "青铜果实界面",
+            "青铜果实界面-单个识别",
+            "青铜果实界面-多个识别",
             "买不了果实"
         ],
         "post_wait_freezes": 1000,
@@ -257,7 +258,7 @@
             }
         }
     },
-    "青铜果实界面": {
+    "青铜果实界面-单个识别": {
         "next": [
             "购买树苗"
         ],
@@ -266,10 +267,28 @@
             "type": "OCR",
             "param": {
                 "roi": [
-                    462,
-                    520,
-                    353,
-                    56
+                    478,
+                    430,
+                    337,
+                    63
+                ],
+                "expected": "兌換后追加至所持道具中"
+            }
+        }
+    },
+    "青铜果实界面-多个识别": {
+        "next": [
+            "购买树苗"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    472,
+                    523,
+                    338,
+                    47
                 ],
                 "expected": "兌換后追加至所持道具中"
             }
