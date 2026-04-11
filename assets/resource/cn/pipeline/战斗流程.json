@@ -1,0 +1,195 @@
+{
+    "BBC成功": {
+        "next": [
+            "作战成功",
+            "好友申请界面",
+            "战斗失败",
+            "失败2",
+            "撤退",
+            "战斗结束-主界面",
+            "战斗结束关闭",
+            "[JumpBack]完成"
+        ]
+    },
+    "作战成功": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "好友申请界面"
+        ],
+        "on_error": [
+            "回主界面"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "下一步.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "失败2": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "撤退"
+        ],
+        "on_error": [
+            "回主界面"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "决定2.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "好友申请界面": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "关闭.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "完成": {
+        "action": {
+            "param": {
+                "target": [
+                    575,
+                    576,
+                    1,
+                    1
+                ]
+            },
+            "type": "Click"
+        }
+    },
+    "战斗失败": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "失败2"
+        ],
+        "on_error": [
+            "回主界面"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "撤退.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "战斗结束-主界面": {
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    1060,
+                    560,
+                    208,
+                    155
+                ],
+                "template": [
+                    "菜单.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "战斗结束关闭": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    4,
+                    4,
+                    187,
+                    86
+                ],
+                "template": [
+                    "关闭2.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "执行BBC任务": {
+        "action": {
+            "param": {
+                "custom_action": "execute_bbc_task"
+            },
+            "type": "Custom"
+        },
+        "attach": {
+            "apple_type": "铜苹果",
+            "battle_type": "continuous",
+            "bbc_team_config": "",
+            "connect": "auto",
+            "ld_index": 0,
+            "ld_path": "",
+            "manual_port": "",
+            "mumu_app_index": 0,
+            "mumu_index": 0,
+            "mumu_path": "",
+            "mumu_pkg": "com.bilibili.fatego",
+            "run_count": 1,
+            "support_order_mismatch": false,
+            "team_config_error": false
+        },
+        "next": [
+            "BBC成功"
+        ]
+    },
+    "撤退": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "关闭.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "队伍配置": {
+        "next": [
+            "执行BBC任务"
+        ]
+    }
+}

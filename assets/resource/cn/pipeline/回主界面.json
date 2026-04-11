@@ -1,0 +1,146 @@
+{
+    "主界面判断-活动报酬": {
+        "next": [
+            "有关闭按钮",
+            "没有关闭按钮"
+        ],
+        "post_wait_freezes": 500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "活动报酬.png"
+                ]
+            }
+        }
+    },
+    "主界面判断-返回": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": [
+                    111
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "回主界面": {
+        "next": [
+            "主界面判断-活动报酬",
+            "[JumpBack]主界面判断-返回"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "有关闭按钮": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": 111
+            }
+        },
+        "next": [
+            "主界面判断-活动报酬"
+        ],
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "roi": [
+                                    11,
+                                    8,
+                                    1240,
+                                    697
+                                ],
+                                "template": [
+                                    "回主界面的关闭按钮.png"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [
+                                    11,
+                                    8,
+                                    1240,
+                                    697
+                                ],
+                                "expected": "关闭",
+                                "only_rec": false
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": "是否退出游戏"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "没有关闭按钮": {
+        "inverse": true,
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "roi": [
+                                    11,
+                                    8,
+                                    1240,
+                                    697
+                                ],
+                                "template": [
+                                    "回主界面的关闭按钮.png"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "roi": [
+                                    11,
+                                    8,
+                                    1240,
+                                    697
+                                ],
+                                "expected": "关闭",
+                                "only_rec": false
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "OCR",
+                            "param": {
+                                "expected": "是否退出游戏"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

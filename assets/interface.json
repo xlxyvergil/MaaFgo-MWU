@@ -18,12 +18,22 @@
         }
     ],
     "resource": [
-        {
-            "name": "B服",
-            "path": [
-                "./resource"
-            ]
-        }
+      {
+        "name": "B服",
+        "path": [
+          "./resource/cn",
+          "./resource/common"
+        ]
+      },
+      {
+        "name": "日服",
+        "path": [
+          "./resource/jp",
+          "./resource/common"
+        ]
+      }
+
+
     ],
     "task": [],
     "option": {},
