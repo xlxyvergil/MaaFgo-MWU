@@ -1,0 +1,7 @@
+{
+    "Default": {
+        "on_error": [
+            "Global_Null"
+        ]
+    }
+}

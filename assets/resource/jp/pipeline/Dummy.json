@@ -1,0 +1,9 @@
+{
+    "Global_Null": {
+        "recognition": "DirectHit",
+        "action": "DoNothing",
+        "post_delay": 0,
+        "pre_delay": 0,
+        "doc": "【全局默认空on_error覆盖】Jumpback链路崩毁默认节点"
+    }
+}

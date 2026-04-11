@@ -1,0 +1,306 @@
+{
+    "冠位戴冠战-职介": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "grand_lancer.png"
+                ]
+            }
+        },
+        "timeout": 2000,
+        "next": [
+            "冠位戴冠战-进入副本"
+        ]
+    },
+    "右侧下滑-冠位戴冠战列表": {
+        "max_hit": 10,
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    925,
+                    354,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        929,
+                        30,
+                        1,
+                        1
+                    ]
+                ]
+            }
+        }
+    },
+    "冠位戴冠战-查找职介": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "grand_down.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        }
+    },
+    "冠位戴冠战列表": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "grand001.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 2000,
+        "next": [
+            "冠位戴冠战-职介开始"
+        ]
+    },
+    "冠位戴冠战-开始": {
+        "next": [
+            "冠位戴冠战列表",
+            "[JumpBack]如果需要关闭弹窗",
+            "[JumpBack]右侧下滑-冠位戴冠战列表"
+        ],
+        "on_error": [
+            "未找到戴冠战入口"
+        ]
+    },
+    "未找到戴冠战入口": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "grand001.png"
+                ]
+            }
+        },
+        "timeout": 2000,
+        "rate_limit": 10000,
+        "focus": {
+            "Node.Recognition.Failed": {
+                "content": "❌ 执行失败，请检查环境",
+                "display": "modal"
+            }
+        }
+    },
+    "冠位戴冠战-职介开始": {
+        "post_delay": 3000,
+        "next": [
+            "冠位戴冠战-职介",
+            "[JumpBack]冠位戴冠战-查找职介"
+        ],
+        "on_error": [
+            "未找到戴冠战入口2"
+        ]
+    },
+    "冠位戴冠战-进入副本": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "grand_enter.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_delay": 3000,
+        "next": [
+            "冠位戴冠战-等级副本",
+            "[JumpBack]右侧下滑2",
+            "[JumpBack]右侧上滑1",
+            "[JumpBack]右侧下滑3"
+        ],
+        "on_error": [
+            "未找到戴冠战入口3"
+        ]
+    },
+    "未找到戴冠战入口2": {
+        "max_hit": 10,
+        "focus": {
+            "Node.Recognition.Starting": "未找到对应职介！脚本中止"
+        }
+    },
+    "右侧下滑2": {
+        "max_hit": 10,
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    925,
+                    354,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        925,
+                        100,
+                        1,
+                        1
+                    ]
+                ]
+            }
+        },
+        "post_delay": 2000
+    },
+    "冠位戴冠战-等级副本": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "Lv\\.100\\*\\*★"
+                ],
+                "threshold": 0.85
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 2000,
+        "next": [
+            "冠位戴冠战-进入1"
+        ]
+    },
+    "未找到戴冠战入口3": {
+        "max_hit": 10,
+        "focus": {
+            "Node.Recognition.Starting": "未找到对应等级副本！脚本中止"
+        }
+    },
+    "冠位戴冠战-进入1": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "dungeon_enter.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 5000,
+        "next": [
+            "冠位戴冠战-BBC脚本运行"
+        ]
+    },
+    "冠位戴冠战-BBC脚本运行": {
+        "action": {
+            "type": "Command",
+            "param": {
+                "exec": "run_bbc\\run_bbc.exe",
+                "detach": false
+            }
+        },
+        "post_delay": 10000,
+        "focus": {
+            "Node.Recognition.Starting": "打开BBC中，请尽量不要移动鼠标，并将bbc窗口置于主屏幕",
+            "Node.Action.Succeeded": "等待任务完成，BBC正常运行后，可以自由操作。"
+        },
+        "next": [
+            "冠位戴冠战-完成",
+            "[JumpBack]冠位戴冠战-等待空节点"
+        ]
+    },
+    "冠位戴冠战-完成": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "grand_ap_0.png"
+                ]
+            }
+        },
+        "timeout": 99999999,
+        "rate_limit": 5000,
+        "focus": {
+            "Node.Recognition.Succeeded": "任务完成",
+            "Node.Recognition.Failed": "没有识别到任务完成"
+        }
+    },
+    "右侧上滑1": {
+        "max_hit": 10,
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    925,
+                    100,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        929,
+                        354,
+                        1,
+                        1
+                    ]
+                ]
+            }
+        },
+        "post_delay": 2000
+    },
+    "右侧下滑3": {
+        "max_hit": 10,
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    925,
+                    354,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        929,
+                        100,
+                        1,
+                        1
+                    ]
+                ]
+            }
+        },
+        "post_delay": 2000
+    },
+    "冠位戴冠战-等待空节点": {
+        "pre_delay": 10000,
+        "action": {
+            "type": "Click",
+            "param": {}
+        }
+    },
+    "如果需要关闭弹窗": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "close_botton.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_delay": 2000
+    }
+}
