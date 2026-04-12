@@ -3,6 +3,7 @@
         "team_index": {
             "type": "select",
             "label": "队伍编号",
+            "description": "游戏队伍编号，进战斗前会执行一次保存编队",
             "cases": [
                 {
                     "name": "默认队伍",
