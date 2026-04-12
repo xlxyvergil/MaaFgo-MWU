@@ -9,12 +9,14 @@
           "pipeline_override": {
             "冠位戴冠战-等级副本": {
               "recognition": {
-                "type": "OCR",
+                "type": "TemplateMatch",
                 "param": {
-                  "expected": [
-                    "Lv\\.100\\*\\*"
+                  "template": [
+                    "grand_6.png"
                   ],
-                  "threshold": 0.8
+                  "threshold": [
+                    0.8
+                  ]
                 }
               }
             }
@@ -25,12 +27,14 @@
           "pipeline_override": {
             "冠位戴冠战-等级副本": {
               "recognition": {
-                "type": "OCR",
+                "type": "TemplateMatch",
                 "param": {
-                  "expected": [
-                    "Lv\\.100\\*\\*\\*"
+                  "template": [
+                    "grand_7.png"
                   ],
-                  "threshold": 0.7
+                  "threshold": [
+                    0.8
+                  ]
                 }
               }
             }

@@ -11,7 +11,7 @@
                 "type": "TemplateMatch",
                 "param": {
                   "template": [
-                    "grand_saber.png"
+                    "grand/grand_saber.png"
                   ]
                 }
               }
@@ -26,7 +26,7 @@
                 "type": "TemplateMatch",
                 "param": {
                   "template": [
-                    "grand_archer.png"
+                    "grand/grand_archer.png"
                   ]
                 }
               }
@@ -41,7 +41,7 @@
                 "type": "TemplateMatch",
                 "param": {
                   "template": [
-                    "grand_lancer.png"
+                    "grand/grand_lancer.png"
                   ]
                 }
               }
@@ -56,7 +56,7 @@
                 "type": "TemplateMatch",
                 "param": {
                   "template": [
-                    "grand_rider.png"
+                    "grand/grand_rider.png"
                   ]
                 }
               }
@@ -71,7 +71,7 @@
                 "type": "TemplateMatch",
                 "param": {
                   "template": [
-                    "grand_caster.png"
+                    "grand/grand_caster.png"
                   ]
                 }
               }
@@ -86,7 +86,7 @@
                 "type": "TemplateMatch",
                 "param": {
                   "template": [
-                    "grand_assassin.png"
+                    "grand/grand_assassin.png"
                   ]
                 }
               }
@@ -101,7 +101,7 @@
                 "type": "TemplateMatch",
                 "param": {
                   "template": [
-                    "grand_berserker.png"
+                    "grand/grand_berserker.png"
                   ]
                 }
               }
@@ -116,7 +116,7 @@
                 "type": "TemplateMatch",
                 "param": {
                   "template": [
-                    "grand_ex1.png"
+                    "grand/grand_ex1.png"
                   ]
                 }
               }
@@ -131,7 +131,7 @@
                 "type": "TemplateMatch",
                 "param": {
                   "template": [
-                    "grand_ex2.png"
+                    "grand/grand_ex2.png"
                   ]
                 }
               }
