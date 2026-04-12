@@ -21,15 +21,15 @@
     {
       "name": "B服",
       "path": [
-        "./resource/cn",
-        "./resource/common"
+        "./resource/common",
+        "./resource/cn"
       ]
     },
     {
       "name": "日服",
       "path": [
-        "./resource/jp",
-        "./resource/common"
+        "./resource/common",
+        "./resource/jp"
       ]
     }
   ],
@@ -81,7 +81,6 @@
     "./options/quests/Traum.json",
     "./options/quests/OrdealCall.json",
     "./options/quests/平面之月.json",
-
     "./options/选择冠位难度.json",
     "./options/选择冠位职介.json"
   ],
