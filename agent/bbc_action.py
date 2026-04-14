@@ -13,17 +13,15 @@ from maa.context import Context
 AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_FILE = os.path.join(AGENT_DIR, 'bbc_debug.log')
 
-# 创建 FileHandler 并指定 UTF-8 编码
-file_handler = logging.FileHandler(LOG_FILE, mode='w', encoding='utf-8')
-file_handler.setLevel(logging.DEBUG)
-file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-
-# 配置根日志记录器
-root_logger = logging.getLogger()
-root_logger.setLevel(logging.DEBUG)
-root_logger.addHandler(file_handler)
-
-logger = logging.getLogger(__name__)
+# 创建具名 logger，只写入 bbc_debug.log，不影响其他模块
+logger = logging.getLogger("BbcAction")
+if not logger.handlers:
+    logger.setLevel(logging.DEBUG)
+    logger.propagate = False  # 禁止向根 logger 传播，避免污染其他模块的日志
+    _fh = logging.FileHandler(LOG_FILE, mode='w', encoding='utf-8')
+    _fh.setLevel(logging.DEBUG)
+    _fh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    logger.addHandler(_fh)
 
 
 # BBC TCP 配置
@@ -32,9 +30,12 @@ BBC_TCP_PORT = 25001
 
 # 固定 BBC 路径 - 使用相对于本文件的路径
 AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
-# 构建后 agent 与 resource 同级，BBC 在 resource/BBchannel 下
-BBC_PATH = os.path.join(AGENT_DIR, '..', 'resource', 'BBchannel')
+# BBC 目录在 agent 的父目录
+BBC_PATH = os.path.join(AGENT_DIR, '..', 'BBchannel')
+# 正式版本
 BBC_EXE_PATH = os.path.join(BBC_PATH, 'dist', 'BBchannel64', 'BBchannel.exe')
+# 调试版本（测试用，会显示控制台窗口）
+# BBC_EXE_PATH = os.path.join(BBC_PATH, 'dist', 'BBchannel64', 'BBchannel_debug.exe')
 
 # 确保路径是绝对的并存在
 BBC_EXE_PATH = os.path.abspath(BBC_EXE_PATH)
@@ -202,7 +203,10 @@ class ExecuteBbcTask(CustomAction):
                         
             # 切换到 BBC 所在目录再启动
             bbc_dir = os.path.dirname(BBC_EXE_PATH)
-            proc = subprocess.Popen([BBC_EXE_PATH], cwd=bbc_dir)
+            # debug 版需要 CREATE_NEW_CONSOLE，否则从无控制台的父进程启动时看不到输出
+            _is_debug = BBC_EXE_PATH.endswith('_debug.exe')
+            _creation_flags = subprocess.CREATE_NEW_CONSOLE if _is_debug else 0
+            proc = subprocess.Popen([BBC_EXE_PATH], cwd=bbc_dir, creationflags=_creation_flags)
             logger.info(f"[BBC] 已启动进程，PID: {proc.pid}")
                         
             print("[BBC] BBC 启动命令已发送")
