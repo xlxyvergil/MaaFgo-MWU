@@ -12,64 +12,65 @@
         ]
     },
     "作战成功": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "下一步.png"
+                ]
+            }
+        },
         "action": {
-            "param": {},
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "next": [
             "好友申请界面"
         ],
         "on_error": [
             "回主界面"
-        ],
-        "recognition": {
-            "param": {
-                "template": [
-                    "下一步.png"
-                ]
-            },
-            "type": "TemplateMatch"
-        }
+        ]
     },
     "失败2": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "决定2.png"
+                ]
+            }
+        },
         "action": {
-            "param": {},
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "next": [
             "撤退"
         ],
         "on_error": [
             "回主界面"
-        ],
-        "recognition": {
-            "param": {
-                "template": [
-                    "撤退决定.png"
-                ]
-            },
-            "type": "TemplateMatch"
-        }
+        ]
     },
     "好友申请界面": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "关闭.png"
+                ]
+            }
+        },
         "action": {
-            "param": {},
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "next": [
             "回主界面"
-        ],
-        "recognition": {
-            "param": {
-                "template": [
-                    "关闭好友申请.png"
-                ]
-            },
-            "type": "TemplateMatch"
-        }
+        ]
     },
     "完成": {
         "action": {
+            "type": "Click",
             "param": {
                 "target": [
                     575,
@@ -77,35 +78,32 @@
                     1,
                     1
                 ]
-            },
-            "type": "Click"
+            }
         }
     },
     "战斗失败": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "撤退.png"
+                ]
+            }
+        },
         "action": {
-            "param": {},
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "next": [
             "失败2"
         ],
         "on_error": [
             "回主界面"
-        ],
-        "recognition": {
-            "param": {
-                "template": [
-                    "撤退.png"
-                ]
-            },
-            "type": "TemplateMatch"
-        }
+        ]
     },
     "战斗结束-主界面": {
-        "next": [
-            "回主界面"
-        ],
         "recognition": {
+            "type": "TemplateMatch",
             "param": {
                 "roi": [
                     1060,
@@ -116,19 +114,15 @@
                 "template": [
                     "菜单.png"
                 ]
-            },
-            "type": "TemplateMatch"
-        }
-    },
-    "战斗结束关闭": {
-        "action": {
-            "param": {},
-            "type": "Click"
+            }
         },
         "next": [
             "回主界面"
-        ],
+        ]
+    },
+    "战斗结束关闭": {
         "recognition": {
+            "type": "TemplateMatch",
             "param": {
                 "roi": [
                     4,
@@ -137,18 +131,24 @@
                     86
                 ],
                 "template": [
-                    "关闭.png"
+                    "关闭2.png"
                 ]
-            },
-            "type": "TemplateMatch"
-        }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "回主界面"
+        ]
     },
     "执行BBC任务": {
         "action": {
+            "type": "Custom",
             "param": {
                 "custom_action": "execute_bbc_task"
-            },
-            "type": "Custom"
+            }
         },
         "attach": {
             "apple_type": "铜苹果",
@@ -171,25 +171,39 @@
         ]
     },
     "撤退": {
-        "action": {
-            "param": {},
-            "type": "Click"
-        },
-        "next": [
-            "回主界面"
-        ],
         "recognition": {
+            "type": "TemplateMatch",
             "param": {
                 "template": [
                     "关闭.png"
                 ]
-            },
-            "type": "TemplateMatch"
-        }
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "回主界面"
+        ]
     },
     "bbc战斗": {
         "next": [
             "执行BBC任务"
+        ]
+    },
+    "BBC弹窗-羁绊": {
+        "focus": {
+            "Node.Recognition.Starting": "<span style=\"color: #FF0000;\">从者羁绊满级大于等于10级，战斗结束！</span>"
+        },
+        "next": [
+            "BBC成功"
+        ]
+    },
+    "BBC弹窗-测试": {
+        "focus": "没有收到消息",
+        "next": [
+            "BBC成功"
         ]
     }
 }

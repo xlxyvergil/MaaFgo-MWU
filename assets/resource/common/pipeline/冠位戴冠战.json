@@ -68,6 +68,9 @@
         ]
     },
     "冠位戴冠战-开始": {
+        "focus": {
+            "Node.Action.Starting": "**<span style=\"color: #FF0000;\">开始戴冠战</span>**"
+        },
         "next": [
             "冠位戴冠战列表",
             "[JumpBack]如果需要关闭弹窗",

@@ -456,3 +456,5 @@ tools/ImageCropper/**/*.png
 config
 assets/resource/config.json
 debug
+
+venv/

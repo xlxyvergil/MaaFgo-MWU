@@ -170,19 +170,30 @@ class ExecuteBbcTask(CustomAction):
         print(f"[ExecuteBbcTask] team_config={team_config}, run_count={run_count}, apple_type={apple_type}, battle_type={battle_type}, connect={connect}")
         
         # 执行完整BBC流程（启动+配置+战斗）
-        if not self._execute_full_bbc_flow(
+        success, popup_message = self._execute_full_bbc_flow(
             team_config, run_count, apple_type, battle_type, connect,
             support_order_mismatch, team_config_error,
             mumu_path, mumu_index, mumu_pkg, mumu_app_index,
-            ld_path, ld_index, manual_port
-        ):
-            print("[ExecuteBbcTask] 错误：BBC执行失败")
+            ld_path, ld_index, manual_port)
+
+        if success:
+            print(f"[ExecuteBbcTask] 执行成功，返回消息: {popup_message}")
+
+            # 【直接在这里根据消息决定下一步去哪】
+            if "羁绊" in popup_message:
+                context.override_next("执行BBC任务", ["BBC弹窗-羁绊"])
+            elif "测试" in popup_message:  # 假设你想匹配其他关键字
+                context.override_next("执行BBC任务", ["BBC弹窗-测试"])
+            else:
+                # 如果没有匹配到特殊的弹窗，走默认的 next
+                pass
+
+            return CustomAction.RunResult(success=True)
+        else:
             return CustomAction.RunResult(success=False)
-        
-        print("[ExecuteBbcTask] 任务已完成")
-        return CustomAction.RunResult(success=True)
-    
-    def _execute_full_bbc_flow(self, team_config, run_count, apple_type, battle_type, connect,
+
+
+def _execute_full_bbc_flow(self, team_config, run_count, apple_type, battle_type, connect,
                                 support_order_mismatch, team_config_error,
                                 mumu_path, mumu_index, mumu_pkg, mumu_app_index,
                                 ld_path, ld_index, manual_port):
@@ -261,7 +272,7 @@ class ExecuteBbcTask(CustomAction):
                 print(f"[BBC] 任务执行成功: {popup_title}")
                 if popup_message:
                     print(f"[BBC] 详情: {popup_message}")
-                return True
+                return True, popup_message
             else:
                 reason = result.get('reason', 'unknown')
                 error = result.get('error', '')
@@ -298,7 +309,7 @@ class ExecuteBbcTask(CustomAction):
                 else:
                     logger.error(f"[BBC] 任务执行失败: {reason}")
                     print(f"[BBC] 任务执行失败: {reason}")
-                return False
+                return False, popup_message
             
         except Exception as e:
             print(f"[BBC] 执行战斗流程出错: {e}")
