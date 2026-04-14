@@ -2,6 +2,36 @@
 # 纯 TCP 模式，替代 HTTP API，用于 MaaFgo 通信
 # 协议: 4字节长度(big-endian) + JSON数据
 
+# ==================== 日志开关 ====================
+# 设为 True 启用日志文件输出（bbc_server.log），False 禁用
+ENABLE_LOG = True
+
+import logging as _logging
+import os as _os
+
+_server_logger = _logging.getLogger("BbcTcpServer")
+if ENABLE_LOG and not _server_logger.handlers:
+    _server_logger.setLevel(_logging.DEBUG)
+    _server_logger.propagate = False
+    _log_path = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'bbc_server.log')
+    _fh = _logging.FileHandler(_log_path, mode='w', encoding='utf-8')
+    _fh.setFormatter(_logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    _server_logger.addHandler(_fh)
+
+def _log(level, msg):
+    """统一日志入口，ENABLE_LOG=False 时不输出"""
+    if not ENABLE_LOG:
+        return
+    if level == 'debug':
+        _server_logger.debug(msg)
+    elif level == 'info':
+        _server_logger.info(msg)
+    elif level == 'warning':
+        _server_logger.warning(msg)
+    elif level == 'error':
+        _server_logger.error(msg)
+# =====================================================
+
 tcp_server_instance = None
 popup_event_queue = None
 original_messagebox = None
@@ -241,6 +271,7 @@ def start_tcp_server(bb_window, port=25001):
     
     def handle_client(client, addr):
         """处理客户端连接"""
+        _log('info', f'[Server] 客户端连接: {addr}')
         with _tcp_clients_lock:
             _tcp_clients.append(client)
         
@@ -269,8 +300,11 @@ def start_tcp_server(bb_window, port=25001):
                 # 解析命令
                 try:
                     cmd = json.loads(data_bytes.decode('utf-8'))
+                    _log('debug', f'[Server] 收到命令: {cmd.get("cmd") if isinstance(cmd, dict) else cmd}')
                     response = handle_command(cmd)
+                    _log('debug', f'[Server] 命令响应: success={response.get("success")}, reason={response.get("reason", "")}')
                 except Exception as e:
+                    _log('error', f'[Server] 命令处理异常: {e}')
                     response = {'success': False, 'error': str(e)}
                 
                 # 发送响应
@@ -278,7 +312,7 @@ def start_tcp_server(bb_window, port=25001):
                 client.sendall(len(resp_bytes).to_bytes(4, 'big') + resp_bytes)
                 
         except Exception as e:
-            pass
+            _log('error', f'[Server] 客户端通信异常: {e}')
         finally:
             with _tcp_clients_lock:
                 if client in _tcp_clients:
@@ -287,7 +321,7 @@ def start_tcp_server(bb_window, port=25001):
                 client.close()
             except:
                 pass
-            pass
+            _log('info', f'[Server] 客户端断开: {addr}')
     
     def ensure_imports():
         """确保模块已导入（延迟导入，避免在免责声明前初始化）"""
@@ -453,6 +487,7 @@ def start_tcp_server(bb_window, port=25001):
         sock.listen(5)
         tcp_server_instance = sock
         print(f"[TCP-Server] Started on 127.0.0.1:{port}")
+        _log('info', f'[Server] TCP 服务器已启动，监听 127.0.0.1:{port}')
         
         while True:
             try:
@@ -477,12 +512,15 @@ def api_connect_mumu(bb, args):
     pkg = getattr(args, 'pkg', None)
     app_index = getattr(args, 'app_index', 0) or 0
     
+    _log('info', f'[MuMu] 尝试连接 MuMu，path={path}, index={index}, pkg={pkg}')
+    
     if not path:
         if os.path.exists("MuMuInstallPath.txt"):
             with open("MuMuInstallPath.txt", "r", encoding="utf8") as f:
                 path = f.read().strip()
         if not path:
             print("[API错误] 未指定MuMu安装路径")
+            _log('error', '[MuMu] 未指定MuMu安装路径')
             return False
     
     try:
@@ -502,16 +540,19 @@ def api_connect_mumu(bb, args):
         page.snapshotDevice = page.operateDevice = page.device.snapshotDevice = page.device.operateDevice = device
         bb.pagebar.tags[page.idx].createText(True)
         bb.updateConnectLst(page.idx)
+        _log('info', f'[MuMu] 连接成功: {emulator_name}')
         return True
     except Exception as e:
+        _log('error', f'[MuMu] 连接失败: {e}')
         return False
 
 def api_set_apple_type(page, apple_type):
-    """设置苹果类型"""
+    """设置苹果类型（使用英文 key）"""
     if not apple_type:
         return
     
     apple_map = {
+        # 英文 key
         "gold": CT.Gold,
         "silver": CT.Silver,
         "blue": CT.Blue,
@@ -524,10 +565,14 @@ def api_set_apple_type(page, apple_type):
         try:
             page.appleSet.appleIconPhoto = page.appleSet.getAppleIconPhoto()
             page.appleSet.appleIcon.config(image=page.appleSet.appleIconPhoto)
-            print(f"[API] 苹果类型已设置: {apple_type}")
+            print(f"[API] 苹果类型已设置: {apple_type} -> {apple_map[apple_type]}")
+            _log('info', f'[Apple] 苹果类型已设置: {apple_type} -> {apple_map[apple_type]}')
         except Exception as e:
             print(f"[API警告] 苹果类型已设置但UI更新失败: {e}")
-            print(f"[API] 苹果类型已设置: {apple_type}")
+            _log('warning', f'[Apple] 苹果类型已设置但UI更新失败: {e}')
+    else:
+        print(f"[API警告] 未知苹果类型: {apple_type}")
+        _log('warning', f'[Apple] 未知苹果类型: {apple_type}，可用: {list(apple_map.keys())}')
 
 def api_set_run_times(page, times):
     """设置运行次数"""
@@ -536,13 +581,18 @@ def api_set_run_times(page, times):
         print(f"[API] 运行次数: {times}")
 
 def api_set_battle_type(page, battle_type):
-    """设置战斗类型"""
-    if battle_type == "continuous":
+    """设置战斗类型（支持英文 key 和中文名称）"""
+    if battle_type in ("continuous", "连续出击"):
         page.battletype.set(CT.BATTLE_TYPE[0])
         print("[API] 战斗类型: 连续出击")
-    elif battle_type == "single":
+        _log('info', '[BattleType] 战斗类型: 连续出击')
+    elif battle_type in ("tower", "自动编队爬塔"):
         page.battletype.set(CT.BATTLE_TYPE[1])
-        print("[API] 战斗类型: 单次")
+        print("[API] 战斗类型: 自动编队爬塔")
+        _log('info', '[BattleType] 战斗类型: 自动编队爬塔')
+    else:
+        print(f"[API警告] 未知战斗类型: {battle_type}")
+        _log('warning', f'[BattleType] 未知战斗类型: {battle_type}')
 
 def api_load_config(bb, filename):
     """加载队伍配置文件（从第4步开始：直接应用配置）"""
@@ -699,6 +749,8 @@ def api_run_bbc_task(args):
     import time
     global _current_task_args, _task_should_end, _task_end_reason
     
+    _log('info', f'[Task] api_run_bbc_task 开始，args={args}')
+    
     # 重置结束标志
     _task_should_end = False
     _task_end_reason = ''
@@ -732,29 +784,39 @@ def api_run_bbc_task(args):
     
     if connect == 'auto':
         # auto模式：不执行连接，依赖BBC自动连接
-        pass
+        _log('info', '[Task] connect=auto，跳过连接步骤')
     elif connect == 'mumu' and mumu_path:
+        mumu_pkg = args.get('mumu_pkg', '')
+        mumu_app_index = args.get('mumu_app_index', 0)
+        _log('info', f'[Task] 执行 MuMu 连接，path={mumu_path}, index={mumu_index}, pkg={mumu_pkg}, app_index={mumu_app_index}')
         if not api_connect_mumu(_bb_window_global, type('Args', (), {
-            'path': mumu_path, 'index': mumu_index
+            'path': mumu_path, 'index': mumu_index,
+            'pkg': mumu_pkg if mumu_pkg else None,
+            'app_index': mumu_app_index
         })()):
+            _log('error', '[Task] MuMu 连接失败')
             return {
                 'success': False,
                 'reason': 'mumu_connect_failed',
                 'result': {'type': 'connect_failed', 'category': 'error', 'description': 'MuMu模拟器连接失败'}
             }
     elif connect == 'ldplayer' and ld_path:
+        _log('info', f'[Task] 执行雷电连接，path={ld_path}, index={ld_index}')
         if not api_connect_ld(_bb_window_global, type('Args', (), {
             'path': ld_path, 'index': ld_index
         })()):
+            _log('error', '[Task] 雷电连接失败')
             return {
                 'success': False,
                 'reason': 'ldplayer_connect_failed',
                 'result': {'type': 'connect_failed', 'category': 'error', 'description': '雷电模拟器连接失败'}
             }
     elif connect == 'manual' and manual_port:
+        _log('info', f'[Task] 执行 ADB 连接，port={manual_port}')
         if not api_connect_adb(_bb_window_global, type('Args', (), {
             'ip': manual_port
         })()):
+            _log('error', '[Task] ADB 连接失败')
             return {
                 'success': False,
                 'reason': 'adb_connect_failed',
@@ -764,7 +826,9 @@ def api_run_bbc_task(args):
     time.sleep(1)
     
     # 加载配置
+    _log('info', f'[Task] 加载配置文件: {team_config}')
     if not api_load_config(_bb_window_global, team_config):
+        _log('error', f'[Task] 配置文件加载失败: {team_config}')
         return {
             'success': False,
             'error': f'配置文件加载失败: {team_config}'
@@ -772,16 +836,20 @@ def api_run_bbc_task(args):
     
     # 设置参数
     page = _bb_window_global.pages[0]
+    _log('info', f'[Task] 设置参数: run_count={run_count}, apple_type={apple_type}, battle_type={battle_type}')
     api_set_run_times(page, run_count)
     api_set_apple_type(page, apple_type)
     api_set_battle_type(page, battle_type)
     
     # 启动战斗
+    _log('info', '[Task] 启动战斗')
     if not api_start_battle(page):
+        _log('error', '[Task] 战斗启动失败')
         return {
             'success': False,
             'error': '战斗启动失败，请检查队伍配置'
         }
+    _log('info', '[Task] 战斗已启动，进入等待循环')
     
     # 轮询等待战斗结束
     # 无限等待战斗结束

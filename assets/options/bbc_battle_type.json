@@ -11,7 +11,7 @@
                     "pipeline_override": {
                         "执行BBC任务": {
                             "attach": {
-                                "battle_type": "连续出击"
+                                "battle_type": "continuous"
                             }
                         }
                     }
@@ -22,7 +22,7 @@
                     "pipeline_override": {
                         "执行BBC任务": {
                             "attach": {
-                                "battle_type": "自动编队爬塔"
+                                "battle_type": "tower"
                             }
                         }
                     }
