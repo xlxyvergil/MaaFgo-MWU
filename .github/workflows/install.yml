@@ -136,9 +136,11 @@ jobs:
       - name: Setup & Install MWU
         shell: bash
         run: |
-          # 解压 MWU 到 build 目录
-          7z x ${{ fromJson(steps.download_mwu.outputs.downloaded_files)[0] }} -obuild -y
-          # 调用脚本完成剩余所有工作（Python配置、依赖安装、资源组装）
+          # 获取下载的文件名并解压
+          MWU_FILE=$(ls MWU-*.7z | head -n 1)
+          echo "Found MWU file: $MWU_FILE"
+          7z x "$MWU_FILE" -obuild -y
+          # 调用脚本完成剩余所有工作
           python tools/install-MWU.py ${{ env.tag }} ${{ matrix.platform }} ${{ matrix.arch }}
 
       - name: Get clean version
@@ -225,8 +227,10 @@ jobs:
         run: |
           rm -rf install
           mkdir -p install
+          # 复制 MFA 文件并清理运行时
           cp -rpvn MFA/. install/
           rm -rf install/runtimes
+          # 调用脚本完成剩余所有工作
           python tools/install-Avalonia.py ${{ needs.meta.outputs.tag }} ${{ matrix.os }} ${{ matrix.arch }}
 
       - name: Get version without suffix
