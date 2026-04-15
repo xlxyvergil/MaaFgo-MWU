@@ -162,25 +162,40 @@ def install_chores():
     )
 
 
+def install_agent_deps():
+    """将依赖安装到 agent/libs/ 目录"""
+    import subprocess
+    
+    # 确定嵌入式 Python 的路径 (阿瓦隆打包后通常在 install/python)
+    python_exe = install_path / "python" / "python.exe"
+    if not python_exe.exists():
+        print(f"Warning: Embedded Python not found at {python_exe}, skipping agent deps installation.")
+        return
+
+    libs_dir = install_path / "agent" / "libs"
+    libs_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"Installing dependencies to {libs_dir}...")
+    try:
+        subprocess.check_call([
+            str(python_exe), "-m", "pip", "install",
+            "--no-index",
+            "--find-links", str(working_dir / "deps" / "python_packages"),
+            "-t", str(libs_dir),
+            "maafw", "maaagentbinary", "numpy", "Pillow"
+        ])
+        print("Agent dependencies installed successfully.")
+    except Exception as e:
+        print(f"Error installing agent dependencies: {e}")
+
 def install_agent():
     # 复制 agent 目录，但排除 MWU 版本文件
     shutil.copytree(
         working_dir / "agent",
         install_path / "agent",
-        ignore=shutil.ignore_patterns("main.py", "bbc_action.py"),
+        ignore=shutil.ignore_patterns("bbc_action-mwu.py"),
         dirs_exist_ok=True,
     )
-    # 将 main-Avalonia.py 重命名为 main.py
-    avalonia_main = install_path / "agent" / "main-Avalonia.py"
-    target_main = install_path / "agent" / "main.py"
-    if avalonia_main.exists():
-        shutil.move(str(avalonia_main), str(target_main))
-    
-    # 将 bbc_action-Avalonia.py 重命名为 bbc_action.py
-    avalonia_bbc = install_path / "agent" / "bbc_action-Avalonia.py"
-    target_bbc = install_path / "agent" / "bbc_action.py"
-    if avalonia_bbc.exists():
-        shutil.move(str(avalonia_bbc), str(target_bbc))
 
 
 def install_bbcdll():
@@ -206,6 +221,7 @@ if __name__ == "__main__":
     install_deps()
     install_resource()
     install_chores()
+    install_agent_deps()  # 新增：安装 Agent 依赖到 libs/
     install_agent()
     install_bbcdll()
     install_tasks()

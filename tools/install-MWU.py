@@ -165,6 +165,32 @@ def install_chores():
     )
 
 
+def install_agent_deps():
+    """将依赖安装到 agent/libs/ 目录"""
+    import subprocess
+    
+    # 确定嵌入式 Python 的路径 (MWU 打包后通常在 build/python)
+    python_exe = install_path / "python" / "python.exe"
+    if not python_exe.exists():
+        print(f"Warning: Embedded Python not found at {python_exe}, skipping agent deps installation.")
+        return
+
+    libs_dir = install_path / "agent" / "libs"
+    libs_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"Installing dependencies to {libs_dir}...")
+    try:
+        subprocess.check_call([
+            str(python_exe), "-m", "pip", "install",
+            "--no-index",
+            "--find-links", str(working_dir / "deps" / "python_packages"),
+            "-t", str(libs_dir),
+            "maafw", "maaagentbinary", "numpy", "Pillow"
+        ])
+        print("Agent dependencies installed successfully.")
+    except Exception as e:
+        print(f"Error installing agent dependencies: {e}")
+
 def install_agent():
     # 复制 agent 目录，但排除 Avalonia 版本文件
     shutil.copytree(
@@ -173,12 +199,13 @@ def install_agent():
         ignore=shutil.ignore_patterns("main-Avalonia.py", "bbc_action-Avalonia.py"),
         dirs_exist_ok=True,
     )
-    # 将 main.py 保留（MWU 使用标准 main.py）
-    # 将 bbc_action-mwu.py 重命名为 bbc_action.py
-    mwu_bbc = install_path / "agent" / "bbc_action-mwu.py"
-    target_bbc = install_path / "agent" / "bbc_action.py"
+    
+    # MWU 特殊处理：将 bbc_action-mwu.py 覆盖为 bbc_action.py
+    mwu_bbc = install_path / "agent" / "custom" / "bbc_action-mwu.py"
+    target_bbc = install_path / "agent" / "custom" / "bbc_action.py"
     if mwu_bbc.exists():
         shutil.move(str(mwu_bbc), str(target_bbc))
+        print(f"MWU: Moved bbc_action-mwu.py to bbc_action.py")
 
 
 def install_bbcdll():
@@ -204,6 +231,7 @@ if __name__ == "__main__":
     install_deps()
     install_resource()
     install_chores()
+    install_agent_deps()  # 新增：安装 Agent 依赖到 libs/
     install_agent()
     install_bbcdll()
     install_tasks()

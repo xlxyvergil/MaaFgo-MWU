@@ -328,11 +328,6 @@ jobs:
         run: |
           ./install/python/python.exe -m pip install --no-index --find-links deps/python_packages maafw maaagentbinary numpy Pillow
 
-      - name: Prepare Avalonia main.py
-        shell: bash
-        run: |
-          cp agent/main-Avalonia.py agent/main.py
-
       - name: Install
         shell: pwsh
         run: |
