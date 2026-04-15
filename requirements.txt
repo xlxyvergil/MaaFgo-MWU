@@ -1,4 +1,2 @@
-maafw
-maaagentbinary
-Pillow>=9.0.0
-numpy>=1.24.0
+maafw==v5.10.1
+opencv-python
