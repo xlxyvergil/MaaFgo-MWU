@@ -5,6 +5,7 @@ import time
 import logging
 import traceback
 import tempfile
+import shutil
 
 import numpy as np
 from PIL import Image
@@ -12,6 +13,9 @@ from PIL import Image
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
+
+# 获取 Agent 根目录 (用于定位 resource 等文件夹)
+AGENT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # --- 独立日志配置 ---
 _nav_logger = logging.getLogger("GeneralNavigation")
@@ -73,7 +77,8 @@ class GeneralNavigationAction(CustomAction):
             # 2. 加载地图坐标映射
             _nav_logger.info("[Nav] Step 2: Loading map_coordinates.json...")
             try:
-                map_file = os.path.join(os.path.dirname(__file__), "map_coordinates.json")
+                # 路径指向 agent/utils/map_coordinates.json
+                map_file = os.path.join(os.path.dirname(__file__), "..", "utils", "map_coordinates.json")
                 with open(map_file, 'r', encoding='utf-8') as f:
                     coordinates_data = json.load(f)
             except Exception as e:
@@ -100,8 +105,9 @@ class GeneralNavigationAction(CustomAction):
 
             # 4. 加载大地图模板（Pillow 读取，转为 numpy array 供 run_recognition 使用）
             _nav_logger.info("[Nav] Step 4: Loading map template...")
+            # 路径指向 agent/resource/common/image/地图坐标导航/{map_name}.png
             map_template_path = os.path.join(
-                os.path.dirname(__file__), "..", "resource", "common", "image",
+                AGENT_ROOT, "resource", "common", "image",
                 "地图坐标导航", f"{map_name}.png"
             )
             _nav_logger.info(f"[Nav] Template path resolved: {os.path.abspath(map_template_path)}")
@@ -174,7 +180,6 @@ class GeneralNavigationAction(CustomAction):
             region_pil_debug.save(os.path.join(os.path.dirname(__file__), 'debug_map_region.png'))
             _nav_logger.info(f"[Nav] Saved debug_map_region.png (RGB), size={region_pil_debug.size}")
             # 同时保存缩放后用于匹配的小图
-            import shutil
             dbg_small = os.path.join(os.path.dirname(__file__), 'debug_map_small.png')
             shutil.copy2(screencap_template_path, dbg_small)
             _nav_logger.info(f"[Nav] Saved debug_map_small.png (match template) from {screencap_template_path}")

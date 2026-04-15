@@ -28,10 +28,10 @@ if not logger.handlers:
 BBC_TCP_HOST = "127.0.0.1"
 BBC_TCP_PORT = 25001
 
-# 固定 BBC 路径 - 使用相对于本文件的路径
-AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
-# BBC 目录在 agent 的父目录
-BBC_PATH = os.path.join(AGENT_DIR, '..', 'resource', 'BBchannel')
+# 固定 BBC 路径 - 使用相对于 agent 根目录的路径
+AGENT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# MWU 环境下 BBC 位于 resource/BBchannel
+BBC_PATH = os.path.join(AGENT_ROOT, 'resource', 'BBchannel')
 # 正式版本
 BBC_EXE_PATH = os.path.join(BBC_PATH, 'dist', 'BBchannel64', 'BBchannel.exe')
 # 调试版本（测试用，会显示控制台窗口）
