@@ -128,6 +128,20 @@ jobs:
         run: |
           python tools/download_deps.py ${{ matrix.platform }} ${{ matrix.arch }}
 
+      - name: Download MWU Artifact from Release
+        id: download_mwu
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: ravizhan/MWU
+          latest: true
+          fileName: MWU-${{ matrix.platform }}-${{ matrix.arch }}-*.7z
+          out-file-path: ./
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Decompress MWU to build
+        run: |
+          7z x ${{ fromJson(steps.download_mwu.outputs.downloaded_files)[0] }} -obuild -y
+
       - name: Setup Python Environment for Agent
         shell: bash
         run: |
