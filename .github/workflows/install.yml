@@ -100,39 +100,6 @@ jobs:
         with:
           python-version: "3.12.10"
 
-      - name: Copy Resources
-        shell: bash
-        run: |
-          curl -L https://github.com/ravizhan/MWU/raw/refs/heads/main/deploy/copy_resources.py -o ./copy_resources.py
-          uv run ./copy_resources.py
-          cp -r assets/options build/options
-          cp -r assets/i18n build/i18n
-          cp -r bbcdll build/bbcdll
-          cp -r assets/tasks build/tasks
-          # 仅复制 MWU 必需的 Agent 文件
-          mkdir -p build/agent
-          cp agent/main.py build/agent/
-          # MWU 版本：复制 bbc_action-mwu.py 并重命名为 bbc_action.py
-          cp agent/bbc_action-mwu.py build/agent/bbc_action.py
-          cp agent/sequential_tasks_action.py build/agent/
-          cp agent/general_navigation_action.py build/agent/ 2>/dev/null || true
-          cp agent/map_coordinates.json build/agent/ 2>/dev/null || true
-      - name: Download Dependencies
-        shell: bash
-        run: |
-          curl -L https://github.com/ravizhan/MWU/raw/refs/heads/main/deploy/download_deps.py -o ./download_deps.py
-          uv run ./download_deps.py
-
-      - name: Download Artifact from Release
-        id: download_artifact
-        uses: robinraju/release-downloader@v1
-        with:
-          repository: ravizhan/MWU
-          latest: true
-          fileName: MWU-${{ matrix.platform }}-${{ matrix.arch }}-*.7z
-          out-file-path: ./
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Download Python Dependencies
         shell: bash
         run: |
@@ -173,6 +140,19 @@ jobs:
       - name: Decompress Artifact to build
         run: |
           7z x ${{ fromJson(steps.download_artifact.outputs.downloaded_files)[0] }} -obuild -y
+
+      - name: Clean build directory
+        shell: bash
+        run: |
+          rm -rf build
+
+      - name: Install MWU
+        shell: bash
+        run: |
+          cd tools
+          python -m pip install json-with-comments
+          python ./install-MWU.py ${{ env.tag }} ${{ matrix.platform }} ${{ matrix.arch }}
+          cd ..
 
       - name: Get clean version
         id: get_version
@@ -247,6 +227,11 @@ jobs:
         shell: bash
         run: |
           rm -rf MFA/runtimes
+      
+      - name: Clean install directory
+        shell: bash
+        run: |
+          rm -rf install
       
       - name: Setup embedded Python
         shell: pwsh
