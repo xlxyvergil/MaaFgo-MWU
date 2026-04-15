@@ -33,9 +33,9 @@ AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
 # BBC 目录在 agent 的父目录
 BBC_PATH = os.path.join(AGENT_DIR, '..', 'BBchannel')
 # 正式版本
-BBC_EXE_PATH = os.path.join(BBC_PATH, 'dist', 'BBchannel64', 'BBchannel.exe')
+BBC_EXE_PATH = os.path.join(BBC_PATH, 'resource', 'dist', 'BBchannel64', 'BBchannel.exe')
 # 调试版本（测试用，会显示控制台窗口）
-# BBC_EXE_PATH = os.path.join(BBC_PATH, 'dist', 'BBchannel64', 'BBchannel_debug.exe')
+# BBC_EXE_PATH = os.path.join(BBC_PATH, 'resource', 'dist', 'BBchannel64', 'BBchannel_debug.exe')
 
 # 确保路径是绝对的并存在
 BBC_EXE_PATH = os.path.abspath(BBC_EXE_PATH)
