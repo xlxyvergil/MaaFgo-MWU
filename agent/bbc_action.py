@@ -192,8 +192,7 @@ class ExecuteBbcTask(CustomAction):
         else:
             return CustomAction.RunResult(success=False)
 
-
-def _execute_full_bbc_flow(self, team_config, run_count, apple_type, battle_type, connect,
+    def _execute_full_bbc_flow(self, team_config, run_count, apple_type, battle_type, connect,
                                 support_order_mismatch, team_config_error,
                                 mumu_path, mumu_index, mumu_pkg, mumu_app_index,
                                 ld_path, ld_index, manual_port):
