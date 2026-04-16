@@ -4,16 +4,8 @@
             "type": "select",
             "label": "队伍编号",
             "description": "游戏队伍编号，进战斗前会执行一次保存编队",
+            "default": "队伍1",
             "cases": [
-                {
-                    "name": "默认队伍",
-                    "label": "默认队伍",
-                    "pipeline_override": {
-                      "队伍编制": {
-                        "next": "回主界面"
-                        }
-                    }
-                },
                 {
                     "name": "队伍1",
                     "label": "队伍1",
@@ -149,8 +141,7 @@
                         }
                     }
                 }
-            ],
-            "default": "1"
+            ]
         }
     }
 }
