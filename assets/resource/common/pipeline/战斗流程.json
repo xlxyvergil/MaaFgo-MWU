@@ -29,6 +29,7 @@
             "战斗结束-主界面",
             "战斗结束关闭",
             "可能已经结束战斗",
+            "BBC执行失败回到主界面",
             "[JumpBack]完成"
         ],
         "recognition": {
@@ -77,6 +78,24 @@
         ],
         "recognition": {
             "type": "DirectHit"
+        }
+    },
+    "可能已经结束战斗": {
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    4,
+                    499,
+                    620,
+                    219
+                ],
+                "template": "task.png",
+                "green_mask": true
+            }
         }
     },
     "失败2": {
@@ -236,17 +255,19 @@
             }
         }
     },
-    "可能已经结束战斗": {
+    "BBC执行失败回到主界面": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "roi": [
-                    4,
-                    499,
-                    620,
-                    219
+                    46,
+                    9,
+                    128,
+                    68
                 ],
-                "template": "task.png"
+                "template": "通用-关闭-管理室-通知.png",
+                "method": 3,
+                "green_mask": true
             }
         },
         "next": [
