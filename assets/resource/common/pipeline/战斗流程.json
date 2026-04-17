@@ -1,4 +1,24 @@
 {
+    "BBC弹窗-测试": {
+        "focus": "没有收到消息",
+        "next": [
+            "BBC成功"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "BBC弹窗-羁绊": {
+        "focus": {
+            "Node.Recognition.Starting": "<span style=\"color: #FF0000;\">从者羁绊满级大于等于10级，战斗结束！</span>"
+        },
+        "next": [
+            "BBC成功"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
     "BBC成功": {
         "next": [
             "作战成功",
@@ -8,10 +28,31 @@
             "撤退",
             "战斗结束-主界面",
             "战斗结束关闭",
+            "可能已经结束战斗",
             "[JumpBack]完成"
-        ]
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "bbc战斗": {
+        "next": [
+            "执行BBC任务"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
     },
     "作战成功": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "好友申请界面"
+        ],
+        "on_error": [
+            "回主界面"
+        ],
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -19,19 +60,35 @@
                     "下一步.png"
                 ]
             }
-        },
+        }
+    },
+    "使用chaldea队伍": {
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Custom",
+            "param": {
+                "custom_action": "动作名占位,chaldea相关"
+            }
+        },
+        "attach": {
+            "chaldea_import_source": ""
         },
         "next": [
-            "好友申请界面"
+            "执行BBC任务"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "失败2": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "撤退"
         ],
         "on_error": [
             "回主界面"
-        ]
-    },
-    "失败2": {
+        ],
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -39,19 +96,15 @@
                     "撤退决定.png"
                 ]
             }
-        },
-        "action": {
-            "type": "Click",
-            "param": {}
-        },
-        "next": [
-            "撤退"
-        ],
-        "on_error": [
-            "回主界面"
-        ]
+        }
     },
     "好友申请界面": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "回主界面"
+        ],
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -59,14 +112,7 @@
                     "关闭好友申请.png"
                 ]
             }
-        },
-        "action": {
-            "type": "Click",
-            "param": {}
-        },
-        "next": [
-            "回主界面"
-        ]
+        }
     },
     "完成": {
         "action": {
@@ -79,9 +125,21 @@
                     1
                 ]
             }
+        },
+        "recognition": {
+            "type": "DirectHit"
         }
     },
     "战斗失败": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "失败2"
+        ],
+        "on_error": [
+            "回主界面"
+        ],
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -89,19 +147,12 @@
                     "撤退.png"
                 ]
             }
-        },
-        "action": {
-            "type": "Click",
-            "param": {}
-        },
-        "next": [
-            "失败2"
-        ],
-        "on_error": [
-            "回主界面"
-        ]
+        }
     },
     "战斗结束-主界面": {
+        "next": [
+            "回主界面"
+        ],
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -115,12 +166,15 @@
                     "菜单.png"
                 ]
             }
+        }
+    },
+    "战斗结束关闭": {
+        "action": {
+            "type": "Click"
         },
         "next": [
             "回主界面"
-        ]
-    },
-    "战斗结束关闭": {
+        ],
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -134,14 +188,7 @@
                     "关闭.png"
                 ]
             }
-        },
-        "action": {
-            "type": "Click",
-            "param": {}
-        },
-        "next": [
-            "回主界面"
-        ]
+        }
     },
     "执行BBC任务": {
         "action": {
@@ -168,9 +215,18 @@
         },
         "next": [
             "BBC成功"
-        ]
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
     },
     "撤退": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "回主界面"
+        ],
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -178,49 +234,23 @@
                     "关闭.png"
                 ]
             }
-        },
-        "action": {
-            "type": "Click",
-            "param": {}
+        }
+    },
+    "可能已经结束战斗": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    4,
+                    499,
+                    620,
+                    219
+                ],
+                "template": "task.png"
+            }
         },
         "next": [
             "回主界面"
         ]
-    },
-    "bbc战斗": {
-        "next": [
-            "执行BBC任务"
-        ]
-    },
-    "BBC弹窗-羁绊": {
-        "focus": {
-            "Node.Recognition.Starting": "<span style=\"color: #FF0000;\">从者羁绊满级大于等于10级，战斗结束！</span>"
-        },
-        "next": [
-            "BBC成功"
-        ]
-    },
-    "BBC弹窗-测试": {
-        "focus": "没有收到消息",
-        "next": [
-            "BBC成功"
-        ]
-    },
-    "使用chaldea队伍": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "动作名占位,chaldea相关"
-            }
-        },
-        "next": [
-            "执行BBC任务"
-        ],
-        "recognition": {
-            "type": "DirectHit"
-        },
-        "attach": {
-            "chaldea_import_source": ""
-        }
     }
 }
