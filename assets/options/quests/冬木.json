@@ -11,7 +11,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q未确认坐标XA"
+                                "quests": "未确认坐标XA"
                             }
                         },
                         "关卡选择": {
@@ -27,7 +27,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q未确认坐标XB"
+                                "quests": "未确认坐标XB"
                             }
                         },
                         "关卡选择": {
@@ -43,7 +43,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q未确认坐标XC"
+                                "quests": "未确认坐标XC"
                             }
                         },
                         "关卡选择": {
@@ -59,7 +59,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q未确认坐标XD"
+                                "quests": "未确认坐标XD"
                             }
                         },
                         "关卡选择": {
@@ -75,7 +75,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q未确认坐标XE"
+                                "quests": "未确认坐标XE"
                             }
                         },
                         "关卡选择": {
@@ -91,7 +91,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q未确认坐标XF"
+                                "quests": "未确认坐标XF"
                             }
                         },
                         "关卡选择": {
@@ -107,7 +107,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q未确认坐标XG"
+                                "quests": "未确认坐标XG"
                             }
                         },
                         "关卡选择": {
@@ -123,7 +123,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "变动坐标点0号"
                             }
                         },
                         "关卡选择": {
