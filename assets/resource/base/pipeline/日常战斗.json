@@ -1,0 +1,55 @@
+{
+    "日常战斗": {
+        "recognition": {
+            "type": "DirectHit"
+        },
+        "next": [
+            "[JumpBack]执行回主界面",
+            "[JumpBack]执行队伍选择",
+            "[JumpBack]执行章节导航",
+            "[JumpBack]执行bbc战斗",
+            "执行战斗结束"
+        ]
+    },
+    "执行回主界面": {
+        "recognition": {
+            "type": "DirectHit"
+        },
+        "next": [
+            "回主界面"
+        ],
+        "max_hit": 1
+    },
+    "执行队伍选择": {
+        "recognition": {
+            "type": "DirectHit"
+        },
+        "next": [
+            "队伍选择"
+        ],
+        "max_hit": 1
+    },
+    "执行章节导航": {
+        "recognition": {
+            "type": "DirectHit"
+        },
+        "next": [
+            "章节导航"
+        ],
+        "max_hit": 1
+    },
+    "执行bbc战斗": {
+        "recognition": {
+            "type": "DirectHit"
+        },
+        "next": [
+            "bbc战斗"
+        ],
+        "max_hit": 1
+    },
+    "执行战斗结束": {
+        "recognition": {
+            "type": "DirectHit"
+        }
+    }
+}
