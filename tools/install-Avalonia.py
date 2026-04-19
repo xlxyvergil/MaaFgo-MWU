@@ -113,16 +113,17 @@ def install_resource():
 
     # Copy options and i18n directories
     if (working_dir / "assets" / "options").exists():
-        # 复制 options 目录，但排除 bbc_team_config.json
-        for item in (working_dir / "assets" / "options").iterdir():
-            if item.name == "bbc_team_config.json":
-                continue  # 跳过 bbc_team_config.json
-            if item.is_dir():
-                shutil.copytree(item, install_path / "options" / item.name, dirs_exist_ok=True)
-            else:
-                shutil.copy2(item, install_path / "options" / item.name)
+        shutil.copytree(
+            working_dir / "assets" / "options",
+            install_path / "options",
+            dirs_exist_ok=True,
+        )
         
-        # 复制 bbc_team_config_nomwu.json 并重命名为 bbc_team_config.json
+        # 删除 bbc_team_config.json，使用 bbc_team_config_nomwu.json 替代
+        bbc_config = install_path / "options" / "bbc_team_config.json"
+        if bbc_config.exists():
+            bbc_config.unlink()
+        
         nomwu_config = working_dir / "assets" / "options" / "bbc_team_config_nomwu.json"
         if nomwu_config.exists():
             shutil.copy2(nomwu_config, install_path / "options" / "bbc_team_config.json")
