@@ -1,23 +1,23 @@
 {
     "主界面判断-活动报酬": {
-        "next": [
-            "无弹窗",
-            "[JumpBack]有弹窗返回"
-        ],
-        "post_wait_freezes": 500,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
                 "roi": [
-                    50,
-                    21,
-                    117,
-                    43
+                    23,
+                    12,
+                    154,
+                    67
                 ],
                 "template": "main_ui.png",
-                "green_mask": true
+                "green_mask": false
             }
-        }
+        },
+        "post_wait_freezes": 500,
+        "next": [
+            "无弹窗",
+            "[JumpBack]有弹窗返回"
+        ]
     },
     "主界面判断-返回": {
         "action": {
@@ -28,22 +28,15 @@
                 ]
             }
         },
-        "post_wait_freezes": 500,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "post_wait_freezes": 500
     },
     "回主界面": {
         "next": [
             "主界面判断-活动报酬",
             "[JumpBack]主界面判断-返回"
-        ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        ]
     },
     "无弹窗": {
-        "post_wait_freezes": 500,
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -56,10 +49,11 @@
                 "template": [
                     "主界面圣晶石.png"
                 ],
-                "threshold": 0.5,
-                "green_mask": true
+                "green_mask": true,
+                "threshold": 0.5
             }
-        }
+        },
+        "post_wait_freezes": 500
     },
     "有弹窗返回": {
         "action": {
@@ -70,9 +64,6 @@
                 ]
             }
         },
-        "post_wait_freezes": 500,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "post_wait_freezes": 500
     }
 }
