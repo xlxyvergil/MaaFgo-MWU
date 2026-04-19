@@ -6,7 +6,7 @@
         "action": {
             "type": "Command",
             "param": {
-                "exec": "./restart_mfa.exe"
+                "exec": "{RESOURCE_DIR}/../../restart_mfa.exe"
             }
         }
     }

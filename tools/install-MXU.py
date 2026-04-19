@@ -107,6 +107,7 @@ def install_resource():
         with open(working_dir / "assets" / "restart_config.json", 'r', encoding='utf-8') as f:
             config = json.load(f)
         config['target_exe'] = 'MaaFgo.exe'
+        config['description'] = 'MaaFgo重启配置'
         with open(install_path / "restart_config.json", 'w', encoding='utf-8') as f:
             json.dump(config, f, ensure_ascii=False, indent=2)
 
