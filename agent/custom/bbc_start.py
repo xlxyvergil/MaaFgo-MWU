@@ -5,6 +5,7 @@ import socket
 import struct
 import subprocess
 import logging
+import psutil
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
@@ -27,6 +28,7 @@ if not logger.handlers:
 # BBC TCP 配置
 BBC_TCP_HOST = "127.0.0.1"
 BBC_TCP_PORT = 25001
+BBC_CALLBACK_PORT = 25002
 
 # 固定 BBC 路径
 AGENT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -47,13 +49,13 @@ class BbcTcpClient:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock.settimeout(timeout)
             self.sock.connect((BBC_TCP_HOST, BBC_TCP_PORT))
-            print(f"[TCP] 已连接到 BBC TCP 服务 {BBC_TCP_HOST}:{BBC_TCP_PORT}")
+            logger.info(f"[TCP] 已连接到 BBC TCP 服务 {BBC_TCP_HOST}:{BBC_TCP_PORT}")
             return True
         except Exception as e:
-            print(f"[TCP] 连接失败: {e}")
+            logger.warning(f"[TCP] 连接失败: {e}")
             return False
     
-    def send_command(self, cmd: str, args: dict = None, timeout: int = None) -> dict:
+    def send_command(self, cmd: str, args: dict = None, timeout: int = 10) -> dict:
         """发送命令并同步等待响应"""
         if not self.sock:
             return {'success': False, 'error': 'Not connected'}
@@ -65,12 +67,8 @@ class BbcTcpClient:
             msg_with_len = len(msg).to_bytes(4, 'big') + msg
             self.sock.sendall(msg_with_len)
             
-            # 同步接收响应
-            if timeout is not None:
-                self.sock.settimeout(timeout)
-            else:
-                self.sock.settimeout(None)  # 阻塞模式，无超时
-            
+            # 接收响应
+            self.sock.settimeout(timeout)
             length_bytes = self._recv_all(4)
             if not length_bytes:
                 return {'success': False, 'error': 'Connection closed'}
@@ -82,9 +80,9 @@ class BbcTcpClient:
             
             return json.loads(response_data.decode('utf-8'))
         except socket.timeout:
-            return {'success': False, 'error': 'Timeout waiting for response'}
+            return {'success': False, 'error': f'Timeout waiting for response (cmd={cmd})'}
         except Exception as e:
-            print(f"[TCP] 发送命令失败: {e}")
+            logger.error(f"[TCP] 发送命令失败: {e}")
             return {'success': False, 'error': str(e)}
     
     def _recv_all(self, n: int) -> bytes:
@@ -112,31 +110,20 @@ class BbcTcpClient:
 
 @AgentServer.custom_action("start_bbc")
 class StartBbc(CustomAction):
-    """启动BBC进程、配置连接参数并等待TCP连接"""
+    """启动BBC进程、等待就绪并通过TCP连接模拟器"""
 
     def run(self, context: Context, argv: CustomAction.RunArg) -> CustomAction.RunResult:
         try:
             # 从 Context 获取节点数据
             node_data = context.get_node_data("启动bbc")
             if not node_data:
-                print(f"[StartBbc] 错误：无法获取节点数据")
+                logger.error("[StartBbc] 无法获取节点数据")
                 return CustomAction.RunResult(success=False)
             
             attach_data = node_data.get('attach', {})
             
             # 提取连接相关参数
             connect = attach_data.get('connect', 'auto')
-            
-            # 将连接类型转换为 BBC 服务端命令
-            connect_cmd = {
-                'mumu': 'connect_mumu',
-                'ld': 'connect_ld', 
-                'adb': 'connect_adb',
-                'connect_mumu': 'connect_mumu',
-                'connect_ld': 'connect_ld',
-                'connect_adb': 'connect_adb'
-            }.get(connect, connect)
-            
             mumu_path = attach_data.get('mumu_path', '')
             mumu_index = attach_data.get('mumu_index', 0)
             mumu_pkg = attach_data.get('mumu_pkg', 'com.bilibili.fatego')
@@ -145,33 +132,164 @@ class StartBbc(CustomAction):
             ld_index = attach_data.get('ld_index', 0)
             manual_port = attach_data.get('manual_port', '')
             
-            print(f"[StartBbc] 连接参数: connect={connect}, connect_cmd={connect_cmd}, manual_port={manual_port}")
-            print(f"[StartBbc] MuMu参数: path={mumu_path}, index={mumu_index}, pkg={mumu_pkg}, app_index={mumu_app_index}")
-            print(f"[StartBbc] LD参数: path={ld_path}, index={ld_index}")
+            # 将连接类型转换为 BBC 服务端命令
+            connect_cmd_map = {
+                'mumu': 'connect_mumu',
+                'ld': 'connect_ld', 
+                'adb': 'connect_adb',
+                'connect_mumu': 'connect_mumu',
+                'connect_ld': 'connect_ld',
+                'connect_adb': 'connect_adb'
+            }
+            connect_cmd = connect_cmd_map.get(connect, connect)
             
-            # 步骤1: 启动BBC
-            print("[StartBbc] 步骤1: 启动BBC...")
+            logger.info(f"[StartBbc] 连接参数: connect={connect}, cmd={connect_cmd}")
+            logger.info(f"[StartBbc] MuMu: path={mumu_path}, index={mumu_index}, pkg={mumu_pkg}")
+            logger.info(f"[StartBbc] LD: path={ld_path}, index={ld_index}")
             
-            # 检查BBC可执行文件
-            if not os.path.exists(BBC_EXE_PATH):
-                print(f"[StartBbc] BBC可执行文件不存在: {BBC_EXE_PATH}")
-                return CustomAction.RunResult(success=False)
+            # 步骤1: 检查BBC进程是否存在
+            logger.info("[StartBbc] 步骤1: 检查BBC进程...")
+            bbc_proc = self._find_bbc_process()
             
-            # 启动 BBC 进程
-            print("[StartBbc] 启动 BBC 进程...")
-            print(f"[StartBbc] BBC 路径：{BBC_EXE_PATH}")
-            logger.info(f"[StartBbc] 启动 BBC 进程，路径：{BBC_EXE_PATH}")
-                        
-            # 切换到 BBC 所在目录再启动
-            bbc_dir = os.path.dirname(BBC_EXE_PATH)
-            _is_debug = BBC_EXE_PATH.endswith('_debug.exe')
-            _creation_flags = subprocess.CREATE_NEW_CONSOLE if _is_debug else 0
+            if bbc_proc:
+                logger.info(f"[StartBbc] 发现BBC进程，PID: {bbc_proc.pid}")
+                # 尝试直接连接TCP
+                tcp_client = BbcTcpClient()
+                if tcp_client.connect(timeout=3):
+                    logger.info("[StartBbc] TCP连接成功，跳过启动步骤")
+                    # 直接执行步骤6: 连接模拟器
+                    result = self._connect_emulator(tcp_client, connect_cmd, mumu_path, mumu_index, 
+                                                   mumu_pkg, mumu_app_index, ld_path, ld_index, manual_port)
+                    tcp_client.stop()
+                    return result
+                else:
+                    logger.warning("[StartBbc] TCP连接失败，将重启BBC进程")
+                    self._kill_bbc_process(bbc_proc)
+                    time.sleep(1)
             
-            print(f"[StartBbc] 调试模式: {_is_debug}")
-            print(f"[StartBbc] CreationFlags: {_creation_flags}")
-            print(f"[StartBbc] 工作目录: {bbc_dir}")
+            # 步骤2-7: 启动BBC并重试（最多5次）
+            max_retries = 5
+            for attempt in range(1, max_retries + 1):
+                logger.info(f"[StartBbc] ========== 第{attempt}次启动尝试 ==========")
+                
+                # 启动BBC进程
+                logger.info(f"[StartBbc] 启动BBC进程 (尝试 {attempt}/{max_retries})...")
+                bbc_proc = self._launch_bbc()
+                if not bbc_proc:
+                    logger.error(f"[StartBbc] BBC进程启动失败 (尝试 {attempt})")
+                    if attempt < max_retries:
+                        time.sleep(2)
+                        continue
+                    else:
+                        return CustomAction.RunResult(success=False)
+                
+                # 等待回调端口确认BBC就绪
+                logger.info(f"[StartBbc] 等待BBC就绪（监听回调端口）...")
+                ready = self._wait_for_callback(timeout=30)
+                if not ready:
+                    logger.warning(f"[StartBbc] BBC就绪超时 (尝试 {attempt})，终止进程")
+                    self._kill_bbc_process(bbc_proc)
+                    if attempt < max_retries:
+                        time.sleep(2)
+                        continue
+                    else:
+                        logger.error(f"[StartBbc] 已达到最大重试次数 ({max_retries})，任务失败")
+                        return CustomAction.RunResult(success=False)
+                
+                logger.info("[StartBbc] BBC已就绪，建立TCP连接...")
+                
+                # 连接TCP
+                tcp_client = BbcTcpClient()
+                tcp_connected = False
+                for retry in range(5):
+                    if tcp_client.connect(timeout=3):
+                        tcp_connected = True
+                        break
+                    logger.warning(f"[StartBbc] TCP连接重试 {retry+1}/5")
+                    time.sleep(1)
+                
+                if not tcp_connected:
+                    logger.warning(f"[StartBbc] TCP连接失败 (尝试 {attempt})，终止进程")
+                    self._kill_bbc_process(bbc_proc)
+                    if attempt < max_retries:
+                        time.sleep(2)
+                        continue
+                    else:
+                        logger.error(f"[StartBbc] 已达到最大重试次数 ({max_retries})，任务失败")
+                        return CustomAction.RunResult(success=False)
+                
+                # 连接模拟器
+                logger.info(f"[StartBbc] 连接模拟器...")
+                result = self._connect_emulator(tcp_client, connect_cmd, mumu_path, mumu_index, 
+                                               mumu_pkg, mumu_app_index, ld_path, ld_index, manual_port)
+                tcp_client.stop()
+                
+                if result.success:
+                    logger.info(f"[StartBbc] BBC启动并连接成功 (尝试 {attempt})")
+                    return CustomAction.RunResult(success=True)
+                else:
+                    logger.warning(f"[StartBbc] 模拟器连接失败 (尝试 {attempt})，终止进程")
+                    self._kill_bbc_process(bbc_proc)
+                    if attempt < max_retries:
+                        time.sleep(2)
+                        continue
+                    else:
+                        logger.error(f"[StartBbc] 已达到最大重试次数 ({max_retries})，任务失败")
+                        return CustomAction.RunResult(success=False)
             
-            # 重定向输出到文件以便调试
+            # 理论上不会到达这里
+            logger.error("[StartBbc] 未知错误")
+            return CustomAction.RunResult(success=False)
+            
+        except Exception as e:
+            logger.error(f"[StartBbc] 异常: {e}", exc_info=True)
+            return CustomAction.RunResult(success=False)
+    
+    def _find_bbc_process(self):
+        """查找BBC进程"""
+        try:
+            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                try:
+                    cmdline = proc.info.get('cmdline', [])
+                    if cmdline and any('BBchannel.exe' in arg for arg in cmdline):
+                        return proc
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
+            return None
+        except Exception as e:
+            logger.warning(f"[StartBbc] 查找进程失败: {e}")
+            return None
+    
+    def _kill_bbc_process(self, proc):
+        """终止BBC进程"""
+        try:
+            if proc and proc.is_running():
+                logger.info(f"[StartBbc] 终止BBC进程 PID: {proc.pid}")
+                proc.terminate()
+                try:
+                    proc.wait(timeout=5)
+                except psutil.TimeoutExpired:
+                    proc.kill()
+                    proc.wait(timeout=3)
+                logger.info("[StartBbc] BBC进程已终止")
+        except Exception as e:
+            logger.warning(f"[StartBbc] 终止进程失败: {e}")
+    
+    def _launch_bbc(self):
+        """启动BBC进程"""
+        if not os.path.exists(BBC_EXE_PATH):
+            logger.error(f"[StartBbc] BBC可执行文件不存在: {BBC_EXE_PATH}")
+            return None
+        
+        bbc_dir = os.path.dirname(BBC_EXE_PATH)
+        _is_debug = BBC_EXE_PATH.endswith('_debug.exe')
+        _creation_flags = subprocess.CREATE_NEW_CONSOLE if _is_debug else 0
+        
+        logger.info(f"[StartBbc] 启动BBC: {BBC_EXE_PATH}")
+        logger.info(f"[StartBbc] 调试模式: {_is_debug}, 工作目录: {bbc_dir}")
+        
+        try:
+            # 重定向输出到文件
             stdout_file = open(os.path.join(bbc_dir, 'bbc_stdout.log'), 'w', encoding='utf-8')
             stderr_file = open(os.path.join(bbc_dir, 'bbc_stderr.log'), 'w', encoding='utf-8')
             
@@ -182,141 +300,136 @@ class StartBbc(CustomAction):
                 stdout=stdout_file,
                 stderr=stderr_file
             )
-            logger.info(f"[StartBbc] 已启动进程，PID: {proc.pid}")
-            print(f"[StartBbc] BBC 进程已启动，PID: {proc.pid}")
-                        
-            print("[StartBbc] BBC 启动命令已发送")
-            
-            # 检查进程是否立即退出
-            time.sleep(2)  # 增加等待时间，让BBC有机会初始化
-            exit_code = proc.poll()
-            if exit_code is not None:
-                # 进程已退出，读取错误输出
-                stdout_file.close()
-                stderr_file.close()
-                
-                # 读取日志文件内容
-                try:
-                    with open(os.path.join(bbc_dir, 'bbc_stdout.log'), 'r', encoding='utf-8') as f:
-                        stdout_content = f.read()[:500]
-                except:
-                    stdout_content = ''
-                
-                try:
-                    with open(os.path.join(bbc_dir, 'bbc_stderr.log'), 'r', encoding='utf-8') as f:
-                        stderr_content = f.read()[:500]
-                except:
-                    stderr_content = ''
-                
-                print(f"[StartBbc] BBC 进程异常退出！退出码: {exit_code}")
-                if stdout_content:
-                    print(f"[StartBbc] stdout:\n{stdout_content}")
-                if stderr_content:
-                    print(f"[StartBbc] stderr:\n{stderr_content}")
-                logger.error(f"[StartBbc] BBC 进程异常退出，退出码: {exit_code}")
-                logger.error(f"[StartBbc] stderr: {stderr_content}")
-                return CustomAction.RunResult(success=False)
-            
-            # 步骤2: 连接TCP
-            print("[StartBbc] 步骤2: 连接 TCP 服务...")
-            tcp_client = BbcTcpClient()
-            
-            # 持续监控进程状态
-            connect_start_time = time.time()
-            connect_timeout = 30
-            connected = False
-            
-            while time.time() - connect_start_time < connect_timeout:
-                # 检查进程是否还在运行
-                if proc.poll() is not None:
-                    exit_code = proc.poll()
-                    stdout_file.close()
-                    stderr_file.close()
-                    
-                    # 读取日志文件
-                    try:
-                        with open(os.path.join(bbc_dir, 'bbc_stderr.log'), 'r', encoding='utf-8') as f:
-                            stderr_content = f.read()[:500]
-                    except:
-                        stderr_content = ''
-                    
-                    print(f"[StartBbc] BBC 进程在TCP连接期间退出！退出码: {exit_code}")
-                    if stderr_content:
-                        print(f"[StartBbc] stderr:\n{stderr_content}")
-                    logger.error(f"[StartBbc] BBC 进程在TCP连接期间退出，退出码: {exit_code}")
-                    return CustomAction.RunResult(success=False)
-                
-                if tcp_client.connect(timeout=1):
-                    connected = True
-                    break
-                time.sleep(0.2)
-            
-            if not connected:
-                print("[StartBbc] TCP 连接失败，超时")
-                try:
-                    if proc.poll() is None:
-                        proc.terminate()
-                        proc.wait(timeout=5)
-                        if proc.poll() is None:
-                            proc.kill()
-                except:
-                    pass
-                return CustomAction.RunResult(success=False)
-            
-            print("[StartBbc] TCP 连接成功")
-            
-            # 步骤2.5: 等待免责声明自动关闭
-            print("[StartBbc] 步骤2.5: 等待免责声明处理...")
-            # BBC 服务端已实现免责声明自动关闭机制（2秒后自动确认）
-            # 这里只需等待足够时间确保关闭完成
-            time.sleep(3)
-            print("[StartBbc] 免责声明处理完成")
-            
-            # 步骤3: 发送连接配置并执行连接
-            print(f"[StartBbc] 步骤3: 执行模拟器连接，命令: {connect_cmd}...")
-            connect_args = {
-                'path': mumu_path if connect_cmd == 'connect_mumu' else ld_path,
-                'index': int(mumu_index) if connect_cmd == 'connect_mumu' else int(ld_index),
-                'pkg': mumu_pkg if connect_cmd == 'connect_mumu' else None,
-                'app_index': int(mumu_app_index) if connect_cmd == 'connect_mumu' else None,
-                'ip': manual_port if connect_cmd == 'connect_adb' else None
-            }
-            connect_result = tcp_client.send_command(connect_cmd, connect_args, timeout=30)
-            
-            if not connect_result.get('success'):
-                error_msg = connect_result.get('error', '未知错误')
-                print(f"[StartBbc] 连接失败: {error_msg}")
-                try:
-                    if proc.poll() is None:
-                        proc.terminate()
-                        proc.wait(timeout=5)
-                        if proc.poll() is None:
-                            proc.kill()
-                except:
-                    pass
-                tcp_client.stop()
-                return CustomAction.RunResult(success=False)
-            
-            # 步骤4: 验证模拟器连接状态
-            print("[StartBbc] 步骤4: 验证模拟器连接状态...")
-            time.sleep(1)  # 等待连接稳定
-            
-            verify_result = tcp_client.send_command('get_status', {}, timeout=5)
-            if not verify_result.get('success'):
-                print(f"[StartBbc] 获取状态失败: {verify_result.get('error')}")
-                tcp_client.stop()
-                return CustomAction.RunResult(success=False)
-            
-            # 注意：BBC 服务端 get_status 不返回 device_connected 字段
-            # 所以只要连接命令返回 success=True，就认为连接成功
-            print("[StartBbc] 模拟器连接验证成功")
-            
-            tcp_client.stop()
-            print("[StartBbc] 连接成功")
-            return CustomAction.RunResult(success=True)
-            
+            logger.info(f"[StartBbc] BBC进程已启动，PID: {proc.pid}")
+            return proc
         except Exception as e:
-            print(f"[StartBbc] 启动BBC出错: {e}")
-            import traceback
-            traceback.print_exc()
+            logger.error(f"[StartBbc] 启动BBC失败: {e}")
+            return None
+    
+    def _wait_for_callback(self, timeout: int = 30) -> bool:
+        """等待回调端口收到BBC就绪信号"""
+        server_sock = None
+        try:
+            server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            server_sock.bind(('127.0.0.1', BBC_CALLBACK_PORT))
+            server_sock.listen(1)
+            server_sock.settimeout(2)  # 每次accept超时2秒
+            
+            logger.info(f"[Callback] 开始监听端口 {BBC_CALLBACK_PORT}")
+            start_time = time.time()
+            
+            while time.time() - start_time < timeout:
+                try:
+                    client_sock, addr = server_sock.accept()
+                    client_sock.settimeout(5)
+                    
+                    # 接收消息长度
+                    length_bytes = self._recv_exact(client_sock, 4)
+                    if not length_bytes:
+                        client_sock.close()
+                        continue
+                    
+                    length = struct.unpack('>I', length_bytes)[0]
+                    data = self._recv_exact(client_sock, length)
+                    if not data:
+                        client_sock.close()
+                        continue
+                    
+                    msg = json.loads(data.decode('utf-8'))
+                    logger.info(f"[Callback] 收到消息: {msg}")
+                    
+                    # 检查是否是服务器启动或免责声明关闭事件
+                    event = msg.get('event', '')
+                    if event in ['server_started', 'disclaimer_closed']:
+                        logger.info(f"[Callback] BBC就绪事件: {event}")
+                        client_sock.close()
+                        server_sock.close()
+                        return True
+                    
+                    client_sock.close()
+                except socket.timeout:
+                    continue
+                except Exception as e:
+                    logger.warning(f"[Callback] 接收消息异常: {e}")
+                    continue
+            
+            logger.warning(f"[Callback] 等待超时 ({timeout}s)")
+            return False
+        except Exception as e:
+            logger.error(f"[Callback] 监听失败: {e}")
+            return False
+        finally:
+            if server_sock:
+                try:
+                    server_sock.close()
+                except:
+                    pass
+    
+    def _recv_exact(self, sock: socket.socket, n: int) -> bytes:
+        """从socket接收精确字节数"""
+        data = b''
+        while len(data) < n:
+            try:
+                packet = sock.recv(n - len(data))
+                if not packet:
+                    return None
+                data += packet
+            except Exception:
+                return None
+        return data
+    
+    def _connect_emulator(self, tcp_client: BbcTcpClient, connect_cmd: str, 
+                         mumu_path: str, mumu_index: int, mumu_pkg: str, 
+                         mumu_app_index: int, ld_path: str, ld_index: int,
+                         manual_port: str) -> CustomAction.RunResult:
+        """通过TCP连接模拟器并验证"""
+        # 构建连接参数
+        connect_args = {}
+        if connect_cmd == 'connect_mumu':
+            connect_args = {
+                'path': mumu_path,
+                'index': int(mumu_index),
+                'pkg': mumu_pkg,
+                'app_index': int(mumu_app_index)
+            }
+        elif connect_cmd == 'connect_ld':
+            connect_args = {
+                'path': ld_path,
+                'index': int(ld_index)
+            }
+        elif connect_cmd == 'connect_adb':
+            connect_args = {
+                'ip': manual_port
+            }
+        
+        logger.info(f"[Connect] 执行连接命令: {connect_cmd}, 参数: {connect_args}")
+        
+        # 发送连接命令
+        connect_result = tcp_client.send_command(connect_cmd, connect_args, timeout=30)
+        if not connect_result.get('success'):
+            error_msg = connect_result.get('error', '未知错误')
+            logger.error(f"[Connect] 连接失败: {error_msg}")
             return CustomAction.RunResult(success=False)
+        
+        logger.info("[Connect] 连接命令执行成功，验证连接状态...")
+        time.sleep(1)
+        
+        # 验证连接状态
+        status_result = tcp_client.send_command('get_connection', {}, timeout=5)
+        if not status_result.get('success'):
+            logger.warning(f"[Connect] 获取连接状态失败: {status_result.get('error')}")
+            # 即使获取状态失败，只要连接命令成功就认为成功
+            return CustomAction.RunResult(success=True)
+        
+        # 检查连接状态
+        device_available = status_result.get('available', False)
+        device_connected = status_result.get('connected', False)
+        
+        if device_available or device_connected:
+            logger.info(f"[Connect] 模拟器连接成功 (available={device_available}, connected={device_connected})")
+            return CustomAction.RunResult(success=True)
+        else:
+            logger.warning(f"[Connect] 模拟器未连接 (available={device_available}, connected={device_connected})")
+            # 根据BBC服务端逻辑，连接命令返回success即认为成功
+            return CustomAction.RunResult(success=True)

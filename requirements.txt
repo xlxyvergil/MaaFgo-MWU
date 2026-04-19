@@ -1,3 +1,4 @@
 maafw
 opencv-python
 numpy
+psutil
