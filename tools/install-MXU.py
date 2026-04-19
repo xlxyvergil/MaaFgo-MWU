@@ -56,11 +56,20 @@ def install_resource():
     
     # 复制 options 和 i18n 目录（MaaFgo 特有）
     if (working_dir / "assets" / "options").exists():
-        shutil.copytree(
-            working_dir / "assets" / "options",
-            install_path / "options",
-            dirs_exist_ok=True,
-        )
+        # 复制 options 目录，但排除 bbc_team_config.json
+        for item in (working_dir / "assets" / "options").iterdir():
+            if item.name == "bbc_team_config.json":
+                continue  # 跳过 bbc_team_config.json
+            if item.is_dir():
+                shutil.copytree(item, install_path / "options" / item.name, dirs_exist_ok=True)
+            else:
+                shutil.copy2(item, install_path / "options" / item.name)
+        
+        # 复制 bbc_team_config_nomwu.json 并重命名为 bbc_team_config.json
+        nomwu_config = working_dir / "assets" / "options" / "bbc_team_config_nomwu.json"
+        if nomwu_config.exists():
+            shutil.copy2(nomwu_config, install_path / "options" / "bbc_team_config.json")
+    
     if (working_dir / "assets" / "i18n").exists():
         shutil.copytree(
             working_dir / "assets" / "i18n",
@@ -81,6 +90,21 @@ def install_resource():
         working_dir / "assets" / "interface.json",
         install_path,
     )
+    
+    # 复制 restart_mfa.exe 到根目录
+    if (working_dir / "assets" / "restart_mfa.exe").exists():
+        shutil.copy2(
+            working_dir / "assets" / "restart_mfa.exe",
+            install_path,
+        )
+    
+    # 复制 restart_config.json 并修改 target_exe 为 MaaFgo.exe
+    if (working_dir / "assets" / "restart_config.json").exists():
+        with open(working_dir / "assets" / "restart_config.json", 'r', encoding='utf-8') as f:
+            config = json.load(f)
+        config['target_exe'] = 'MaaFgo.exe'
+        with open(install_path / "restart_config.json", 'w', encoding='utf-8') as f:
+            json.dump(config, f, ensure_ascii=False, indent=2)
 
     # 更新 interface.json 中的版本号和 mirrorchyan 配置
     with open(install_path / "interface.json", "r", encoding="utf-8") as f:
