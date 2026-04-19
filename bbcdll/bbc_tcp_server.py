@@ -804,6 +804,33 @@ def start_tcp_server(bb_window, port=25001):
                 'message': fix_encoding(message)
             }
             popup_event_queue.put(popup_data)
+            
+            # 立即发送弹窗通知到回调端口
+            if CALLBACK_PORT:
+                def send_popup_notification():
+                    import socket
+                    import json
+                    import time
+                    time.sleep(0.2)
+                    try:
+                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        s.settimeout(5)
+                        s.connect(('127.0.0.1', CALLBACK_PORT))
+                        msg = {
+                            'event': 'popup_appeared',
+                            'popup_id': popup_id,
+                            'popup_title': fix_encoding(title),
+                            'popup_message': fix_encoding(message),
+                            'popup_type': func_name
+                        }
+                        data = json.dumps(msg, ensure_ascii=False).encode('utf-8')
+                        s.sendall(len(data).to_bytes(4, 'big') + data)
+                        s.close()
+                        _log('info', f'[Callback] Popup appeared notified: {title}')
+                    except Exception as e:
+                        _log('warning', f'[Callback] Failed to notify popup appeared: {e}')
+                threading.Thread(target=send_popup_notification, daemon=True).start()
+            
             if '免责声明' in title:
                 def auto_disclaimer():
                     time.sleep(2)

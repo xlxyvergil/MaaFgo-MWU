@@ -420,9 +420,45 @@ class ExecuteBbcTask(CustomAction):
                     # 处理脚本停止
                     elif '脚本停止' in popup_title:
                         logger.info("[Callback] 检测到脚本停止")
+                        
+                        if popup_id:
+                            tcp_client.send_command('popup_response', {
+                                'popup_id': popup_id,
+                                'action': 'ok'
+                            }, timeout=5)
+                        
                         state['finished'] = True
                         state['popup_title'] = popup_title
                         state['popup_message'] = popup_message
+                    
+                    # 处理正在结束任务
+                    elif '正在结束任务' in popup_title:
+                        logger.info("[Callback] 检测到正在结束任务")
+                        
+                        if popup_id:
+                            tcp_client.send_command('popup_response', {
+                                'popup_id': popup_id,
+                                'action': 'ok'
+                            }, timeout=5)
+                        
+                        state['finished'] = True
+                        state['popup_title'] = popup_title
+                        state['popup_message'] = popup_message
+                    
+                    # 处理其他任务运行中
+                    elif '其他任务运行中' in popup_title:
+                        logger.warning(f"[Callback] 检测到其他任务运行中: {popup_message}")
+                        
+                        if popup_id:
+                            tcp_client.send_command('popup_response', {
+                                'popup_id': popup_id,
+                                'action': 'ok'
+                            }, timeout=5)
+                        
+                        state['finished'] = True
+                        state['popup_title'] = popup_title
+                        state['popup_message'] = popup_message
+                        logger.info("[Callback] 其他任务运行中，战斗结束")
                     
                     client_sock.close()
                     

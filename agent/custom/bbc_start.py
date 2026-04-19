@@ -379,57 +379,152 @@ class StartBbc(CustomAction):
                 return None
         return data
     
+    def _listen_connect_callbacks(self, popup_state: dict):
+        """监听连接阶段的回调事件（处理自动连接失败弹窗）"""
+        server_sock = None
+        try:
+            server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            server_sock.bind(('127.0.0.1', BBC_CALLBACK_PORT))
+            server_sock.listen(1)
+            server_sock.settimeout(2)
+            
+            logger.info(f"[Connect Callback] 开始监听端口 {BBC_CALLBACK_PORT}")
+            
+            while True:
+                try:
+                    client_sock, addr = server_sock.accept()
+                    client_sock.settimeout(5)
+                    
+                    # 接收消息长度
+                    length_bytes = self._recv_exact(client_sock, 4)
+                    if not length_bytes:
+                        client_sock.close()
+                        continue
+                    
+                    length = struct.unpack('>I', length_bytes)[0]
+                    data = self._recv_exact(client_sock, length)
+                    if not data:
+                        client_sock.close()
+                        continue
+                    
+                    msg = json.loads(data.decode('utf-8'))
+                    event = msg.get('event', '')
+                    popup_title = msg.get('popup_title', '')
+                    popup_id = msg.get('popup_id', '')
+                    
+                    logger.info(f"[Connect Callback] 收到事件: {event}, 标题: {popup_title}")
+                    
+                    # 处理自动连接失败
+                    if '自动连接失败' in popup_title:
+                        logger.warning(f"[Connect Callback] 检测到自动连接失败")
+                        popup_state['auto_connect_failed'] = True
+                        
+                        # 发送响应关闭弹窗
+                        tcp_client = BbcTcpClient()
+                        if tcp_client.connect(timeout=3):
+                            tcp_client.send_command('popup_response', {
+                                'popup_id': popup_id,
+                                'action': 'ok'
+                            }, timeout=5)
+                            tcp_client.stop()
+                    
+                    client_sock.close()
+                except socket.timeout:
+                    continue
+                except Exception as e:
+                    logger.warning(f"[Connect Callback] 接收异常: {e}")
+                    continue
+        except Exception as e:
+            logger.error(f"[Connect Callback] 监听失败: {e}")
+        finally:
+            if server_sock:
+                try:
+                    server_sock.close()
+                except:
+                    pass
+    
     def _connect_emulator(self, tcp_client: BbcTcpClient, connect_cmd: str, 
                          mumu_path: str, mumu_index: int, mumu_pkg: str, 
                          mumu_app_index: int, ld_path: str, ld_index: int,
                          manual_port: str) -> CustomAction.RunResult:
         """通过TCP连接模拟器并验证"""
-        # 构建连接参数
-        connect_args = {}
-        if connect_cmd == 'connect_mumu':
-            connect_args = {
-                'path': mumu_path,
-                'index': int(mumu_index),
-                'pkg': mumu_pkg,
-                'app_index': int(mumu_app_index)
-            }
-        elif connect_cmd == 'connect_ld':
-            connect_args = {
-                'path': ld_path,
-                'index': int(ld_index)
-            }
-        elif connect_cmd == 'connect_adb':
-            connect_args = {
-                'ip': manual_port
-            }
+        # 启动回调监听线程
+        popup_state = {'auto_connect_failed': False}
+        callback_thread = threading.Thread(
+            target=self._listen_connect_callbacks,
+            args=(popup_state,),
+            daemon=True
+        )
+        callback_thread.start()
         
-        logger.info(f"[Connect] 执行连接命令: {connect_cmd}, 参数: {connect_args}")
-        
-        # 发送连接命令
-        connect_result = tcp_client.send_command(connect_cmd, connect_args, timeout=30)
-        if not connect_result.get('success'):
-            error_msg = connect_result.get('error', '未知错误')
-            logger.error(f"[Connect] 连接失败: {error_msg}")
-            return CustomAction.RunResult(success=False)
-        
-        logger.info("[Connect] 连接命令执行成功，验证连接状态...")
-        time.sleep(1)
-        
-        # 验证连接状态
-        status_result = tcp_client.send_command('get_connection', {}, timeout=5)
-        if not status_result.get('success'):
-            logger.warning(f"[Connect] 获取连接状态失败: {status_result.get('error')}")
-            # 即使获取状态失败，只要连接命令成功就认为成功
-            return CustomAction.RunResult(success=True)
-        
-        # 检查连接状态
-        device_available = status_result.get('available', False)
-        device_connected = status_result.get('connected', False)
-        
-        if device_available or device_connected:
-            logger.info(f"[Connect] 模拟器连接成功 (available={device_available}, connected={device_connected})")
-            return CustomAction.RunResult(success=True)
-        else:
-            logger.warning(f"[Connect] 模拟器未连接 (available={device_available}, connected={device_connected})")
-            # 根据BBC服务端逻辑，连接命令返回success即认为成功
-            return CustomAction.RunResult(success=True)
+        try:
+            # 构建连接参数
+            connect_args = {}
+            if connect_cmd == 'connect_mumu':
+                connect_args = {
+                    'path': mumu_path,
+                    'index': int(mumu_index),
+                    'pkg': mumu_pkg,
+                    'app_index': int(mumu_app_index)
+                }
+            elif connect_cmd == 'connect_ld':
+                connect_args = {
+                    'path': ld_path,
+                    'index': int(ld_index)
+                }
+            elif connect_cmd == 'connect_adb':
+                connect_args = {
+                    'ip': manual_port
+                }
+            elif connect_cmd == 'auto':
+                connect_args = {
+                    'mode': 'auto'
+                }
+            
+            logger.info(f"[Connect] 执行连接命令: {connect_cmd}, 参数: {connect_args}")
+            
+            # auto模式不发送连接命令，直接等待
+            connect_success = True
+            if connect_args.get('mode') != 'auto':
+                # 发送连接命令
+                connect_result = tcp_client.send_command(connect_cmd, connect_args, timeout=30)
+                if not connect_result.get('success'):
+                    error_msg = connect_result.get('error', '未知错误')
+                    logger.error(f"[Connect] 连接失败: {error_msg}")
+                    connect_success = False
+                else:
+                    logger.info("[Connect] 连接命令执行成功，验证连接状态...")
+                    time.sleep(1)
+            else:
+                logger.info("[Connect] Auto模式，等待BBC自动连接...")
+                time.sleep(5)
+            
+            # 检查是否收到自动连接失败弹窗
+            if popup_state['auto_connect_failed']:
+                logger.error("[Connect] 检测到自动连接失败弹窗")
+                return CustomAction.RunResult(success=False)
+            
+            # 验证连接状态
+            status_result = tcp_client.send_command('get_connection', {}, timeout=5)
+            device_available = False
+            device_connected = False
+            
+            if status_result.get('success'):
+                device_available = status_result.get('available', False)
+                device_connected = status_result.get('connected', False)
+            else:
+                logger.warning(f"[Connect] 获取连接状态失败: {status_result.get('error')}")
+            
+            # 最终判断
+            if connect_success and (device_available or device_connected):
+                logger.info(f"[Connect] 模拟器连接成功 (available={device_available}, connected={device_connected})")
+                return CustomAction.RunResult(success=True)
+            elif connect_success:
+                logger.warning(f"[Connect] 模拟器未连接 (available={device_available}, connected={device_connected})")
+                return CustomAction.RunResult(success=True)
+            else:
+                return CustomAction.RunResult(success=False)
+        finally:
+            # 等待回调线程结束（最多1秒）
+            callback_thread.join(timeout=1)
