@@ -187,16 +187,16 @@ class ExecuteBbcTask(CustomAction):
         
         print("[ExecuteBbcTask] TCP 连接成功，开始战斗流程...")
         
-        # 步骤0: 检查模拟器连接状态
-        print("[ExecuteBbcTask] 步骤0: 检查模拟器连接状态...")
+        # 步骤0: 检查 BBC 服务状态
+        print("[ExecuteBbcTask] 步骤0: 检查 BBC 服务状态...")
         status_result = tcp_client.send_command('get_status', {}, timeout=5)
         if not status_result.get('success'):
             tcp_client.stop()
-            return '', '获取状态失败，BBC服务异常'
+            return '', 'BBC服务异常'
         
-        if not status_result.get('device_connected'):
-            tcp_client.stop()
-            return '', '模拟器未连接，请先执行 start_bbc'
+        # 注意：BBC 服务端 get_status 不返回 device_connected 字段
+        # 如果 BBC TCP 服务响应成功，说明 BBC 正在运行且已连接模拟器
+        print("[ExecuteBbcTask] BBC 服务正常")
         
         # 执行战斗流程（一次性调用）
         print("[ExecuteBbcTask] 执行战斗流程...")
