@@ -93,21 +93,18 @@ class StartBbc(CustomAction):
                     
                     # 检查返回结果中是否有模拟器连接信息
                     emulator_ready = False
-                    if conn_result and 'data' in conn_result:
-                        data = conn_result['data']
-                        if isinstance(data, dict):
-                            # connected=True 但 running=False/task_name=None 说明模拟器未就绪
-                            connected = data.get('connected', False)
-                            running = data.get('running', False)
-                            task_name = data.get('task_name', 'None')
-                            
-                            if connected and running and task_name != 'None':
-                                emulator_ready = True
-                                mfaalog.info(f"[StartBbc] 模拟器已就绪: connected={connected}, running={running}, task={task_name}")
-                            else:
-                                mfaalog.info(f"[StartBbc] 模拟器未就绪: connected={connected}, running={running}, task={task_name}")
+                    if conn_result and isinstance(conn_result, dict):
+                        data = conn_result
+                        # connected=True 但 running=False/task_name=None 说明模拟器未就绪
+                        connected = data.get('connected', False)
+                        running = data.get('running', False)
+                        task_name = data.get('task_name', 'None')
+                        
+                        if connected and running and task_name != 'None':
+                            emulator_ready = True
+                            mfaalog.info(f"[StartBbc] 模拟器已就绪: connected={connected}, running={running}, task={task_name}")
                         else:
-                            mfaalog.warning(f"[StartBbc] 无法获取连接状态: {conn_result}")
+                            mfaalog.info(f"[StartBbc] 模拟器未就绪: connected={connected}, running={running}, task={task_name}")
                     else:
                         mfaalog.warning(f"[StartBbc] 无法获取连接状态: {conn_result}")
                     
