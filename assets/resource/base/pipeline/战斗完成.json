@@ -79,10 +79,10 @@
             "type": "TemplateMatch",
             "param": {
                 "roi": [
-                    212,
-                    592,
-                    238,
-                    49
+                    125,
+                    521,
+                    399,
+                    187
                 ],
                 "template": [
                     "关闭好友申请.png"
@@ -151,12 +151,6 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "roi": [
-                    4,
-                    4,
-                    187,
-                    86
-                ],
                 "template": [
                     "close_botton.png"
                 ]
