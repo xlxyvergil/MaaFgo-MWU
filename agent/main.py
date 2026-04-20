@@ -17,6 +17,7 @@ from maa.agent.agent_server import AgentServer
 from maa.toolkit import Toolkit
 
 # 导入自定义 Action (从 custom 目录)
+import mfaalog
 import bbc_action
 import bbc_start
 import bbc_stop
