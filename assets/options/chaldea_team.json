@@ -2,8 +2,8 @@
     "option": {
         "chaldea_team": {
             "type": "input",
-            "label": "Chaldea 队伍导入 (可选)",
-            "description": "填写 Chaldea 的分享长链接（无网一秒导入）、队伍短链接、队伍ID或关卡ID。留空则按照传统模式使用上方手选的 BBC 配置。",
+            "label": "Chaldea 队伍导入",
+            "description": "填写 Chaldea 的分享长链接（无网一秒导入）、队伍短链接、队伍ID或关卡ID。",
             "inputs": [
                 {
                     "name": "chaldea_import_source",

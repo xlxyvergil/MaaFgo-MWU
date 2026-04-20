@@ -134,8 +134,11 @@ class ExecuteBbcTask(CustomAction):
             team_config = self._try_chaldea_import(attach_data, team_config)
 
             # 验证必需参数
-            if not team_config or run_count is None or apple_type is None:
-                logger.error(f"[ExecuteBbcTask] 参数不完整: team={team_config}, count={run_count}, apple={apple_type}")
+            if not team_config:
+                logger.error("[ExecuteBbcTask] 未提供队伍配置：请填写 Chaldea 链接或选择 BBC 配置文件")
+                return CustomAction.RunResult(success=False)
+            if run_count is None or apple_type is None:
+                logger.error(f"[ExecuteBbcTask] 参数不完整: count={run_count}, apple={apple_type}")
                 return CustomAction.RunResult(success=False)
             
             run_count = int(run_count)
@@ -213,10 +216,10 @@ class ExecuteBbcTask(CustomAction):
                 logger.info(f"[Chaldea] 使用 Chaldea 队伍: {converted_filename}")
                 return converted_filename
             else:
-                logger.warning(f"[Chaldea] 解析失败，回退到手选配置: {team_config}")
+                logger.error("[Chaldea] 队伍转换失败，请检查输入的链接或ID是否正确")
                 return team_config
         except Exception as e:
-            logger.warning(f"[Chaldea] 导入异常: {e}，回退到手选配置", exc_info=True)
+            logger.error(f"[Chaldea] 导入异常: {e}", exc_info=True)
             return team_config
 
     def _ensure_bbc_connected(self, context: Context):
