@@ -67,26 +67,6 @@ class BbcConnectionManager:
     def _start_permanent_listener(self):
         """启动永久回调监听（后台线程）"""
         try:
-            # 先停止旧监听
-            with self._state_lock:
-                if self._state['callback_listening']:
-                    self._state['callback_listening'] = False
-                    mfaalog.info("[BbcConnectionManager] 正在停止旧监听...")
-            
-            # 等待旧线程结束
-            if self._callback_thread and self._callback_thread.is_alive():
-                self._callback_thread.join(timeout=3)
-            
-            # 关闭旧 socket
-            if self._callback_server:
-                try:
-                    self._callback_server.close()
-                except:
-                    pass
-            
-            time.sleep(1)  # 等待端口完全释放
-            
-            # 创建新监听
             server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             server_sock.bind(('127.0.0.1', BBC_CALLBACK_PORT))
@@ -106,9 +86,7 @@ class BbcConnectionManager:
             
             mfaalog.info(f"[BbcConnectionManager] 永久回调监听已启动 on port {BBC_CALLBACK_PORT}")
         except Exception as e:
-            import traceback
             mfaalog.error(f"[BbcConnectionManager] 启动永久监听失败: {e}")
-            mfaalog.error(traceback.format_exc())
     
     def _permanent_callback_loop(self, server_sock: socket.socket):
         """永久回调监听主循环 - 将消息放入队列"""

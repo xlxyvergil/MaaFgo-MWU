@@ -122,11 +122,6 @@ class ExecuteBbcTask(CustomAction):
             if not self._ensure_bbc_connected(context):
                 return {'success': False, 'error': 'BBC连接失败'}
             
-            # 重启回调监听，确保绑定到当前进程
-            mfaalog.info("[ExecuteBbcTask] 重启回调监听...")
-            bbc_manager._start_permanent_listener()
-            time.sleep(1.5)  # 等待端口绑定完成并稳定
-            
             # 提前设置弹窗回调（在清空队列之前，确保不会错过弹窗）
             def on_popup(msg):
                 """弹窗回调函数 - 快速返回，不阻塞监听线程"""
