@@ -573,6 +573,43 @@ class StatusAPI:
             time.sleep(0.5)
         return {'success': True, 'has_popup': False}
 
+    @staticmethod
+    def get_ui_status():
+        """获取UI状态信息（包括topLabel提示文本）"""
+        page = get_bb_page()
+        if page is None:
+            return {
+                'success': True,
+                'top_label': '',
+                'device_running': False,
+                'battle_running': False
+            }
+        try:
+            # 获取topLabel文本
+            top_label_text = ''
+            if hasattr(page, 'topLabel'):
+                try:
+                    top_label_text = page.topLabel.cget('text')
+                except:
+                    pass
+            
+            device_running = bool(getattr(page.device, 'running', False))
+            
+            return {
+                'success': True,
+                'top_label': top_label_text,
+                'device_running': device_running,
+                'battle_running': device_running  # BBC中device.running即表示战斗运行中
+            }
+        except Exception as e:
+            return {
+                'success': True,
+                'top_label': '',
+                'device_running': False,
+                'battle_running': False,
+                'error': str(e)
+            }
+
 
 # ==================== 命令分发器 ====================
 
@@ -595,6 +632,7 @@ class CommandDispatcher:
         'pause_battle': BattleControlAPI.pause_battle,
         'resume_battle': BattleControlAPI.resume_battle,
         'get_status': StatusAPI.get_status,
+        'get_ui_status': StatusAPI.get_ui_status,
         'get_popups': StatusAPI.get_popups,
         'popup_response': StatusAPI.popup_response,
         'wait_for_popup': StatusAPI.wait_for_popup,
@@ -805,19 +843,19 @@ def start_tcp_server(bb_window, port=25001):
             }
             popup_event_queue.put(popup_data)
             
-            # 立即发送弹窗通知到回调端口
-            if CALLBACK_PORT:
+            # 非免责声明的弹窗立即推送通知（免责声明会自动关闭，走popup_closed流程）
+            if CALLBACK_PORT and '免责声明' not in title:
                 def send_popup_notification():
                     import socket
                     import json
                     import time
-                    time.sleep(0.2)
+                    time.sleep(0.3)  # 短暂延迟确保弹窗已创建
                     try:
                         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         s.settimeout(5)
                         s.connect(('127.0.0.1', CALLBACK_PORT))
                         msg = {
-                            'event': 'popup_appeared',
+                            'event': 'popup_show',
                             'popup_id': popup_id,
                             'popup_title': fix_encoding(title),
                             'popup_message': fix_encoding(message),
@@ -826,9 +864,9 @@ def start_tcp_server(bb_window, port=25001):
                         data = json.dumps(msg, ensure_ascii=False).encode('utf-8')
                         s.sendall(len(data).to_bytes(4, 'big') + data)
                         s.close()
-                        _log('info', f'[Callback] Popup appeared notified: {title}')
+                        _log('info', f'[Callback] Popup "{title}" shown, notified port {CALLBACK_PORT}')
                     except Exception as e:
-                        _log('warning', f'[Callback] Failed to notify popup appeared: {e}')
+                        _log('warning', f'[Callback] Failed to notify popup: {e}')
                 threading.Thread(target=send_popup_notification, daemon=True).start()
             
             if '免责声明' in title:
