@@ -735,8 +735,7 @@
                 "template": [
                     "team/D3.png"
                 ],
-                "threshold": 0.85,
-                "detector": "SIFT"
+                "threshold": 0.85
             }
         }
     },
