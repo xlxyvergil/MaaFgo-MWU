@@ -106,7 +106,7 @@ def _determine_assist_info(formation: TeamFormation) -> Tuple[int, str, Union[st
     """确定助战相关信息，返回 (assist_idx, assist_mode, assist_equip, used_servant)"""
     assist_idx = None
     assist_mode = "从者礼装"
-    assist_equip: Union[str, List[Optional[str]]] = [None, None, None]
+    assist_equip: Union[str, List[Optional[str]]] = "迦勒底午茶时光"
     used_servant: List[int] = []
 
     for i, svt in enumerate(formation.on_field):
