@@ -2,15 +2,10 @@ from pathlib import Path
 
 import shutil
 import sys
-
-try:
-    import jsonc
-except ModuleNotFoundError as e:
-    raise ImportError(
-        "Missing dependency 'json-with-comments' (imported as 'jsonc').\n"
-        f"Install it with:\n  {sys.executable} -m pip install json-with-comments\n"
-        "Or add it to your project's requirements."
-    ) from e
+import subprocess
+import os
+import urllib.request
+import json
 
 from configure import configure_ocr_model
 
@@ -98,38 +93,16 @@ def install_deps():
 
 
 def install_resource():
-
+    # 配置 OCR 模型
     configure_ocr_model()
 
-    shutil.copytree(
-        working_dir / "assets" / "resource",
-        install_path / "resource",
-        dirs_exist_ok=True,
-    )
-    shutil.copy2(
-        working_dir / "assets" / "interface.json",
-        install_path,
-    )
-
-    # Copy options and i18n directories
+    # Copy options and i18n directories (这些是我们特有的目录)
     if (working_dir / "assets" / "options").exists():
-        # 复制 options 目录，但排除 Avalonia 版本的 bbc_team_config.json
         shutil.copytree(
             working_dir / "assets" / "options",
             install_path / "options",
-            ignore=shutil.ignore_patterns("bbc_team_config-Avalonia.json"),
             dirs_exist_ok=True,
         )
-        # 将 bbc_team_config-MWU.json 重命名为 bbc_team_config.json
-        mwu_config = install_path / "options" / "bbc_team_config-MWU.json"
-        target_config = install_path / "options" / "bbc_team_config.json"
-        if mwu_config.exists():
-            shutil.move(str(mwu_config), str(target_config))
-        # 删除 MWU artifact 中可能存在的 Avalonia 配置文件
-        avalonia_config = install_path / "options" / "bbc_team_config-Avalonia.json"
-        if avalonia_config.exists():
-            avalonia_config.unlink()
-            print(f"Removed Avalonia config: {avalonia_config}")
     if (working_dir / "assets" / "i18n").exists():
         shutil.copytree(
             working_dir / "assets" / "i18n",
@@ -137,21 +110,21 @@ def install_resource():
             dirs_exist_ok=True,
         )
 
+    # 更新 interface.json 中的版本号和 agent 配置
     with open(install_path / "interface.json", "r", encoding="utf-8") as f:
-        interface = jsonc.load(f)
+        interface = json.load(f)
 
     interface["version"] = version
-
-    # 设置 agent 使用内置 Python
-    if os_name == "win":
-        interface["agent"]["child_exec"] = r"./python/python.exe"
-    elif os_name == "macos":
-        interface["agent"]["child_exec"] = r"./python/bin/python3"
-    else:
-        interface["agent"]["child_exec"] = r"python3"
+    # 保持黑魔法模式的配置
+    interface["agent"] = {
+        "child_exec": "python",
+        "child_args": [
+            "./agent/main.py"
+        ]
+    }
 
     with open(install_path / "interface.json", "w", encoding="utf-8") as f:
-        jsonc.dump(interface, f, ensure_ascii=False, indent=4)
+        json.dump(interface, f, ensure_ascii=False, indent=2)
 
 
 def install_chores():
@@ -163,39 +136,6 @@ def install_chores():
         working_dir / "LICENSE",
         install_path,
     )
-
-
-def install_agent_deps():
-    """将 site-packages 中的 cv2 等库移动到 agent/libs/"""
-    libs_dir = install_path / "agent" / "libs"
-    libs_dir.mkdir(parents=True, exist_ok=True)
-    site_packages = install_path / "python" / "Lib" / "site-packages"
-
-    print(f"Moving dependencies from site-packages to {libs_dir}...")
-    for item in site_packages.iterdir():
-        # 移动 cv2, numpy, PIL 等导航所需的库
-        if item.name.startswith(("cv2", "numpy", "PIL", "pillow")):
-            dest = libs_dir / item.name
-            if dest.exists():
-                shutil.rmtree(dest) if dest.is_dir() else dest.unlink()
-            shutil.move(str(item), str(dest))
-            print(f"  Moved: {item.name}")
-
-def install_agent():
-    # 复制 agent 目录，但排除 Avalonia 版本文件
-    shutil.copytree(
-        working_dir / "agent",
-        install_path / "agent",
-        ignore=shutil.ignore_patterns("main-Avalonia.py", "bbc_action-Avalonia.py"),
-        dirs_exist_ok=True,
-    )
-    
-    # MWU 特殊处理：将 bbc_action-mwu.py 覆盖为 bbc_action.py
-    mwu_bbc = install_path / "agent" / "custom" / "bbc_action-mwu.py"
-    target_bbc = install_path / "agent" / "custom" / "bbc_action.py"
-    if mwu_bbc.exists():
-        shutil.move(str(mwu_bbc), str(target_bbc))
-        print(f"MWU: Moved bbc_action-mwu.py to bbc_action.py")
 
 
 def install_bbcdll():
@@ -217,13 +157,31 @@ def install_tasks():
         )
 
 
+def install_restart_files():
+    """复制 restart_mfa.exe 和 restart_config.json"""
+    # 复制 restart_mfa.exe
+    if (working_dir / "assets" / "restart_mfa.exe").exists():
+        shutil.copy2(
+            working_dir / "assets" / "restart_mfa.exe",
+            install_path,
+        )
+    
+    # 复制并修改 restart_config.json
+    if (working_dir / "assets" / "restart_config.json").exists():
+        with open(working_dir / "assets" / "restart_config.json", 'r', encoding='utf-8') as f:
+            config = json.load(f)
+        config['target_exe'] = 'MWU.exe'
+        config['description'] = 'MWU重启配置'
+        with open(install_path / "restart_config.json", 'w', encoding='utf-8') as f:
+            json.dump(config, f, ensure_ascii=False, indent=2)
+
+
 if __name__ == "__main__":
     install_deps()
     install_resource()
     install_chores()
-    install_agent_deps()  # 新增：安装 Agent 依赖到 libs/
-    install_agent()
-    install_bbcdll()
-    install_tasks()
+    install_bbcdll()  # 复制 bbcdll 目录
+    install_tasks()  # 复制 tasks 目录
+    install_restart_files()  # 复制 restart 文件
 
     print(f"Install to {install_path} successfully.")

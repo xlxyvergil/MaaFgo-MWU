@@ -3,11 +3,11 @@
         "伦敦": {
             "type": "select",
             "label": "关卡",
-            "default": "q旧街",
+            "default": "旧街",
             "cases": [
                 {
-                    "name": "q旧街",
-                    "label": "q旧街",
+                    "name": "旧街",
+                    "label": "旧街",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -16,14 +16,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q白色教堂",
-                    "label": "q白色教堂",
+                    "name": "白色教堂",
+                    "label": "白色教堂",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -32,14 +32,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q伦敦城",
-                    "label": "q伦敦城",
+                    "name": "伦敦城",
+                    "label": "伦敦城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -48,14 +48,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q苏活区",
-                    "label": "q苏活区",
+                    "name": "苏活区",
+                    "label": "苏活区",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -64,14 +64,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q威斯敏斯特",
-                    "label": "q威斯敏斯特",
+                    "name": "威斯敏斯特",
+                    "label": "威斯敏斯特",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -80,14 +80,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q摄政公园",
-                    "label": "q摄政公园",
+                    "name": "摄政公园",
+                    "label": "摄政公园",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -96,14 +96,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q克勒肯维尔",
-                    "label": "q克勒肯维尔",
+                    "name": "克勒肯维尔",
+                    "label": "克勒肯维尔",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -112,14 +112,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q萨瑟克",
-                    "label": "q萨瑟克",
+                    "name": "萨瑟克",
+                    "label": "萨瑟克",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -128,14 +128,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q海德公园",
-                    "label": "q海德公园",
+                    "name": "海德公园",
+                    "label": "海德公园",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -144,7 +144,7 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }

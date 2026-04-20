@@ -1,0 +1,76 @@
+{
+    "战斗完成信息": {
+        "recognition": {
+            "type": "DirectHit"
+        },
+        "next": [
+            "bbc弹窗信息输出"
+        ]
+    },
+    "执行bbc战斗": {
+        "max_hit": 1,
+        "next": [
+            "bbc战斗"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "执行回主界面": {
+        "max_hit": 1,
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "执行战斗结束": {
+        "max_hit": 1,
+        "next": [
+            "结束战斗"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "执行章节导航": {
+        "max_hit": 1,
+        "next": [
+            "章节导航"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "执行队伍选择": {
+        "max_hit": 1,
+        "next": [
+            "队伍选择"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "日常战斗": {
+        "next": [
+            "[JumpBack]执行回主界面",
+            "[JumpBack]执行队伍选择",
+            "[JumpBack]执行章节导航",
+            "[JumpBack]执行bbc战斗",
+            "[JumpBack]执行战斗结束",
+            "战斗完成信息"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "bbc弹窗信息输出": {
+        "recognition": {
+            "type": "DirectHit"
+        },
+        "focus": {
+            "Node.Recognition.Starting": "<span style=\"color: #FF0000;\">BBC任务正常完成！</span>"
+        }
+    }
+}

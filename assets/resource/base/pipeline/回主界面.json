@@ -1,0 +1,110 @@
+{
+    "主界面判断-有无通知按钮": {
+        "next": [
+            "无弹窗",
+            "[JumpBack]有弹窗返回"
+        ],
+        "post_wait_freezes": 500,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    8,
+                    6,
+                    182,
+                    72
+                ],
+                "expected": "お知らせ"
+            }
+        }
+    },
+    "主界面判断-返回": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": [
+                    111
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "初始化界面": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1254,
+                    103,
+                    8,
+                    9
+                ]
+            }
+        },
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "判断是否要初始化": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1234,
+                    84,
+                    44,
+                    36
+                ],
+                "template": [
+                    "回主界面/判断是否要初始化_1.png"
+                ]
+            }
+        }
+    },
+    "回主界面": {
+        "next": [
+            "主界面判断-有无通知按钮",
+            "[JumpBack]主界面判断-返回"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "无弹窗": {
+        "next": [
+            "判断是否要初始化",
+            "[JumpBack]初始化界面"
+        ],
+        "post_wait_freezes": 500,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    204,
+                    553,
+                    57,
+                    58
+                ],
+                "template": "主界面圣晶石.png",
+                "green_mask": true
+            }
+        }
+    },
+    "有弹窗返回": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": [
+                    111
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    }
+}

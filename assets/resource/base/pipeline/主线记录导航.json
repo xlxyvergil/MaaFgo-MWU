@@ -1,0 +1,73 @@
+{
+    "主线记录导航": {
+        "next": [
+            "点击主线记录",
+            "[JumpBack]寻找主线记录"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "寻找主线记录": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "duration": [
+                    100
+                ],
+                "begin": [
+                    1198,
+                    557,
+                    19,
+                    21
+                ],
+                "end": [
+                    [
+                        1192,
+                        275,
+                        24,
+                        27
+                    ]
+                ]
+            }
+        },
+        "next": [
+            "找到主线记录"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "找到主线记录": {
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "点击主线记录": {
+        "action": {
+            "type": "Click"
+        },
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    647,
+                    101,
+                    586,
+                    482
+                ],
+                "template": [
+                    "OoTTemple/主线记录1.png"
+                ]
+            }
+        },
+        "next": [
+            "完成点击主线记录"
+        ]
+    },
+    "完成点击主线记录": {
+        "recognition": {
+            "type": "DirectHit"
+        }
+    }
+}

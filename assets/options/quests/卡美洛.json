@@ -3,11 +3,11 @@
         "卡美洛": {
             "type": "select",
             "label": "关卡",
-            "default": "q沙尘暴的沙漠",
+            "default": "沙尘暴的沙漠",
             "cases": [
                 {
-                    "name": "q沙尘暴的沙漠",
-                    "label": "q沙尘暴的沙漠",
+                    "name": "沙尘暴的沙漠",
+                    "label": "沙尘暴的沙漠",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -16,14 +16,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q黎明的沙丘",
-                    "label": "q黎明的沙丘",
+                    "name": "黎明的沙丘",
+                    "label": "黎明的沙丘",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -32,14 +32,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q死之荒野",
-                    "label": "q死之荒野",
+                    "name": "死之荒野",
+                    "label": "死之荒野",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -48,14 +48,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q东之村",
-                    "label": "q东之村",
+                    "name": "东之村",
+                    "label": "东之村",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -64,14 +64,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q圆桌要塞",
-                    "label": "q圆桌要塞",
+                    "name": "圆桌要塞",
+                    "label": "圆桌要塞",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -80,14 +80,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q晚钟庙",
-                    "label": "q晚钟庙",
+                    "name": "晚钟庙",
+                    "label": "晚钟庙",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -96,14 +96,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q西之村遗迹",
-                    "label": "q西之村遗迹",
+                    "name": "西之村遗迹",
+                    "label": "西之村遗迹",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -112,14 +112,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q阿特拉斯院",
-                    "label": "q阿特拉斯院",
+                    "name": "阿特拉斯院",
+                    "label": "阿特拉斯院",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -128,14 +128,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q隐秘之村",
-                    "label": "q隐秘之村",
+                    "name": "隐秘之村",
+                    "label": "隐秘之村",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -144,14 +144,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q大神殿",
-                    "label": "q大神殿",
+                    "name": "大神殿",
+                    "label": "大神殿",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -160,14 +160,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q圣都正门",
-                    "label": "q圣都正门",
+                    "name": "圣都正门",
+                    "label": "圣都正门",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -176,14 +176,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q圣都市街",
-                    "label": "q圣都市街",
+                    "name": "圣都市街",
+                    "label": "圣都市街",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -192,14 +192,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q王城",
-                    "label": "q王城",
+                    "name": "王城",
+                    "label": "王城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -208,14 +208,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q无之大地",
-                    "label": "q无之大地",
+                    "name": "无之大地",
+                    "label": "无之大地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -224,7 +224,7 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }

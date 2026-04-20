@@ -1,0 +1,27 @@
+{
+    "option": {
+        "chaldea_team_config": {
+            "type": "input",
+            "label": "Chaldea 队伍导入 (可选)",
+            "description": "填写 Chaldea 的分享长链接（无网一秒导入）、队伍短链接、队伍ID或关卡ID。留空则按照传统模式使用上方手选的 BBC 配置。",
+            "inputs": [
+                {
+                    "name": "chaldea_import_source",
+                    "label": "分享链接 / 短ID / 关卡ID，任填其一",
+                    "default": "",
+                    "verify": ".*"
+                }
+            ],
+            "pipeline_override": {
+                "bbc战斗": {
+                    "next": "使用chaldea队伍"
+                },
+                "使用chaldea队伍": {
+                    "attach": {
+                        "chaldea_import_source": "{chaldea_import_source}"
+                    }
+                }
+            }
+        }
+    }
+}

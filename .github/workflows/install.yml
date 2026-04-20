@@ -72,10 +72,6 @@ jobs:
           - os: windows-2025
             platform: win
             arch: x86_64
-
-          - os: windows-11-arm
-            platform: win
-            arch: aarch64
     runs-on: ${{ matrix.os }}
     name: Build MWU (${{ matrix.platform }}-${{ matrix.arch }})
     needs: meta
@@ -87,7 +83,7 @@ jobs:
           submodules: true
 
       - name: 'Workaround for missing zstd in windows-11-arm'
-        if: matrix.os == 'windows-11-arm'
+        if: false # Disabled as ARM64 build is removed
         run: choco install zstandard
 
       - name: Install uv
@@ -123,12 +119,21 @@ jobs:
         with:
           python-version: "3.12.10"
 
+      - name: Copy Resources
+        shell: bash
+        run: |
+          # 使用 MWU 官方的资源复制脚本
+          curl -L https://github.com/ravizhan/MWU/raw/refs/heads/main/deploy/copy_resources.py -o ./copy_resources.py
+          uv run ./copy_resources.py
+
       - name: Download Python Dependencies
         shell: bash
         run: |
-          python tools/download_deps.py ${{ matrix.platform }} ${{ matrix.arch }}
+          # 使用 MWU 官方的依赖下载脚本
+          curl -L https://github.com/ravizhan/MWU/raw/refs/heads/main/deploy/download_deps.py -o ./download_deps.py
+          uv run ./download_deps.py
 
-      - name: Download MWU Artifact from Release
+      - name: Download MWU Artifact
         id: download_mwu
         uses: robinraju/release-downloader@v1
         with:
@@ -136,52 +141,17 @@ jobs:
           latest: true
           fileName: MWU-${{ matrix.platform }}-${{ matrix.arch }}-*.7z
           out-file-path: ./
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Decompress MWU to build
-        run: |
-          7z x ${{ fromJson(steps.download_mwu.outputs.downloaded_files)[0] }} -obuild -y
-
-      - name: Setup Python Environment for Agent
+      - name: Setup & Install MWU
         shell: bash
         run: |
-          # 创建 python 目录
-          mkdir -p build/python
-          # 下载嵌入式 Python (以 3.12 为例)
-          if [[ "${{ matrix.platform }}" == "win" ]]; then
-            if [[ "${{ matrix.arch }}" == "x86_64" ]]; then
-              curl -L https://www.python.org/ftp/python/3.12.10/python-3.12.10-embed-amd64.zip -o python_embed.zip
-            else
-              curl -L https://www.python.org/ftp/python/3.12.10/python-3.12.10-embed-arm64.zip -o python_embed.zip
-            fi
-            7z x python_embed.zip -obuild/python -y
-            # 启用 pip (取消注释 import site)
-            sed -i 's/#import site/import site/' build/python/python312._pth
-            echo . >> build/python/python312._pth
-            echo Lib/site-packages >> build/python/python312._pth
-          fi
-
-      - name: Install Agent Dependencies
-        shell: bash
-        run: |
-          # 使用嵌入式 Python 直接安装依赖到 site-packages
-          if [[ "${{ matrix.platform }}" == "win" ]]; then
-            # 1. 下载 get-pip.py
-            curl -L https://bootstrap.pypa.io/get-pip.py -o build/python/get-pip.py
-            # 2. 安装 pip
-            ./build/python/python.exe build/python/get-pip.py
-            # 3. 离线安装所有预下载的 Wheel 包到 site-packages (包含 cv2)
-            ./build/python/python.exe -m pip install --no-index --find-links deps/python_packages maafw maaagentbinary numpy Pillow opencv-python
-          fi
-
-
-      - name: Install MWU
-        shell: bash
-        run: |
-          cd tools
-          python -m pip install json-with-comments
-          python ./install-MWU.py ${{ env.tag }} ${{ matrix.platform }} ${{ matrix.arch }}
-          cd ..
+          # 1. 解压 MWU (MWU 自身包含 Nuitka 编译好的 Python 环境)
+          MWU_FILE=$(ls MWU-*.7z | head -n 1)
+          7z x "$MWU_FILE" -obuild -y
+          
+          # 2. 调用脚本完成资源组装与 deps 依赖注入
+          # install-MWU.py 现在会自动在 build/deps 中安装 cv2 和 numpy
+          python tools/install-MWU.py ${{ env.tag }} ${{ matrix.platform }} ${{ matrix.arch }}
 
       - name: Get clean version
         id: get_version
@@ -201,6 +171,120 @@ jobs:
           name: ${{ env.repo_name }}-MWU-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}
           path: ${{ env.repo_name }}-MWU-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}.7z
 
+  build-mxu:
+    env:
+      repo_name: ${{ needs.meta.outputs.repo_name }}
+      tag: ${{ needs.meta.outputs.tag }}
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2025
+            platform: win
+            arch: x86_64
+    runs-on: ${{ matrix.os }}
+    name: Build MXU (${{ matrix.platform }}-${{ matrix.arch }})
+    needs: meta
+
+    steps:
+      - name: Check-out repository
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Download MaaFramework
+        id: download_mfw
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: MaaXYZ/MaaFramework
+          fileName: "MAA-${{ matrix.platform }}-${{ matrix.arch }}*"
+          latest: true
+          out-file-path: "deps"
+          extract: true
+
+      - name: Flatten MaaFramework directory
+        shell: bash
+        run: |
+          # 查找解压后的 MaaFramework 目录并移动内容到 deps 根目录
+          MFW_DIR=$(find deps -maxdepth 1 -type d -name "MAA-*" | head -n 1)
+          if [ -n "$MFW_DIR" ] && [ "$MFW_DIR" != "deps" ]; then
+            echo "Moving contents from $MFW_DIR to deps/"
+            mv "$MFW_DIR"/* deps/
+            mv "$MFW_DIR"/.* deps/ 2>/dev/null || true
+            rmdir "$MFW_DIR"
+          fi
+          ls -la deps/
+
+      - name: Download MXU
+        id: download_mxu
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: MistEO/MXU
+          fileName: "MXU-${{ matrix.platform }}-${{ matrix.arch }}*"
+          latest: true
+          out-file-path: "MXU"
+          extract: true
+
+      - name: Clean up MXU archive
+        shell: bash
+        run: |
+          ARCHIVE_FILE_PATH="${{ fromJson(steps.download_mxu.outputs.downloaded_files)[0] }}"
+          rm -f "${ARCHIVE_FILE_PATH}"
+          echo "Archive cleanup command executed for MXU."
+
+      - name: Setup Embed Python
+        shell: bash
+        run: |
+          python tools/setup_embed_python.py
+          
+      - name: Install Python Dependencies to Embed Python
+        shell: bash
+        run: |
+          ./install/python/python.exe install/python/get-pip.py
+          ./install/python/python.exe -m pip install --upgrade pip
+          ./install/python/python.exe -m pip install -r requirements.txt
+
+      - name: Create MXU version
+        shell: bash
+        run: |
+          ./install/python/python.exe tools/install-MXU.py ${{ env.tag }}
+          cp -rpvn install/python/. install-mxu/python/
+
+      - name: Copy MXU executable
+        shell: bash
+        run: |
+          if [ -d "MXU" ]; then
+            echo "Copying MXU files to install-mxu directory..."
+            mkdir -p install-mxu
+            if [ -f "MXU/mxu.exe" ]; then
+              cp MXU/mxu.exe install-mxu/MaaFgo.exe
+            elif [ -f "MXU/mxu" ]; then
+              cp MXU/mxu install-mxu/MaaFgo
+            fi
+          else
+            echo "MXU directory not found, skipping copy."
+          fi
+
+      - name: Get clean version
+        id: get_version
+        shell: bash
+        run: |
+          tag="${{ env.tag }}"
+          version=$(echo "$tag" | sed 's/^v//; s/Avalonia$//; s/MWU$//')
+          echo "clean_version=$version" >> $GITHUB_OUTPUT
+
+      - name: Compress MXU Artifact
+        run: |
+          7z a -t7z -mx=9 -mmt -ms -r ${{ env.repo_name }}-MXU-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}.7z "./install-mxu/*"
+
+      - name: Upload MXU Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.repo_name }}-MXU-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}
+          path: ${{ env.repo_name }}-MXU-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}.7z
+
   build-avalonia:
     needs: meta
     runs-on: ${{ matrix.runner }}
@@ -210,10 +294,6 @@ jobs:
           - os: win
             arch: x86_64
             runner: windows-latest
-
-          - os: win
-            arch: aarch64
-            runner: windows-11-arm
       fail-fast: false
 
     steps:
@@ -253,7 +333,7 @@ jobs:
         id: download_mfa
         uses: robinraju/release-downloader@v1
         with:
-          repository: xlxyvergil/MFAAvalonia
+          repository: MaaXYZ/MFAAvalonia
           fileName: "MFAAvalonia-*-win-${{ (matrix.arch == 'x86_64' && 'x64') || (matrix.arch == 'aarch64' && 'arm64') }}*"
           latest: true
           out-file-path: "MFA"
@@ -266,84 +346,24 @@ jobs:
           rm -f "${ARCHIVE_FILE_PATH}"
           echo "Archive cleanup command executed for MFAAvalonia."
 
-      - name: Remove built-in runtime in MFA
+      - name: Setup & Install Avalonia
         shell: bash
         run: |
-          rm -rf MFA/runtimes
-      
-      - name: Clean install directory
-        shell: bash
-        run: |
-          rm -rf install
-      
-      - name: Setup embedded Python
-        shell: pwsh
-        run: |
-          $pythonVersion = "3.12.10"
-          $destDir = "install/python"
+          # 1. 配置嵌入式 Python (仅下载和解压)
+          python tools/setup_embed_python.py install/python ${{ matrix.arch == 'x86_64' && 'amd64' || 'arm64' }}
           
-          if (Test-Path $destDir) {
-            Remove-Item -Recurse -Force $destDir
-          }
-          New-Item -ItemType Directory -Path $destDir -Force
+          # 2. 安装依赖 (M9A 模式：直接在 CI 环境中通过 pip 安装到嵌入式 Python)
+          ./install/python/python.exe install/python/get-pip.py
+          ./install/python/python.exe -m pip install --upgrade pip
+          ./install/python/python.exe -m pip install -r requirements.txt
           
-          $arch = "${{ matrix.arch }}"
-          if ($arch -eq "x86_64") {
-            $winArch = "amd64"
-          } else {
-            $winArch = "arm64"
-          }
+          # 3. 准备 MFA 文件（-n 不覆盖已存在的 python 目录）
+          mkdir -p install
+          cp -rpvn MFA/. install/
+          rm -rf install/runtimes
           
-          $url = "https://www.python.org/ftp/python/$pythonVersion/python-$pythonVersion-embed-$winArch.zip"
-          $zipFile = "$destDir/python-embed.zip"
-          
-          Write-Host "Downloading Python from $url"
-          Invoke-WebRequest -Uri $url -OutFile $zipFile
-          
-          Write-Host "Extracting Python..."
-          Expand-Archive -Path $zipFile -DestinationPath $destDir -Force
-          Remove-Item $zipFile
-          
-          # Modify ._pth file
-          $pthFile = Get-ChildItem -Path $destDir -Filter "python*._pth" | Select-Object -First 1
-          if ($pthFile) {
-            $content = Get-Content $pthFile.FullName
-            $content = $content -replace "#import site", "import site"
-            $content += "`n.`nLib`nLib\site-packages`nDLLs"
-            Set-Content -Path $pthFile.FullName -Value $content
-            Write-Host "Modified $($pthFile.Name)"
-          }
-          
-          # Install pip
-          $getPipUrl = "https://bootstrap.pypa.io/get-pip.py"
-          $getPipFile = "$destDir/get-pip.py"
-          Invoke-WebRequest -Uri $getPipUrl -OutFile $getPipFile
-          & "$destDir/python.exe" $getPipFile
-          Remove-Item $getPipFile
-          
-          Write-Host "Embedded Python setup complete"
-      
-      - name: Install Python dependencies
-        shell: bash
-        run: |
-          ./install/python/python.exe -m pip install --no-index --find-links deps/python_packages maafw maaagentbinary numpy Pillow opencv-python
-
-      - name: Install
-        shell: pwsh
-        run: |
-          if (Test-Path "MFA") {
-            Write-Host "Copying MFA files to install directory..."
-            New-Item -ItemType Directory -Path "install" -Force
-            Copy-Item -Path "MFA\*" -Destination "install" -Recurse -Force
-            Write-Host "MFA files copied successfully."
-          } else {
-            Write-Host "MFA directory not found, skipping copy."
-          }
-
-          cd tools
-          python -m pip install json-with-comments
-          python ./install-Avalonia.py ${{ needs.meta.outputs.tag }} ${{ matrix.os }} ${{ matrix.arch }}
-          cd ..
+          # 4. 调用脚本完成资源组装
+          python tools/install-Avalonia.py ${{ needs.meta.outputs.tag }} ${{ matrix.os }} ${{ matrix.arch }}
 
       - name: Get version without suffix
         id: get_version
@@ -391,7 +411,7 @@ jobs:
   debug:
     if: ${{ needs.meta.outputs.is_release == 'false' }}
     runs-on: ubuntu-slim
-    needs: [meta, build-mwu, build-avalonia, changelog]
+    needs: [meta, build-mwu, build-avalonia, build-mxu, changelog]
     steps:
       - name: Show Outputs
         run: |
@@ -403,7 +423,7 @@ jobs:
 
   release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
-    needs: [meta, build-mwu, build-avalonia, changelog]
+    needs: [meta, build-mwu, build-avalonia, build-mxu, changelog]
     runs-on: ubuntu-slim
     steps:
       - uses: actions/download-artifact@v8.0.1

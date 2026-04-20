@@ -1,0 +1,27 @@
+{
+    "option": {
+        "cnocr": {
+            "type": "switch",
+            "default_case": "Yes", // 默认开启
+            "cases": [
+                {
+                    "name": "Yes",
+                    "pipeline_override": {
+                        "主界面判断-有无通知按钮": {
+                            "recognition": {
+                                "type": "OCR",
+                                "param": {
+                                    "expected": "通知"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "No",
+                    "pipeline_override": {} // 空覆盖，保持原值  
+                }
+            ]
+        }
+    }
+}

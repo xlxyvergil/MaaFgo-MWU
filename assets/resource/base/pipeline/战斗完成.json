@@ -1,0 +1,199 @@
+{
+    "BBC执行失败回到主界面": {
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    47,
+                    15,
+                    119,
+                    57
+                ],
+                "template": "通用-关闭-管理室-通知.png",
+                "method": 3,
+                "green_mask": true
+            }
+        }
+    },
+    "作战成功": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "好友申请界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "下一步.png"
+                ]
+            }
+        }
+    },
+    "可能已经结束战斗": {
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    4,
+                    499,
+                    620,
+                    219
+                ],
+                "template": "task.png",
+                "green_mask": true
+            }
+        }
+    },
+    "失败2": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "撤退"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "撤退决定.png"
+                ]
+            }
+        }
+    },
+    "好友申请界面": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    212,
+                    592,
+                    238,
+                    49
+                ],
+                "template": [
+                    "关闭好友申请.png"
+                ]
+            }
+        }
+    },
+    "完成": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    453,
+                    575,
+                    1,
+                    1
+                ]
+            }
+        },
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "战斗失败": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "失败2"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "撤退.png"
+                ]
+            }
+        }
+    },
+    "战斗结束-主界面": {
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1060,
+                    560,
+                    208,
+                    155
+                ],
+                "template": [
+                    "菜单.png"
+                ]
+            }
+        }
+    },
+    "战斗结束关闭": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    4,
+                    4,
+                    187,
+                    86
+                ],
+                "template": [
+                    "关闭.png"
+                ]
+            }
+        }
+    },
+    "撤退": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "关闭.png"
+                ]
+            }
+        }
+    },
+    "结束战斗": {
+        "next": [
+            "作战成功",
+            "好友申请界面",
+            "战斗失败",
+            "失败2",
+            "撤退",
+            "战斗结束-主界面",
+            "战斗结束关闭",
+            "可能已经结束战斗",
+            "BBC执行失败回到主界面",
+            "[JumpBack]完成"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    }
+}

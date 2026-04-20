@@ -3,11 +3,11 @@
         "平安京": {
             "type": "select",
             "label": "关卡",
-            "default": "q七条四坊",
+            "default": "七条四坊",
             "cases": [
                 {
-                    "name": "q七条四坊",
-                    "label": "q七条四坊",
+                    "name": "七条四坊",
+                    "label": "七条四坊",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -16,14 +16,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q七条二坊",
-                    "label": "q七条二坊",
+                    "name": "七条二坊",
+                    "label": "七条二坊",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -32,14 +32,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q六条大路",
-                    "label": "q六条大路",
+                    "name": "六条大路",
+                    "label": "六条大路",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -48,14 +48,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q贵族宅邸",
-                    "label": "q贵族宅邸",
+                    "name": "贵族宅邸",
+                    "label": "贵族宅邸",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -64,14 +64,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q朱雀门",
-                    "label": "q朱雀门",
+                    "name": "朱雀门",
+                    "label": "朱雀门",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -80,14 +80,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q平安宫",
-                    "label": "q平安宫",
+                    "name": "平安宫",
+                    "label": "平安宫",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -96,14 +96,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q朱雀大路",
-                    "label": "q朱雀大路",
+                    "name": "朱雀大路",
+                    "label": "朱雀大路",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -112,14 +112,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q稻荷神社",
-                    "label": "q稻荷神社",
+                    "name": "稻荷神社",
+                    "label": "稻荷神社",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -128,14 +128,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q大宫大路",
-                    "label": "q大宫大路",
+                    "name": "大宫大路",
+                    "label": "大宫大路",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -144,14 +144,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q赖光的宅邸",
-                    "label": "q赖光的宅邸",
+                    "name": "赖光的宅邸",
+                    "label": "赖光的宅邸",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -160,14 +160,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q五条大桥",
-                    "label": "q五条大桥",
+                    "name": "五条大桥",
+                    "label": "五条大桥",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -176,14 +176,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q大江山",
-                    "label": "q大江山",
+                    "name": "大江山",
+                    "label": "大江山",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -192,14 +192,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q三条三坊",
-                    "label": "q三条三坊",
+                    "name": "三条三坊",
+                    "label": "三条三坊",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -208,7 +208,7 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }

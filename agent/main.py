@@ -1,21 +1,15 @@
 import sys
 import os
 
-# ================= 1. 环境初始化 (兼容阿瓦隆与MWU) =================
+# ================= 1. 环境初始化 =================
 AGENT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-# 添加依赖库路径 (MWU 规范: agent/libs/)
-LIBS_PATH = os.path.join(AGENT_ROOT, 'libs')
-if os.path.exists(LIBS_PATH) and LIBS_PATH not in sys.path:
-    sys.path.insert(0, LIBS_PATH)
-
-# 添加自定义业务逻辑路径 (MWU 规范: agent/custom/)
+# 添加自定义业务逻辑路径 (custom 目录)
 CUSTOM_PATH = os.path.join(AGENT_ROOT, 'custom')
 if os.path.exists(CUSTOM_PATH) and CUSTOM_PATH not in sys.path:
     sys.path.insert(0, CUSTOM_PATH)
 
 print(f"[Agent Init] Root: {AGENT_ROOT}")
-print(f"[Agent Init] Libs loaded: {os.path.exists(LIBS_PATH)}")
 print(f"[Agent Init] Custom loaded: {os.path.exists(CUSTOM_PATH)}")
 
 # ================= 2. 导入核心模块 =================
@@ -24,6 +18,8 @@ from maa.toolkit import Toolkit
 
 # 导入自定义 Action (从 custom 目录)
 import bbc_action
+import bbc_start
+import bbc_stop
 import sequential_tasks_action
 import general_navigation_action
 

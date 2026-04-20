@@ -3,11 +3,11 @@
         "Traum": {
             "type": "select",
             "label": "关卡",
-            "default": "q边界城镇",
+            "default": "边界城镇",
             "cases": [
                 {
-                    "name": "q边界城镇",
-                    "label": "q边界城镇",
+                    "name": "边界城镇",
+                    "label": "边界城镇",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -16,14 +16,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q破晓平原",
-                    "label": "q破晓平原",
+                    "name": "破晓平原",
+                    "label": "破晓平原",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -32,14 +32,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q中部森林",
-                    "label": "q中部森林",
+                    "name": "中部森林",
+                    "label": "中部森林",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -48,14 +48,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q黄昏之森",
-                    "label": "q黄昏之森",
+                    "name": "黄昏之森",
+                    "label": "黄昏之森",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -64,14 +64,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q天崄山脉",
-                    "label": "q天崄山脉",
+                    "name": "天崄山脉",
+                    "label": "天崄山脉",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -80,14 +80,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q王道界域据点",
-                    "label": "q王道界域据点",
+                    "name": "王道界域据点",
+                    "label": "王道界域据点",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -96,14 +96,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q克桑滕之塔",
-                    "label": "q克桑滕之塔",
+                    "name": "克桑滕之塔",
+                    "label": "克桑滕之塔",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -112,14 +112,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q阿查果克堡垒",
-                    "label": "q阿查果克堡垒",
+                    "name": "阿查果克堡垒",
+                    "label": "阿查果克堡垒",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -128,14 +128,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q湖畔平原",
-                    "label": "q湖畔平原",
+                    "name": "湖畔平原",
+                    "label": "湖畔平原",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -144,14 +144,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q锡尔米乌姆",
-                    "label": "q锡尔米乌姆",
+                    "name": "锡尔米乌姆",
+                    "label": "锡尔米乌姆",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -160,14 +160,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q复权界域据点",
-                    "label": "q复权界域据点",
+                    "name": "复权界域据点",
+                    "label": "复权界域据点",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -176,14 +176,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q门前平原",
-                    "label": "q门前平原",
+                    "name": "门前平原",
+                    "label": "门前平原",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -192,14 +192,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q复仇界域据点",
-                    "label": "q复仇界域据点",
+                    "name": "复仇界域据点",
+                    "label": "复仇界域据点",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -208,14 +208,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q莱辛巴赫",
-                    "label": "q莱辛巴赫",
+                    "name": "莱辛巴赫",
+                    "label": "莱辛巴赫",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -224,14 +224,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q止境荒野",
-                    "label": "q止境荒野",
+                    "name": "止境荒野",
+                    "label": "止境荒野",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -240,14 +240,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q约维努斯堡垒",
-                    "label": "q约维努斯堡垒",
+                    "name": "约维努斯堡垒",
+                    "label": "约维努斯堡垒",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -256,7 +256,7 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }

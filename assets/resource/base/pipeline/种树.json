@@ -1,0 +1,277 @@
+{
+    "0个苹果": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    604,
+                    598,
+                    71,
+                    43
+                ]
+            }
+        },
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    891,
+                    618,
+                    31,
+                    29
+                ],
+                "expected": "0"
+            }
+        }
+    },
+    "1个直接交换": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "交换完成关闭"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    724,
+                    571,
+                    180,
+                    50
+                ],
+                "template": [
+                    "trees/1个直接交换.png"
+                ],
+                "threshold": 0.6,
+                "green_mask": true
+            }
+        }
+    },
+    "1个苹果": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    857,
+                    605,
+                    63,
+                    30
+                ]
+            }
+        },
+        "next": [
+            "1个直接交换"
+        ],
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    895,
+                    622,
+                    27,
+                    27
+                ],
+                "expected": "1"
+            }
+        }
+    },
+    "主界面体力": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    157,
+                    683,
+                    15,
+                    23
+                ]
+            }
+        },
+        "next": [
+            "打开体力界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    138,
+                    667,
+                    54,
+                    50
+                ],
+                "template": [
+                    "体力+.png"
+                ]
+            }
+        }
+    },
+    "交换完成关闭": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "回主界面"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    500,
+                    524,
+                    282,
+                    72
+                ],
+                "template": "trees/交换完成关闭.png",
+                "threshold": 0.6,
+                "green_mask": true
+            }
+        }
+    },
+    "多个苹果": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    856,
+                    599,
+                    67,
+                    41
+                ]
+            }
+        },
+        "inverse": true,
+        "next": [
+            "种树加号查找"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    898,
+                    619,
+                    19,
+                    28
+                ],
+                "template": [
+                    "trees/0个苹果.png",
+                    "trees/1个苹果.png"
+                ],
+                "threshold": 0.6
+            }
+        }
+    },
+    "打开体力界面": {
+        "next": [
+            "0个苹果",
+            "1个苹果",
+            "多个苹果"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    850,
+                    619,
+                    35,
+                    27
+                ],
+                "template": [
+                    "trees/青铜树苗.png"
+                ],
+                "threshold": 0.6
+            }
+        }
+    },
+    "确认完成种树点击": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    769,
+                    576,
+                    79,
+                    40
+                ]
+            }
+        },
+        "next": [
+            "交换完成关闭"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    832,
+                    269,
+                    49,
+                    57
+                ],
+                "template": [
+                    "trees/确认完成种树点击.png"
+                ]
+            }
+        }
+    },
+    "种树": {
+        "next": [
+            "种树主界面识别",
+            "[JumpBack]回主界面"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "种树主界面识别": {
+        "next": [
+            "主界面体力"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    473,
+                    613,
+                    119,
+                    103
+                ],
+                "template": "task.png",
+                "threshold": 0.6,
+                "green_mask": true
+            }
+        }
+    },
+    "种树加号查找": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [
+                    -39,
+                    42,
+                    -58,
+                    -86
+                ]
+            }
+        },
+        "next": [
+            "确认完成种树点击"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    878,
+                    248,
+                    72,
+                    104
+                ],
+                "template": [
+                    "trees/加号.png"
+                ]
+            }
+        }
+    }
+}

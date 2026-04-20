@@ -1,34 +1,33 @@
 {
-    "option": {
-        "mumu_pkg": {
-            "type": "select",
-            "label": "MuMu游戏包名",
-            "default": "B服",
-            "cases": [
-              {
-                "name": "B服",
-                "label": "B服com.bilibili.fatego",
-                "pipeline_override": {
-                  "执行BBC任务": {
-                    "attach": {
-                      "mumu_pkg": "com.bilibili.fatego"
-                    }
-                  }
-                }
-              },
-              {
-                "name": "日服",
-                "label": "日服com.aniplex.fategrandorder",
-                "pipeline_override": {
-                  "执行BBC任务": {
-                    "attach": {
-                      "mumu_pkg": "com.aniplex.fategrandorder"
-                    }
-                  }
-                }
+  "option": {
+    "mumu_pkg": {
+      "type": "select",
+      "label": "MuMu游戏包名",
+      "default": "B服",
+      "cases": [
+        {
+          "name": "B服",
+          "label": "B服",
+          "pipeline_override": {
+            "启动bbc": {
+              "attach": {
+                "mumu_pkg": "com.bilibili.fatego"
               }
-            ]
+            }
           }
-
+        },
+        {
+          "name": "日服",
+          "label": "日服",
+          "pipeline_override": {
+            "启动bbc": {
+              "attach": {
+                "mumu_pkg": "com.aniplex.fategrandorder"
+              }
+            }
+          }
+        }
+      ]
     }
+  }
 }

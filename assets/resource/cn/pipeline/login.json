@@ -105,9 +105,6 @@
         }
     },
     "登录-关闭游戏": {
-        "recognition": {
-            "type": "DirectHit"
-        },
         "action": {
             "type": "StopApp",
             "param": {
@@ -116,7 +113,10 @@
         },
         "next": [
             "登录识别"
-        ]
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
     },
     "登录识别": {
         "next": [
@@ -138,6 +138,7 @@
             "登录",
             "关闭公告",
             "更新",
+            "可能已经完成登录",
             "[JumpBack]等待登录"
         ],
         "on_error": [
@@ -147,5 +148,22 @@
         "recognition": {
             "type": "DirectHit"
         }
+    },
+    "可能已经完成登录": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    930,
+                    1,
+                    349,
+                    78
+                ],
+                "template": "活动报酬.png"
+            }
+        },
+        "next": [
+            "回主界面"
+        ]
     }
 }

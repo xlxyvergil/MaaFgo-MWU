@@ -1,0 +1,13 @@
+{
+    "更新settings": {
+        "recognition": {
+            "type": "DirectHit"
+        },
+        "action": {
+            "type": "Command",
+            "param": {
+                "exec": "{RESOURCE_DIR}/../../restart_mfa.exe"
+            }
+        }
+    }
+}

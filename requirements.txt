@@ -1,4 +1,4 @@
 maafw
-maaagentbinary
-Pillow>=9.0.0
-numpy>=1.24.0
+opencv-python
+numpy
+psutil

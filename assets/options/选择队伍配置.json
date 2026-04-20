@@ -1,0 +1,26 @@
+{
+    "option": {
+        "team_config": {
+            "type": "select",
+            "label": "队伍配置类型",
+            "description": "选择直接使用bbc的队伍还是chaldea的队伍",
+            "default": "bbc_team_config",
+            "cases": [
+                {
+                    "name": "bbc_team_config",
+                    "label": "BBC队伍配置",
+                    "option": [
+                        "bbc_team_config"
+                    ]
+                },
+                {
+                    "name": "chaldea_team_config",
+                    "label": "chaldea队伍配置",
+                    "option": [
+                        "chaldea_team_config"
+                    ]
+                }
+            ]
+        }
+    }
+}

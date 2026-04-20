@@ -7,8 +7,7 @@ def main():
     packages = [
         "maafw",
         "maaagentbinary",
-        "numpy",
-        "Pillow"
+        "opencv-python"
     ]
     
     # 定义下载目标目录
@@ -50,30 +49,8 @@ def main():
         subprocess.check_call(cmd)
         print("Dependencies downloaded successfully.")
     except subprocess.CalledProcessError as e:
-        print(f"Platform specific download failed: {e}")
-        
-        # 如果是 ARM64 且包含 opencv-python，尝试剔除它再试一次
-        if "aarch64" in sys.argv and "opencv-python" in packages:
-            print("Detected ARM64 architecture. Removing opencv-python from download list as it lacks pre-built wheels.")
-            packages.remove("opencv-python")
-            
-            fallback_cmd = [
-                sys.executable, "-m", "pip", "download",
-                *packages,
-                "-d", target_dir,
-                "--only-binary=:all:"
-            ]
-            
-            try:
-                subprocess.check_call(fallback_cmd)
-                print("Dependencies downloaded successfully (without opencv-python).")
-                return
-            except subprocess.CalledProcessError as e2:
-                print(f"Fallback also failed: {e2}")
-                sys.exit(1)
-        else:
-            print(f"Failed to download dependencies: {e}")
-            sys.exit(1)
+        print(f"Failed to download dependencies: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

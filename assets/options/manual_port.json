@@ -12,7 +12,7 @@
                 }
             ],
             "pipeline_override": {
-                "执行BBC任务": {
+                "启动bbc": {
                     "attach": {
                         "manual_port": "{manual_port}"
                     }

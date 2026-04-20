@@ -3,11 +3,11 @@
         "雅戈泰": {
             "type": "select",
             "label": "关卡",
-            "default": "q地底平原",
+            "default": "地底平原",
             "cases": [
                 {
-                    "name": "q地底平原",
-                    "label": "q地底平原",
+                    "name": "地底平原",
+                    "label": "地底平原",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -16,14 +16,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q野营地",
-                    "label": "q野营地",
+                    "name": "野营地",
+                    "label": "野营地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -32,14 +32,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q河边城市",
-                    "label": "q河边城市",
+                    "name": "河边城市",
+                    "label": "河边城市",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -48,14 +48,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q桃源乡",
-                    "label": "q桃源乡",
+                    "name": "桃源乡",
+                    "label": "桃源乡",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -64,14 +64,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q伊苏",
-                    "label": "q伊苏",
+                    "name": "伊苏",
+                    "label": "伊苏",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -80,14 +80,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q北部断崖",
-                    "label": "q北部断崖",
+                    "name": "北部断崖",
+                    "label": "北部断崖",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -96,14 +96,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q不夜城",
-                    "label": "q不夜城",
+                    "name": "不夜城",
+                    "label": "不夜城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -112,14 +112,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q山脚密林",
-                    "label": "q山脚密林",
+                    "name": "山脚密林",
+                    "label": "山脚密林",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -128,14 +128,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q地底大河",
-                    "label": "q地底大河",
+                    "name": "地底大河",
+                    "label": "地底大河",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -144,14 +144,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q龙宫城",
-                    "label": "q龙宫城",
+                    "name": "龙宫城",
+                    "label": "龙宫城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -160,14 +160,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q黄金国",
-                    "label": "q黄金国",
+                    "name": "黄金国",
+                    "label": "黄金国",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -176,14 +176,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q大地裂隙",
-                    "label": "q大地裂隙",
+                    "name": "大地裂隙",
+                    "label": "大地裂隙",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -192,7 +192,7 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }

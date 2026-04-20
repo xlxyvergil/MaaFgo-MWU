@@ -1,0 +1,13 @@
+{
+    "task": [
+        {
+            "name": "启动bbc",
+            "label": "启动bbc",
+            "description": "用于启动bbc和让bbc连接模拟器，建议放在登录任务之后。启动后其余任务使用bbc将不再需要重新启动bbc。",
+            "entry": "启动bbc",
+            "option": [
+                "connect_method"
+            ]
+        }
+    ]
+}

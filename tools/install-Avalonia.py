@@ -2,15 +2,10 @@ from pathlib import Path
 
 import shutil
 import sys
-
-try:
-    import jsonc
-except ModuleNotFoundError as e:
-    raise ImportError(
-        "Missing dependency 'json-with-comments' (imported as 'jsonc').\n"
-        f"Install it with:\n  {sys.executable} -m pip install json-with-comments\n"
-        "Or add it to your project's requirements."
-    ) from e
+import subprocess
+import os
+import urllib.request
+import json
 
 from configure import configure_ocr_model
 
@@ -103,6 +98,9 @@ def install_resource():
 
     configure_ocr_model()
 
+    # 确保 install_path 目录存在
+    install_path.mkdir(parents=True, exist_ok=True)
+
     shutil.copytree(
         working_dir / "assets" / "resource",
         install_path / "resource",
@@ -115,27 +113,44 @@ def install_resource():
 
     # Copy options and i18n directories
     if (working_dir / "assets" / "options").exists():
-        # 复制 options 目录，但排除 MWU 版本的 bbc_team_config.json
         shutil.copytree(
             working_dir / "assets" / "options",
             install_path / "options",
-            ignore=shutil.ignore_patterns("bbc_team_config.json"),
             dirs_exist_ok=True,
         )
-        # 将 bbc_team_config-Avalonia.json 重命名为 bbc_team_config.json
-        avalonia_config = install_path / "options" / "bbc_team_config-Avalonia.json"
-        target_config = install_path / "options" / "bbc_team_config.json"
-        if avalonia_config.exists():
-            shutil.move(str(avalonia_config), str(target_config))
+        
+        # 删除 bbc_team_config.json，使用 bbc_team_config_nomwu.json 替代
+        bbc_config = install_path / "options" / "bbc_team_config.json"
+        if bbc_config.exists():
+            bbc_config.unlink()
+        
+        nomwu_config = working_dir / "assets" / "options" / "bbc_team_config_nomwu.json"
+        if nomwu_config.exists():
+            shutil.copy2(nomwu_config, install_path / "options" / "bbc_team_config.json")
+    
     if (working_dir / "assets" / "i18n").exists():
         shutil.copytree(
             working_dir / "assets" / "i18n",
             install_path / "i18n",
             dirs_exist_ok=True,
         )
+    
+    # 复制 restart_mfa.exe 和 restart_config.json 到根目录
+    if (working_dir / "assets" / "restart_mfa.exe").exists():
+        shutil.copy2(
+            working_dir / "assets" / "restart_mfa.exe",
+            install_path,
+        )
+    if (working_dir / "assets" / "restart_config.json").exists():
+        with open(working_dir / "assets" / "restart_config.json", 'r', encoding='utf-8') as f:
+            config = json.load(f)
+        config['target_exe'] = 'MFAAvalonia.exe'
+        config['description'] = 'MFAAvalonia重启配置'
+        with open(install_path / "restart_config.json", 'w', encoding='utf-8') as f:
+            json.dump(config, f, ensure_ascii=False, indent=2)
 
     with open(install_path / "interface.json", "r", encoding="utf-8") as f:
-        interface = jsonc.load(f)
+        interface = json.load(f)
 
     interface["version"] = version
 
@@ -148,7 +163,7 @@ def install_resource():
         interface["agent"]["child_exec"] = r"python3"
 
     with open(install_path / "interface.json", "w", encoding="utf-8") as f:
-        jsonc.dump(interface, f, ensure_ascii=False, indent=4)
+        json.dump(interface, f, ensure_ascii=False, indent=2)
 
 
 def install_chores():
@@ -162,28 +177,31 @@ def install_chores():
     )
 
 
-def install_agent_deps():
-    """将 site-packages 中的 cv2 等库移动到 agent/libs/"""
-    libs_dir = install_path / "agent" / "libs"
-    libs_dir.mkdir(parents=True, exist_ok=True)
-    site_packages = install_path / "python" / "Lib" / "site-packages"
+def setup_embedded_python():
+    """M9A 模式：依赖由 CI 工作流通过 pip install -r requirements.txt 安装到嵌入式 Python"""
+    py_dir = install_path / "python"
+    if not py_dir.exists():
+        print("Error: Python directory not found in install. Ensure CI prepares it first.")
+    else:
+        # 确保 get-pip.py 存在，如果不存在则下载
+        get_pip_path = py_dir / "get-pip.py"
+        if not get_pip_path.exists():
+            print("Downloading get-pip.py...")
+            import urllib.request
+            urllib.request.urlretrieve("https://bootstrap.pypa.io/get-pip.py", str(get_pip_path))
+        
+        # 执行 pip 安装
+        python_exe = py_dir / "python.exe" if os_name == "win" else py_dir / "bin" / "python3"
+        subprocess.run([str(python_exe), str(get_pip_path)], check=True)
+        subprocess.run([str(python_exe), "-m", "pip", "install", "--upgrade", "pip"], check=True)
+        subprocess.run([str(python_exe), "-m", "pip", "install", "-r", str(working_dir / "requirements.txt")], check=True)
 
-    print(f"Moving dependencies from site-packages to {libs_dir}...")
-    for item in site_packages.iterdir():
-        # 移动 cv2, numpy, PIL 等导航所需的库
-        if item.name.startswith(("cv2", "numpy", "PIL", "pillow")):
-            dest = libs_dir / item.name
-            if dest.exists():
-                shutil.rmtree(dest) if dest.is_dir() else dest.unlink()
-            shutil.move(str(item), str(dest))
-            print(f"  Moved: {item.name}")
 
 def install_agent():
-    # 复制 agent 目录，但排除 MWU 版本文件
+    # 复制 agent 目录
     shutil.copytree(
         working_dir / "agent",
         install_path / "agent",
-        ignore=shutil.ignore_patterns("bbc_action-mwu.py"),
         dirs_exist_ok=True,
     )
 
@@ -211,7 +229,7 @@ if __name__ == "__main__":
     install_deps()
     install_resource()
     install_chores()
-    install_agent_deps()  # 新增：安装 Agent 依赖到 libs/
+    setup_embedded_python()  # M9A 模式：在构建时安装依赖到嵌入式 Python
     install_agent()
     install_bbcdll()
     install_tasks()

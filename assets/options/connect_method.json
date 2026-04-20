@@ -9,7 +9,7 @@
                     "name": "auto",
                     "label": "自动连接",
                     "pipeline_override": {
-                        "执行BBC任务": {
+                        "启动bbc": {
                             "attach": {
                                 "connect": "auto"
                             }
@@ -26,7 +26,7 @@
                         "mumu_app_index"
                     ],
                     "pipeline_override": {
-                        "执行BBC任务": {
+                        "启动bbc": {
                             "attach": {
                                 "connect": "mumu"
                             }
@@ -41,7 +41,7 @@
                         "ld_index"
                     ],
                     "pipeline_override": {
-                        "执行BBC任务": {
+                        "启动bbc": {
                             "attach": {
                                 "connect": "ldplayer"
                             }
@@ -55,7 +55,7 @@
                         "manual_port"
                     ],
                     "pipeline_override": {
-                        "执行BBC任务": {
+                        "启动bbc": {
                             "attach": {
                                 "connect": "manual"
                             }

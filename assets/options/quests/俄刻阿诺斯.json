@@ -3,196 +3,196 @@
         "俄刻阿诺斯": {
             "type": "select",
             "label": "关卡",
-            "default": "q海盗船",
+            "default": "私掠船团",
             "cases": [
                 {
-                    "name": "q海盗船",
-                    "label": "q海盗船",
+                    "name": "私掠船团",
+                    "label": "私掠船团",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "海盗船"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/私掠船团.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q海盗岛",
-                    "label": "q海盗岛",
+                    "name": "海盗大本营",
+                    "label": "海盗大本营",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "海盗岛"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/海盗大本营.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q王者的居岛",
-                    "label": "q王者的居岛",
+                    "name": "被诅咒的海盗们",
+                    "label": "被诅咒的海盗们",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "王者的居岛"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/被诅咒的海盗们.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q地图上标记的岛",
-                    "label": "q地图上标记的岛",
+                    "name": "公牛迷宫",
+                    "label": "公牛迷宫",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "地图上标记的岛"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/公牛迷宫.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q潮眼之海",
-                    "label": "q潮眼之海",
+                    "name": "自由的海原",
+                    "label": "自由的海原",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "潮眼之海"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/自由的海原.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q翼龙之岛",
-                    "label": "q翼龙之岛",
+                    "name": "龙群的乐园",
+                    "label": "龙群的乐园",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "翼龙之岛"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/龙群的乐园.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q暴风雨海域",
-                    "label": "q暴风雨海域",
+                    "name": "彷徨的幽灵船",
+                    "label": "彷徨的幽灵船",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "暴风雨海域"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/彷徨的幽灵船.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q群岛寂静的入海口",
-                    "label": "q群岛寂静的入海口",
+                    "name": "寂静的入海口",
+                    "label": "寂静的入海口",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "群岛寂静的入海口"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/寂静的入海口.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q群岛隐藏之岛",
-                    "label": "q群岛隐藏之岛",
+                    "name": "隐藏之岛",
+                    "label": "隐藏之岛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "群岛隐藏之岛"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/隐藏之岛.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q暗礁海域",
-                    "label": "q暗礁海域",
+                    "name": "船舶坟场",
+                    "label": "船舶坟场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "暗礁海域"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/船舶坟场.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q火山臼之岛",
-                    "label": "q火山臼之岛",
+                    "name": "无人发现的岛屿",
+                    "label": "无人发现的岛屿",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "火山臼之岛"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/无人发现的岛屿.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q丰硕之海",
-                    "label": "q成效之海",
+                    "name": "秘密航路",
+                    "label": "秘密航路",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "丰硕之海"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Okeanos/秘密航路.png"
                             ]
                         }
                     }

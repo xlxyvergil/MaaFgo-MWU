@@ -1,0 +1,880 @@
+{
+    "点击队伍编制": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [
+                    17,
+                    25,
+                    -28,
+                    -43
+                ]
+            }
+        },
+        "next": [
+            "队伍编制"
+        ],
+        "pre_wait_freezes": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    674,
+                    102,
+                    152,
+                    132
+                ],
+                "template": [
+                    "team/点击队伍编制.png"
+                ]
+            }
+        }
+    },
+    "编队": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "点击队伍编制"
+        ],
+        "pre_wait_freezes": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    256,
+                    542,
+                    97,
+                    80
+                ],
+                "template": [
+                    "team/编队.png"
+                ]
+            }
+        }
+    },
+    "菜单": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [
+                    50,
+                    36,
+                    -96,
+                    -55
+                ]
+            }
+        },
+        "pre_wait_freezes": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1089,
+                    599,
+                    191,
+                    86
+                ],
+                "template": [
+                    "菜单.png"
+                ],
+                "threshold": 0.55,
+                "method": 3,
+                "green_mask": true
+            }
+        }
+    },
+    "队伍1": {
+        "next": [
+            "队伍编制1",
+            "[JumpBack]队伍1点击"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍10": {
+        "next": [
+            "队伍编制10",
+            "[JumpBack]队伍点击10"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍11": {
+        "next": [
+            "队伍编制11",
+            "[JumpBack]队伍点击11"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍12": {
+        "next": [
+            "队伍编制12",
+            "[JumpBack]队伍点击12"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍13": {
+        "next": [
+            "队伍编制13",
+            "[JumpBack]队伍点击13"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍14": {
+        "next": [
+            "队伍编制14",
+            "[JumpBack]队伍点击14"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍15": {
+        "next": [
+            "队伍编制15",
+            "[JumpBack]队伍点击15"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍1点击": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    465,
+                    50,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍2": {
+        "next": [
+            "队伍编制2",
+            "[JumpBack]队伍2点击"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍2点击": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    490,
+                    50,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍3": {
+        "next": [
+            "队伍编制3",
+            "[JumpBack]队伍点击3"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍4": {
+        "next": [
+            "队伍编制4",
+            "[JumpBack]队伍点击4"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍5": {
+        "next": [
+            "队伍编制5",
+            "[JumpBack]队伍点击5"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍6": {
+        "next": [
+            "队伍编制6",
+            "[JumpBack]队伍点击6"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍7": {
+        "next": [
+            "队伍编制7",
+            "[JumpBack]队伍点击7"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍8": {
+        "next": [
+            "队伍编制8",
+            "[JumpBack]队伍点击8"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍9": {
+        "next": [
+            "队伍编制9",
+            "[JumpBack]队伍点击9"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击10": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    689,
+                    51,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击11": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    715,
+                    51,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击12": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    741,
+                    49,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击13": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    765,
+                    49,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击14": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    790,
+                    51,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击15": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    815,
+                    50,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击3": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    514,
+                    51,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击4": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    540,
+                    50,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击5": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    564,
+                    50,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击6": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    591,
+                    51,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击7": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    614,
+                    50,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击8": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    640,
+                    51,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击9": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    665,
+                    51,
+                    1,
+                    1
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍点击决定": {
+        "action": {
+            "type": "Click",
+            "param": {
+                "target_offset": [
+                    58,
+                    24,
+                    -129,
+                    -47
+                ]
+            }
+        },
+        "next": [
+            "队伍确定菜单"
+        ],
+        "on_error": [
+            "队伍错误返回"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1070,
+                    625,
+                    208,
+                    93
+                ],
+                "template": [
+                    "team/队伍点击决定.png"
+                ],
+                "threshold": 0.6,
+                "green_mask": true
+            }
+        }
+    },
+    "队伍界面决定": {
+        "next": [
+            "队伍点击决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍确定菜单": {
+        "next": [
+            "回主界面"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1089,
+                    599,
+                    191,
+                    86
+                ],
+                "template": [
+                    "菜单.png"
+                ],
+                "threshold": 0.6,
+                "method": 3,
+                "green_mask": true
+            }
+        }
+    },
+    "队伍编制": {
+        "next": [
+            "队伍1"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍编制1": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    688,
+                    1,
+                    29,
+                    37
+                ],
+                "template": [
+                    "team/D1.png"
+                ]
+            }
+        }
+    },
+    "队伍编制10": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D10.png"
+                ]
+            }
+        }
+    },
+    "队伍编制11": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D11.png"
+                ]
+            }
+        }
+    },
+    "队伍编制12": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D12.png"
+                ]
+            }
+        }
+    },
+    "队伍编制13": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D13.png"
+                ]
+            }
+        }
+    },
+    "队伍编制14": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D14.png"
+                ]
+            }
+        }
+    },
+    "队伍编制15": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D15.png"
+                ]
+            }
+        }
+    },
+    "队伍编制2": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D2.png"
+                ]
+            }
+        }
+    },
+    "队伍编制3": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D3.png"
+                ],
+                "detector": "SIFT"
+            }
+        }
+    },
+    "队伍编制4": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D4.png"
+                ]
+            }
+        }
+    },
+    "队伍编制5": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D5.png"
+                ]
+            }
+        }
+    },
+    "队伍编制6": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D6.png"
+                ]
+            }
+        }
+    },
+    "队伍编制7": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D7.png"
+                ]
+            }
+        }
+    },
+    "队伍编制8": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D8.png"
+                ]
+            }
+        }
+    },
+    "队伍编制9": {
+        "next": [
+            "队伍界面决定"
+        ],
+        "post_wait_freezes": 1000,
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    440,
+                    2,
+                    416,
+                    62
+                ],
+                "template": [
+                    "team/D9.png"
+                ]
+            }
+        }
+    },
+    "队伍选择": {
+        "next": [
+            "编队",
+            "[JumpBack]菜单"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "队伍错误返回": {
+        "action": {
+            "type": "ClickKey",
+            "param": {
+                "key": [
+                    111
+                ]
+            }
+        },
+        "next": [
+            "点击队伍编制"
+        ],
+        "post_wait_freezes": 500,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    }
+}

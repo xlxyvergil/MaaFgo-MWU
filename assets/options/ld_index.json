@@ -13,7 +13,7 @@
                 }
             ],
             "pipeline_override": {
-                "执行BBC任务": {
+                "启动bbc": {
                     "attach": {
                         "ld_index": "{ld_index}"
                     }

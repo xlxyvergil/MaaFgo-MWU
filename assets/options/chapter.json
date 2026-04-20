@@ -13,12 +13,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c冬木"
+                            "next": "冬木"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c冬木"
+                                "chapter": "冬木"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "OoTTemple/冬木.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1.png"
+                            ]
                         }
                     }
                 },
@@ -30,12 +45,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c奥尔良"
+                            "next": "奥尔良"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c奥尔良"
+                                "chapter": "奥尔良"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "OoTTemple/奥尔良.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1.png"
+                            ]
                         }
                     }
                 },
@@ -47,12 +77,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c七丘之城"
+                            "next": "七丘之城"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c七丘之城"
+                                "chapter": "七丘之城"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "OoTTemple/七丘之城.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1.png"
+                            ]
                         }
                     }
                 },
@@ -64,12 +109,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c俄刻阿诺斯"
+                            "next": "俄刻阿诺斯"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c俄刻阿诺斯"
+                                "chapter": "俄刻阿诺斯"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "OoTTemple/俄刻阿诺斯.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1.png"
+                            ]
                         }
                     }
                 },
@@ -81,12 +141,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c伦敦"
+                            "next": "伦敦"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c伦敦"
+                                "chapter": "伦敦"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "OoTTemple/伦敦.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1.png"
+                            ]
                         }
                     }
                 },
@@ -98,12 +173,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c合众为一"
+                            "next": "合众为一"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c合众为一"
+                                "chapter": "合众为一"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "OoTTemple/合众为一.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1.png"
+                            ]
                         }
                     }
                 },
@@ -115,12 +205,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c卡美洛"
+                            "next": "卡美洛"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c卡美洛"
+                                "chapter": "卡美洛"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "OoTTemple/卡美洛.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1.png"
+                            ]
                         }
                     }
                 },
@@ -132,12 +237,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c巴比伦尼亚"
+                            "next": "巴比伦尼亚"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c巴比伦尼亚"
+                                "chapter": "巴比伦尼亚"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "OoTTemple/巴比伦尼亚.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "OoTTemple/主线记录1.png"
+                            ]
                         }
                     }
                 },
@@ -149,12 +269,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c新宿"
+                            "next": "新宿"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c新宿"
+                                "chapter": "新宿"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "EoRemnant/新宿.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "EoRemnant/主线记录1-5-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "EoRemnant/主线记录1-5.png"
+                            ]
                         }
                     }
                 },
@@ -166,12 +301,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c雅戈泰"
+                            "next": "雅戈泰"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c雅戈泰"
+                                "chapter": "雅戈泰"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "EoRemnant/雅戈泰.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "EoRemnant/主线记录1-5-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "EoRemnant/主线记录1-5.png"
+                            ]
                         }
                     }
                 },
@@ -183,12 +333,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c下总国"
+                            "next": "下总国"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c下总国"
+                                "chapter": "下总国"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "EoRemnant/下总国.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "EoRemnant/主线记录1-5-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "EoRemnant/主线记录1-5.png"
+                            ]
                         }
                     }
                 },
@@ -200,12 +365,27 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c塞勒姆"
+                            "next": "塞勒姆"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c塞勒姆"
+                                "chapter": "塞勒姆"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "EoRemnant/塞勒姆.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "EoRemnant/主线记录1-5-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "EoRemnant/主线记录1-5.png"
+                            ]
                         }
                     }
                 },
@@ -217,11 +397,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c阿纳斯塔西娅"
+                            "next": "阿纳斯塔西娅"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c阿纳斯塔西娅"
+                                "chapter": "阿纳斯塔西娅"
                             }
                         }
                     }
@@ -234,11 +414,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c诸神黄昏"
+                            "next": "诸神黄昏"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c诸神黄昏"
+                                "chapter": "诸神黄昏"
                             }
                         }
                     }
@@ -251,11 +431,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "cSIN"
+                            "next": "SIN"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "cSIN"
+                                "chapter": "SIN"
                             }
                         }
                     }
@@ -268,11 +448,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c由伽刹多罗"
+                            "next": "由伽刹多罗"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c由伽刹多罗"
+                                "chapter": "由伽刹多罗"
                             }
                         }
                     }
@@ -285,11 +465,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c亚特兰蒂斯"
+                            "next": "亚特兰蒂斯"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c亚特兰蒂斯"
+                                "chapter": "亚特兰蒂斯"
                             }
                         }
                     }
@@ -302,11 +482,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c奥林波斯"
+                            "next": "奥林波斯"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c奥林波斯"
+                                "chapter": "奥林波斯"
                             }
                         }
                     }
@@ -319,11 +499,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c阿瓦隆勒菲"
+                            "next": "阿瓦隆勒菲"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c阿瓦隆勒菲"
+                                "chapter": "阿瓦隆勒菲"
                             }
                         }
                     }
@@ -336,7 +516,7 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c纳维米克特兰"
+                            "next": "纳维米克特兰"
                         }
                     }
                 },
@@ -348,11 +528,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c平安京"
+                            "next": "平安京"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c平安京"
+                                "chapter": "平安京"
                             }
                         }
                     }
@@ -365,11 +545,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "cTraum"
+                            "next": "Traum"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "cTraum"
+                                "chapter": "Traum"
                             }
                         }
                     }
@@ -382,7 +562,7 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "cOrdeal Call"
+                            "next": "OrdealCall"
                         }
                     }
                 },
@@ -394,11 +574,11 @@
                     ],
                     "pipeline_override": {
                         "章节导航": {
-                            "next": "c平面之月"
+                            "next": "平面之月"
                         },
                         "地图坐标导航": {
                             "attach": {
-                                "chapter": "c平面之月"
+                                "chapter": "平面之月"
                             }
                         }
                     }

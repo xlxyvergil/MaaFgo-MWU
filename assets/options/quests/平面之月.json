@@ -3,11 +3,11 @@
         "平面之月": {
             "type": "select",
             "label": "关卡",
-            "default": "q修理部郊外",
+            "default": "修理部郊外",
             "cases": [
                 {
-                    "name": "q修理部郊外",
-                    "label": "q修理部郊外",
+                    "name": "修理部郊外",
+                    "label": "修理部郊外",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -16,14 +16,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q修理部本部",
-                    "label": "q修理部本部",
+                    "name": "修理部本部",
+                    "label": "修理部本部",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -32,14 +32,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q警防部本部",
-                    "label": "q警防部本部",
+                    "name": "警防部本部",
+                    "label": "警防部本部",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -48,14 +48,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q生产部农地",
-                    "label": "q生产部农地",
+                    "name": "生产部农地",
+                    "label": "生产部农地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -64,14 +64,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q警防部广场",
-                    "label": "q警防部广场",
+                    "name": "警防部广场",
+                    "label": "警防部广场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -80,14 +80,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q维持部本部",
-                    "label": "q维持部本部",
+                    "name": "维持部本部",
+                    "label": "维持部本部",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -96,14 +96,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q外围部",
-                    "label": "q外围部",
+                    "name": "外围部",
+                    "label": "外围部",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -112,14 +112,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q转运部本部",
-                    "label": "q转运部本部",
+                    "name": "转运部本部",
+                    "label": "转运部本部",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -128,14 +128,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q维持部商业街",
-                    "label": "q维持部商业街",
+                    "name": "维持部商业街",
+                    "label": "维持部商业街",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -144,14 +144,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q构筑部本部",
-                    "label": "q构筑部本部",
+                    "name": "构筑部本部",
+                    "label": "构筑部本部",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -160,14 +160,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q生产部本部",
-                    "label": "q生产部本部",
+                    "name": "生产部本部",
+                    "label": "生产部本部",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -176,7 +176,7 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }

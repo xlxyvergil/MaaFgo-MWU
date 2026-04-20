@@ -3,11 +3,11 @@
         "亚特兰蒂斯": {
             "type": "select",
             "label": "关卡",
-            "default": "q起航点",
+            "default": "起航点",
             "cases": [
                 {
-                    "name": "q起航点",
-                    "label": "q起航点",
+                    "name": "起航点",
+                    "label": "起航点",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -16,14 +16,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q赫斯提亚岛",
-                    "label": "q赫斯提亚岛",
+                    "name": "赫斯提亚岛",
+                    "label": "赫斯提亚岛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -32,14 +32,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q赫卡忒岛",
-                    "label": "q赫卡忒岛",
+                    "name": "赫卡忒岛",
+                    "label": "赫卡忒岛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -48,14 +48,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q戴摩斯岛",
-                    "label": "q戴摩斯岛",
+                    "name": "戴摩斯岛",
+                    "label": "戴摩斯岛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -64,14 +64,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q阿斯特赖亚岛",
-                    "label": "q阿斯特赖亚岛",
+                    "name": "阿斯特赖亚岛",
+                    "label": "阿斯特赖亚岛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -80,14 +80,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q忒提斯岛",
-                    "label": "q忒提斯岛",
+                    "name": "忒提斯岛",
+                    "label": "忒提斯岛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -96,14 +96,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q厄里斯岛",
-                    "label": "q厄里斯岛",
+                    "name": "厄里斯岛",
+                    "label": "厄里斯岛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -112,14 +112,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q涅墨西斯岛",
-                    "label": "q涅墨西斯岛",
+                    "name": "涅墨西斯岛",
+                    "label": "涅墨西斯岛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -128,14 +128,14 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "q塔那托斯岛",
-                    "label": "q塔那托斯岛",
+                    "name": "塔那托斯岛",
+                    "label": "塔那托斯岛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
@@ -144,7 +144,7 @@
                         },
                         "关卡选择": {
                             "template": [
-                                "冬木/熊熊燃烧的森林.png"
+                                "map/Fuyuki/熊熊燃烧的森林.png"
                             ]
                         }
                     }

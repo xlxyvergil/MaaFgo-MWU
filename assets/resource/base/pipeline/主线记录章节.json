@@ -1,0 +1,79 @@
+{
+    "完成主线记录寻找章节": {
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "找到进入主线记录章节": {
+        "action": {
+            "type": "Click"
+        },
+        "next": [
+            "地图坐标导航"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    646,
+                    112,
+                    572,
+                    485
+                ],
+                "template": [
+                    "OoTTemple/冬木.png"
+                ],
+                "threshold": 0.7
+            }
+        }
+    },
+    "进入主线记录": {
+        "next": [
+            "找到进入主线记录章节",
+            "[JumpBack]进入主线记录寻找章节"
+        ],
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    807,
+                    0,
+                    473,
+                    74
+                ],
+                "template": "OoTTemple/主线记录1-1.png"
+            }
+        }
+    },
+    "进入主线记录寻找章节": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "duration": [
+                    100
+                ],
+                "begin": [
+                    1211,
+                    459,
+                    10,
+                    13
+                ],
+                "end": [
+                    [
+                        1209,
+                        220,
+                        17,
+                        16
+                    ]
+                ]
+            }
+        },
+        "next": [
+            "完成主线记录寻找章节"
+        ],
+        "post_wait_freezes": 500,
+        "recognition": {
+            "type": "DirectHit"
+        }
+    }
+}

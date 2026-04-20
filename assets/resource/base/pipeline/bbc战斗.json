@@ -1,0 +1,75 @@
+{
+    "bbc任务完成": {
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "bbc战斗": {
+        "next": [
+            "执行BBC任务"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "使用chaldea队伍": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "动作名占位,chaldea相关"
+            }
+        },
+        "attach": {
+            "chaldea_import_source": ""
+        },
+        "next": [
+            "执行BBC任务"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "执行BBC任务": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "execute_bbc_task"
+            }
+        },
+        "attach": {
+            "apple_type": "铜苹果",
+            "battle_type": "continuous",
+            "bbc_team_config": "",
+            "run_count": 1,
+            "support_order_mismatch": false,
+            "team_config_error": false
+        },
+        "next": [
+            "bbc任务完成"
+        ],
+        "recognition": {
+            "type": "DirectHit"
+        }
+    },
+    "启动bbc": {
+        "recognition": {
+            "type": "DirectHit"
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "start_bbc"
+            }
+        },
+        "attach": {
+            "connect": "auto",
+            "ld_index": 0,
+            "ld_path": "",
+            "manual_port": "",
+            "mumu_app_index": 0,
+            "mumu_index": 0,
+            "mumu_path": "",
+            "mumu_pkg": "com.bilibili.fatego"
+        }
+    }
+}
