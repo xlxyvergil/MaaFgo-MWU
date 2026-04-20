@@ -52,10 +52,16 @@ class ExecuteBbcTask(CustomAction):
             battle_type = attach_data.get('battle_type', '连续出击')
             support_order_mismatch = attach_data.get('support_order_mismatch', False)
             team_config_error = attach_data.get('team_config_error', False)
-            
+
+            # Chaldea 队伍导入：如果提供了来源，转换并覆盖 team_config
+            team_config = self._try_chaldea_import(attach_data, team_config)
+
             # 验证必需参数
-            if not team_config or run_count is None or apple_type is None:
-                logger.error(f"[ExecuteBbcTask] 参数不完整: team={team_config}, count={run_count}, apple={apple_type}")
+            if not team_config:
+                logger.error("[ExecuteBbcTask] 未提供队伍配置：请填写 Chaldea 链接或选择 BBC 配置文件")
+                return CustomAction.RunResult(success=False)
+            if run_count is None or apple_type is None:
+                logger.error(f"[ExecuteBbcTask] 参数不完整: count={run_count}, apple={apple_type}")
                 return CustomAction.RunResult(success=False)
             
             run_count = int(run_count)
@@ -107,12 +113,55 @@ class ExecuteBbcTask(CustomAction):
             logger.error(f"[ExecuteBbcTask] 异常: {e}", exc_info=True)
             return CustomAction.RunResult(success=False)
     
+    def _try_chaldea_import(self, attach_data: dict, team_config: str) -> str:
+        """如果提供了 Chaldea 来源，转换为 BBC 配置并返回文件名；否则原样返回 team_config"""
+        chaldea_import_source = attach_data.get('chaldea_import_source', '')
+        if not chaldea_import_source:
+            return team_config
+
+        try:
+            import sys
+            agent_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            if agent_root not in sys.path:
+                sys.path.insert(0, agent_root)
+            from chaldea_converter import fetch_and_convert
+            from bbc_start import BBC_PATH
+
+            logger.info(f"[Chaldea] 开始解析导入来源: {chaldea_import_source[:50]}...")
+
+            bbc_settings_dir = os.path.join(BBC_PATH, 'settings')
+            os.makedirs(bbc_settings_dir, exist_ok=True)
+
+            converted_filename = fetch_and_convert(
+                source=chaldea_import_source,
+                output_dir=bbc_settings_dir,
+            )
+
+            if converted_filename:
+                logger.info(f"[Chaldea] 使用 Chaldea 队伍: {converted_filename}")
+                return converted_filename
+            else:
+                logger.error("[Chaldea] 队伍转换失败，请检查输入的链接或ID是否正确")
+                return team_config
+        except Exception as e:
+            logger.error(f"[Chaldea] 导入异常: {e}", exc_info=True)
+            return team_config
+
     def _ensure_bbc_connected(self, context: Context):
         """确保BBC已连接，必要时触发bbc_start"""
+<<<<<<< feat/chaldea_intergrate
+        from bbc_start import BbcTcpClient
+        
+        tcp_client = BbcTcpClient()
+        if tcp_client.connect(timeout=3):
+            logger.info("[ExecuteBbcTask] TCP连接成功")
+            return tcp_client
+=======
         # 检查连接是否有效
         if bbc_manager.ensure_connected(timeout=3):
             logger.info("[ExecuteBbcTask] TCP连接有效")
             return True
+>>>>>>> main
         
         logger.warning("[ExecuteBbcTask] TCP连接失效，触发bbc_start...")
         
@@ -176,8 +225,35 @@ class ExecuteBbcTask(CustomAction):
                 'mode': 'auto'
             }
         
+<<<<<<< feat/chaldea_intergrate
+        result = tcp_client.send_command(connect_cmd, connect_args, timeout=30)
+        if not result.get('success'):
+            logger.error(f"[ExecuteBbcTask] 模拟器连接失败: {result.get('error')}")
+            
+            # 连接失败，重启BBC
+            logger.warning("[ExecuteBbcTask] 重启BBC...")
+            tcp_client.stop()
+            
+            result = context.run_task("启动bbc")
+            if not result:
+                return False
+            
+            # 重新建立连接
+            from bbc_start import BbcTcpClient
+            new_tcp = BbcTcpClient()
+            time.sleep(2)
+            if not new_tcp.connect(timeout=5):
+                logger.error("[ExecuteBbcTask] 重启后TCP连接失败")
+                return False
+            
+            # 替换tcp_client引用（通过返回值）
+            # 注意：这里需要特殊处理，因为Python不能直接修改传入的对象引用
+            # 简化处理：假设重启后BBC会自动恢复连接
+            return True
+=======
         # 调用Manager的完整重启流程
         success = bbc_manager.restart_bbc_and_connect(connect_cmd, connect_args, max_retries=3)
+>>>>>>> main
         
         if success:
             logger.info("[ExecuteBbcTask] BBC重启并连接成功")

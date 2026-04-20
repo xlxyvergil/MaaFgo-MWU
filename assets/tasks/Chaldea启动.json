@@ -1,0 +1,19 @@
+{
+    "task": [
+        {
+            "name": "Chaldea 一键战斗",
+            "description": "粘贴 Chaldea 分享链接后直接启动 BBchannel 执行战斗，无需游戏内导航。适合已在关卡界面手动进入的场景。",
+            "label": "Chaldea 一键战斗",
+            "entry": "bbc战斗",
+            "option": [
+                "chaldea_team",
+                "bbc_run_count",
+                "apple_type",
+                "bbc_battle_type",
+                "connect_method",
+                "support_order_mismatch",
+                "team_config_error"
+            ]
+        }
+    ]
+}

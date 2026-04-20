@@ -12,23 +12,6 @@
             "type": "DirectHit"
         }
     },
-    "使用chaldea队伍": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "动作名占位,chaldea相关"
-            }
-        },
-        "attach": {
-            "chaldea_import_source": ""
-        },
-        "next": [
-            "执行BBC任务"
-        ],
-        "recognition": {
-            "type": "DirectHit"
-        }
-    },
     "执行BBC任务": {
         "action": {
             "type": "Custom",
