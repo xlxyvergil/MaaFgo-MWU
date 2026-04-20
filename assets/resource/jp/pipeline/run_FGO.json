@@ -21,7 +21,8 @@
             "param": {
                 "template": [
                     "main_ui.png"
-                ]
+                ],
+                "threshold": 0.8
             }
         },
         "post_delay": 5000,
@@ -151,7 +152,8 @@
             "param": {
                 "template": [
                     "main_ui.png"
-                ]
+                ],
+                "threshold": 0.8
             }
         },
         "focus": {

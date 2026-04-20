@@ -14,7 +14,9 @@
                     183,
                     84
                 ],
-                "template": "main_ui.png",
+                "template": [
+                    "main_ui.png"
+                ],
                 "threshold": 0.8
             }
         }

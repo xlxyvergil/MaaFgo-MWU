@@ -30,7 +30,8 @@
             "param": {
                 "template": [
                     "下一步.png"
-                ]
+                ],
+                "threshold": 0.8
             }
         }
     },
@@ -64,7 +65,8 @@
             "param": {
                 "template": [
                     "撤退决定.png"
-                ]
+                ],
+                "threshold": 0.8
             }
         }
     },
@@ -86,7 +88,8 @@
                 ],
                 "template": [
                     "关闭好友申请.png"
-                ]
+                ],
+                "threshold": 0.8
             }
         }
     },
@@ -118,7 +121,8 @@
             "param": {
                 "template": [
                     "撤退.png"
-                ]
+                ],
+                "threshold": 0.8
             }
         }
     },

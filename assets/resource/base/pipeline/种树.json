@@ -46,7 +46,7 @@
                 "template": [
                     "trees/1个直接交换.png"
                 ],
-                "threshold": 0.6,
+                "threshold": 0.85,
                 "green_mask": true
             }
         }
@@ -125,7 +125,9 @@
                     282,
                     72
                 ],
-                "template": "close_botton.png",
+                "template": [
+                    "trees/交换完成关闭.png"
+                ],
                 "threshold": 0.6,
                 "green_mask": true
             }
