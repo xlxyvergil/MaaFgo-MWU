@@ -9,7 +9,7 @@
                     "name": "默认队伍",
                     "label": "默认队伍",
                     "pipeline_override": {
-                      "队伍编制": {
+                      "队伍选择": {
                         "next": "回主界面"
                         }
                     }
