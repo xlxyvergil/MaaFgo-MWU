@@ -67,6 +67,26 @@ class BbcConnectionManager:
     def _start_permanent_listener(self):
         """启动永久回调监听（后台线程）"""
         try:
+            # 先停止旧监听
+            with self._state_lock:
+                if self._state['callback_listening']:
+                    self._state['callback_listening'] = False
+                    mfaalog.info("[BbcConnectionManager] 正在停止旧监听...")
+            
+            # 等待旧线程结束
+            if self._callback_thread and self._callback_thread.is_alive():
+                self._callback_thread.join(timeout=3)
+            
+            # 关闭旧 socket
+            if self._callback_server:
+                try:
+                    self._callback_server.close()
+                except:
+                    pass
+            
+            time.sleep(1)  # 等待端口完全释放
+            
+            # 创建新监听
             server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             server_sock.bind(('127.0.0.1', BBC_CALLBACK_PORT))
@@ -86,7 +106,9 @@ class BbcConnectionManager:
             
             mfaalog.info(f"[BbcConnectionManager] 永久回调监听已启动 on port {BBC_CALLBACK_PORT}")
         except Exception as e:
+            import traceback
             mfaalog.error(f"[BbcConnectionManager] 启动永久监听失败: {e}")
+            mfaalog.error(traceback.format_exc())
     
     def _permanent_callback_loop(self, server_sock: socket.socket):
         """永久回调监听主循环 - 将消息放入队列"""
@@ -129,11 +151,19 @@ class BbcConnectionManager:
                     self._message_queue.append(msg)
                 
                 # 触发弹窗回调（如果是弹窗事件）
-                if msg.get('event') == 'popup_show' and self._popup_callback:
-                    try:
-                        self._popup_callback(msg)
-                    except Exception as e:
-                        mfaalog.error(f"[BbcConnectionManager] 弹窗回调执行失败: {e}")
+                if msg.get('event') == 'popup_show':
+                    mfaalog.info(f"[BbcConnectionManager] 准备触发回调, callback_exists={self._popup_callback is not None}")
+                    if self._popup_callback:
+                        try:
+                            mfaalog.info("[BbcConnectionManager] 开始执行弹窗回调")
+                            self._popup_callback(msg)
+                            mfaalog.info("[BbcConnectionManager] 弹窗回调执行完成")
+                        except Exception as e:
+                            import traceback
+                            mfaalog.error(f"[BbcConnectionManager] 弹窗回调执行失败: {e}")
+                            mfaalog.error(traceback.format_exc())
+                    else:
+                        mfaalog.warning("[BbcConnectionManager] 弹窗回调未设置")
                 
                 client_sock.close()
             except socket.timeout:
@@ -515,7 +545,39 @@ class BbcConnectionManager:
     def get_last_popup(self) -> Optional[dict]:
         """获取最近的弹窗信息"""
         with self._state_lock:
-            return self._state['last_popup']
+            return self._state.get('last_popup')
+    
+    def check_emulator_params_match(self, connect_cmd: str, expected_args: dict, actual_params: dict) -> bool:
+        """检查模拟器参数是否匹配"""
+        try:
+            if connect_cmd == 'connect_mumu':
+                # MuMu: 检查 path, index, pkg, app_index
+                path_match = expected_args.get('path', '') == actual_params.get('mumu_path', '')
+                index_match = expected_args.get('index', 0) == actual_params.get('emulator_index', 0)
+                pkg_match = expected_args.get('pkg', '') == actual_params.get('pkg', '')
+                app_index_match = expected_args.get('app_index', 0) == actual_params.get('app_index', 0)
+                return path_match and index_match and pkg_match and app_index_match
+            
+            elif connect_cmd == 'connect_ld':
+                # LD: 检查 path, index
+                path_match = expected_args.get('path', '') == actual_params.get('ld_path', '')
+                index_match = expected_args.get('index', 0) == actual_params.get('emulator_index', 0)
+                return path_match and index_match
+            
+            elif connect_cmd == 'connect_adb':
+                # ADB: 检查 IP
+                expected_ip = expected_args.get('ip', '')
+                actual_ip = actual_params.get('ip', '')
+                return expected_ip == actual_ip
+            
+            elif connect_cmd == 'auto':
+                # auto 模式，只要有参数就算匹配
+                return bool(actual_params)
+            
+            return False
+        except Exception as e:
+            mfaalog.warning(f"[BbcConnectionManager] 参数匹配检查失败: {e}")
+            return False
     
     def cleanup(self):
         """清理所有资源（不关闭永久监听）"""

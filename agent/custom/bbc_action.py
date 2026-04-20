@@ -98,9 +98,45 @@ class ExecuteBbcTask(CustomAction):
             run_count = int(run_count)
             mfaalog.info(f"[ExecuteBbcTask] 参数: team={team_config}, count={run_count}, apple={apple_type}, type={battle_type}")
             
+            # 提前创建共享状态并启动监听线程
+            popup_event = threading.Event()
+            state = {
+                'finished': False,
+                'popup_title': '',
+                'popup_message': '',
+                'popup_event': popup_event
+            }
+            
+            # 启动弹窗监听线程（在 action 开头启动，确保能捕获所有弹窗）
+            def popup_listener():
+                while not state['finished']:
+                    popup_event.wait()  # 无限等待弹窗
+                    popup_event.clear()
+                    mfaalog.info("[ExecuteBbcTask] 弹窗监听线程收到通知")
+            
+            listener_thread = threading.Thread(target=popup_listener, daemon=True)
+            listener_thread.start()
+            mfaalog.info("[ExecuteBbcTask] 弹窗监听线程已启动")
+            
             # 步顤1: 尝试TCP连接，失败则触发bbc_start
             if not self._ensure_bbc_connected(context):
                 return {'success': False, 'error': 'BBC连接失败'}
+            
+            # 重启回调监听，确保绑定到当前进程
+            mfaalog.info("[ExecuteBbcTask] 重启回调监听...")
+            bbc_manager._start_permanent_listener()
+            time.sleep(1.5)  # 等待端口绑定完成并稳定
+            
+            # 提前设置弹窗回调（在清空队列之前，确保不会错过弹窗）
+            def on_popup(msg):
+                """弹窗回调函数 - 快速返回，不阻塞监听线程"""
+                mfaalog.info(f"[ExecuteBbcTask] 收到弹窗: {msg.get('popup_title', '')}")
+                if not state['finished']:
+                    self._handle_popups([msg], support_order_mismatch, team_config_error, state)
+                    state['popup_event'].set()  # 通知监听线程
+            
+            bbc_manager.set_popup_callback(on_popup)
+            mfaalog.info("[ExecuteBbcTask] 弹窗回调已设置")
             
             # 清空消息队列，避免读取历史弹窗
             bbc_manager.clear_message_queue()
@@ -111,16 +147,16 @@ class ExecuteBbcTask(CustomAction):
                 return {'success': False, 'error': '模拟器连接失败'}
             
             # 步骤3: 配置并启动战斗（同时启动回调监听）
-            state = self._setup_and_start_battle(
+            battle_result = self._setup_and_start_battle(
                 team_config, run_count, apple_type, battle_type,
-                support_order_mismatch, team_config_error
+                support_order_mismatch, team_config_error, state
             )
-            if state is None:
+            if battle_result is None:
                 bbc_manager.disconnect_tcp()
                 return {'success': False, 'error': '战斗启动失败'}
             
             # 步骤4: 等待战斗结束
-            popup_title, popup_message = self._wait_for_battle_end(state, state['popup_event'])
+            popup_title, popup_message = self._wait_for_battle_end(state)
             
             bbc_manager.disconnect_tcp()
             
@@ -215,12 +251,50 @@ class ExecuteBbcTask(CustomAction):
         """验证模拟器连接，必要时调用Manager重启"""
         conn_status = bbc_manager.send_command('get_connection', {}, timeout=5)
         
-        # get_connection 直接返回连接状态，没有 success 字段
-        if conn_status.get('connected') or conn_status.get('available'):
-            mfaalog.info("[ExecuteBbcTask] 模拟器已连接，跳过连接步骤")
-            return True
+        # 检查是否有模拟器参数
+        device_info = conn_status.get('device_info', {})
+        emulator_params = device_info.get('emulator_params', {})
         
-        mfaalog.warning("[ExecuteBbcTask] 模拟器未连接，调用Manager重启BBC...")
+        if emulator_params:
+            # 提取用户配置的参数
+            connect = attach_data.get('connect', 'auto')
+            connect_cmd_map = {
+                'mumu': 'connect_mumu',
+                'ld': 'connect_ld',
+                'adb': 'connect_adb',
+                'connect_mumu': 'connect_mumu',
+                'connect_ld': 'connect_ld',
+                'connect_adb': 'connect_adb'
+            }
+            connect_cmd = connect_cmd_map.get(connect, connect)
+            
+            expected_args = {}
+            if connect_cmd == 'connect_mumu':
+                expected_args = {
+                    'path': attach_data.get('mumu_path', ''),
+                    'index': int(attach_data.get('mumu_index', 0)),
+                    'pkg': attach_data.get('mumu_pkg', 'com.bilibili.fatego'),
+                    'app_index': int(attach_data.get('mumu_app_index', 0))
+                }
+            elif connect_cmd == 'connect_ld':
+                expected_args = {
+                    'path': attach_data.get('ld_path', ''),
+                    'index': int(attach_data.get('ld_index', 0))
+                }
+            elif connect_cmd == 'connect_adb':
+                expected_args = {
+                    'ip': attach_data.get('manual_port', '')
+                }
+            
+            # 检查参数是否匹配
+            params_match = bbc_manager.check_emulator_params_match(connect_cmd, expected_args, emulator_params)
+            if params_match:
+                mfaalog.info(f"[ExecuteBbcTask] 模拟器已连接且参数匹配: {emulator_params}")
+                return True
+            else:
+                mfaalog.warning(f"[ExecuteBbcTask] 模拟器参数不匹配，期望: {expected_args}, 实际: {emulator_params}")
+        
+        mfaalog.warning("[ExecuteBbcTask] 模拟器未连接或参数不匹配，调用Manager重启BBC...")
         
         # 提取连接参数
         connect = attach_data.get('connect', 'auto')
@@ -268,27 +342,11 @@ class ExecuteBbcTask(CustomAction):
     
     def _setup_and_start_battle(self, team_config: str, run_count: int, 
                                 apple_type: str, battle_type: str,
-                                support_order_mismatch: bool, team_config_error: bool) -> dict:
+                                support_order_mismatch: bool, team_config_error: bool,
+                                state: dict) -> dict:
         """配置战斗参数并启动，返回 state 或 None"""
         
-        # 共享状态
-        state = {
-            'finished': False,
-            'popup_title': '',
-            'popup_message': '',
-            'popup_event': threading.Event()  # 弹窗事件
-        }
-        
-        # 设置弹窗回调
-        def on_popup(msg):
-            """弹窗回调函数 - 快速返回，不阻塞监听线程"""
-            mfaalog.info(f"[ExecuteBbcTask] 收到弹窗: {msg.get('popup_title', '')}")
-            if not state['finished']:
-                self._handle_popups([msg], support_order_mismatch, team_config_error, state)
-                state['popup_event'].set()  # 通知主线程
-        
-        bbc_manager.set_popup_callback(on_popup)
-        mfaalog.info("[ExecuteBbcTask] 弹窗回调已注册")
+        # 回调已在 _execute_single_battle 中设置，这里直接使用
         
         # 加载配置
         mfaalog.info(f"[ExecuteBbcTask] 加载配置: {team_config}")
@@ -469,20 +527,8 @@ class ExecuteBbcTask(CustomAction):
         
         return False
     
-    def _wait_for_battle_end(self, state: dict, popup_event: threading.Event):
+    def _wait_for_battle_end(self, state: dict):
         """等待战斗结束 - 心跳检查和弹窗处理分离"""
-        
-        # 启动弹窗监听线程（独立运行，即时响应）
-        def popup_listener():
-            while not state['finished']:
-                popup_event.wait()  # 无限等待弹窗
-                popup_event.clear()
-                mfaalog.info("[ExecuteBbcTask] 弹窗监听线程收到通知")
-                # 弹窗已在回调中处理，这里只需记录日志
-        
-        listener_thread = threading.Thread(target=popup_listener, daemon=True)
-        listener_thread.start()
-        mfaalog.info("[ExecuteBbcTask] 弹窗监听线程已启动")
         
         # 主线程：只做心跳检查
         heartbeat_interval = 30  # 30秒一次心跳

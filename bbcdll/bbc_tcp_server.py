@@ -244,10 +244,44 @@ class ConnectionAPI:
             device_type = type(page.device).__name__
             serialno_str = str(getattr(page.device, 'serialno', ''))
 
+            # 获取模拟器连接参数（从实际设备对象获取）
+            emulator_params = {}
+            actual_device = getattr(page.device, 'snapshotDevice', None)
+            if not actual_device:
+                actual_device = getattr(page.device, 'operateDevice', None)
+            if not actual_device:
+                actual_device = page.device
+            
+            actual_device_type = type(actual_device).__name__ if actual_device else device_type
+            
+            if actual_device_type == 'Mumudevice':
+                emulator_params = {
+                    'mumu_path': getattr(actual_device, 'mumuPath', ''),
+                    'emulator_index': getattr(actual_device, 'emulatorIndex', 0),
+                    'app_index': getattr(actual_device, 'appIndex', 0),
+                    'pkg': getattr(actual_device, 'pkg', '')
+                }
+            elif actual_device_type == 'LDdevice':
+                emulator_params = {
+                    'ld_path': getattr(actual_device, 'ldPath', ''),
+                    'emulator_index': getattr(actual_device, 'emulatorIndex', 0)
+                }
+            elif actual_device_type == 'Android':
+                # ADB 连接，从 serialno 解析 IP
+                import json
+                try:
+                    serialno_data = json.loads(serialno_str) if serialno_str else {}
+                    emulator_params = {
+                        'ip': serialno_data.get('host', '') if isinstance(serialno_data, dict) else serialno_str
+                    }
+                except:
+                    emulator_params = {'ip': serialno_str}
+
             device_info = {
                 'serialno': serialno_str,
                 'running': device_running,
-                'task_name': task_name
+                'task_name': task_name,
+                'emulator_params': emulator_params
             }
 
             try:

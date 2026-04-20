@@ -95,16 +95,22 @@ class StartBbc(CustomAction):
                     emulator_ready = False
                     if conn_result and isinstance(conn_result, dict):
                         data = conn_result
-                        # connected=True 但 running=False/task_name=None 说明模拟器未就绪
                         connected = data.get('connected', False)
-                        running = data.get('running', False)
-                        task_name = data.get('task_name', 'None')
+                        available = data.get('available', False)
+                        device_info = data.get('device_info', {})
+                        emulator_params = device_info.get('emulator_params', {})
                         
-                        if connected and running and task_name != 'None':
-                            emulator_ready = True
-                            mfaalog.info(f"[StartBbc] 模拟器已就绪: connected={connected}, running={running}, task={task_name}")
+                        # 有模拟器参数说明已连接到具体模拟器，检查是否与配置匹配
+                        if (connected or available) and emulator_params:
+                            # 根据连接类型检查参数是否匹配
+                            params_match = bbc_manager.check_emulator_params_match(connect_cmd, connect_args, emulator_params)
+                            if params_match:
+                                emulator_ready = True
+                                mfaalog.info(f"[StartBbc] 模拟器已连接且参数匹配: {emulator_params}")
+                            else:
+                                mfaalog.warning(f"[StartBbc] 模拟器参数不匹配，期望: {connect_args}, 实际: {emulator_params}")
                         else:
-                            mfaalog.info(f"[StartBbc] 模拟器未就绪: connected={connected}, running={running}, task={task_name}")
+                            mfaalog.info(f"[StartBbc] 模拟器未连接: connected={connected}, params={emulator_params}")
                     else:
                         mfaalog.warning(f"[StartBbc] 无法获取连接状态: {conn_result}")
                     
