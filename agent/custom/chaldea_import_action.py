@@ -6,27 +6,17 @@ Chaldea 队伍导入 Action
 
 import os
 import sys
-import logging
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
+import mfaalog
 
 # 确保 custom 目录在 sys.path 中
 _custom_dir = os.path.dirname(os.path.abspath(__file__))
 if _custom_dir not in sys.path:
     sys.path.insert(0, _custom_dir)
 
-# 配置日志
-logger = logging.getLogger("ChaldeaImport")
-if not logger.handlers:
-    AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
-    LOG_FILE = os.path.join(AGENT_DIR, 'chaldea_import.log')
-    logger.setLevel(logging.DEBUG)
-    logger.propagate = False
-    _fh = logging.FileHandler(LOG_FILE, mode='w', encoding='utf-8')
-    _fh.setLevel(logging.DEBUG)
-    _fh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-    logger.addHandler(_fh)
+import mfaalog
 
 
 @AgentServer.custom_action("import_chaldea_team")
@@ -46,7 +36,7 @@ class ImportChaldeaTeam(CustomAction):
             # 从 Context 获取节点数据
             node_data = context.get_node_data("使用chaldea队伍")
             if not node_data:
-                logger.error("[ImportChaldeaTeam] 无法获取节点数据")
+                mfaalog.error("[ImportChaldeaTeam] 无法获取节点数据")
                 return CustomAction.RunResult(success=False)
             
             attach_data = node_data.get('attach', {})
@@ -54,19 +44,19 @@ class ImportChaldeaTeam(CustomAction):
             
             # 验证必需参数
             if not chaldea_import_source:
-                logger.error("[ImportChaldeaTeam] 未提供 Chaldea 来源参数")
+                mfaalog.error("[ImportChaldeaTeam] 未提供 Chaldea 来源参数")
                 return CustomAction.RunResult(success=False)
             
-            logger.info(f"[ImportChaldeaTeam] 开始处理 Chaldea 来源: {chaldea_import_source[:50]}...")
+            mfaalog.info(f"[ImportChaldeaTeam] 开始处理 Chaldea 来源: {chaldea_import_source[:50]}...")
             
             # 执行转换
             converted_filename = self._convert_chaldea_to_bbc(chaldea_import_source)
             
             if not converted_filename:
-                logger.error("[ImportChaldeaTeam] Chaldea 转换失败")
+                mfaalog.error("[ImportChaldeaTeam] Chaldea 转换失败")
                 return CustomAction.RunResult(success=False)
             
-            logger.info(f"[ImportChaldeaTeam] 转换成功，生成配置文件: {converted_filename}")
+            mfaalog.info(f"[ImportChaldeaTeam] 转换成功，生成配置文件: {converted_filename}")
             
             # 通过 pipeline_override 更新后续节点的 bbc_team_config
             context.override_pipeline({
@@ -77,12 +67,12 @@ class ImportChaldeaTeam(CustomAction):
                 }
             })
             
-            logger.info(f"[ImportChaldeaTeam] 已更新 pipeline，使用配置: {converted_filename}")
+            mfaalog.info(f"[ImportChaldeaTeam] 已更新 pipeline，使用配置: {converted_filename}")
             
             return CustomAction.RunResult(success=True)
             
         except Exception as e:
-            logger.error(f"[ImportChaldeaTeam] 异常: {e}", exc_info=True)
+            mfaalog.error(f"[ImportChaldeaTeam] 异常: {e}")
             return CustomAction.RunResult(success=False)
     
     def _convert_chaldea_to_bbc(self, source: str) -> str:
@@ -104,8 +94,8 @@ class ImportChaldeaTeam(CustomAction):
             bbc_settings_dir = os.path.join(bbc_path, 'settings')
             os.makedirs(bbc_settings_dir, exist_ok=True)
             
-            logger.info(f"[ImportChaldeaTeam] BBC路径: {bbc_path}")
-            logger.info(f"[ImportChaldeaTeam] 输出目录: {bbc_settings_dir}")
+            mfaalog.info(f"[ImportChaldeaTeam] BBC路径: {bbc_path}")
+            mfaalog.info(f"[ImportChaldeaTeam] 输出目录: {bbc_settings_dir}")
             
             # 执行转换
             converted_filename = fetch_and_convert(
@@ -114,16 +104,16 @@ class ImportChaldeaTeam(CustomAction):
             )
             
             if converted_filename:
-                logger.info(f"[ImportChaldeaTeam] 转换成功: {converted_filename}")
+                mfaalog.info(f"[ImportChaldeaTeam] 转换成功: {converted_filename}")
                 return converted_filename
             else:
-                logger.error("[ImportChaldeaTeam] 转换函数返回空结果")
+                mfaalog.error("[ImportChaldeaTeam] 转换函数返回空结果")
                 return ""
                 
         except ImportError as e:
-            logger.error(f"[ImportChaldeaTeam] 导入转换模块失败: {e}")
-            logger.error("[ImportChaldeaTeam] 请确保 chaldea_converter.py 存在")
+            mfaalog.error(f"[ImportChaldeaTeam] 导入转换模块失败: {e}")
+            mfaalog.error("[ImportChaldeaTeam] 请确保 chaldea_converter.py 存在")
             return ""
         except Exception as e:
-            logger.error(f"[ImportChaldeaTeam] 转换过程出错: {e}", exc_info=True)
+            mfaalog.error(f"[ImportChaldeaTeam] 转换过程出错: {e}")
             return ""

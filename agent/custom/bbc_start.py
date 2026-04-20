@@ -1,8 +1,6 @@
-import json
 import os
 import sys
 import time
-import logging
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
@@ -13,20 +11,7 @@ if _custom_dir not in sys.path:
     sys.path.insert(0, _custom_dir)
 
 from bbc_connection_manager import bbc_manager
-
-# 配置日志输出到文件
-AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
-LOG_FILE = os.path.join(AGENT_DIR, 'bbc_start_debug.log')
-
-# 创建具名 logger
-logger = logging.getLogger("BbcStart")
-if not logger.handlers:
-    logger.setLevel(logging.DEBUG)
-    logger.propagate = False
-    _fh = logging.FileHandler(LOG_FILE, mode='w', encoding='utf-8')
-    _fh.setLevel(logging.DEBUG)
-    _fh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-    logger.addHandler(_fh)
+import mfaalog
 
 
 @AgentServer.custom_action("start_bbc")
@@ -38,7 +23,7 @@ class StartBbc(CustomAction):
             # 从 Context 获取节点数据
             node_data = context.get_node_data("启动bbc")
             if not node_data:
-                logger.error("[StartBbc] 无法获取节点数据")
+                mfaalog.error("[StartBbc] 无法获取节点数据")
                 return CustomAction.RunResult(success=False)
             
             attach_data = node_data.get('attach', {})
@@ -89,40 +74,93 @@ class StartBbc(CustomAction):
                     'mode': 'auto'
                 }
             
-            logger.info(f"[StartBbc] 连接参数: connect={connect}, cmd={connect_cmd}")
-            logger.info(f"[StartBbc] MuMu: path={mumu_path}, index={mumu_index}, pkg={mumu_pkg}")
-            logger.info(f"[StartBbc] LD: path={ld_path}, index={ld_index}")
+            mfaalog.info(f"[StartBbc] 连接参数: connect={connect}, cmd={connect_cmd}")
+            mfaalog.info(f"[StartBbc] MuMu: path={mumu_path}, index={mumu_index}, pkg={mumu_pkg}")
+            mfaalog.info(f"[StartBbc] LD: path={ld_path}, index={ld_index}")
             
             # 步骤1: 检查BBC进程是否存在
-            logger.info("[StartBbc] 步骤1: 检查BBC状态...")
+            mfaalog.info("[StartBbc] 步骤1: 检查BBC状态...")
             bbc_proc = bbc_manager._find_bbc_process()
             
             if bbc_proc:
-                logger.info(f"[StartBbc] 发现BBC进程，PID: {bbc_proc.pid}")
+                mfaalog.info(f"[StartBbc] 发现BBC进程，PID: {bbc_proc.pid}")
                 # 检查Manager是否已连接
                 if bbc_manager.ensure_connected(timeout=3):
-                    logger.info("[StartBbc] Manager已连接，跳过启动步骤")
-                    # 直接连接模拟器
-                    if bbc_manager.connect_emulator(connect_cmd, connect_args, timeout=30):
-                        logger.info("[StartBbc] 模拟器连接成功")
+                    mfaalog.info("[StartBbc] Manager已连接，检查模拟器状态...")
+                    # 先检查模拟器是否已经连接
+                    conn_result = bbc_manager.send_command('get_connection', {}, timeout=5)
+                    mfaalog.info(f"[StartBbc] get_connection 返回: {conn_result}")
+                    
+                    # 检查返回结果中是否有模拟器连接信息
+                    emulator_ready = False
+                    if conn_result and 'data' in conn_result:
+                        data = conn_result['data']
+                        if isinstance(data, dict):
+                            # connected=True 但 running=False/task_name=None 说明模拟器未就绪
+                            connected = data.get('connected', False)
+                            running = data.get('running', False)
+                            task_name = data.get('task_name', 'None')
+                            
+                            if connected and running and task_name != 'None':
+                                emulator_ready = True
+                                mfaalog.info(f"[StartBbc] 模拟器已就绪: connected={connected}, running={running}, task={task_name}")
+                            else:
+                                mfaalog.info(f"[StartBbc] 模拟器未就绪: connected={connected}, running={running}, task={task_name}")
+                        else:
+                            mfaalog.warning(f"[StartBbc] 无法获取连接状态: {conn_result}")
+                    else:
+                        mfaalog.warning(f"[StartBbc] 无法获取连接状态: {conn_result}")
+                    
+                    if emulator_ready:
+                        mfaalog.info("[StartBbc] 模拟器已就绪，无需重复连接")
                         return CustomAction.RunResult(success=True)
                     else:
-                        logger.warning("[StartBbc] 模拟器连接失败，需要重启BBC")
+                        # 模拟器未就绪，需要重启BBC
+                        mfaalog.warning("[StartBbc] 模拟器未就绪，将重启BBC")
                         # 继续执行重启流程
                 else:
-                    logger.warning("[StartBbc] Manager未连接，将重启BBC进程")
+                    mfaalog.warning("[StartBbc] Manager未连接，将重启BBC进程")
             
-            # 步骤2: 调用Manager的完整重启流程
-            logger.info("[StartBbc] 调用Manager重启BBC并连接模拟器...")
+            # 步骤2: Kill掉所有BBC进程（清理残留窗口）
+            mfaalog.info("[StartBbc] 步骤2: 清理所有BBC进程...")
+            self._kill_all_bbc_processes()
+            time.sleep(2)
+            
+            # 步骤3: 调用Manager的完整重启流程
+            mfaalog.info("[StartBbc] 步骤3: 调用Manager重启BBC并连接模拟器...")
             success = bbc_manager.restart_bbc_and_connect(connect_cmd, connect_args, max_retries=5)
             
             if success:
-                logger.info("[StartBbc] BBC启动并连接成功")
+                mfaalog.info("[StartBbc] BBC启动并连接成功")
                 return CustomAction.RunResult(success=True)
             else:
-                logger.error("[StartBbc] BBC启动失败")
+                mfaalog.error("[StartBbc] BBC启动失败")
                 return CustomAction.RunResult(success=False)
             
         except Exception as e:
-            logger.error(f"[StartBbc] 异常: {e}", exc_info=True)
+            mfaalog.error(f"[StartBbc] 异常: {e}")
             return CustomAction.RunResult(success=False)
+    
+    def _kill_all_bbc_processes(self):
+        """强制终止所有BBC相关进程"""
+        try:
+            import psutil
+            killed_count = 0
+            
+            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                try:
+                    cmdline = proc.info.get('cmdline', [])
+                    if cmdline and any('BBchannel' in arg for arg in cmdline):
+                        mfaalog.info(f"[StartBbc] 终止进程: PID={proc.pid}, cmdline={cmdline}")
+                        proc.kill()
+                        killed_count += 1
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    continue
+            
+            if killed_count > 0:
+                mfaalog.info(f"[StartBbc] 已终止 {killed_count} 个BBC进程")
+            else:
+                mfaalog.info("[StartBbc] 未发现BBC进程")
+                
+        except Exception as e:
+            mfaalog.error(f"[StartBbc] 终止进程时异常: {e}")

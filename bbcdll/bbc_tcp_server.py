@@ -869,11 +869,20 @@ def start_tcp_server(bb_window, port=25001):
                         _log('warning', f'[Callback] Failed to notify popup: {e}')
                 threading.Thread(target=send_popup_notification, daemon=True).start()
             
+            # 免责声明自动关闭
             if '免责声明' in title:
                 def auto_disclaimer():
                     time.sleep(2)
                     _resolve_popup(popup_id, 'ok')
                 threading.Thread(target=auto_disclaimer, daemon=True).start()
+            
+            # showwarning/showerror/showinfo 单按钮弹窗延迟1秒自动关闭
+            if func_name in ['showinfo', 'showwarning', 'showerror']:
+                def auto_close_single_button():
+                    time.sleep(1)
+                    _resolve_popup(popup_id, 'ok')
+                threading.Thread(target=auto_close_single_button, daemon=True).start()
+            
             return _create_controlled_dialog(func_name, title, message, popup_id, original_func, **kwargs)
         return wrapper
 
@@ -941,17 +950,17 @@ def start_tcp_server(bb_window, port=25001):
         t = threading.Thread(target=monitor, daemon=True)
         t.start()
         original_func(title, message, **kwargs)
-        t.join(timeout=1)
+        t.join(timeout=5)  
         with _popup_wait_lock:
             _popup_wait_dict.pop(popup_id, None)
         _remove_popup_from_queue(popup_id)
         result = popup_data['value'] if popup_data['resolved'] else None
         if func_name == 'askyesno':
-            return result == 'yes'
+            return result == True  # BBC askyesno 返回 True/False 布尔值
         elif func_name == 'askokcancel':
-            return result == 'ok'
+            return result == True  # BBC askokcancel 返回 True/False 布尔值
         elif func_name == 'askretrycancel':
-            return result == 'retry'
+            return result == True
         return None
 
     messagebox.showinfo = create_popup_wrapper('showinfo', original_messagebox['showinfo'])

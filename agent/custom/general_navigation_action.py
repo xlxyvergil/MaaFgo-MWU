@@ -1,22 +1,12 @@
 import json
 import os
 import time
-import logging
-import traceback
 import cv2
 import numpy as np
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
-
-# --- 独立日志配置 ---
-_nav_logger = logging.getLogger("GeneralNavigation")
-if not _nav_logger.handlers: # 防止重复添加 Handler
-    _nav_logger.setLevel(logging.DEBUG)
-    _log_file = os.path.join(os.path.dirname(__file__), 'nav_debug.log')
-    fh = logging.FileHandler(_log_file, mode='w', encoding='utf-8')
-    fh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-    _nav_logger.addHandler(fh)
+import mfaalog
 
 # --- 中英文章节名映射表 (根据实际资源文件名补充) ---
 CHAPTER_MAP = {
@@ -51,8 +41,8 @@ CHAPTER_MAP = {
 class GeneralNavigationAction(CustomAction):
     def run(self, context: Context, _argv: CustomAction.RunArg) -> CustomAction.RunResult:
         """通用导航 Action (FGO-py 纯复刻版)"""
-        _nav_logger.info("="*50)
-        _nav_logger.info("[Nav] general_navigation action started (CV2 Shell Mode)!")
+        mfaalog.info("="*50)
+        mfaalog.info("[Nav] general_navigation action started (CV2 Shell Mode)!")
         try:
             # 1. 从地图坐标导航节点获取参数
             node_data = context.get_node_data("地图坐标导航")
@@ -69,8 +59,7 @@ class GeneralNavigationAction(CustomAction):
             
             # 2. 章节名映射 (中文 -> 英文文件名，用于加载大地图图片)
             map_image_name = CHAPTER_MAP.get(chapter_cn, chapter_cn)
-            _nav_logger.info(f"[Nav] Chapter: {chapter_cn}, Image Name: {map_image_name}, Quest: {target_quest}")
-            _nav_logger.handlers[0].flush()
+            mfaalog.info(f"[Nav] Chapter: {chapter_cn}, Image Name: {map_image_name}, Quest: {target_quest}")
 
             # 3. 加载地图坐标映射 JSON
             # 脚本在 agent/custom/，往上两级是 agent/
@@ -78,17 +67,16 @@ class GeneralNavigationAction(CustomAction):
             # JSON 在 agent/utils/ 下
             map_file = os.path.join(AGENT_DIR, "utils", "map_coordinates.json")
             
-            _nav_logger.info(f"[Nav] Looking for map file at: {map_file}")
+            mfaalog.info(f"[Nav] Looking for map file at: {map_file}")
             if not os.path.exists(map_file):
-                _nav_logger.error(f"[Nav] Map file NOT found at: {map_file}")
+                mfaalog.error(f"[Nav] Map file NOT found at: {map_file}")
                 return CustomAction.RunResult(success=False)
 
             with open(map_file, 'r', encoding='utf-8') as f:
                 coordinates_data = json.load(f)
             
             quest_list = coordinates_data.get("maps", {}).get(chapter_cn, [])
-            _nav_logger.info(f"[Nav] Found {len(quest_list)} quests in map '{chapter_cn}'")
-            _nav_logger.handlers[0].flush()
+            mfaalog.info(f"[Nav] Found {len(quest_list)} quests in map '{chapter_cn}'")
             
             quest_coordinates = None
             
@@ -97,26 +85,26 @@ class GeneralNavigationAction(CustomAction):
                     q_name, q_pos = item[0], item[1]
                     if q_name == target_quest:
                         quest_coordinates = q_pos
-                        _nav_logger.info(f"[Nav] Found coordinates for '{target_quest}': {q_pos}")
+                        mfaalog.info(f"[Nav] Found coordinates for '{target_quest}': {q_pos}")
                         break
                         
             if not quest_coordinates:
-                _nav_logger.error(f"[Nav] Coordinates NOT found for quest: {target_quest}")
+                mfaalog.error(f"[Nav] Coordinates NOT found for quest: {target_quest}")
                 return CustomAction.RunResult(success=False)
             
             target_x, target_y = quest_coordinates
 
             # 4. 加载大地图模板
-            _nav_logger.info("[Nav] Step 4: Loading map template...")
+            mfaalog.info("[Nav] Step 4: Loading map template...")
             ROOT_DIR = os.path.dirname(AGENT_DIR)
             map_template_path = os.path.join(ROOT_DIR, "resource", "base", "image", "map", f"{map_image_name}.png")
-            _nav_logger.info(f"[Nav] Template path: {map_template_path}")
+            mfaalog.info(f"[Nav] Template path: {map_template_path}")
             
             map_template = cv2.imread(map_template_path)
             
-            _nav_logger.info(f"[Nav] Template shape: {map_template.shape if map_template is not None else 'None'}")
+            mfaalog.info(f"[Nav] Template shape: {map_template.shape if map_template is not None else 'None'}")
             if map_template is None:
-                _nav_logger.error(f"[Nav] Error: Failed to load template image at {map_template_path}")
+                mfaalog.error(f"[Nav] Error: Failed to load template image at {map_template_path}")
                 return CustomAction.RunResult(success=False)
 
             # 5. 【核心】截图与预处理
@@ -138,12 +126,12 @@ class GeneralNavigationAction(CustomAction):
             min_val, _, min_loc, _ = cv2.minMaxLoc(result)
             
             if min_val > 0.5:
-                _nav_logger.error(f"[Nav] Initial match failed! min_val={min_val}")
+                mfaalog.error(f"[Nav] Initial match failed! min_val={min_val}")
                 return CustomAction.RunResult(success=False)
 
             current_x = int(min_loc[0] / 0.3 + 440)
             current_y = int(min_loc[1] / 0.3 + 160)
-            _nav_logger.info(f"[Nav] Initial pos: ({current_x}, {current_y})")
+            mfaalog.info(f"[Nav] Initial pos: ({current_x}, {current_y})")
 
             # 7. 导航循环
             poly = np.array([
@@ -159,7 +147,7 @@ class GeneralNavigationAction(CustomAction):
                 screen_target_y = 360 + dy
                 
                 if cv2.pointPolygonTest(poly, (float(screen_target_x), float(screen_target_y)), False) >= 0:
-                    _nav_logger.info("[Nav] Target visible. Clicking...")
+                    mfaalog.info("[Nav] Target visible. Clicking...")
                     controller.post_click(1231, 687).wait()
                     time.sleep(0.3)
                     controller.post_click(1231, 687).wait()
@@ -189,10 +177,10 @@ class GeneralNavigationAction(CustomAction):
                 
                 current_x = int(min_loc[0] / 0.3 + 440)
                 current_y = int(min_loc[1] / 0.3 + 160)
-                _nav_logger.info(f"[Nav] New pos: ({current_x}, {current_y})")
+                mfaalog.info(f"[Nav] New pos: ({current_x}, {current_y})")
 
             return CustomAction.RunResult(success=False)
                 
         except Exception as e:
-            _nav_logger.error(f"[Nav] CRITICAL: {str(e)}\n{traceback.format_exc()}")
+            mfaalog.error(f"[Nav] CRITICAL: {str(e)}")
             return CustomAction.RunResult(success=False)

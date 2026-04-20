@@ -10,7 +10,8 @@ import threading
 import time
 import logging
 import psutil
-from typing import Optional, Dict, Any
+from typing import Optional
+import mfaalog
 
 logger = logging.getLogger("BbcConnectionManager")
 
@@ -58,7 +59,7 @@ class BbcConnectionManager:
         self._state_lock = threading.Lock()
         
         self._initialized = True
-        logger.info("[BbcConnectionManager] 初始化完成")
+        mfaalog.info("[BbcConnectionManager] 初始化完成")
         
         # 自动启动回调监听
         self._start_permanent_listener()
@@ -83,13 +84,13 @@ class BbcConnectionManager:
             )
             self._callback_thread.start()
             
-            logger.info(f"[BbcConnectionManager] 永久回调监听已启动 on port {BBC_CALLBACK_PORT}")
+            mfaalog.info(f"[BbcConnectionManager] 永久回调监听已启动 on port {BBC_CALLBACK_PORT}")
         except Exception as e:
-            logger.error(f"[BbcConnectionManager] 启动永久监听失败: {e}")
+            mfaalog.error(f"[BbcConnectionManager] 启动永久监听失败: {e}")
     
     def _permanent_callback_loop(self, server_sock: socket.socket):
         """永久回调监听主循环 - 将消息放入队列"""
-        logger.info("[BbcConnectionManager] 永久回调监听循环开始")
+        mfaalog.info("[BbcConnectionManager] 永久回调监听循环开始")
         
         while True:
             with self._state_lock:
@@ -113,7 +114,15 @@ class BbcConnectionManager:
                     continue
                 
                 msg = json.loads(data.decode('utf-8'))
-                logger.debug(f"[BbcConnectionManager] 收到回调: {msg}")
+                
+                # 根据事件类型输出日志
+                event = msg.get('event')
+                if event == 'popup_show':
+                    mfaalog.info(f"[BbcConnectionManager] 收到弹窗: {msg.get('popup_title', '')}")
+                elif event == 'popup_closed':
+                    mfaalog.debug(f"[BbcConnectionManager] 弹窗已关闭: {msg.get('popup_title', '')}")
+                else:
+                    mfaalog.debug(f"[BbcConnectionManager] 收到回调: {msg}")
                 
                 # 放入消息队列
                 with self._queue_lock:
@@ -124,7 +133,7 @@ class BbcConnectionManager:
                     try:
                         self._popup_callback(msg)
                     except Exception as e:
-                        logger.error(f"[BbcConnectionManager] 弹窗回调执行失败: {e}")
+                        mfaalog.error(f"[BbcConnectionManager] 弹窗回调执行失败: {e}")
                 
                 client_sock.close()
             except socket.timeout:
@@ -133,10 +142,10 @@ class BbcConnectionManager:
                 with self._state_lock:
                     if not self._state['callback_listening']:
                         break
-                logger.warning(f"[BbcConnectionManager] 回调接收异常: {e}")
+                mfaalog.warning(f"[BbcConnectionManager] 回调接收异常: {e}")
                 continue
         
-        logger.info("[BbcConnectionManager] 永久回调监听循环结束")
+        mfaalog.info("[BbcConnectionManager] 永久回调监听循环结束")
     
     def get_message(self, timeout: float = 1.0) -> Optional[dict]:
         """从消息队列获取一条消息（阻塞等待）"""
@@ -145,7 +154,7 @@ class BbcConnectionManager:
             with self._queue_lock:
                 if self._message_queue:
                     return self._message_queue.pop(0)
-            time.sleep(2)
+            time.sleep(0.1)  # 缩短为0.1秒，提高响应速度
         return None
     
     def get_messages_by_title(self, title_keyword: str, timeout: float = 2.0) -> list:
@@ -163,14 +172,14 @@ class BbcConnectionManager:
             
             if messages:
                 break
-            time.sleep(2)
+            time.sleep(0.1)  # 缩短为0.1秒，提高响应速度
         
         return messages
     
     def set_popup_callback(self, callback):
         """设置弹窗回调函数"""
         self._popup_callback = callback
-        logger.info("[BbcConnectionManager] 弹窗回调已设置")
+        mfaalog.info("[BbcConnectionManager] 弹窗回调已设置")
     
     def connect_tcp(self, timeout: int = 10) -> bool:
         """建立 TCP 连接"""
@@ -193,10 +202,10 @@ class BbcConnectionManager:
                 self._tcp_sock = sock
                 self._state['connected'] = True
             
-            logger.info(f"[BbcConnectionManager] TCP 连接成功 {BBC_TCP_HOST}:{BBC_TCP_PORT}")
+            mfaalog.info(f"[BbcConnectionManager] TCP 连接成功 {BBC_TCP_HOST}:{BBC_TCP_PORT}")
             return True
         except Exception as e:
-            logger.error(f"[BbcConnectionManager] TCP 连接失败: {e}")
+            mfaalog.error(f"[BbcConnectionManager] TCP 连接失败: {e}")
             return False
     
     def disconnect_tcp(self):
@@ -245,7 +254,7 @@ class BbcConnectionManager:
         except socket.timeout:
             return {'success': False, 'error': f'Timeout (cmd={cmd})'}
         except Exception as e:
-            logger.error(f"[BbcConnectionManager] 发送命令失败: {e}")
+            mfaalog.error(f"[BbcConnectionManager] 发送命令失败: {e}")
             return {'success': False, 'error': str(e)}
     
     def _recv_all(self, sock: socket.socket, n: int) -> bytes:
@@ -293,17 +302,17 @@ class BbcConnectionManager:
     def ensure_connected(self, timeout: int = 5) -> bool:
         """确保连接有效，无效则重连"""
         if self.is_connected():
-            logger.debug("[BbcConnectionManager] 连接有效")
+            mfaalog.debug("[BbcConnectionManager] 连接有效")
             return True
         
-        logger.info("[BbcConnectionManager] 连接失效，尝试重连...")
+        mfaalog.info("[BbcConnectionManager] 连接失效，尝试重连...")
         return self.connect_tcp(timeout=timeout)
     
     def clear_message_queue(self):
         """清空消息队列"""
         with self._queue_lock:
             self._message_queue.clear()
-        logger.debug("[BbcConnectionManager] 消息队列已清空")
+        mfaalog.debug("[BbcConnectionManager] 消息队列已清空")
     
     # ==================== BBC 进程管理 ====================
     
@@ -319,7 +328,7 @@ class BbcConnectionManager:
                     continue
             return None
         except Exception as e:
-            logger.warning(f"[BbcConnectionManager] 查找进程失败: {e}")
+            mfaalog.warning(f"[BbcConnectionManager] 查找进程失败: {e}")
             return None
     
     def _kill_bbc_process(self, proc=None):
@@ -329,32 +338,33 @@ class BbcConnectionManager:
                 proc = self._state.get('bbc_process')
         
         try:
-            if proc and proc.is_running():
-                logger.info(f"[BbcConnectionManager] 终止BBC进程 PID: {proc.pid}")
+            # 检查进程是否还在运行 (subprocess.Popen 用 poll())
+            if proc and proc.poll() is None:
+                mfaalog.info(f"[BbcConnectionManager] 终止BBC进程 PID: {proc.pid}")
                 proc.terminate()
                 try:
                     proc.wait(timeout=5)
-                except psutil.TimeoutExpired:
+                except subprocess.TimeoutExpired:
                     proc.kill()
                     proc.wait(timeout=3)
-                logger.info("[BbcConnectionManager] BBC进程已终止")
+                mfaalog.info("[BbcConnectionManager] BBC进程已终止")
                 with self._state_lock:
                     self._state['bbc_process'] = None
         except Exception as e:
-            logger.warning(f"[BbcConnectionManager] 终止进程失败: {e}")
+            mfaalog.warning(f"[BbcConnectionManager] 终止进程失败: {e}")
     
     def _launch_bbc(self):
         """启动BBC进程"""
         if not os.path.exists(BBC_EXE_PATH):
-            logger.error(f"[BbcConnectionManager] BBC可执行文件不存在: {BBC_EXE_PATH}")
+            mfaalog.error(f"[BbcConnectionManager] BBC可执行文件不存在: {BBC_EXE_PATH}")
             return None
         
         bbc_dir = os.path.dirname(BBC_EXE_PATH)
         _is_debug = BBC_EXE_PATH.endswith('_debug.exe')
         _creation_flags = subprocess.CREATE_NEW_CONSOLE if _is_debug else 0
         
-        logger.info(f"[BbcConnectionManager] 启动BBC: {BBC_EXE_PATH}")
-        logger.info(f"[BbcConnectionManager] 调试模式: {_is_debug}, 工作目录: {bbc_dir}")
+        mfaalog.info(f"[BbcConnectionManager] 启动BBC: {BBC_EXE_PATH}")
+        mfaalog.info(f"[BbcConnectionManager] 调试模式: {_is_debug}, 工作目录: {bbc_dir}")
         
         try:
             # 重定向输出到文件
@@ -368,14 +378,14 @@ class BbcConnectionManager:
                 stdout=stdout_file,
                 stderr=stderr_file
             )
-            logger.info(f"[BbcConnectionManager] BBC进程已启动，PID: {proc.pid}")
+            mfaalog.info(f"[BbcConnectionManager] BBC进程已启动，PID: {proc.pid}")
             
             with self._state_lock:
                 self._state['bbc_process'] = proc
             
             return proc
         except Exception as e:
-            logger.error(f"[BbcConnectionManager] 启动BBC失败: {e}")
+            mfaalog.error(f"[BbcConnectionManager] 启动BBC失败: {e}")
             return None
     
     def _wait_for_bbc_ready(self, timeout: int = 30) -> bool:
@@ -387,10 +397,10 @@ class BbcConnectionManager:
             if msg:
                 event = msg.get('event', '')
                 if event in ['server_started', 'disclaimer_closed']:
-                    logger.info(f"[BbcConnectionManager] BBC 就绪事件: {event}")
+                    mfaalog.info(f"[BbcConnectionManager] BBC 就绪事件: {event}")
                     return True
         
-        logger.warning(f"[BbcConnectionManager] 等待 BBC 就绪超时 ({timeout}s)")
+        mfaalog.warning(f"[BbcConnectionManager] 等待 BBC 就绪超时 ({timeout}s)")
         return False
     
     # ==================== 模拟器连接 ====================
@@ -400,24 +410,24 @@ class BbcConnectionManager:
         try:
             # auto模式不发送连接命令，直接等待
             if connect_args.get('mode') == 'auto':
-                logger.info("[BbcConnectionManager] Auto模式，等待BBC自动连接...")
+                mfaalog.info("[BbcConnectionManager] Auto模式，等待BBC自动连接...")
                 time.sleep(5)
                 return True
             
             # 先等待 BBC UI 完全就绪
-            logger.info("[BbcConnectionManager] 等待 BBC UI 完全就绪...")
+            mfaalog.info("[BbcConnectionManager] 等待 BBC UI 完全就绪...")
             time.sleep(5)
             
             # 发送连接命令
-            logger.info(f"[BbcConnectionManager] 执行连接命令: {connect_cmd}, 参数: {connect_args}")
+            mfaalog.info(f"[BbcConnectionManager] 执行连接命令: {connect_cmd}, 参数: {connect_args}")
             result = self.send_command(connect_cmd, connect_args, timeout=timeout)
             
             if not result.get('success'):
                 error_msg = result.get('error', '未知错误')
-                logger.error(f"[BbcConnectionManager] 连接失败: {error_msg}")
+                mfaalog.error(f"[BbcConnectionManager] 连接失败: {error_msg}")
                 return False
             
-            logger.info("[BbcConnectionManager] 连接命令执行成功")
+            mfaalog.info("[BbcConnectionManager] 连接命令执行成功")
             time.sleep(5)
             
             # 验证连接状态
@@ -426,23 +436,23 @@ class BbcConnectionManager:
             device_connected = status_result.get('connected', False)
             
             if device_available or device_connected:
-                logger.info(f"[BbcConnectionManager] 模拟器连接成功 (available={device_available}, connected={device_connected})")
+                mfaalog.info(f"[BbcConnectionManager] 模拟器连接成功 (available={device_available}, connected={device_connected})")
                 return True
             else:
-                logger.warning(f"[BbcConnectionManager] 模拟器未连接 (available={device_available}, connected={device_connected})")
+                mfaalog.warning(f"[BbcConnectionManager] 模拟器未连接 (available={device_available}, connected={device_connected})")
                 return False
         except Exception as e:
-            logger.error(f"[BbcConnectionManager] 连接异常: {e}")
+            mfaalog.error(f"[BbcConnectionManager] 连接异常: {e}")
             return False
     
     # ==================== 完整重启流程 ====================
     
     def restart_bbc_and_connect(self, connect_cmd: str, connect_args: dict, max_retries: int = 5) -> bool:
         """重启 BBC 并连接模拟器（完整流程）"""
-        logger.info(f"[BbcConnectionManager] ========== 开始重启 BBC ==========")
+        mfaalog.info(f"[BbcConnectionManager] ========== 开始重启 BBC ==========")
         
         for attempt in range(1, max_retries + 1):
-            logger.info(f"[BbcConnectionManager] 第{attempt}次启动尝试")
+            mfaalog.info(f"[BbcConnectionManager] 第{attempt}次启动尝试")
             
             # 1. 杀掉旧进程
             self._kill_bbc_process()
@@ -451,7 +461,7 @@ class BbcConnectionManager:
             # 2. 启动新进程
             bbc_proc = self._launch_bbc()
             if not bbc_proc:
-                logger.error(f"[BbcConnectionManager] BBC进程启动失败 (尝试 {attempt})")
+                mfaalog.error(f"[BbcConnectionManager] BBC进程启动失败 (尝试 {attempt})")
                 if attempt < max_retries:
                     time.sleep(5)
                     continue
@@ -459,10 +469,10 @@ class BbcConnectionManager:
                     return False
             
             # 3. 等待 BBC 就绪
-            logger.info("[BbcConnectionManager] 等待BBC就绪...")
+            mfaalog.info("[BbcConnectionManager] 等待BBC就绪...")
             ready = self._wait_for_bbc_ready(timeout=30)
             if not ready:
-                logger.warning(f"[BbcConnectionManager] BBC就绪超时 (尝试 {attempt})")
+                mfaalog.warning(f"[BbcConnectionManager] BBC就绪超时 (尝试 {attempt})")
                 self._kill_bbc_process(bbc_proc)
                 if attempt < max_retries:
                     time.sleep(5)
@@ -471,9 +481,9 @@ class BbcConnectionManager:
                     return False
             
             # 4. 建立 TCP 连接
-            logger.info("[BbcConnectionManager] BBC已就绪，建立TCP连接...")
+            mfaalog.info("[BbcConnectionManager] BBC已就绪，建立TCP连接...")
             if not self.connect_tcp(timeout=10):
-                logger.warning(f"[BbcConnectionManager] TCP连接失败 (尝试 {attempt})")
+                mfaalog.warning(f"[BbcConnectionManager] TCP连接失败 (尝试 {attempt})")
                 self._kill_bbc_process(bbc_proc)
                 if attempt < max_retries:
                     time.sleep(5)
@@ -482,12 +492,12 @@ class BbcConnectionManager:
                     return False
             
             # 5. 连接模拟器
-            logger.info("[BbcConnectionManager] 连接模拟器...")
+            mfaalog.info("[BbcConnectionManager] 连接模拟器...")
             if self.connect_emulator(connect_cmd, connect_args, timeout=30):
-                logger.info("[BbcConnectionManager] BBC重启并连接成功")
+                mfaalog.info("[BbcConnectionManager] BBC重启并连接成功")
                 return True
             else:
-                logger.warning(f"[BbcConnectionManager] 模拟器连接失败 (尝试 {attempt})")
+                mfaalog.warning(f"[BbcConnectionManager] 模拟器连接失败 (尝试 {attempt})")
                 self._kill_bbc_process(bbc_proc)
                 if attempt < max_retries:
                     time.sleep(5)
@@ -510,7 +520,7 @@ class BbcConnectionManager:
     def cleanup(self):
         """清理所有资源（不关闭永久监听）"""
         self.disconnect_tcp()
-        logger.info("[BbcConnectionManager] TCP连接已清理")
+        mfaalog.info("[BbcConnectionManager] TCP连接已清理")
 
 
 # 全局实例

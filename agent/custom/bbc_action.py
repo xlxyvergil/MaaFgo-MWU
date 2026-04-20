@@ -1,8 +1,6 @@
-import json
 import os
 import sys
 import time
-import logging
 import threading
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
@@ -14,20 +12,7 @@ if _custom_dir not in sys.path:
     sys.path.insert(0, _custom_dir)
 
 from bbc_connection_manager import bbc_manager
-
-# 配置日志输出到文件
-AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
-LOG_FILE = os.path.join(AGENT_DIR, 'bbc_debug.log')
-
-# 创建具名 logger
-logger = logging.getLogger("BbcAction")
-if not logger.handlers:
-    logger.setLevel(logging.DEBUG)
-    logger.propagate = False
-    _fh = logging.FileHandler(LOG_FILE, mode='w', encoding='utf-8')
-    _fh.setLevel(logging.DEBUG)
-    _fh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-    logger.addHandler(_fh)
+import mfaalog
 
 
 # ==================== Action: 执行BBC任务（仅战斗部分）====================
@@ -42,7 +27,7 @@ class ExecuteBbcTask(CustomAction):
         
         for attempt in range(max_retries):
             if attempt > 0:
-                logger.warning(f"[ExecuteBbcTask] 第{attempt}次重试...")
+                mfaalog.warning(f"[ExecuteBbcTask] 第{attempt}次重试...")
                 # 执行BBC重启
                 if not self._restart_bbc(context):
                     return CustomAction.RunResult(success=False)
@@ -53,7 +38,7 @@ class ExecuteBbcTask(CustomAction):
             
             # 检查是否需要重启
             if result.get('need_restart', False):
-                logger.warning("[ExecuteBbcTask] 检测到游戏异常，准备重启...")
+                mfaalog.warning("[ExecuteBbcTask] 检测到游戏异常，准备重启...")
                 continue  # 进入下一次循环
             else:
                 # 返回最终结果
@@ -73,7 +58,7 @@ class ExecuteBbcTask(CustomAction):
         
         # 达到最大重试次数
         error_msg = f"战斗失败（已重试{max_retries-1}次）" + (f": {last_error}" if last_error else "")
-        logger.error(f"[ExecuteBbcTask] {error_msg}")
+        mfaalog.error(f"[ExecuteBbcTask] {error_msg}")
         context.override_pipeline({
             "bbc弹窗信息输出": {
                 "focus": {
@@ -89,7 +74,7 @@ class ExecuteBbcTask(CustomAction):
             # 从 Context 获取节点数据
             node_data = context.get_node_data("执行BBC任务")
             if not node_data:
-                logger.error("[ExecuteBbcTask] 无法获取节点数据")
+                mfaalog.error("[ExecuteBbcTask] 无法获取节点数据")
                 return {'success': False, 'error': '无法获取节点数据'}
             
             attach_data = node_data.get('attach', {})
@@ -99,17 +84,19 @@ class ExecuteBbcTask(CustomAction):
             run_count = attach_data.get('run_count')
             apple_type = attach_data.get('apple_type')
             battle_type = attach_data.get('battle_type', '连续出击')
+            
+            # 直接使用配置文件中的布尔值（BBC Server 需要 True/False）
             support_order_mismatch = attach_data.get('support_order_mismatch', False)
             team_config_error = attach_data.get('team_config_error', False)
             
             # 验证必需参数
             if not team_config or run_count is None or apple_type is None:
                 error_msg = f"参数不完整: team={team_config}, count={run_count}, apple={apple_type}"
-                logger.error(f"[ExecuteBbcTask] {error_msg}")
+                mfaalog.error(f"[ExecuteBbcTask] {error_msg}")
                 return {'success': False, 'error': error_msg}
             
             run_count = int(run_count)
-            logger.info(f"[ExecuteBbcTask] 参数: team={team_config}, count={run_count}, apple={apple_type}, type={battle_type}")
+            mfaalog.info(f"[ExecuteBbcTask] 参数: team={team_config}, count={run_count}, apple={apple_type}, type={battle_type}")
             
             # 步顤1: 尝试TCP连接，失败则触发bbc_start
             if not self._ensure_bbc_connected(context):
@@ -147,11 +134,19 @@ class ExecuteBbcTask(CustomAction):
                         }
                     }
                 })
-                logger.info(f"[ExecuteBbcTask] 战斗结束: {display_text}")
+                mfaalog.info(f"[ExecuteBbcTask] 战斗结束: {display_text}")
             else:
-                logger.info("[ExecuteBbcTask] 战斗正常结束")
+                mfaalog.info("[ExecuteBbcTask] 战斗正常结束")
             
             # 返回结果和是否需要重启的标志
+            # 如果是错误状态，标记为失败
+            if popup_title == '错误' or '错误' in (popup_message or ''):
+                return {
+                    'success': False,
+                    'error': f"{popup_title}: {popup_message}",
+                    'need_restart': True  # 错误状态需要重启
+                }
+            
             return {
                 'success': True,
                 'need_restart': state.get('need_restart', False)
@@ -159,56 +154,61 @@ class ExecuteBbcTask(CustomAction):
             
         except Exception as e:
             error_msg = f"异常: {str(e)}"
-            logger.error(f"[ExecuteBbcTask] {error_msg}", exc_info=True)
+            mfaalog.error(f"[ExecuteBbcTask] {error_msg}")
             return {'success': False, 'error': error_msg}
     
     def _restart_bbc(self, context: Context) -> bool:
         """重启BBC进程"""
         try:
-            logger.info("[Restart] 停止BBC进程...")
+            # 先断开当前连接
+            bbc_manager.disconnect_tcp()
+            time.sleep(1)
+            
+            mfaalog.info("[Restart] 停止BBC进程...")
             stop_result = context.run_task("停止bbc")
             if not stop_result:
-                logger.error("[Restart] 停止BBC失败")
+                mfaalog.error("[Restart] 停止BBC失败")
                 return False
             
-            time.sleep(2)
+            # 等待进程完全退出
+            time.sleep(3)
             
-            logger.info("[Restart] 启动BBC进程...")
+            mfaalog.info("[Restart] 启动BBC进程...")
             start_result = context.run_task("启动bbc")
             if not start_result:
-                logger.error("[Restart] 启动BBC失败")
+                mfaalog.error("[Restart] 启动BBC失败")
                 return False
             
             time.sleep(3)
-            logger.info("[Restart] BBC重启完成")
+            mfaalog.info("[Restart] BBC重启完成")
             return True
             
         except Exception as e:
-            logger.error(f"[Restart] 重启异常: {e}", exc_info=True)
+            mfaalog.error(f"[Restart] 重启异常: {e}")
             return False
     
     def _ensure_bbc_connected(self, context: Context):
         """确保BBC已连接，必要时触发bbc_start"""
         # 检查连接是否有效
         if bbc_manager.ensure_connected(timeout=3):
-            logger.info("[ExecuteBbcTask] TCP连接有效")
+            mfaalog.info("[ExecuteBbcTask] TCP连接有效")
             return True
         
-        logger.warning("[ExecuteBbcTask] TCP连接失效，触发bbc_start...")
+        mfaalog.warning("[ExecuteBbcTask] TCP连接失效，触发bbc_start...")
         
         # 触发bbc_start pipeline节点
         result = context.run_task("启动bbc")
         if not result:
-            logger.error("[ExecuteBbcTask] bbc_start执行失败")
+            mfaalog.error("[ExecuteBbcTask] bbc_start执行失败")
             return False
         
         # 重新检查连接
         time.sleep(2)
         if bbc_manager.ensure_connected(timeout=5):
-            logger.info("[ExecuteBbcTask] bbc_start后TCP连接成功")
+            mfaalog.info("[ExecuteBbcTask] bbc_start后TCP连接成功")
             return True
         
-        logger.error("[ExecuteBbcTask] bbc_start后TCP仍连接失败")
+        mfaalog.error("[ExecuteBbcTask] bbc_start后TCP仍连接失败")
         return False
     
     def _verify_emulator_connection(self, attach_data: dict, context: Context) -> bool:
@@ -217,10 +217,10 @@ class ExecuteBbcTask(CustomAction):
         
         # get_connection 直接返回连接状态，没有 success 字段
         if conn_status.get('connected') or conn_status.get('available'):
-            logger.info("[ExecuteBbcTask] 模拟器已连接，跳过连接步骤")
+            mfaalog.info("[ExecuteBbcTask] 模拟器已连接，跳过连接步骤")
             return True
         
-        logger.warning("[ExecuteBbcTask] 模拟器未连接，调用Manager重启BBC...")
+        mfaalog.warning("[ExecuteBbcTask] 模拟器未连接，调用Manager重启BBC...")
         
         # 提取连接参数
         connect = attach_data.get('connect', 'auto')
@@ -260,10 +260,10 @@ class ExecuteBbcTask(CustomAction):
         success = bbc_manager.restart_bbc_and_connect(connect_cmd, connect_args, max_retries=3)
         
         if success:
-            logger.info("[ExecuteBbcTask] BBC重启并连接成功")
+            mfaalog.info("[ExecuteBbcTask] BBC重启并连接成功")
             return True
         else:
-            logger.error("[ExecuteBbcTask] BBC重启失败")
+            mfaalog.error("[ExecuteBbcTask] BBC重启失败")
             return False
     
     def _setup_and_start_battle(self, team_config: str, run_count: int, 
@@ -282,19 +282,19 @@ class ExecuteBbcTask(CustomAction):
         # 设置弹窗回调
         def on_popup(msg):
             """弹窗回调函数 - 快速返回，不阻塞监听线程"""
-            logger.info(f"[ExecuteBbcTask] 收到弹窗: {msg.get('popup_title', '')}")
+            mfaalog.info(f"[ExecuteBbcTask] 收到弹窗: {msg.get('popup_title', '')}")
             if not state['finished']:
-                self._handle_popups([msg], False, False, state)
+                self._handle_popups([msg], support_order_mismatch, team_config_error, state)
                 state['popup_event'].set()  # 通知主线程
         
         bbc_manager.set_popup_callback(on_popup)
-        logger.info("[ExecuteBbcTask] 弹窗回调已注册")
+        mfaalog.info("[ExecuteBbcTask] 弹窗回调已注册")
         
         # 加载配置
-        logger.info(f"[ExecuteBbcTask] 加载配置: {team_config}")
+        mfaalog.info(f"[ExecuteBbcTask] 加载配置: {team_config}")
         result = bbc_manager.send_command('load_config', {'filename': team_config}, timeout=10)
         if not result.get('success'):
-            logger.error(f"[ExecuteBbcTask] 加载配置失败: {result.get('error')}")
+            mfaalog.error(f"[ExecuteBbcTask] 加载配置失败: {result.get('error')}")
             return None
         
         # 检查配置阶段是否有弹窗
@@ -303,17 +303,17 @@ class ExecuteBbcTask(CustomAction):
             return state
         
         # 设置参数
-        logger.info(f"[ExecuteBbcTask] 设置苹果类型: {apple_type}")
+        mfaalog.info(f"[ExecuteBbcTask] 设置苹果类型: {apple_type}")
         bbc_manager.send_command('set_apple_type', {'apple_type': apple_type}, timeout=5)
         
         popup_msgs = bbc_manager.get_messages_by_title('', timeout=1)
         if self._handle_popups(popup_msgs, support_order_mismatch, team_config_error, state):
             return state
         
-        logger.info(f"[ExecuteBbcTask] 设置运行次数: {run_count}")
+        mfaalog.info(f"[ExecuteBbcTask] 设置运行次数: {run_count}")
         bbc_manager.send_command('set_run_times', {'times': run_count}, timeout=5)
         
-        logger.info(f"[ExecuteBbcTask] 设置战斗类型: {battle_type}")
+        mfaalog.info(f"[ExecuteBbcTask] 设置战斗类型: {battle_type}")
         bbc_manager.send_command('set_battle_type', {'battle_type': battle_type}, timeout=5)
         
         # 启动战斗前最后检查一次弹窗
@@ -322,7 +322,7 @@ class ExecuteBbcTask(CustomAction):
             return state
         
         # 启动战斗（带重试机制）
-        logger.info("[ExecuteBbcTask] 启动战斗...")
+        mfaalog.info("[ExecuteBbcTask] 启动战斗...")
         max_retries = 3
         battle_started = False
         
@@ -331,11 +331,11 @@ class ExecuteBbcTask(CustomAction):
             result = bbc_manager.send_command('start_battle', {}, timeout=10)
             if not result.get('success'):
                 error = result.get('error', '')
-                logger.error(f"[ExecuteBbcTask] 启动战斗命令失败: {error}")
+                mfaalog.error(f"[ExecuteBbcTask] 启动战斗命令失败: {error}")
                 
                 # 检查是否是阵容未设置错误
                 if 'Servant slot' in error:
-                    logger.warning(f"[ExecuteBbcTask] 阵容未设置，重新触发点击 ({retry+1}/{max_retries})")
+                    mfaalog.warning(f"[ExecuteBbcTask] 阵容未设置，重新触发点击 ({retry+1}/{max_retries})")
                     time.sleep(2)
                     continue
                 else:
@@ -347,29 +347,29 @@ class ExecuteBbcTask(CustomAction):
             
             # 检查是否成功启动
             if ui_status.get('battle_running') or ui_status.get('device_running'):
-                logger.info("[ExecuteBbcTask] 战斗已启动")
+                mfaalog.info("[ExecuteBbcTask] 战斗已启动")
                 battle_started = True
                 break
             
             # 检查UI提示文本
             top_label = ui_status.get('top_label', '')
-            logger.info(f"[ExecuteBbcTask] UI状态: {top_label}")
+            mfaalog.info(f"[ExecuteBbcTask] UI状态: {top_label}")
             
             if '前辈！请设置好阵容再出战哦！' in top_label:
-                logger.warning(f"[ExecuteBbcTask] 检测到阵容未设置提示，重新触发点击 ({retry+1}/{max_retries})")
+                mfaalog.warning(f"[ExecuteBbcTask] 检测到阵容未设置提示，重新触发点击 ({retry+1}/{max_retries})")
                 time.sleep(2)
                 continue
             
             # 检查是否有其他弹窗
             popup_msgs = bbc_manager.get_messages_by_title('', timeout=2)
             if popup_msgs:
-                logger.info(f"[ExecuteBbcTask] 检测到弹窗: {popup_msgs[0].get('popup_title', '')}")
+                mfaalog.info(f"[ExecuteBbcTask] 检测到弹窗: {popup_msgs[0].get('popup_title', '')}")
         
         if not battle_started:
-            logger.error("[ExecuteBbcTask] 启动战斗失败，已达到最大重试次数")
+            mfaalog.error("[ExecuteBbcTask] 启动战斗失败，已达到最大重试次数")
             return None
         
-        logger.info("[ExecuteBbcTask] 战斗已启动，等待结束...")
+        mfaalog.info("[ExecuteBbcTask] 战斗已启动，等待结束...")
         return state
     
     def _handle_popups(self, messages: list, support_order_mismatch: bool, 
@@ -380,12 +380,12 @@ class ExecuteBbcTask(CustomAction):
             popup_message = msg.get('popup_message', '')
             popup_id = msg.get('popup_id', '')
             
-            logger.info(f"[Callback] 收到弹窗: {popup_title}")
+            mfaalog.info(f"[Callback] 收到弹窗: {popup_title}")
             
-            # 处理助战排序不符合
+            # 处理助战排序不符合 (askyesno 类型，使用布尔值 True/False)
             if '助战排序不符合' in popup_title:
-                action = 'ok' if support_order_mismatch else 'cancel'
-                logger.info(f"[Callback] 助战弹窗，响应: {action}")
+                action = support_order_mismatch  # True 或 False
+                mfaalog.info(f"[Callback] 助战弹窗(askyesno)，响应: {action}")
                 
                 if popup_id:
                     bbc_manager.send_command('popup_response', {
@@ -393,17 +393,21 @@ class ExecuteBbcTask(CustomAction):
                         'action': action
                     }, timeout=5)
                 
-                if action == 'cancel':
+                if not action:  # False = 停止
                     state['finished'] = True
                     state['popup_title'] = popup_title
                     state['popup_message'] = popup_message
-                    logger.info("[Callback] 用户拒绝助战，战斗结束")
+                    mfaalog.info("[Callback] 用户拒绝助战，战斗结束")
                     return True
+                else:  # True = 继续
+                    state['popup_title'] = ''
+                    state['popup_message'] = ''
+                    mfaalog.info("[Callback] 用户选择继续助战")
             
-            # 处理队伍配置错误
+            # 处理队伍配置错误 (askokcancel 类型，使用布尔值 True/False)
             elif '队伍配置错误' in popup_title:
-                action = 'ok' if team_config_error else 'cancel'
-                logger.info(f"[Callback] 队伍配置弹窗，响应: {action}")
+                action = team_config_error  # True 或 False
+                mfaalog.info(f"[Callback] 队伍配置弹窗(askokcancel)，响应: {action}")
                 
                 if popup_id:
                     bbc_manager.send_command('popup_response', {
@@ -411,59 +415,56 @@ class ExecuteBbcTask(CustomAction):
                         'action': action
                     }, timeout=5)
                 
-                if action == 'cancel':
+                if not action:  # False = 停止
                     state['finished'] = True
                     state['popup_title'] = popup_title
                     state['popup_message'] = popup_message
-                    logger.info("[Callback] 用户拒绝队伍配置，战斗结束")
+                    mfaalog.info("[Callback] 用户拒绝队伍配置，战斗结束")
+                    return True
+                else:  # True = 继续
+                    state['popup_title'] = ''
+                    state['popup_message'] = ''
+                    mfaalog.info("[Callback] 用户选择继续队伍配置")
+            
+            # 处理脚本停止 (showwarning 类型，BBC Server自动关闭)
+            elif '脚本停止' in popup_title:
+                mfaalog.info(f"[Callback] 检测到脚本停止: {popup_message}")
+                
+                # 检查是否是游戏异常导致的脚本停止
+                if any(keyword in popup_message for keyword in [
+                    '疑似游戏已闪退',
+                    '疑似模拟器崩溃',
+                    '高速接口获取截图失败'
+                ]):
+                    mfaalog.error(f"[Callback] 游戏异常导致的脚本停止: {popup_message}")
+                    state['finished'] = True
+                    state['popup_title'] = '游戏异常'
+                    state['popup_message'] = popup_message
+                    state['need_restart'] = True  # 标记需要重启
+                    return True
+                else:
+                    mfaalog.info("[Callback] 任务正常结束")
+                    # 正常结束不设置弹窗信息，避免被误判为异常
+                    state['finished'] = True
                     return True
             
-            # 处理脚本停止
-            elif '脚本停止' in popup_title:
-                logger.info(f"[Callback] 检测到脚本停止: {popup_message}")
-                
-                if popup_id:
-                    bbc_manager.send_command('popup_response', {
-                        'popup_id': popup_id,
-                        'action': 'ok'
-                    }, timeout=5)
+            # 处理其他单按钮弹窗 (showwarning/showerror/showinfo 类型，BBC Server自动关闭)
+            elif any(keyword in popup_title for keyword in ['正在结束任务', '其他任务运行中']):
+                mfaalog.info(f"[Callback] 检测到提示弹窗: {popup_title}")
                 
                 state['finished'] = True
                 state['popup_title'] = popup_title
                 state['popup_message'] = popup_message
-                logger.info("[Callback] 脚本停止已处理，战斗结束")
+                mfaalog.info("[Callback] 提示弹窗已处理，战斗结束")
                 return True
             
-            # 处理正在结束任务
-            elif '正在结束任务' in popup_title:
-                logger.info(f"[Callback] 检测到正在结束任务: {popup_message}")
-                
-                if popup_id:
-                    bbc_manager.send_command('popup_response', {
-                        'popup_id': popup_id,
-                        'action': 'ok'
-                    }, timeout=5)
-                
+            # 处理未知弹窗（兜底）
+            else:
+                mfaalog.warning(f"[Callback] 未知弹窗: {popup_title}")
+                # BBC Server 会自动关闭，标记为结束
                 state['finished'] = True
                 state['popup_title'] = popup_title
                 state['popup_message'] = popup_message
-                logger.info("[Callback] 正在结束任务已处理，战斗结束")
-                return True
-            
-            # 处理其他任务运行中
-            elif '其他任务运行中' in popup_title:
-                logger.warning(f"[Callback] 检测到其他任务运行中: {popup_message}")
-                
-                if popup_id:
-                    bbc_manager.send_command('popup_response', {
-                        'popup_id': popup_id,
-                        'action': 'ok'
-                    }, timeout=5)
-                
-                state['finished'] = True
-                state['popup_title'] = popup_title
-                state['popup_message'] = popup_message
-                logger.info("[Callback] 其他任务运行中，战斗结束")
                 return True
         
         return False
@@ -476,12 +477,12 @@ class ExecuteBbcTask(CustomAction):
             while not state['finished']:
                 popup_event.wait()  # 无限等待弹窗
                 popup_event.clear()
-                logger.info("[ExecuteBbcTask] 弹窗监听线程收到通知")
+                mfaalog.info("[ExecuteBbcTask] 弹窗监听线程收到通知")
                 # 弹窗已在回调中处理，这里只需记录日志
         
         listener_thread = threading.Thread(target=popup_listener, daemon=True)
         listener_thread.start()
-        logger.info("[ExecuteBbcTask] 弹窗监听线程已启动")
+        mfaalog.info("[ExecuteBbcTask] 弹窗监听线程已启动")
         
         # 主线程：只做心跳检查
         heartbeat_interval = 30  # 30秒一次心跳
@@ -491,13 +492,14 @@ class ExecuteBbcTask(CustomAction):
             # 心跳检查
             status = bbc_manager.send_command('get_status', {}, timeout=5)
             if not status.get('success'):
-                logger.warning("[ExecuteBbcTask] BBC服务无响应")
+                mfaalog.warning("[ExecuteBbcTask] BBC服务无响应")
                 state['finished'] = True
                 state['popup_title'] = '错误'
                 state['popup_message'] = 'BBC服务异常'
+                state['need_restart'] = True  # 标记需要重启BBC
                 break
             
-            logger.debug("[ExecuteBbcTask] 心跳检查正常")
+            mfaalog.debug("[ExecuteBbcTask] 心跳检查正常")
         
         return state['popup_title'], state['popup_message']
     

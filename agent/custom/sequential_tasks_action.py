@@ -6,6 +6,7 @@
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
+import mfaalog
 
 
 @AgentServer.custom_action("ExecuteSequentialTasks")
@@ -26,33 +27,33 @@ class ExecuteSequentialTasks(CustomAction):
         
         # 解析参数：逗号分隔的任务列表
         if not param_str:
-            print("[ExecuteSequentialTasks] 任务列表为空")
+            mfaalog.info("[ExecuteSequentialTasks] 任务列表为空")
             return CustomAction.RunResult(success=True)
         
         # 按逗号分割任务名
         tasks = [task.strip() for task in param_str.split(",") if task.strip()]
         
         if not tasks:
-            print("[ExecuteSequentialTasks] 任务列表为空")
+            mfaalog.info("[ExecuteSequentialTasks] 任务列表为空")
             return CustomAction.RunResult(success=True)
         
-        print(f"[ExecuteSequentialTasks] 开始顺序执行 {len(tasks)} 个任务: {tasks}")
+        mfaalog.info(f"[ExecuteSequentialTasks] 开始顺序执行 {len(tasks)} 个任务: {tasks}")
         
         # 依次执行任务
         for i, task_name in enumerate(tasks, 1):
-            print(f"[ExecuteSequentialTasks] [{i}/{len(tasks)}] 执行任务: {task_name}")
+            mfaalog.info(f"[ExecuteSequentialTasks] [{i}/{len(tasks)}] 执行任务: {task_name}")
             
             try:
                 result = context.run_task(task_name)
                 if not result or not result.status.succeeded:
-                    print(f"[ExecuteSequentialTasks] 任务 '{task_name}' 执行失败，停止后续任务")
+                    mfaalog.error(f"[ExecuteSequentialTasks] 任务 '{task_name}' 执行失败，停止后续任务")
                     return CustomAction.RunResult(success=False)
                 
-                print(f"[ExecuteSequentialTasks] 任务 '{task_name}' 执行成功")
+                mfaalog.info(f"[ExecuteSequentialTasks] 任务 '{task_name}' 执行成功")
                 
             except Exception as e:
-                print(f"[ExecuteSequentialTasks] 任务 '{task_name}' 执行异常: {e}")
+                mfaalog.error(f"[ExecuteSequentialTasks] 任务 '{task_name}' 执行异常: {e}")
                 return CustomAction.RunResult(success=False)
         
-        print(f"[ExecuteSequentialTasks] 所有任务执行完成")
+        mfaalog.info(f"[ExecuteSequentialTasks] 所有任务执行完成")
         return CustomAction.RunResult(success=True)
