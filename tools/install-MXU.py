@@ -117,9 +117,10 @@ def install_resource():
         interface = json.load(f)
 
     interface["version"] = version
-    # 不使用 MirrorChyan，直接通过 GitHub 更新
-    # interface["mirrorchyan_rid"] = "MaaFgo-MXU"
-    # interface["mirrorchyan_multiplatform"] = True
+    # 配置 MirrorChyan（用于触发更新检查流程）
+    # 即使 MirrorChyan 返回错误，也会尝试 GitHub fallback
+    interface["mirrorchyan_rid"] = "MaaFgo-MXU"
+    interface["mirrorchyan_multiplatform"] = True
 
     with open(install_path / "interface.json", "w", encoding="utf-8") as f:
         json.dump(interface, f, ensure_ascii=False, indent=4)
