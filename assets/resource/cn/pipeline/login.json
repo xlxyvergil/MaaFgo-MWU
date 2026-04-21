@@ -150,6 +150,17 @@
         "post_wait_freezes": 5000,
         "recognition": {
             "type": "DirectHit"
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    79,
+                    322,
+                    20,
+                    21
+                ]
+            }
         }
     },
     "阶段判断循环": {
