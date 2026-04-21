@@ -161,15 +161,11 @@ jobs:
           version=$(echo "$tag" | sed 's/^v//; s/Avalonia$//; s/MWU$//')
           echo "clean_version=$version" >> $GITHUB_OUTPUT
 
-      - name: Compress Final Artifact
-        run: |
-          7z a -t7z -mx=9 -mmt -ms -r ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MWU.7z "./build/*"
-
       - name: Upload Artifacts
         uses: actions/upload-artifact@v7
         with:
           name: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MWU
-          path: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MWU.7z
+          path: "./build/*"
 
   build-mxu:
     env:
@@ -275,15 +271,11 @@ jobs:
           version=$(echo "$tag" | sed 's/^v//; s/Avalonia$//; s/MWU$//')
           echo "clean_version=$version" >> $GITHUB_OUTPUT
 
-      - name: Compress MXU Artifact
-        run: |
-          7z a -t7z -mx=9 -mmt -ms -r ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MXU.7z "./install-mxu/*"
-
       - name: Upload MXU Artifacts
         uses: actions/upload-artifact@v7
         with:
           name: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MXU
-          path: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MXU.7z
+          path: "./install-mxu/*"
 
   build-avalonia:
     needs: meta
@@ -375,15 +367,11 @@ jobs:
           version=$(echo "$tag" | sed 's/^v//; s/Avalonia$//; s/MWU$//')
           echo "version=$version" >> $GITHUB_OUTPUT
 
-      - name: Compress Avalonia artifact
-        shell: bash
-        run: |
-          7z a -t7z -mx=9 -mmt -ms -r -- ./${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA.7z ./install/*
-
-      - uses: actions/upload-artifact@v7
+      - name: Upload Avalonia artifact
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA
-          path: ${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA.7z
+          path: "./install/*"
 
   changelog:
     name: Generate changelog
@@ -426,15 +414,24 @@ jobs:
   release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
     needs: [meta, build-mwu, build-avalonia, build-mxu, changelog]
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v8.0.1
         with:
-          path: release
+          path: assets
+
+      - name: Compress artifacts
+        run: |
+          cd assets
+          for f in *; do
+            if [[ $f == *"win"* ]]; then
+              (cd "$f" && zip -r "../$f.zip" .)
+            fi
+          done
 
       - uses: softprops/action-gh-release@v2.2.2
         with:
-          files: release/**/*.7z
+          files: assets/*.zip
           tag_name: ${{ needs.meta.outputs.tag }}
           body: ${{ needs.changelog.outputs.release_body }}
           draft: false

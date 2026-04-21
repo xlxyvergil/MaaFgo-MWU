@@ -6,10 +6,13 @@ on:
       tag:
         default: ''
         required: false
+  release:
+    types: [released]
 
 jobs:
   mirrorchyan:
     runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'xlxyvergil' }}
     strategy:
       fail-fast: false
       matrix:
@@ -19,8 +22,7 @@ jobs:
       - uses: MirrorChyan/uploading-action@v1
         with:
           filetype: latest-release
-          filename: MaaFgo-*-MXU.7z
-          p7zip: true
+          filename: ${{ format('MaaFgo-{0}-{1}-*-MXU*', matrix.os, matrix.arch) }}
           mirrorchyan_rid: MaaFgo
           tag: ${{ inputs.tag }}
 
