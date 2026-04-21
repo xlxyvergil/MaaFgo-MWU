@@ -378,12 +378,12 @@ jobs:
       - name: Compress Avalonia artifact
         shell: bash
         run: |
-          7z a -t7z -mx=9 -mmt -ms -r -- ./${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-Avalonia.7z ./install/*
+          7z a -t7z -mx=9 -mmt -ms -r -- ./${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA.7z ./install/*
 
       - uses: actions/upload-artifact@v7
         with:
-          name: ${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-Avalonia
-          path: ${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-Avalonia.7z
+          name: ${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA
+          path: ${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA.7z
 
   changelog:
     name: Generate changelog
