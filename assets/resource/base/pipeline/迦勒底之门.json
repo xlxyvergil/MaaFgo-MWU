@@ -1,0 +1,134 @@
+{
+    "迦勒底之门": {
+        "next": [
+            "迦勒底之门进入"
+        ]
+    },
+    "迦门-副本未找到": {
+        "max_hit": 1,
+        "focus": {
+            "Node.Recognition.Starting": "未找到副本，重新查找"
+        },
+        "next": [
+            "迦门-先上滑到最上面"
+        ]
+    },
+    "迦门-修炼场选择": {},
+    "迦门-QP本选择": {},
+    "迦勒底之门进入": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "chaldea_gate/主界面页签-迦勒底之门.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "迦门-日常副本"
+        ]
+    },
+    "迦门-日常副本": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "chaldea_gate/日常副本.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "迦门-先上滑到最上面"
+        ]
+    },
+    "迦门-种火-选择职介和等级": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "chaldea_gate/剑骑60.png"
+                ],
+                "green_mask": true
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "迦门-副本选择完毕"
+        ]
+    },
+    "迦门-副本选择完毕": {
+        "focus": {
+            "Node.Recognition.Starting": "已选择副本"
+        }
+    },
+    "迦门-不匹配下滑": {
+        "max_hit": 20,
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    1014,
+                    602,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        1010,
+                        212,
+                        1,
+                        1
+                    ]
+                ],
+                "duration": [
+                    1000
+                ]
+            }
+        },
+        "post_delay": 1000
+    },
+    "迦门-先上滑到最上面": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    929,
+                    100,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        929,
+                        583,
+                        1,
+                        1
+                    ]
+                ]
+            }
+        },
+        "repeat": 4,
+        "post_delay": 3000,
+        "next": [
+            "迦门-种火副本选择"
+        ]
+    },
+    "迦门-种火副本选择": {
+        "next": [
+            "迦门-种火-选择职介和等级",
+            "[JumpBack]迦门-不匹配下滑",
+            "迦门-副本未找到"
+        ]
+    }
+}
