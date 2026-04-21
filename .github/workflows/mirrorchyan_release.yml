@@ -1,7 +1,3 @@
-# Mirror酱为第三方分发服务，新项目默认关闭
-# 若有需要请联系 Mirror酱 开通，直接自行开启是无法使用的
-# https://mirrorchyan.com/
-
 name: mirrorchyan_release
 
 on:
@@ -10,34 +6,28 @@ on:
       tag:
         default: ''
         required: false
-#   release:
-#     types: [released]
 
 jobs:
   mirrorchyan:
-    runs-on: macos-latest
-    # Mirror酱为第三方分发服务，新项目默认关闭
-    # 若有需要请联系 Mirror酱 开通，直接自行开启是无法使用的
-    # https://mirrorchyan.com/
-    if: false
-    # if: ${{ github.repository_owner == 'MaaXYZ' }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        os: [win, macos, linux]
-        arch: [aarch64, x86_64]
+        os: [win]
+        arch: [x86_64]
     steps:
       - uses: MirrorChyan/uploading-action@v1
         with:
           filetype: latest-release
-          filename: ${{ format('MaaXXX-{0}-{1}-*', matrix.os, matrix.arch) }}
-          mirrorchyan_rid: MaaXXX
+          filename: MaaFgo-*-MXU.7z
+          p7zip: true
+          mirrorchyan_rid: MaaFgo
           tag: ${{ inputs.tag }}
 
           os: ${{ matrix.os }}
           arch: ${{ matrix.arch }}
 
-          owner: MaaXYZ
-          repo: MaaXXX
+          owner: xlxyvergil
+          repo: MaaFgo
           github_token: ${{ secrets.GITHUB_TOKEN }}
           upload_token: ${{ secrets.MirrorChyanUploadToken }}
