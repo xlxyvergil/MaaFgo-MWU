@@ -19,7 +19,7 @@ jobs:
       - uses: MirrorChyan/uploading-action@v1
         with:
           filetype: latest-release
-          filename: 'MaaFgo*MXU'
+          filename: MaaFgo-*-MXU
           mirrorchyan_rid: MaaFgo
           tag: ${{ inputs.tag }}
           p7zip: true
