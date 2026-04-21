@@ -117,7 +117,7 @@ def install_resource():
         interface = json.load(f)
 
     interface["version"] = version
-    interface["mirrorchyan_rid"] = "MaaFgo"
+    interface["mirrorchyan_rid"] = "MaaFgo-MXU"
 
     with open(install_path / "interface.json", "w", encoding="utf-8") as f:
         json.dump(interface, f, ensure_ascii=False, indent=4)

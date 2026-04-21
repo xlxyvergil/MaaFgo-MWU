@@ -154,6 +154,7 @@ def install_resource():
         interface = json.load(f)
 
     interface["version"] = version
+    interface["mirrorchyan_rid"] = "MaaFgo-MFAA"
 
     # 设置 agent 使用内置 Python
     if os_name == "win":

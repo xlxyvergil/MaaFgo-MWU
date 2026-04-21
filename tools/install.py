@@ -116,6 +116,7 @@ def install_resource():
         interface = jsonc.load(f)
 
     interface["version"] = version
+    interface["mirrorchyan_rid"] = "MaaFgo-MFAA"
 
     with open(install_path / "interface.json", "w", encoding="utf-8") as f:
         jsonc.dump(interface, f, ensure_ascii=False, indent=4)

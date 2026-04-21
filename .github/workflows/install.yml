@@ -163,13 +163,14 @@ jobs:
 
       - name: Compress Final Artifact
         run: |
-          7z a -t7z -mx=9 -mmt -ms -r ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MWU.7z "./build/*"
+          cd build
+          zip -r "../${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MWU.zip" .
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v7
         with:
           name: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MWU
-          path: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MWU.7z
+          path: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MWU.zip
 
   build-mxu:
     env:
@@ -277,13 +278,14 @@ jobs:
 
       - name: Compress MXU Artifact
         run: |
-          7z a -t7z -mx=9 -mmt -ms -r ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MXU.7z "./install-mxu/*"
+          cd install-mxu
+          zip -r "../${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MXU.zip" .
 
       - name: Upload MXU Artifacts
         uses: actions/upload-artifact@v7
         with:
           name: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MXU
-          path: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MXU.7z
+          path: ${{ env.repo_name }}-${{ matrix.platform }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.clean_version }}-MXU.zip
 
   build-avalonia:
     needs: meta
@@ -378,12 +380,13 @@ jobs:
       - name: Compress Avalonia artifact
         shell: bash
         run: |
-          7z a -t7z -mx=9 -mmt -ms -r -- ./${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA.7z ./install/*
+          cd install
+          zip -r "../${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA.zip" .
 
       - uses: actions/upload-artifact@v7
         with:
           name: ${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA
-          path: ${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA.7z
+          path: ${{ env.repo_name }}-${{ matrix.os }}-${{ matrix.arch }}-v${{ steps.get_version.outputs.version }}-MFAA.zip
 
   changelog:
     name: Generate changelog
@@ -434,7 +437,7 @@ jobs:
 
       - uses: softprops/action-gh-release@v2.2.2
         with:
-          files: release/**/*.7z
+          files: release/**/*.zip
           tag_name: ${{ needs.meta.outputs.tag }}
           body: ${{ needs.changelog.outputs.release_body }}
           draft: false
