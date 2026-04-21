@@ -117,7 +117,7 @@ MaaFgo/
 
 - [MWU](https://github.com/ravizhan/MWU)  
   基于 Vue + FastAPI 的轻量级跨平台通用 WebUI。由 MaaFramework 强力驱动！
-- [MXU](https://github.com/ravizhan/MXU)  
+- [MXU](https://github.com/MistEO/MXU)  
   基于 Tauri 2 + React 的轻量级跨平台通用 GUI。由 MaaFramework 强力驱动！
 - [MFAAvalonia](https://github.com/MaaXYZ/MFAAvalonia)  
   基于 Avalonia 的 通用 GUI。由 MaaFramework 强力驱动！
