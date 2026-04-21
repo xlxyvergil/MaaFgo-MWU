@@ -419,8 +419,9 @@ class ExecuteBbcTask(CustomAction):
                 mfaalog.info(f"[ExecuteBbcTask] 检测到弹窗: {popup_msgs[0].get('popup_title', '')}")
         
         if not battle_started:
-            mfaalog.error("[ExecuteBbcTask] 启动战斗失败，已达到最大重试次数")
-            return None
+            error_msg = "启动战斗失败（阵容未设置，已重试3次）"
+            mfaalog.error(f"[ExecuteBbcTask] {error_msg}")
+            return {'success': False, 'error': error_msg, 'need_restart': True}
         
         mfaalog.info("[ExecuteBbcTask] 战斗已启动，等待结束...")
         return state
