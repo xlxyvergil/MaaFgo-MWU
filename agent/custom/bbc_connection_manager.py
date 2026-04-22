@@ -613,6 +613,5 @@ def get_manager() -> BbcConnectionManager:
             # Double-checked locking
             if _manager_instance is None:
                 _manager_instance = BbcConnectionManager()
-                mfaalog.info(f"[BbcConnectionManager] 创建进程级实例, ID: {id(_manager_instance)}")
     return _manager_instance
 
