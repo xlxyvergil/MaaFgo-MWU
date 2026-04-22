@@ -32,6 +32,24 @@ class BbcConnectionManager:
     
     def __init__(self):
         # 先尝试关闭端口上的旧监听（如果有）
+        """
+        Initialize a BbcConnectionManager instance.
+        
+        Sets up internal sockets, threading primitives, state tracking, and message queue; cleans any existing process bound to the callback port and starts the permanent callback listener. After initialization the instance has:
+        - _tcp_sock: TCP socket or None
+        - _callback_server: callback listening socket or None
+        - _callback_thread: background thread for callback handling or None
+        - _message_queue: list used as the incoming message queue (protected by _queue_lock)
+        - _queue_lock: Lock protecting the message queue
+        - _popup_callback: optional callable invoked for popup events
+        - _bbc_ready_event: Event used to signal BBC readiness
+        - _state: dict containing 'connected', 'callback_listening', and 'bbc_process'
+        - _state_lock: Lock protecting _state
+        
+        Side effects:
+        - Attempts to free the configured callback port if occupied.
+        - Starts the permanent callback listener thread.
+        """
         self._cleanup_port()
         
         self._tcp_sock: Optional[socket.socket] = None
@@ -54,7 +72,11 @@ class BbcConnectionManager:
         self._start_permanent_listener()
     
     def _reset_state(self):
-        """重置状态（关闭旧资源）"""
+        """
+        Reset the manager's runtime state and close or terminate active resources.
+        
+        Stops the callback listener, closes the callback server socket, joins the callback listener thread if running, disconnects any TCP connection, terminates the BBC process if present, and waits briefly to allow resources to clean up.
+        """
         # 停止回调监听
         with self._state_lock:
             self._state['callback_listening'] = False
@@ -82,7 +104,11 @@ class BbcConnectionManager:
         mfaalog.info("[BbcConnectionManager] 旧状态已清理")
     
     def _cleanup_port(self):
-        """清理端口上的旧监听（通过查找并终止占用端口的进程）"""
+        """
+        Terminate any process listening on the configured BBC callback TCP port.
+        
+        Searches system listening sockets for BBC_CALLBACK_PORT and, if a listening process is found, attempts to forcibly terminate that process and logs the outcome. Logs a message if the port is free and emits a warning if an error occurs while checking or terminating processes.
+        """
         try:
             import subprocess
             # Windows: 查找占用端口的 PID
@@ -118,7 +144,13 @@ class BbcConnectionManager:
             mfaalog.warning(f"[BbcConnectionManager] 端口检查异常: {e}")
     
     def _start_permanent_listener(self):
-        """启动永久回调监听（后台线程）"""
+        """
+        Start a background TCP listener that accepts permanent callback connections.
+        
+        Binds a server socket to 127.0.0.1:BBC_CALLBACK_PORT, sets self._callback_server and
+        self._state['callback_listening'], and starts a daemon thread running
+        self._permanent_callback_loop. Errors during startup are logged.
+        """
         try:
             server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -142,7 +174,11 @@ class BbcConnectionManager:
             mfaalog.error(f"[BbcConnectionManager] 启动永久监听失败: {e}")
     
     def _restart_callback_listener(self):
-        """重启回调监听线程，确保绑定到当前实例"""
+        """
+        Restart the callback listener thread and rebind the readiness event to this instance.
+        
+        Stops the existing listener (marks listening state false, closes the server socket and joins the thread), replaces the instance's readiness Event used for BBC-ready signaling, sleeps briefly to allow resources to settle, and starts a new permanent callback listener.
+        """
         # 停止旧线程
         with self._state_lock:
             self._state['callback_listening'] = False
@@ -166,7 +202,15 @@ class BbcConnectionManager:
         self._start_permanent_listener()
     
     def _permanent_callback_loop(self, server_sock: socket.socket):
-        """永久回调监听主循环 - 将消息放入队列"""
+        """
+        Run the permanent callback listener loop and enqueue received callback messages.
+        
+        This loop accepts inbound connections on the provided listening socket, reads a 4-byte big-endian length prefix followed by a JSON payload, decodes the payload to a dict and appends it to the instance message queue. When a message's `event` is one of `server_started` or `disclaimer_closed`, the instance readiness event (`self._bbc_ready_event`) is set. If an `event` equals `popup_show`, the configured popup callback (if any) is invoked with the message. A message with `event == '__shutdown__'` causes the loop to exit. Socket timeouts are ignored; other exceptions are logged and the loop continues unless callback listening has been disabled.
+        
+        Parameters:
+            server_sock (socket.socket): A listening TCP socket bound to the BBC callback port; the function calls `accept()` on this socket.
+        
+        """
         mfaalog.info("[BbcConnectionManager] 永久回调监听循环开始")
         
         while True:
@@ -451,7 +495,17 @@ class BbcConnectionManager:
             mfaalog.warning(f"[BbcConnectionManager] 终止进程失败: {e}")
     
     def _launch_bbc(self):
-        """启动BBC进程"""
+        """
+        Start the BBC executable as a subprocess and record its process object.
+        
+        The method attempts to launch the executable at BBC_EXE_PATH using the executable's directory as the working directory.
+        Standard output and standard error are redirected to files named "bbc_stdout.log" and "bbc_stderr.log" created in the executable's directory.
+        If the executable filename ends with "_debug.exe", the subprocess is started with a new console.
+        On successful launch, the subprocess.Popen object is stored in self._state['bbc_process'].
+        
+        Returns:
+            subprocess.Popen or None: The Popen object for the launched BBC process if successful, `None` if the executable does not exist or launch fails.
+        """
         if not os.path.exists(BBC_EXE_PATH):
             mfaalog.error(f"[BbcConnectionManager] BBC可执行文件不存在: {BBC_EXE_PATH}")
             return None
@@ -486,7 +540,15 @@ class BbcConnectionManager:
             return None
     
     def _wait_for_bbc_ready(self, timeout: int = 30) -> bool:
-        """等待 BBC 就绪信号"""
+        """
+        Waits for the BBC readiness event to be signaled.
+        
+        Parameters:
+            timeout (int): Maximum number of seconds to wait for the readiness event.
+        
+        Returns:
+            bool: `True` if the readiness event was signaled within `timeout` seconds, `False` otherwise.
+        """
         mfaalog.info(f"[BbcConnectionManager] 等待BBC就绪 (超时{timeout}s)...")
         ready = self._bbc_ready_event.wait(timeout=timeout)
         
@@ -542,7 +604,19 @@ class BbcConnectionManager:
     # ==================== 完整重启流程 ====================
     
     def restart_bbc_and_connect(self, connect_cmd: str, connect_args: dict, max_retries: int = 5) -> bool:
-        """重启 BBC 并连接模拟器（完整流程）"""
+        """
+        Restart the BBC application and attempt to connect the emulator, retrying the full restart-and-connect sequence up to `max_retries` times.
+        
+        This method clears the message queue and readiness event for each attempt, terminates any existing BBC process, launches a new BBC process, waits for BBC readiness, establishes the TCP connection, and then attempts to connect the emulator. It may terminate the launched BBC process on failure and will perform multiple attempts until success or until `max_retries` is reached.
+        
+        Parameters:
+            connect_cmd (str): Emulator connect command name (e.g., command used by BBC to initiate emulator connection).
+            connect_args (dict): Arguments passed to the emulator connect command.
+            max_retries (int): Maximum number of restart-and-connect attempts (default 5).
+        
+        Returns:
+            bool: `true` if the BBC was restarted and the emulator connection succeeded within the allowed attempts, `false` otherwise.
+        """
         mfaalog.info(f"[BbcConnectionManager] ========== 开始重启 BBC ==========")
         
         for attempt in range(1, max_retries + 1):
