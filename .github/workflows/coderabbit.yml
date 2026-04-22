@@ -1,17 +1,14 @@
-name: CodeRabbit PR Review
+name: AI Code Review
 
-# 1. 触发条件：既支持 PR 事件，也支持手动触发
+# 1. 配置触发时机：支持 PR 事件 + 手动按钮触发
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-  pull_request_review_comment:
-    types: [created]
-  workflow_dispatch: # 👈 新增：允许你在 Actions 页面手动点击运行
+  workflow_dispatch: # 允许在 Actions 页面手动点击运行
 
 permissions:
   contents: read
-  pull-requests: write
-  issues: write # 给足权限，确保机器人能正常回帖
+  pull-requests: write   # 允许 Action 在 PR 中发表评论
 
 jobs:
   review:
@@ -20,10 +17,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run CodeRabbit Review
-        # 👇 关键：改用官方维护的新版 Action
-        uses: coderabbitai/coderabbitai-action@v3 
-        with:
-          # 👇 推荐使用 CodeRabbit 专用 Token，而不是 GitHub 自带 Token
-          # 这样能避免很多权限导致的偶发报错
-          github_token: ${{ secrets.CR_TOKEN }}
+      - name: Run AI Review
+        # 👇 关键：换成了真实存在的开源 Action
+        uses: anc95/ChatGPT-CodeReview@main 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      # GitHub 自带令牌
+          OPENAI_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }} # 我们配的 DeepSeek 密钥
+          OPENAI_API_BASE: "https://api.deepseek.com/v1" # DeepSeek 的兼容接口
