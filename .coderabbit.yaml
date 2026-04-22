@@ -2,10 +2,16 @@
 
 # ==================== 基础设置（官方支持字段）====================
 language: "zh-CN"                  # 强制中文回复
-early_access: false                # 关闭早期访问功能
+
 # ==================== 审查行为设置（官方允许字段）====================
 reviews:
   profile: "assertive"             # 严格审查模式（chill/assertive）
   auto_review:
     enabled: true                  # 启用自动审查
     drafts: false                  # 不审查草稿PR
+  
+# ==================== 对话/交互设置（官方支持字段）====================
+chat:
+  auto_reply: true                 # 启用自动回复
+  art: true                        # 在聊天回复中生成艺术（ASCII或表情符号）
+  allow_non_org_members: true      # 允许非组织成员与CodeRabbit交互
