@@ -85,7 +85,6 @@ class BbcConnectionManager:
     def _cleanup_port(self):
         """清理端口上的旧监听（通过查找并终止占用端口的进程）"""
         try:
-            import subprocess
             # Windows: 查找占用端口的 PID
             result = subprocess.run(
                 ['netstat', '-ano'],
@@ -96,7 +95,7 @@ class BbcConnectionManager:
             )
             
             if not result.stdout:
-                mfaalog.debug(f"[BbcConnectionManager] netstat 返回空")
+                mfaalog.debug("[BbcConnectionManager] netstat 返回空")
                 return
             
             for line in result.stdout.splitlines():
