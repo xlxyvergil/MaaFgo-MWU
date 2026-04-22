@@ -28,22 +28,11 @@ BBC_EXE_PATH = os.path.abspath(BBC_EXE_PATH)
 
 
 class BbcConnectionManager:
-    """BBC 连接管理器 - 单例"""
-    
-    _instance = None
-    _lock = threading.Lock()
-    
-    def __new__(cls):
-        if cls._instance is None:
-            with cls._lock:
-                if cls._instance is None:
-                    cls._instance = super().__new__(cls)
-                    cls._instance._initialized = False
-        return cls._instance
+    """BBC 连接管理器 - 每次创建新实例"""
     
     def __init__(self):
-        if self._initialized:
-            return
+        # 先尝试关闭端口上的旧监听（如果有）
+        self._cleanup_port()
         
         self._tcp_sock: Optional[socket.socket] = None
         self._callback_server: Optional[socket.socket] = None
@@ -51,6 +40,7 @@ class BbcConnectionManager:
         self._message_queue = []  # 消息队列
         self._queue_lock = threading.Lock()
         self._popup_callback = None  # 弹窗回调函数
+        self._bbc_ready_event = threading.Event()  # BBC就绪事件
         self._state = {
             'connected': False,
             'callback_listening': False,
@@ -58,11 +48,74 @@ class BbcConnectionManager:
         }
         self._state_lock = threading.Lock()
         
-        self._initialized = True
-        mfaalog.info("[BbcConnectionManager] 初始化完成")
+        mfaalog.info(f"[BbcConnectionManager] 创建新实例, ID: {id(self)}, Event ID: {id(self._bbc_ready_event)}")
         
         # 自动启动回调监听
         self._start_permanent_listener()
+    
+    def _reset_state(self):
+        """重置状态（关闭旧资源）"""
+        # 停止回调监听
+        with self._state_lock:
+            self._state['callback_listening'] = False
+        
+        if self._callback_server:
+            try:
+                self._callback_server.close()
+            except:
+                pass
+        
+        if self._callback_thread and self._callback_thread.is_alive():
+            self._callback_thread.join(timeout=3)
+        
+        # 断开TCP连接
+        self.disconnect_tcp()
+        
+        # 终止BBC进程
+        if self._state.get('bbc_process'):
+            try:
+                self._kill_bbc_process()
+            except:
+                pass
+        
+        time.sleep(0.5)
+        mfaalog.info("[BbcConnectionManager] 旧状态已清理")
+    
+    def _cleanup_port(self):
+        """清理端口上的旧监听（通过查找并终止占用端口的进程）"""
+        try:
+            import subprocess
+            # Windows: 查找占用端口的 PID
+            result = subprocess.run(
+                ['netstat', '-ano'],
+                capture_output=True,
+                text=True,
+                timeout=5,
+                encoding='gbk'  # Windows netstat 输出是 GBK 编码
+            )
+            
+            if not result.stdout:
+                mfaalog.debug(f"[BbcConnectionManager] netstat 返回空")
+                return
+            
+            for line in result.stdout.splitlines():
+                if f':{BBC_CALLBACK_PORT}' in line and 'LISTENING' in line:
+                    parts = line.strip().split()
+                    if len(parts) >= 5:
+                        pid = parts[-1]
+                        mfaalog.warning(f"[BbcConnectionManager] 检测到端口 {BBC_CALLBACK_PORT} 被 PID {pid} 占用，终止进程...")
+                        try:
+                            subprocess.run(['taskkill', '/F', '/PID', pid], 
+                                         capture_output=True, timeout=3)
+                            mfaalog.info(f"[BbcConnectionManager] 已终止 PID {pid}")
+                            time.sleep(0.5)
+                        except Exception as e:
+                            mfaalog.error(f"[BbcConnectionManager] 终止进程失败: {e}")
+                    break
+            else:
+                mfaalog.info(f"[BbcConnectionManager] 端口 {BBC_CALLBACK_PORT} 空闲")
+        except Exception as e:
+            mfaalog.warning(f"[BbcConnectionManager] 端口检查异常: {e}")
     
     def _start_permanent_listener(self):
         """启动永久回调监听（后台线程）"""
@@ -87,6 +140,30 @@ class BbcConnectionManager:
             mfaalog.info(f"[BbcConnectionManager] 永久回调监听已启动 on port {BBC_CALLBACK_PORT}")
         except Exception as e:
             mfaalog.error(f"[BbcConnectionManager] 启动永久监听失败: {e}")
+    
+    def _restart_callback_listener(self):
+        """重启回调监听线程，确保绑定到当前实例"""
+        # 停止旧线程
+        with self._state_lock:
+            self._state['callback_listening'] = False
+        
+        if self._callback_server:
+            try:
+                self._callback_server.close()
+            except:
+                pass
+        
+        if self._callback_thread and self._callback_thread.is_alive():
+            self._callback_thread.join(timeout=3)
+        
+        # 创建新的 Event 对象，确保新线程使用全新的同步对象
+        self._bbc_ready_event = threading.Event()
+        mfaalog.info(f"[BbcConnectionManager] 创建新的Event对象, ID: {id(self._bbc_ready_event)}")
+        
+        time.sleep(0.5)
+        
+        # 启动新线程
+        self._start_permanent_listener()
     
     def _permanent_callback_loop(self, server_sock: socket.socket):
         """永久回调监听主循环 - 将消息放入队列"""
@@ -115,6 +192,12 @@ class BbcConnectionManager:
                 
                 msg = json.loads(data.decode('utf-8'))
                 
+                # 处理关闭信号
+                if msg.get('event') == '__shutdown__':
+                    mfaalog.info(f"[BbcConnectionManager] 收到关闭信号，退出回调线程")
+                    client_sock.close()
+                    break
+                
                 # 根据事件类型输出日志
                 event = msg.get('event')
                 if event == 'popup_show':
@@ -123,6 +206,12 @@ class BbcConnectionManager:
                     mfaalog.debug(f"[BbcConnectionManager] 弹窗已关闭: {msg.get('popup_title', '')}")
                 else:
                     mfaalog.debug(f"[BbcConnectionManager] 收到回调: {msg}")
+                
+                # 触发BBC就绪事件
+                if event in ['server_started', 'disclaimer_closed']:
+                    mfaalog.info(f"[BbcConnectionManager] BBC就绪信号: {event}, Event对象ID: {id(self._bbc_ready_event)}, Event状态: {self._bbc_ready_event.is_set()}")
+                    self._bbc_ready_event.set()
+                    mfaalog.info(f"[BbcConnectionManager] 已触发事件, Event状态: {self._bbc_ready_event.is_set()}")
                 
                 # 放入消息队列
                 with self._queue_lock:
@@ -397,19 +486,16 @@ class BbcConnectionManager:
             return None
     
     def _wait_for_bbc_ready(self, timeout: int = 30) -> bool:
-        """从消息队列等待 BBC 就绪信号"""
-        start_time = time.time()
+        """等待 BBC 就绪信号"""
+        mfaalog.info(f"[BbcConnectionManager] 等待BBC就绪 (超时{timeout}s)...")
+        ready = self._bbc_ready_event.wait(timeout=timeout)
         
-        while time.time() - start_time < timeout:
-            msg = self.get_message(timeout=0.5)
-            if msg:
-                event = msg.get('event', '')
-                if event in ['server_started', 'disclaimer_closed']:
-                    mfaalog.info(f"[BbcConnectionManager] BBC 就绪事件: {event}")
-                    return True
-        
-        mfaalog.warning(f"[BbcConnectionManager] 等待 BBC 就绪超时 ({timeout}s)")
-        return False
+        if ready:
+            mfaalog.info("[BbcConnectionManager] BBC 就绪事件已触发")
+            return True
+        else:
+            mfaalog.warning(f"[BbcConnectionManager] 等待 BBC 就绪超时 ({timeout}s)")
+            return False
     
     # ==================== 模拟器连接 ====================
     
@@ -462,7 +548,13 @@ class BbcConnectionManager:
         for attempt in range(1, max_retries + 1):
             mfaalog.info(f"[BbcConnectionManager] 第{attempt}次启动尝试")
             
+            # 清空本次尝试的消息队列和就绪事件
+            mfaalog.info(f"[BbcConnectionManager] 清空消息队列和就绪事件 (尝试 {attempt})")
+            self.clear_message_queue()
+            self._bbc_ready_event.clear()
+            
             # 1. 杀掉旧进程
+            mfaalog.info(f"[BbcConnectionManager] 终止旧BBC进程 (尝试 {attempt})")
             self._kill_bbc_process()
             time.sleep(5)
             
