@@ -41,20 +41,38 @@ popup_event_queue = None
 _popup_wait_dict = {}
 _popup_wait_lock = None
 
+# Tkinter 线程安全队列（从 TCP 线程到主线程）
+_tk_queue = None
+_tk_root_ref = None  # Tkinter 主窗口引用，用于 after() 调用
+
 TCP_PORT = 25001
 CALLBACK_PORT = 25002
 
 # ==================== BBC 窗口注册 ====================
 
 def update_bb_window(bb_window):
-    global _bb_window_global
+    global _bb_window_global, _tk_root_ref
     _bb_window_global = bb_window
+    _tk_root_ref = bb_window  # 保存主窗口引用用于 after() 调用
     _log('info', '[Server] BBC window registered')
 
 def get_bb_page():
     if _bb_window_global is None:
         return None
     return _bb_window_global.pages[0]
+
+def _run_on_tk_thread(func):
+    """将函数分发到 Tkinter 主线程执行（线程安全）"""
+    global _tk_queue, _tk_root_ref
+    if _tk_queue is None:
+        _tk_queue = __import__('queue').Queue()
+    _tk_queue.put(func)
+    # 唤醒主线程处理队列（如果主窗口存在）
+    if _tk_root_ref is not None:
+        try:
+            _tk_root_ref.event_generate('<<TkQueueEvent>>', when='tail')
+        except Exception:
+            pass  # 主窗口可能已关闭
 
 # ==================== 弹窗机制 ====================
 
@@ -140,8 +158,11 @@ class ConnectionAPI:
             device.set_serialno(json.dumps(serialno, ensure_ascii=False))
             device.snapshot()
             page.snapshotDevice = page.operateDevice = page.device.snapshotDevice = page.device.operateDevice = device
-            _bb_window_global.pagebar.tags[page.idx].createText(True)
-            _bb_window_global.updateConnectLst(page.idx)
+            # 线程安全：将 UI 更新分发到主线程
+            def update_ui():
+                _bb_window_global.pagebar.tags[page.idx].createText(True)
+                _bb_window_global.updateConnectLst(page.idx)
+            _run_on_tk_thread(update_ui)
             _log('info', f'[Connection] MuMu connected: {emulator_name}')
             return {'success': True}
         except Exception as e:
@@ -173,8 +194,11 @@ class ConnectionAPI:
             touchDevice = Windows(device.player.bndWnd)
             page.snapshotDevice = page.device.snapshotDevice = device
             page.operateDevice = page.device.operateDevice = touchDevice
-            _bb_window_global.pagebar.tags[page.idx].createText(True)
-            _bb_window_global.updateConnectLst(page.idx)
+            # 线程安全：将 UI 更新分发到主线程
+            def update_ui():
+                _bb_window_global.pagebar.tags[page.idx].createText(True)
+                _bb_window_global.updateConnectLst(page.idx)
+            _run_on_tk_thread(update_ui)
             _log('info', f'[Connection] LD connected: index={index}')
             return {'success': True}
         except Exception as e:
@@ -202,8 +226,11 @@ class ConnectionAPI:
                 device.disconnect()
                 return {'success': False, 'error': 'ADB device unavailable'}
             page.snapshotDevice = page.operateDevice = page.device.snapshotDevice = page.device.operateDevice = device
-            _bb_window_global.pagebar.tags[page.idx].createText(True)
-            _bb_window_global.updateConnectLst(page.idx)
+            # 线程安全：将 UI 更新分发到主线程
+            def update_ui():
+                _bb_window_global.pagebar.tags[page.idx].createText(True)
+                _bb_window_global.updateConnectLst(page.idx)
+            _run_on_tk_thread(update_ui)
             _log('info', f'[Connection] ADB connected: {ip}')
             return {'success': True}
         except Exception as e:
@@ -320,11 +347,14 @@ class ConfigAPI:
         if not filename:
             return {'success': False, 'error': 'filename required'}
 
-        # BBC 工作目录是 dist/BBchannel64，settings 在 ../settings
-        # __file__ = d:\BBC\BBchannel\dist\BBchannel64\bbc_tcp_server.py
-        # 3层 dirname = d:\BBC\BBchannel
-        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        config_path = os.path.join(base_dir, "settings", filename)
+        # 路径安全检查：防止 ../ 逃逸
+        if '..' in filename or '/' in filename or '\\' in filename:
+            _log('error', f'[Config] Invalid filename (path traversal detected): {filename}')
+            return {'success': False, 'error': 'Invalid filename: path traversal not allowed'}
+
+        # BBC 进程的工作目录就是 BBchannel 根目录，直接使用相对路径
+        config_path = os.path.join("settings", filename)
+        
         if not os.path.exists(config_path):
             return {'success': False, 'error': f'Config file not found: {config_path}'}
         try:
@@ -334,10 +364,14 @@ class ConfigAPI:
             SS["snapshotDevice"] = page.SS.get("snapshotDevice", None)
             SS["operateDevice"] = page.SS.get("operateDevice", None)
             page.SS = SS
-            page.reset()
+            # 线程安全：page.reset() 可能触发 UI 重绘
+            _run_on_tk_thread(page.reset)
             _bb_window_global.saveJsons()
             _log('info', f'[Config] Loaded: {filename}')
             return {'success': True}
+        except json.JSONDecodeError as e:
+            _log('error', f'[Config] JSON parse error in {filename}: {e}')
+            return {'success': False, 'error': f'Invalid JSON format: {str(e)}'}
         except Exception as e:
             _log('error', f'[Config] Load failed: {e}')
             return {'success': False, 'error': str(e)}
@@ -350,14 +384,23 @@ class ConfigAPI:
         import os, json
         if not filename:
             return {'success': False, 'error': 'filename required'}
+        
+        # 路径安全检查：防止 ../ 逃逸
+        if '..' in filename or '/' in filename or '\\' in filename:
+            _log('error', f'[Config] Invalid filename (path traversal detected): {filename}')
+            return {'success': False, 'error': 'Invalid filename: path traversal not allowed'}
+        
+        # BBC 进程的工作目录就是 BBchannel 根目录，直接使用相对路径（与 BBchannelUI.py 一致）
+        config_path = os.path.join("settings", filename)
+        
         try:
-            config_path = os.path.join("settings", filename)
             os.makedirs(os.path.dirname(config_path), exist_ok=True)
             with open(config_path, "w", encoding="utf8") as fp:
                 json.dump(page.SS, fp, ensure_ascii=False, indent=4)
             _log('info', f'[Config] Saved: {filename}')
             return {'success': True}
         except Exception as e:
+            _log('error', f'[Config] Save failed: {e}')
             return {'success': False, 'error': str(e)}
 
     @staticmethod
@@ -397,9 +440,12 @@ class BattleSettingsAPI:
             return {'success': False, 'error': f'Unknown apple type: {apple_type}'}
         try:
             page.appleSet.appleType = CT.Gold if apple_type == "gold" else getattr(CT, apple_type.capitalize(), CT.Gold)
-            page.appleSet.appleIconPhoto = page.appleSet.getAppleIconPhoto()
-            if hasattr(page.appleSet, 'appleIcon'):
-                page.appleSet.appleIcon.config(image=page.appleSet.appleIconPhoto)
+            # 线程安全：getAppleIconPhoto() 创建 PhotoImage，config() 更新 widget
+            def update_apple_icon():
+                page.appleSet.appleIconPhoto = page.appleSet.getAppleIconPhoto()
+                if hasattr(page.appleSet, 'appleIcon'):
+                    page.appleSet.appleIcon.config(image=page.appleSet.appleIconPhoto)
+            _run_on_tk_thread(update_apple_icon)
             _log('info', f'[Battle] Apple type set: {apple_type}')
             return {'success': True, 'apple_type': apple_type}
         except Exception as e:
@@ -465,9 +511,12 @@ class BattleControlAPI:
             for i in range(3):
                 if not page.servantGroup[i].exist:
                     return {'success': False, 'error': f'Servant slot {i} is empty'}
-            btn_x = page.start.winfo_width() // 2
-            btn_y = page.start.winfo_height() // 2
-            page.start.event_generate("<Button-1>", x=btn_x, y=btn_y)
+            # 线程安全：event_generate() 必须在主线程调用
+            def click_start_button():
+                btn_x = page.start.winfo_width() // 2
+                btn_y = page.start.winfo_height() // 2
+                page.start.event_generate("<Button-1>", x=btn_x, y=btn_y)
+            _run_on_tk_thread(click_start_button)
             _log('info', '[Battle] Battle started')
             return {'success': True}
         except Exception as e:
@@ -619,13 +668,23 @@ class StatusAPI:
                 'battle_running': False
             }
         try:
-            # 获取topLabel文本
-            top_label_text = ''
-            if hasattr(page, 'topLabel'):
-                try:
-                    top_label_text = page.topLabel.cget('text')
-                except:
-                    pass
+            # 线程安全：cget() 严格意义上非线程安全，但实践中较少崩溃
+            # 为保持一致性，也通过队列执行
+            result = {'text': ''}
+            def read_top_label():
+                if hasattr(page, 'topLabel'):
+                    try:
+                        result['text'] = page.topLabel.cget('text')
+                    except:
+                        pass
+            _run_on_tk_thread(read_top_label)
+            # 等待主线程执行（短超时）
+            import time
+            for _ in range(10):
+                time.sleep(0.05)
+                if result['text'] or not hasattr(page, 'topLabel'):
+                    break
+            top_label_text = result['text']
             
             device_running = bool(getattr(page.device, 'running', False))
             

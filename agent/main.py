@@ -23,6 +23,7 @@ import bbc_start
 import bbc_stop
 import sequential_tasks_action
 import general_navigation_action
+import chaldea_import_action
 
 
 def main():

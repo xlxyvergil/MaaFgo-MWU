@@ -224,11 +224,10 @@ class BbcConnectionManager:
         """建立 TCP 连接"""
         with self._state_lock:
             if self._state['connected'] and self._tcp_sock:
-                # 测试连接是否仍然有效
+                # 测试连接是否仍然有效（发送 get_status 命令）
                 try:
-                    self._tcp_sock.settimeout(1)
-                    self._tcp_sock.send(b'\x00\x00\x00\x00')  # 空消息测试
-                    return True
+                    result = self.send_command('get_status', {}, timeout=2)
+                    return result.get('success', False)
                 except:
                     self._disconnect_tcp()
         

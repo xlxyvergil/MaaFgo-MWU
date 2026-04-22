@@ -156,7 +156,7 @@ class ExecuteBbcTask(CustomAction):
                 return {'success': False, 'error': '战斗启动失败'}
             
             # 步骤4: 等待战斗结束
-            popup_title, popup_message = self._wait_for_battle_end(state)
+            popup_title, popup_message = self._wait_for_battle_end(state, manager)
             
             manager.disconnect_tcp()
             
@@ -529,7 +529,7 @@ class ExecuteBbcTask(CustomAction):
         
         return False
     
-    def _wait_for_battle_end(self, state: dict):
+    def _wait_for_battle_end(self, state: dict, manager):
         """等待战斗结束 - 心跳检查和弹窗处理分离"""
         
         # 主线程：只做心跳检查

@@ -53,9 +53,16 @@ def focus(task_id):
 # ---------------------------------------------------------
 # 必须保留的设置：防止中文乱码
 # 如果 GUI 收到乱码，它可能直接丢弃整条日志，导致你看不到任何东西
+# 注意：在嵌入式或GUI环境中，sys.stdout/sys.stderr可能是自定义包装器，不支持reconfigure()
 if sys.version_info >= (3, 7):
-    sys.stdout.reconfigure(encoding='utf-8') # type: ignore
-    sys.stderr.reconfigure(encoding='utf-8') # type: ignore
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
+    except AttributeError:
+        pass  # stdout不支持reconfigure()，跳过
+    try:
+        sys.stderr.reconfigure(encoding='utf-8')  # type: ignore
+    except AttributeError:
+        pass  # stderr不支持reconfigure()，跳过
 
 # ---------------------------------------------------------
 # 自测代码（直接运行这个文件测试）
