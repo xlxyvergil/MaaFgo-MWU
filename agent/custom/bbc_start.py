@@ -10,7 +10,7 @@ _custom_dir = os.path.dirname(os.path.abspath(__file__))
 if _custom_dir not in sys.path:
     sys.path.insert(0, _custom_dir)
 
-from bbc_connection_manager import bbc_manager
+from bbc_connection_manager import get_manager
 import mfaalog
 
 
@@ -80,15 +80,18 @@ class StartBbc(CustomAction):
             
             # 步骤1: 检查BBC进程是否存在
             mfaalog.info("[StartBbc] 步骤1: 检查BBC状态...")
-            bbc_proc = bbc_manager._find_bbc_process()
+            
+            # 获取或创建 Manager 实例（进程级单例）
+            manager = get_manager()
+            bbc_proc = manager._find_bbc_process()
             
             if bbc_proc:
                 mfaalog.info(f"[StartBbc] 发现BBC进程，PID: {bbc_proc.pid}")
                 # 检查Manager是否已连接
-                if bbc_manager.ensure_connected(timeout=3):
+                if manager.ensure_connected(timeout=3):
                     mfaalog.info("[StartBbc] Manager已连接，检查模拟器状态...")
                     # 先检查模拟器是否已经连接
-                    conn_result = bbc_manager.send_command('get_connection', {}, timeout=5)
+                    conn_result = manager.send_command('get_connection', {}, timeout=5)
                     mfaalog.info(f"[StartBbc] get_connection 返回: {conn_result}")
                     
                     # 检查返回结果中是否有模拟器连接信息
@@ -103,7 +106,7 @@ class StartBbc(CustomAction):
                         # 有模拟器参数说明已连接到具体模拟器，检查是否与配置匹配
                         if (connected or available) and emulator_params:
                             # 根据连接类型检查参数是否匹配
-                            params_match = bbc_manager.check_emulator_params_match(connect_cmd, connect_args, emulator_params)
+                            params_match = manager.check_emulator_params_match(connect_cmd, connect_args, emulator_params)
                             if params_match:
                                 emulator_ready = True
                                 mfaalog.info(f"[StartBbc] 模拟器已连接且参数匹配: {emulator_params}")
@@ -131,7 +134,7 @@ class StartBbc(CustomAction):
             
             # 步骤3: 调用Manager的完整重启流程
             mfaalog.info("[StartBbc] 步骤3: 调用Manager重启BBC并连接模拟器...")
-            success = bbc_manager.restart_bbc_and_connect(connect_cmd, connect_args, max_retries=5)
+            success = manager.restart_bbc_and_connect(connect_cmd, connect_args, max_retries=5)
             
             if success:
                 mfaalog.info("[StartBbc] BBC启动并连接成功")

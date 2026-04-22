@@ -1,5 +1,6 @@
 """
-BBC 连接管理器 - 单例模式，管理 BBC TCP 连接、回调监听、进程启动和模拟器连接
+BBC 连接管理器 - 管理 BBC TCP 连接、回调监听、进程启动和模拟器连接
+每次创建新实例，不使用单例模式
 """
 import json
 import os
@@ -655,5 +656,14 @@ class BbcConnectionManager:
         mfaalog.info("[BbcConnectionManager] TCP连接已清理")
 
 
-# 全局实例
-bbc_manager = BbcConnectionManager()
+# 进程级单例（每个 agent 进程一个实例）
+_manager_instance = None
+
+def get_manager() -> BbcConnectionManager:
+    """获取或创建 BBC 连接管理器实例（进程级单例）"""
+    global _manager_instance
+    if _manager_instance is None:
+        _manager_instance = BbcConnectionManager()
+        mfaalog.info(f"[BbcConnectionManager] 创建进程级实例, ID: {id(_manager_instance)}")
+    return _manager_instance
+
