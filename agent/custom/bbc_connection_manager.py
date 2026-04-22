@@ -54,34 +54,6 @@ class BbcConnectionManager:
         # 自动启动回调监听
         self._start_permanent_listener()
     
-    def _reset_state(self):
-        """重置状态（关闭旧资源）"""
-        # 停止回调监听
-        with self._state_lock:
-            self._state['callback_listening'] = False
-        
-        if self._callback_server:
-            try:
-                self._callback_server.close()
-            except:
-                pass
-        
-        if self._callback_thread and self._callback_thread.is_alive():
-            self._callback_thread.join(timeout=3)
-        
-        # 断开TCP连接
-        self.disconnect_tcp()
-        
-        # 终止BBC进程
-        if self._state.get('bbc_process'):
-            try:
-                self._kill_bbc_process()
-            except:
-                pass
-        
-        time.sleep(0.5)
-        mfaalog.info("[BbcConnectionManager] 旧状态已清理")
-    
     def _cleanup_port(self):
         """清理端口上的旧监听（通过查找并终止占用端口的进程）"""
         try:
