@@ -142,30 +142,6 @@ class BbcConnectionManager:
         except Exception as e:
             mfaalog.error(f"[BbcConnectionManager] 启动永久监听失败: {e}")
     
-    def _restart_callback_listener(self):
-        """重启回调监听线程，确保绑定到当前实例"""
-        # 停止旧线程
-        with self._state_lock:
-            self._state['callback_listening'] = False
-        
-        if self._callback_server:
-            try:
-                self._callback_server.close()
-            except:
-                pass
-        
-        if self._callback_thread and self._callback_thread.is_alive():
-            self._callback_thread.join(timeout=3)
-        
-        # 创建新的 Event 对象，确保新线程使用全新的同步对象
-        self._bbc_ready_event = threading.Event()
-        mfaalog.info(f"[BbcConnectionManager] 创建新的Event对象, ID: {id(self._bbc_ready_event)}")
-        
-        time.sleep(0.5)
-        
-        # 启动新线程
-        self._start_permanent_listener()
-    
     def _permanent_callback_loop(self, server_sock: socket.socket):
         """永久回调监听主循环 - 将消息放入队列"""
         mfaalog.info("[BbcConnectionManager] 永久回调监听循环开始")
