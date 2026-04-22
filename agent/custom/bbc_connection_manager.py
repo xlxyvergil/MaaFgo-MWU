@@ -658,12 +658,16 @@ class BbcConnectionManager:
 
 # 进程级单例（每个 agent 进程一个实例）
 _manager_instance = None
+_manager_lock = threading.Lock()
 
 def get_manager() -> BbcConnectionManager:
     """获取或创建 BBC 连接管理器实例（进程级单例）"""
     global _manager_instance
     if _manager_instance is None:
-        _manager_instance = BbcConnectionManager()
-        mfaalog.info(f"[BbcConnectionManager] 创建进程级实例, ID: {id(_manager_instance)}")
+        with _manager_lock:
+            # Double-checked locking
+            if _manager_instance is None:
+                _manager_instance = BbcConnectionManager()
+                mfaalog.info(f"[BbcConnectionManager] 创建进程级实例, ID: {id(_manager_instance)}")
     return _manager_instance
 
