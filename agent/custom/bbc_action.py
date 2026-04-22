@@ -470,10 +470,7 @@ class ExecuteBbcTask(CustomAction):
         if not battle_started:
             error_msg = "启动战斗失败（阵容未设置，已重试3次）"
             mfaalog.error(f"[ExecuteBbcTask] {error_msg}")
-            failure_result = {'success': False, 'error': error_msg, 'need_restart': True}
-            # Check if this failure result should short-circuit in _execute_single_battle
-            if isinstance(failure_result, dict) and not failure_result.get('success', True):
-                return failure_result  # Preserve 'need_restart' and 'error'
+            return {'success': False, 'error': error_msg, 'need_restart': True}
 
         mfaalog.info("[ExecuteBbcTask] 战斗已启动，等待结束...")
         return state

@@ -29,14 +29,14 @@ def get_connect_command_and_args(attach_data: dict):
     if mode == 'connect_mumu':
         connect_args = {
             'path':      attach_data.get('mumu_path', ''),
-            'index':     int(attach_data.get('mumu_index', 0)),
+            'index':     int(attach_data.get('mumu_index', 0) or 0),
             'pkg':       attach_data.get('mumu_pkg', ''),
-            'app_index': int(attach_data.get('mumu_app_index', 0)),
+            'app_index': int(attach_data.get('mumu_app_index', 0) or 0),
         }
     elif mode == 'connect_ld':
         connect_args = {
             'path':  attach_data.get('ld_path', ''),
-            'index': int(attach_data.get('ld_index', 0)),
+            'index': int(attach_data.get('ld_index', 0) or 0),
         }
     elif mode == 'connect_adb':
         connect_args = {
@@ -117,7 +117,7 @@ def kill_bbc_processes():
                 import subprocess
                 result = subprocess.run(
                     ['taskkill', '/F', '/PID', str(pid)],
-                    capture_output=True, timeout=5
+                    capture_output=True, timeout=5, check=False
                 )
                 if result.returncode == 0:
                     mfaalog.info(f"[kill_bbc] taskkill PID={pid} 成功")

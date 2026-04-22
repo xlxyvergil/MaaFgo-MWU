@@ -50,6 +50,7 @@ Battle = None
 popup_event_queue = None
 _popup_wait_dict = {}
 _popup_wait_lock = None
+_last_resolved_popup = None
 
 # Tkinter 线程安全队列（从 TCP 线程到主线程）
 _tk_queue = None
@@ -249,7 +250,18 @@ def ensure_imports():
         return
     try:
         from consts import Consts as CT
-    except:
+    except ImportError as e:
+        _log('warning', f'[Imports] Failed to import consts.Consts: {e}, using MockCT')
+        class MockCT:
+            Gold = "gold"
+            Silver = "silver"
+            Copper = "copper"
+            Blue = "blue"
+            Colorful = "colorful"
+            BATTLE_TYPE = ['连续出击(或强化本)', '自动编队爬塔(应用操作序列设置)']
+        CT = MockCT()
+    except Exception as e:
+        _log('error', f'[Imports] Unexpected error importing consts.Consts: {e}, using MockCT')
         class MockCT:
             Gold = "gold"
             Silver = "silver"
@@ -260,12 +272,16 @@ def ensure_imports():
         CT = MockCT()
     try:
         from device import Windows, LDdevice, Mumudevice
-    except:
-        pass
+    except ImportError as e:
+        _log('warning', f'[Imports] Failed to import device modules (Windows, LDdevice, Mumudevice): {e}')
+    except Exception as e:
+        _log('error', f'[Imports] Unexpected error importing device modules: {e}')
     try:
         from FGObattle import Battle
-    except:
-        pass
+    except ImportError as e:
+        _log('warning', f'[Imports] Failed to import FGObattle.Battle: {e}')
+    except Exception as e:
+        _log('error', f'[Imports] Unexpected error importing FGObattle.Battle: {e}')
 
 # ==================== API 实现类 ====================
 
@@ -398,15 +414,15 @@ class ConnectionAPI:
         page = get_bb_page()
         if page is None:
             return {'success': False, 'error': 'BBC window not ready'}
-        import os, sys
+        import os, sys, subprocess
         if not ip:
             return {'success': False, 'error': 'IP not specified'}
         try:
             adb_path = os.path.join(os.path.dirname(sys.executable), "airtest", "core", "android", "static", "adb", "windows")
-            if not os.path.exists(os.path.join(adb_path, "adb.exe")):
+            adb_exe = os.path.join(adb_path, "adb.exe")
+            if not os.path.exists(adb_exe):
                 return {'success': False, 'error': 'ADB not found'}
-            from bbcmd import cmd
-            cmd(f'"{adb_path}/adb" connect {ip}')
+            subprocess.run([adb_exe, "connect", ip], check=False)
             from device import Android, USE_AS_BOTH
             server = page.SS.get('server', 'CH')
             device = Android(ip, server, USE_AS_BOTH, cap_method="Minicap")
@@ -418,7 +434,7 @@ class ConnectionAPI:
             def update_ui():
                 """
                 Refreshes the current BB page's tab label and its connection list to reflect the latest device and connection state.
-                
+
                 Updates the pagebar tab text for the active page and refreshes the connection list widget in the registered BB window.
                 """
                 _bb_window_global.pagebar.tags[page.idx].createText(True)
@@ -1199,6 +1215,7 @@ class ClientHandler:
         记录连接、命令、响应和错误事件。
         确保处理器退出时客户端已取消注册且 socket 已关闭。
         """
+        import json
         _log('info', f'[Client] Connected: {self.addr}')
         self.server.add_client(self)
         try:
@@ -1213,7 +1230,6 @@ class ClientHandler:
                 if not data:
                     break
                 try:
-                    import json
                     cmd = json.loads(data.decode('utf-8'))
                     _log('debug', f'[Command] {cmd.get("cmd") if isinstance(cmd, dict) else cmd}')
                     response = CommandDispatcher.dispatch(cmd)
@@ -1221,7 +1237,6 @@ class ClientHandler:
                     _log('error', f'[Command] Parse failed: {e}')
                     response = {'success': False, 'error': str(e)}
                 try:
-                    import json
                     resp_data = json.dumps(response, ensure_ascii=False).encode('utf-8')
                     self.client.sendall(len(resp_data).to_bytes(4, 'big') + resp_data)
                     resp_str = json.dumps(response, ensure_ascii=False)

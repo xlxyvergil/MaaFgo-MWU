@@ -379,7 +379,7 @@ class BbcConnectionManager:
         if self._tcp_sock:
             try:
                 self._tcp_sock.close()
-            except:
+            except Exception:
                 pass
             self._tcp_sock = None
             self._state['connected'] = False
@@ -653,8 +653,8 @@ class BbcConnectionManager:
                     stdout_file.close()
                 if 'stderr_file' in locals():
                     stderr_file.close()
-            except:
-                pass
+            except Exception as cleanup_error:
+                mfaalog.debug(f"[BbcConnectionManager] 清理文件句柄时出错: {cleanup_error}")
             return None
     
     def _wait_for_bbc_ready(self, timeout: int = 30) -> bool:
