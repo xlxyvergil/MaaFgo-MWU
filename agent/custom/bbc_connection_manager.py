@@ -193,12 +193,6 @@ class BbcConnectionManager:
                 
                 msg = json.loads(data.decode('utf-8'))
                 
-                # 处理关闭信号
-                if msg.get('event') == '__shutdown__':
-                    mfaalog.info(f"[BbcConnectionManager] 收到关闭信号，退出回调线程")
-                    client_sock.close()
-                    break
-                
                 # 根据事件类型输出日志
                 event = msg.get('event')
                 if event == 'popup_show':
