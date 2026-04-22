@@ -415,7 +415,7 @@ class BbcConnectionManager:
     # ==================== BBC 进程管理 ====================
     
     def _find_bbc_process(self):
-        """查找BBC进程"""
+        """查找BBC进程（私有方法）"""
         try:
             for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
                 try:
@@ -428,6 +428,10 @@ class BbcConnectionManager:
         except Exception as e:
             mfaalog.warning(f"[BbcConnectionManager] 查找进程失败: {e}")
             return None
+    
+    def find_bbc_process(self):
+        """查找BBC进程（公共接口）"""
+        return self._find_bbc_process()
     
     def _kill_bbc_process(self, proc=None):
         """终止BBC进程"""

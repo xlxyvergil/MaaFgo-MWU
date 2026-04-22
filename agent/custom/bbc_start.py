@@ -83,7 +83,7 @@ class StartBbc(CustomAction):
             
             # 获取或创建 Manager 实例（进程级单例）
             manager = get_manager()
-            bbc_proc = manager._find_bbc_process()
+            bbc_proc = manager.find_bbc_process()
             
             if bbc_proc:
                 mfaalog.info(f"[StartBbc] 发现BBC进程，PID: {bbc_proc.pid}")
