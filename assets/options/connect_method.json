@@ -17,7 +17,7 @@
                     }
                 },
                 {
-                    "name": "mumu",
+                    "name": "connect_mumu",
                     "label": "MuMu高速连接",
                     "option": [
                         "mumu_path",
@@ -28,13 +28,13 @@
                     "pipeline_override": {
                         "启动bbc": {
                             "attach": {
-                                "connect": "mumu"
+                                "connect": "connect_mumu"
                             }
                         }
                     }
                 },
                 {
-                    "name": "ldplayer",
+                    "name": "connect_ld",
                     "label": "雷电高速连接",
                     "option": [
                         "ld_path",
@@ -43,13 +43,13 @@
                     "pipeline_override": {
                         "启动bbc": {
                             "attach": {
-                                "connect": "ldplayer"
+                                "connect": "connect_ld"
                             }
                         }
                     }
                 },
                 {
-                    "name": "manual",
+                    "name": "connect_adb",
                     "label": "手动输入端口",
                     "option": [
                         "manual_port"
@@ -57,7 +57,7 @@
                     "pipeline_override": {
                         "启动bbc": {
                             "attach": {
-                                "connect": "manual"
+                                "connect": "connect_adb"
                             }
                         }
                     }

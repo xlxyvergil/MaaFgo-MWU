@@ -28,6 +28,11 @@ import chaldea_import_action
 
 def main():
     # 设置工作目录为项目根目录（兼容阿瓦隆）
+    """
+    Initialize runtime, validate CLI arguments, and run the AgentServer lifecycle.
+    
+    Sets the working directory to the project root (parent of AGENT_ROOT) if different, initializes Toolkit options, requires a `socket_id` as the last command-line argument (exits with status 1 if absent), then starts the AgentServer with that `socket_id`, waits for it to finish, and performs shutdown.
+    """
     project_root_dir = os.path.dirname(AGENT_ROOT)
     if os.getcwd() != project_root_dir:
         os.chdir(project_root_dir)

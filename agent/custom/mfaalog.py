@@ -9,9 +9,13 @@ import time
 
 def _print_to_gui(prefix, msg):
     """
-    基础输出函数
-    :param prefix: 魔法前缀，如 'info:', 'error:', 'focus:'
-    :param msg: 实际消息内容
+    Write a single line to standard output using the GUI-required prefix so the MFA GUI can parse it.
+    
+    The function concatenates `prefix` and `msg` (without additional separators) and prints the result to stdout with flushing to ensure immediate delivery to GUI listeners.
+    
+    Parameters:
+        prefix (str): Prefix required by the GUI protocol (e.g., "info:", "warn:", "error:", "focus:").
+        msg (str): Message content to follow the prefix.
     """
     # 获取当前时间（可选，有些GUI会自动加时间，你可以先试带时间的，如果重复了就去掉）
     # timestamp = time.strftime("%H:%M:%S", time.localtime())
@@ -24,45 +28,69 @@ def _print_to_gui(prefix, msg):
     print(final_msg, flush=True)
 
 def info(msg):
-    """普通日志"""
+    """
+    Emit an informational log line formatted for the MFA GUI protocol.
+    
+    Parameters:
+        msg (str): Message text to send; it will be prefixed with "🟣 >>> " and sent with the protocol prefix "info:".
+    """
     # 对应开发者说的 "拼接 info:"
     _print_to_gui("info:", f"🟣 >>> {msg}")
 
 def warning(msg):
-    """警告日志"""
+    """
+    Emit a warning-level protocol line for the MFA GUI.
+    
+    The emitted line is prefixed with "warn:" and includes a visible warning marker so the GUI can recognize and display it as a warning.
+    
+    Parameters:
+        msg (str): Warning message text to emit.
+    """
     # 尝试猜测 warning 的前缀，通常是 warn: 或 warning:，如果没有就用 info: [WARN]
     _print_to_gui("warn:", f"⚠️ >>> {msg}")
 
 def error(msg):
-    """错误日志"""
+    """
+    Emit an error-level protocol line to the MFA GUI.
+    
+    Parameters:
+        msg (str): Error message to send to the GUI.
+    """
     # 尝试猜测 error 的前缀
     _print_to_gui("error:", f"🔴 >>> {msg}")
 
 def debug(msg):
-    """调试日志"""
+    """
+    Emit a debug-level log line to the MFA GUI.
+    
+    Parameters:
+        msg (str): Message text to send; passed through unchanged. The GUI may filter debug-level lines, so the message might not be displayed.
+    """
     # debug 可能会被 GUI 过滤，如果显示不出来，可以改用 info: [DEBUG]
     _print_to_gui("debug:", msg)
 
 def focus(task_id):
     """
-    特殊指令：尝试让 GUI 聚焦/高亮某个任务
-    开发者提到的 "focus" 可能指这个
+    Instructs the MFA GUI to focus or highlight a specific task.
+    
+    Parameters:
+        task_id (str): Identifier of the task to focus or highlight in the GUI.
     """
     _print_to_gui("focus:", task_id)
 
 # ---------------------------------------------------------
 # 必须保留的设置：防止中文乱码
 # 如果 GUI 收到乱码，它可能直接丢弃整条日志，导致你看不到任何东西
-# 注意：在嵌入式或GUI环境中，sys.stdout/sys.stderr可能是自定义包装器，不支持reconfigure()
+# 注意：在嵌入式或GUI环境中，sys.stdout/sys.stderr可能是自定义包装器，可能抛出各种异常，不仅仅是 AttributeError
 if sys.version_info >= (3, 7):
     try:
         sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
-    except AttributeError:
-        pass  # stdout不支持reconfigure()，跳过
+    except Exception:
+        pass  # stdout 不支持 reconfigure() 或抛出其他异常，跳过
     try:
         sys.stderr.reconfigure(encoding='utf-8')  # type: ignore
-    except AttributeError:
-        pass  # stderr不支持reconfigure()，跳过
+    except Exception:
+        pass  # stderr 不支持 reconfigure() 或抛出其他异常，跳过
 
 # ---------------------------------------------------------
 # 自测代码（直接运行这个文件测试）

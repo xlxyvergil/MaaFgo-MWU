@@ -11,6 +11,7 @@ if _custom_dir not in sys.path:
     sys.path.insert(0, _custom_dir)
 
 from bbc_connection_manager import get_manager
+from bbc_emulator_utils import get_connect_command_and_args, kill_bbc_processes
 import mfaalog
 
 
@@ -19,6 +20,16 @@ class StartBbc(CustomAction):
     """检测BBC状态并传递参数给Manager进行启动/连接"""
 
     def run(self, context: Context, argv: CustomAction.RunArg) -> CustomAction.RunResult:
+        """
+        尝试确保 BBC 服务运行并连接到配置的模拟器；必要时重启 BBC 并重连。
+
+        参数:
+            context (Context): 动作上下文；期望节点数据包含键 "启动bbc"，其 `attach` 映射指定连接模式和模拟器参数。
+            argv (CustomAction.RunArg): 未使用的运行时参数。
+
+        返回:
+            CustomAction.RunResult: 如果模拟器已连接且参数匹配，或 BBC 重启并连接成功返回 `success=True`；失败或异常时返回 `success=False`。
+        """
         try:
             # 从 Context 获取节点数据
             node_data = context.get_node_data("启动bbc")
@@ -28,55 +39,10 @@ class StartBbc(CustomAction):
             
             attach_data = node_data.get('attach', {})
             
-            # 提取连接相关参数
-            connect = attach_data.get('connect', 'auto')
-            mumu_path = attach_data.get('mumu_path', '')
-            mumu_index = attach_data.get('mumu_index', 0)
-            mumu_pkg = attach_data.get('mumu_pkg', 'com.bilibili.fatego')
-            mumu_app_index = attach_data.get('mumu_app_index', 0)
-            ld_path = attach_data.get('ld_path', '')
-            ld_index = attach_data.get('ld_index', 0)
-            manual_port = attach_data.get('manual_port', '')
-            
-            # 将连接类型转换为 BBC 服务端命令
-            connect_cmd_map = {
-                'mumu': 'connect_mumu',
-                'ld': 'connect_ld',
-                'ldplayer': 'connect_ld', 
-                'adb': 'connect_adb',
-                'manual': 'connect_adb',
-                'connect_mumu': 'connect_mumu',
-                'connect_ld': 'connect_ld',
-                'connect_adb': 'connect_adb'
-            }
-            connect_cmd = connect_cmd_map.get(connect, connect)
-            
-            # 构建连接参数
-            connect_args = {}
-            if connect_cmd == 'connect_mumu':
-                connect_args = {
-                    'path': mumu_path,
-                    'index': int(mumu_index),
-                    'pkg': mumu_pkg,
-                    'app_index': int(mumu_app_index)
-                }
-            elif connect_cmd == 'connect_ld':
-                connect_args = {
-                    'path': ld_path,
-                    'index': int(ld_index)
-                }
-            elif connect_cmd == 'connect_adb':
-                connect_args = {
-                    'ip': manual_port
-                }
-            elif connect_cmd == 'auto':
-                connect_args = {
-                    'mode': 'auto'
-                }
-            
-            mfaalog.info(f"[StartBbc] 连接参数: connect={connect}, cmd={connect_cmd}")
-            mfaalog.info(f"[StartBbc] MuMu: path={mumu_path}, index={mumu_index}, pkg={mumu_pkg}")
-            mfaalog.info(f"[StartBbc] LD: path={ld_path}, index={ld_index}")
+            # 提取连接相关参数（使用共享helper）
+            connect_cmd, connect_args = get_connect_command_and_args(attach_data)
+
+            mfaalog.info(f"[StartBbc] 连接参数: cmd={connect_cmd}, args={connect_args}")
             
             # 步骤1: 检查BBC进程是否存在
             mfaalog.info("[StartBbc] 步骤1: 检查BBC状态...")
@@ -129,7 +95,7 @@ class StartBbc(CustomAction):
             
             # 步骤2: Kill掉所有BBC进程（清理残留窗口）
             mfaalog.info("[StartBbc] 步骤2: 清理所有BBC进程...")
-            self._kill_all_bbc_processes()
+            kill_bbc_processes()
             time.sleep(2)
             
             # 步骤3: 调用Manager的完整重启流程
@@ -146,27 +112,3 @@ class StartBbc(CustomAction):
         except Exception as e:
             mfaalog.error(f"[StartBbc] 异常: {e}")
             return CustomAction.RunResult(success=False)
-    
-    def _kill_all_bbc_processes(self):
-        """强制终止所有BBC相关进程"""
-        try:
-            import psutil
-            killed_count = 0
-            
-            for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
-                try:
-                    cmdline = proc.info.get('cmdline', [])
-                    if cmdline and any('BBchannel' in arg for arg in cmdline):
-                        mfaalog.info(f"[StartBbc] 终止进程: PID={proc.pid}, cmdline={cmdline}")
-                        proc.kill()
-                        killed_count += 1
-                except (psutil.NoSuchProcess, psutil.AccessDenied):
-                    continue
-            
-            if killed_count > 0:
-                mfaalog.info(f"[StartBbc] 已终止 {killed_count} 个BBC进程")
-            else:
-                mfaalog.info("[StartBbc] 未发现BBC进程")
-                
-        except Exception as e:
-            mfaalog.error(f"[StartBbc] 终止进程时异常: {e}")
