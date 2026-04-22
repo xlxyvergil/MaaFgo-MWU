@@ -132,7 +132,7 @@ class ExecuteBbcTask(CustomAction):
                 popup_message = msg.get('popup_message', '')
                 mfaalog.info(f"[ExecuteBbcTask] 收到弹窗: {popup_title} - {popup_message}")
                 if not state['finished']:
-                    self._handle_popups([msg], support_order_mismatch, team_config_error, state)
+                    self._handle_popups([msg], support_order_mismatch, team_config_error, state, manager)
                     state['popup_event'].set()  # 通知监听线程
             
             manager.set_popup_callback(on_popup)
@@ -149,7 +149,7 @@ class ExecuteBbcTask(CustomAction):
             # 步骤3: 配置并启动战斗（同时启动回调监听）
             battle_result = self._setup_and_start_battle(
                 team_config, run_count, apple_type, battle_type,
-                support_order_mismatch, team_config_error, state
+                support_order_mismatch, team_config_error, state, manager
             )
             if battle_result is None:
                 manager.disconnect_tcp()
@@ -346,9 +346,7 @@ class ExecuteBbcTask(CustomAction):
     def _setup_and_start_battle(self, team_config: str, run_count: int, 
                                 apple_type: str, battle_type: str,
                                 support_order_mismatch: bool, team_config_error: bool,
-                                state: dict) -> dict:
-        """配置战斗参数并启动，返回 state 或 None"""
-        manager = get_manager()
+                                state: dict, manager) -> dict:
         
         # 回调已在 _execute_single_battle 中设置，这里直接使用
         
@@ -361,7 +359,7 @@ class ExecuteBbcTask(CustomAction):
         
         # 检查配置阶段是否有弹窗
         popup_msgs = manager.get_messages_by_title('', timeout=1)
-        if self._handle_popups(popup_msgs, support_order_mismatch, team_config_error, state):
+        if self._handle_popups(popup_msgs, support_order_mismatch, team_config_error, state, manager):
             return state
         
         # 设置参数
@@ -369,7 +367,7 @@ class ExecuteBbcTask(CustomAction):
         manager.send_command('set_apple_type', {'apple_type': apple_type}, timeout=5)
         
         popup_msgs = manager.get_messages_by_title('', timeout=1)
-        if self._handle_popups(popup_msgs, support_order_mismatch, team_config_error, state):
+        if self._handle_popups(popup_msgs, support_order_mismatch, team_config_error, state, manager):
             return state
         
         mfaalog.info(f"[ExecuteBbcTask] 设置运行次数: {run_count}")
@@ -380,7 +378,7 @@ class ExecuteBbcTask(CustomAction):
         
         # 启动战斗前最后检查一次弹窗
         popup_msgs = manager.get_messages_by_title('', timeout=1)
-        if self._handle_popups(popup_msgs, support_order_mismatch, team_config_error, state):
+        if self._handle_popups(popup_msgs, support_order_mismatch, team_config_error, state, manager):
             return state
         
         # 启动战斗（带重试机制）
@@ -436,9 +434,7 @@ class ExecuteBbcTask(CustomAction):
         return state
     
     def _handle_popups(self, messages: list, support_order_mismatch: bool, 
-                      team_config_error: bool, state: dict) -> bool:
-        """处理弹窗消息列表，返回是否遇到终止弹窗"""
-        manager = get_manager()
+                      team_config_error: bool, state: dict, manager) -> bool:
         for msg in messages:
             popup_title = msg.get('popup_title', '')
             popup_message = msg.get('popup_message', '')
