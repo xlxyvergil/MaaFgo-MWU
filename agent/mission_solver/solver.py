@@ -84,7 +84,7 @@ def solve(quests: list[QuestPhase], missions: list[Mission]) -> SolveResult:
 
     # 设置变量为整数类型
     for i in range(fn):
-        h.changeColIntegrality(i, highspy.HighsIntegrality.kInteger)
+        h.changeColIntegrality(i, highspy.HighsVarType.kInteger)
 
     # 添加约束: Σ(A[j][i] * x_i) >= b[j]
     for j in range(m):
@@ -97,7 +97,11 @@ def solve(quests: list[QuestPhase], missions: list[Mission]) -> SolveResult:
 
     # 求解
     h.run()
-    info = h.getInfoValue("primal_solution_status")
+    status = h.getModelStatus()
+
+    if status != highspy.HighsModelStatus.kOptimal:
+        logger.warning(f"求解未找到最优解，状态: {status}")
+        return SolveResult(plan={})
 
     # 提取结果
     plan = {}
@@ -105,17 +109,8 @@ def solve(quests: list[QuestPhase], missions: list[Mission]) -> SolveResult:
     total_runs = 0
     details = {}
 
-    for i in range(fn):
-        val = h.val(h.getNumCol() - fn + i) if hasattr(h, 'val') else 0
-        # highspy 获取变量值的方式
-        pass
-
-    # 通过 getNumCol 和 getSolution 获取解
-    try:
-        sol = h.getSolution()
-        col_values = sol.col_value
-    except Exception:
-        col_values = [0.0] * fn
+    sol = h.getSolution()
+    col_values = sol.col_value
 
     for i in range(fn):
         count = int(ceil(col_values[i])) if i < len(col_values) else 0

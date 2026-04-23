@@ -90,17 +90,40 @@ def get_current_missions(region: str = "CN", target_date: Optional[date] = None)
 
     schedule = load_master_missions_schedule(region)
 
+    # 收集所有匹配当前日期的条目
+    matched_entries = []
     for entry in schedule:
         started = _parse_date(entry.get("startedAt", ""))
         ended = _parse_date(entry.get("endedAt", ""))
         if started and ended and started <= target_date <= ended:
-            missions = [_parse_mission(m) for m in entry.get("missions", [])]
-            valid_missions = [m for m in missions if m.is_valid]
-            logger.info(f"匹配到周常任务: {entry.get('startedAt')} ~ {entry.get('endedAt')}, {len(valid_missions)} 条有效任务")
-            return valid_missions
+            entry_id = entry.get("id", 0)
+            mission_count = len(entry.get("missions", []))
+            # 跳过常驻新手任务 (id=10001, 时间范围极大)
+            if entry_id == 10001 and mission_count > 100:
+                logger.debug(f"跳过常驻新手任务: id={entry_id}, {mission_count} missions")
+                continue
+            matched_entries.append(entry)
 
-    logger.warning(f"未找到 {target_date} 对应的周常任务数据")
-    return []
+    if not matched_entries:
+        logger.warning(f"未找到 {target_date} 对应的周常任务数据")
+        return []
+
+    # 优先选择周常任务 (id 在 100000-199999 范围内)
+    # 100xxx = 周常任务, 200xxx = 活动/特殊任务
+    weekly_entries = [e for e in matched_entries if 100000 <= e.get("id", 0) < 200000]
+    if weekly_entries:
+        # 如果有多个周常任务条目，选择任务数最少的（通常是当前周的）
+        selected = min(weekly_entries, key=lambda e: len(e.get("missions", [])))
+        logger.info(f"选择周常任务: id={selected.get('id')}, {selected.get('startedAt')} ~ {selected.get('endedAt')}")
+    else:
+        # 没有周常任务，选择第一个匹配的活动任务
+        selected = matched_entries[0]
+        logger.info(f"选择活动任务: id={selected.get('id')}, {selected.get('startedAt')} ~ {selected.get('endedAt')}")
+
+    missions = [_parse_mission(m) for m in selected.get("missions", [])]
+    valid_missions = [m for m in missions if m.is_valid]
+    logger.info(f"匹配到 {len(valid_missions)} 条有效任务")
+    return valid_missions
 
 
 def get_free_quests(region: str = "CN", max_war_id: int = 0) -> list[QuestPhase]:
