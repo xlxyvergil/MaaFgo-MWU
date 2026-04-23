@@ -2,3 +2,4 @@ maafw
 opencv-python
 numpy
 psutil
+highspy
