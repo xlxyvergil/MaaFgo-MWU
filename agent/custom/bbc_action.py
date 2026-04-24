@@ -132,7 +132,12 @@ class ExecuteBbcTask(CustomAction):
                 popup_message = msg.get('popup_message', '')
                 mfaalog.info(f"[ExecuteBbcTask] 收到弹窗: {popup_title} - {popup_message}")
                 if not state['finished']:
-                    self._handle_popups([msg], support_order_mismatch, team_config_error, state, manager)
+                    try:
+                        # 尝试获取 manager 实例
+                        local_manager = get_manager()
+                        self._handle_popups([msg], support_order_mismatch, team_config_error, state, local_manager)
+                    except Exception as e:
+                        mfaalog.error(f"[ExecuteBbcTask] 处理弹窗时出错: {e}")
                     state['popup_event'].set()  # 通知监听线程
             
             manager.set_popup_callback(on_popup)
@@ -531,6 +536,9 @@ class ExecuteBbcTask(CustomAction):
     
     def _wait_for_battle_end(self, state: dict):
         """等待战斗结束 - 心跳检查和弹窗处理分离"""
+        
+        # 获取 manager 实例
+        manager = get_manager()
         
         # 主线程：只做心跳检查
         heartbeat_interval = 30  # 30秒一次心跳
