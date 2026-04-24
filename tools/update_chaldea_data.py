@@ -2,7 +2,7 @@
 Chaldea 本地名称数据库更新工具
 
 从 Atlas Academy API 下载国服从者和礼装的名称数据，
-保存为 agent/data/ 下的本地 JSON 文件。
+保存为 agent/utils/Chaldea/ 下的本地 JSON 文件。
 
 运行一次即可建立/更新本地数据库，之后转换器无需网络即可查询名称。
 
