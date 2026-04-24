@@ -30,7 +30,7 @@ def _ensure_cache_loaded() -> None:
     """
     确保名称缓存已加载，采用两级策略:
 
-    1. 本地 JSON 数据库 (assets/resource/Chaldea/servant_names_CN.json)
+    1. 本地 JSON 数据库 (resource/Chaldea/servant_names_CN.json)
        由 tools/update_chaldea_data.py 生成，完全离线，无需网络。
        运行一次更新脚本后永久有效。
 
@@ -45,8 +45,10 @@ def _ensure_cache_loaded() -> None:
     _cache_load_attempted = True
 
     # ---- 第一级: 本地 JSON 数据库 ----
+    # Chaldea 数据文件位于 resource/Chaldea/
     _chaldea_dir = os.path.dirname(os.path.abspath(__file__))
-    data_dir = os.path.join(_chaldea_dir, "..", "utils", "Chaldea")
+    # agent/chaldea/ -> agent/ -> MaaFgo/ -> resource/Chaldea/
+    data_dir = os.path.join(_chaldea_dir, "..", "..", "resource", "Chaldea")
     servant_path = os.path.join(data_dir, "servant_names_CN.json")
     equip_path = os.path.join(data_dir, "equip_names_CN.json")
 

@@ -62,10 +62,10 @@ class GeneralNavigationAction(CustomAction):
             mfaalog.info(f"[Nav] Chapter: {chapter_cn}, Image Name: {map_image_name}, Quest: {target_quest}")
 
             # 3. 加载地图坐标映射 JSON
-            # 脚本在 agent/custom/，往上两级是 agent/
-            AGENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            # JSON 在 agent/utils/ 下
-            map_file = os.path.join(AGENT_DIR, "utils", "map_coordinates.json")
+            # 脚本在 agent/custom/，往上两级是 MaaFgo/
+            ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            # JSON 在 resource/Chaldea/ 下
+            map_file = os.path.join(ROOT_DIR, "resource", "Chaldea", "map_coordinates.json")
             
             mfaalog.info(f"[Nav] Looking for map file at: {map_file}")
             if not os.path.exists(map_file):
@@ -96,7 +96,6 @@ class GeneralNavigationAction(CustomAction):
 
             # 4. 加载大地图模板
             mfaalog.info("[Nav] Step 4: Loading map template...")
-            ROOT_DIR = os.path.dirname(AGENT_DIR)
             map_template_path = os.path.join(ROOT_DIR, "resource", "base", "image", "map", f"{map_image_name}.png")
             mfaalog.info(f"[Nav] Template path: {map_template_path}")
             
