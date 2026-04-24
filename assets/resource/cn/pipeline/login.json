@@ -1,167 +1,125 @@
 {
     "关闭公告": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1214,
-                    13,
-                    62,
-                    49
-                ]
-            }
-        },
+        "action": "Click",
+        "method": 5,
         "next": [
             "回主界面"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "公告.png",
-                "threshold": 0.7,
-                "method": 5
-            }
-        }
+        "recognition": "TemplateMatch",
+        "target": [
+            1214,
+            13,
+            62,
+            49
+        ],
+        "template": "公告.png",
+        "threshold": 0.7
     },
     "可能已经完成登录": {
         "next": [
             "回主界面"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    3,
-                    3,
-                    181,
-                    83
-                ],
-                "template": [
-                    "main_ui.png"
-                ],
-                "threshold": 0.8
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            3,
+            3,
+            181,
+            83
+        ],
+        "template": [
+            "main_ui.png"
+        ],
+        "threshold": 0.8
     },
     "开始更新": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "阶段判断循环"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "开始更新资料.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "开始更新资料.png"
+        ]
     },
     "开始游戏": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
+        "method": 5,
         "next": [
             "登录"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "login2.png",
-                "threshold": 0.7,
-                "method": 5
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            291,
+            568,
+            684,
+            152
+        ],
+        "template": "login2.png",
+        "threshold": 0.7
     },
     "打开游戏": {
-        "action": {
-            "type": "StartApp",
-            "param": {
-                "package": "com.bilibili.fatego"
-            }
-        },
+        "action": "StartApp",
         "next": [
             "阶段判断循环"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "package": "com.bilibili.fatego",
+        "recognition": "DirectHit"
     },
     "更新": {
+        "green_mask": true,
         "next": [
             "开始更新"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "更新.png"
-                ],
-                "green_mask": true
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "更新.png"
+        ]
     },
     "登录": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
+        "method": 5,
         "next": [
             "关闭公告"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "login3.png",
-                "threshold": 0.7,
-                "method": 5
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            382,
+            569,
+            523,
+            98
+        ],
+        "template": "login3.png",
+        "threshold": 0.7
     },
     "登录-关闭游戏": {
-        "action": {
-            "type": "StopApp",
-            "param": {
-                "package": "com.bilibili.fatego"
-            }
-        },
+        "action": "StopApp",
         "next": [
             "登录识别"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "package": "com.bilibili.fatego",
+        "recognition": "DirectHit"
     },
     "登录识别": {
         "next": [
             "打开游戏"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "等待登录": {
+        "action": "Click",
         "post_wait_freezes": 5000,
-        "recognition": {
-            "type": "DirectHit"
-        },
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    79,
-                    322,
-                    20,
-                    21
-                ]
-            }
-        }
+        "recognition": "DirectHit",
+        "target": [
+            79,
+            322,
+            20,
+            21
+        ]
     },
     "阶段判断循环": {
         "next": [
@@ -176,8 +134,6 @@
             "登录-关闭游戏"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     }
 }
