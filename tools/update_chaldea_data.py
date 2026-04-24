@@ -24,9 +24,9 @@ if sys.stdout.encoding != 'utf-8':
 
 ATLAS_API = "https://api.atlasacademy.io"
 
-# 输出目录：assets/resource/Chaldea/
+# 输出目录：agent/utils/Chaldea/
 _TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(_TOOLS_DIR, "..", "assets", "resource", "Chaldea")
+DATA_DIR = os.path.join(_TOOLS_DIR, "..", "agent", "utils", "Chaldea")
 
 
 def fetch_json(url: str, timeout: int = 60) -> list | dict:
