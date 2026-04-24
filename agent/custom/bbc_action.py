@@ -137,8 +137,9 @@ class ExecuteBbcTask(CustomAction):
                         local_manager = get_manager()
                         self._handle_popups([msg], support_order_mismatch, team_config_error, state, local_manager)
                     except Exception as e:
-                        mfaalog.error(f"[ExecuteBbcTask] 处理弹窗时出错: {e}")
-                    state['popup_event'].set()  # 通知监听线程
+                        mfaalog.error(f"[ExecuteBbcTask] 处理弹窗时出错: {e}", exc_info=True)
+                    finally:
+                        state['popup_event'].set()  # 通知监听线程
             
             manager.set_popup_callback(on_popup)
             mfaalog.info("[ExecuteBbcTask] 弹窗回调已设置")
