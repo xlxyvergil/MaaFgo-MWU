@@ -69,9 +69,9 @@ def solve(quests: list[QuestPhase], missions: list[Mission]) -> SolveResult:
     # 调用 HiGHS 求解
     try:
         import highspy
-    except ImportError:
-        logger.error("highspy 未安装，请运行: pip install highspy")
-        raise ImportError("请安装 highspy: pip install highspy")
+    except ImportError as err:
+        logger.error("highspy 未安装，请运行: pip install highspy", exc_info=err)
+        raise ImportError("请安装 highspy: pip install highspy") from err
 
     h = highspy.Highs()
     h.silent()

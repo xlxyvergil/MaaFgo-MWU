@@ -49,8 +49,8 @@ def main():
     if not missions:
         print("未找到当前周的周常任务数据。")
         print("请确认:")
-        print(f"  1. 数据文件存在: assets/resource/Chaldea/master_missions_{args.region}.json")
-        print(f"  2. 当前日期有对应的周常任务")
+        print(f"  1. 数据文件存在: agent/mission_solver/master_missions_{args.region}.json")
+        print("  2. 当前日期有对应的周常任务")
         sys.exit(1)
 
     print(f"当前周常任务 ({len(missions)} 条):")

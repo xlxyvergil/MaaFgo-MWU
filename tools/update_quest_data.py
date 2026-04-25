@@ -2,7 +2,7 @@
 副本敌人数据 & 周常任务数据更新工具
 
 从 Atlas Academy API 下载国服 Free 副本的敌人信息和周常任务历史数据。
-保存到 assets/resource/Chaldea/ 目录，供周常任务求解器离线使用。
+保存到 agent/mission_solver/ 目录，供周常任务求解器离线使用。
 
 用法:
     python tools/update_quest_data.py
@@ -28,7 +28,7 @@ ATLAS_API = "https://api.atlasacademy.io"
 CHALDEA_DATA_HOST = "https://data.chaldea.center"
 
 _TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(_TOOLS_DIR, "..", "assets", "resource", "Chaldea")
+DATA_DIR = os.path.join(_TOOLS_DIR, "..", "agent", "mission_solver")
 
 # 主线 War ID 范围（国服）
 # War 100-399: 主线章节 (特异点/Lostbelt)
@@ -197,7 +197,7 @@ def update_quest_enemies(region: str = "CN"):
                 free_quests.append(quest)
 
         if not free_quests:
-            print(f"无 Free 副本")
+            print("无 Free 副本")
             continue
 
         print(f"{len(free_quests)} 个 Free 副本")

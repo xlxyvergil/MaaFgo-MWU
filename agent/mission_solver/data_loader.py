@@ -15,10 +15,8 @@ from .models import QuestPhase, Mission, MissionCond
 
 logger = logging.getLogger("MissionSolver")
 
-# 数据目录: 从 agent/mission_solver/ 向上找到项目根目录
-_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-_PROJECT_ROOT = os.path.abspath(os.path.join(_THIS_DIR, "..", ".."))
-RESOURCE_DIR = os.path.join(_PROJECT_ROOT, "assets", "resource", "Chaldea")
+# 数据目录: 与当前模块同级目录
+RESOURCE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def _load_json(filename: str) -> dict | list:
