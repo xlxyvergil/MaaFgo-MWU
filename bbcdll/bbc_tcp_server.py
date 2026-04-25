@@ -380,7 +380,7 @@ class ConfigAPI:
 
 
 class BattleSettingsAPI:
-    VALID_APPLE_TYPES = {"gold", "silver", "blue", "copper", "colorful"}
+    VALID_APPLE_TYPES = frozenset({"gold", "silver", "blue", "copper", "colorful"})
 
     @staticmethod
     def set_apple_type(apple_type):
