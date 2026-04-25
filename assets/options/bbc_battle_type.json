@@ -3,10 +3,11 @@
         "bbc_battle_type": {
             "type": "select",
             "label": "战斗类型",
-            "default": "连续出击",
+            "default": "连续出击(或强化本)",
+            "description": "当前连续出击之外的战斗类型在实际使用中没有意义。目前的使用都是针对自由关设计",
             "cases": [
                 {
-                    "name": "连续出击",
+                    "name": "连续出击(或强化本)",
                     "label": "连续出击(或强化本)",
                     "pipeline_override": {
                         "执行BBC任务": {
