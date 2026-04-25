@@ -331,7 +331,7 @@ class ExecuteBbcTask(CustomAction):
             return False
     
     def _setup_and_start_battle(self, team_config: str, run_count: int, 
-                                apple_type: str, battle_type: str,
+                                apple_type: str, battle_type: int,
                                 support_order_mismatch: bool, team_config_error: bool,
                                 state: dict, manager) -> dict:
         

@@ -61,7 +61,7 @@ class StartBbc(CustomAction):
                     'mode': 'auto'
                 }
             
-            mfaalog.info(f"[StartBbc] 连接参数: connect={connect}, cmd={connect_cmd}")
+            mfaalog.info(f"[StartBbc] 连接参数: cmd={connect_cmd}")
             mfaalog.info(f"[StartBbc] MuMu: path={mumu_path}, index={mumu_index}, pkg={mumu_pkg}")
             mfaalog.info(f"[StartBbc] LD: path={ld_path}, index={ld_index}")
             
