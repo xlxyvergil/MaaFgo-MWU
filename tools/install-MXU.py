@@ -9,6 +9,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_dir)
 
 from configure import configure_ocr_model
+from bbc_config_helper import copy_options_with_bbc_config
 
 working_dir = Path(__file__).parent.parent
 install_path = working_dir / Path("install-mxu")
@@ -58,25 +59,7 @@ def install_resource():
     )
     
     # 复制 options 和 i18n 目录（MaaFgo 特有）
-    if (working_dir / "assets" / "options").exists():
-        shutil.copytree(
-            working_dir / "assets" / "options",
-            install_path / "options",
-            dirs_exist_ok=True,
-        )
-        
-        # 删除 bbc_team_config.json，使用 bbc_team_config_nomwu.json 替代
-        bbc_config = install_path / "options" / "bbc_team_config.json"
-        if bbc_config.exists():
-            bbc_config.unlink()
-        
-        nomwu_config_src = working_dir / "assets" / "options" / "bbc_team_config_nomwu.json"
-        nomwu_config_dst = install_path / "options" / "bbc_team_config_nomwu.json"
-        if nomwu_config_src.exists():
-            shutil.copy2(nomwu_config_src, install_path / "options" / "bbc_team_config.json")
-            # 删除目标目录中的 bbc_team_config_nomwu.json
-            if nomwu_config_dst.exists():
-                nomwu_config_dst.unlink()
+    copy_options_with_bbc_config(working_dir, install_path)
     
     if (working_dir / "assets" / "i18n").exists():
         shutil.copytree(
