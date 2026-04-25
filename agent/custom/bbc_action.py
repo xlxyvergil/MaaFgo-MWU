@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import threading
+from enum import IntEnum
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
@@ -13,6 +14,17 @@ if _custom_dir not in sys.path:
 
 from bbc_connection_manager import get_manager
 import mfaalog
+
+
+class BattleType(IntEnum):
+    """战斗类型枚举 - 对应 BBC BATTLE_TYPE 索引"""
+    CONTINUOUS = 0  # 连续出击(或强化本)
+    TOWER_AUTO_SEQUENCE = 1  # 自动编队爬塔(应用操作序列设置)
+    TOWER_AUTO_AI = 2  # 自动编队爬塔(程序自主技能宝具)
+    INTERLUDE = 3  # 幕间物语(部分需手动)
+    FREE_QUEST = 4  # 清自由本(不包括2.7)
+    MAIN_LIKE = 5  # 类主线(部分情况手动)
+    MAIN_STORY = 6  # 主线物语·大奥(部分情况手动)
 
 
 # ==================== Action: 执行BBC任务（仅战斗部分）====================
@@ -83,7 +95,15 @@ class ExecuteBbcTask(CustomAction):
             team_config = attach_data.get('bbc_team_config', '')
             run_count = attach_data.get('run_count')
             apple_type = attach_data.get('apple_type')
-            battle_type = attach_data.get('battle_type', 0)  # 直接使用索引值 (0, 1, 2...)
+            battle_type_value = attach_data.get('battle_type', 0)  # 直接使用索引值 (0, 1, 2...)
+            
+            # 将整数转换为 BattleType 枚举
+            try:
+                battle_type = BattleType(battle_type_value)
+            except ValueError:
+                error_msg = f"无效的战斗类型: {battle_type_value} (有效范围: 0-6)"
+                mfaalog.error(f"[ExecuteBbcTask] {error_msg}")
+                return {'success': False, 'error': error_msg}
             
             # 直接使用配置文件中的布尔值（BBC Server 需要 True/False）
             support_order_mismatch = attach_data.get('support_order_mismatch', False)
@@ -96,7 +116,7 @@ class ExecuteBbcTask(CustomAction):
                 return {'success': False, 'error': error_msg}
             
             run_count = int(run_count)
-            mfaalog.info(f"[ExecuteBbcTask] 参数: team={team_config}, count={run_count}, apple={apple_type}, type={battle_type}")
+            mfaalog.info(f"[ExecuteBbcTask] 参数: team={team_config}, count={run_count}, apple={apple_type}, type={battle_type.name}({battle_type.value})")
             
             # 提前创建共享状态并启动监听线程
             popup_event = threading.Event()
@@ -331,7 +351,7 @@ class ExecuteBbcTask(CustomAction):
             return False
     
     def _setup_and_start_battle(self, team_config: str, run_count: int, 
-                                apple_type: str, battle_type: int,
+                                apple_type: str, battle_type: BattleType,
                                 support_order_mismatch: bool, team_config_error: bool,
                                 state: dict, manager) -> dict:
         
@@ -360,8 +380,9 @@ class ExecuteBbcTask(CustomAction):
         mfaalog.info(f"[ExecuteBbcTask] 设置运行次数: {run_count}")
         manager.send_command('set_run_times', {'times': run_count}, timeout=5)
         
-        mfaalog.info(f"[ExecuteBbcTask] 设置战斗类型: {battle_type}")
-        manager.send_command('set_battle_type', {'battle_type': battle_type}, timeout=5)
+        mfaalog.info(f"[ExecuteBbcTask] 设置战斗类型: {battle_type.name}({battle_type.value})")
+        # 发送整数索引值给 BBC Server
+        manager.send_command('set_battle_type', {'battle_type': battle_type.value}, timeout=5)
         
         # 启动战斗前最后检查一次弹窗
         popup_msgs = manager.get_messages_by_title('', timeout=1)

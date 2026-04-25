@@ -1,183 +1,138 @@
 {
     "BBC执行失败回到主界面": {
+        "green_mask": true,
+        "method": 3,
         "next": [
             "回主界面"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    3,
-                    2,
-                    183,
-                    86
-                ],
-                "template": "通用-关闭-管理室-通知.png",
-                "method": 3,
-                "green_mask": true
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            3,
+            2,
+            183,
+            86
+        ],
+        "template": "通用-关闭-管理室-通知.png"
     },
     "作战成功": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "好友申请界面"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "下一步.png"
-                ],
-                "threshold": 0.8
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "下一步.png"
+        ],
+        "threshold": 0.8
     },
-    "可能已经结束战斗": {
+    "关闭连续出击": {
         "next": [
             "回主界面"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    4,
-                    499,
-                    620,
-                    219
-                ],
-                "template": "task.png",
-                "green_mask": true
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": "close_botton.png",
+        "threshold": 0.8,
+        "action": "Click"
+    },
+    "可能已经结束战斗": {
+        "green_mask": true,
+        "next": [
+            "回主界面"
+        ],
+        "recognition": "TemplateMatch",
+        "roi": [
+            4,
+            499,
+            620,
+            219
+        ],
+        "template": "task.png"
     },
     "失败2": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "撤退"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "撤退决定.png"
-                ],
-                "threshold": 0.8
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "撤退决定.png"
+        ],
+        "threshold": 0.8
     },
     "好友申请界面": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "关闭连续出击",
             "回主界面"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    125,
-                    521,
-                    399,
-                    187
-                ],
-                "template": [
-                    "关闭好友申请.png"
-                ],
-                "threshold": 0.8
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            125,
+            521,
+            399,
+            187
+        ],
+        "template": [
+            "关闭好友申请.png"
+        ],
+        "threshold": 0.8
     },
     "完成": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    453,
-                    575,
-                    1,
-                    1
-                ]
-            }
-        },
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "action": "Click",
+        "recognition": "DirectHit",
+        "target": [
+            453,
+            575,
+            1,
+            1
+        ]
     },
     "战斗失败": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "失败2"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "撤退.png"
-                ],
-                "threshold": 0.8
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "撤退.png"
+        ],
+        "threshold": 0.8
     },
     "战斗结束-主界面": {
         "next": [
             "回主界面"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    1060,
-                    560,
-                    208,
-                    155
-                ],
-                "template": [
-                    "菜单.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            1060,
+            560,
+            208,
+            155
+        ],
+        "template": [
+            "菜单.png"
+        ]
     },
     "战斗结束关闭": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "回主界面"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "close_botton.png"
-                ],
-                "threshold": 0.8
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "close_botton.png"
+        ],
+        "threshold": 0.8
     },
     "撤退": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "回主界面"
         ],
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "close_botton.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "close_botton.png"
+        ]
     },
     "结束战斗": {
         "next": [
@@ -190,22 +145,9 @@
             "战斗结束关闭",
             "可能已经结束战斗",
             "BBC执行失败回到主界面",
-            "[JumpBack]完成"
+            "[JumpBack]完成",
+            "关闭连续出击"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
-    },
-    "关闭连续出击": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": "close_botton.png",
-                "threshold": 0.8
-            }
-        },
-        "next": [
-            "回主界面"
-        ]
+        "recognition": "DirectHit"
     }
 }

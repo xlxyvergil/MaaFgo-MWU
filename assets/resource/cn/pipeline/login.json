@@ -27,9 +27,7 @@
             181,
             83
         ],
-        "template": [
-            "main_ui.png"
-        ],
+        "template": "main_ui.png",
         "threshold": 0.8
     },
     "开始更新": {
@@ -128,6 +126,7 @@
             "关闭公告",
             "更新",
             "可能已经完成登录",
+            "关闭观看",
             "[JumpBack]等待登录"
         ],
         "on_error": [
@@ -135,5 +134,18 @@
         ],
         "post_wait_freezes": 2000,
         "recognition": "DirectHit"
+    },
+    "关闭观看": {
+        "recognition": "TemplateMatch",
+        "next": [
+            "阶段判断循环"
+        ],
+        "roi": [
+            382,
+            545,
+            117,
+            40
+        ],
+        "template": "不收看.png"
     }
 }
