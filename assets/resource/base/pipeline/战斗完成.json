@@ -31,7 +31,8 @@
         ],
         "recognition": "TemplateMatch",
         "template": "close_botton.png",
-        "threshold": 0.8
+        "threshold": 0.8,
+        "action": "Click"
     },
     "可能已经结束战斗": {
         "green_mask": true,
