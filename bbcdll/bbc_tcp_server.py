@@ -443,11 +443,14 @@ class BattleSettingsAPI:
         if page is None:
             return {'success': False, 'error': 'BBC window not ready'}
         try:
+            # 将 UI 中的文本标签转换回索引
+            current_label = page.battletype.get()
+            battle_type_index = CT.BATTLE_TYPE.index(current_label) if current_label in CT.BATTLE_TYPE else -1
             return {
                 'success': True,
                 'apple_type': page.appleSet.appleType,
                 'run_times': page.appleSet.runTimes.get(),
-                'battle_type': page.battletype.get()
+                'battle_type_index': battle_type_index
             }
         except Exception as e:
             return {'success': False, 'error': str(e)}
@@ -528,10 +531,12 @@ class StatusAPI:
 
             battle_settings = {}
             try:
+                current_label = str(page.battletype.get())
+                battle_type_index = CT.BATTLE_TYPE.index(current_label) if current_label in CT.BATTLE_TYPE else -1
                 battle_settings = {
                     'apple_type': str(page.appleSet.appleType),
                     'run_times': page.appleSet.runTimes.get(),
-                    'battle_type': str(page.battletype.get())
+                    'battle_type_index': battle_type_index
                 }
             except:
                 pass
