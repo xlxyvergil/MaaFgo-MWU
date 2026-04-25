@@ -70,10 +70,13 @@ def install_resource():
         if bbc_config.exists():
             bbc_config.unlink()
         
-        nomwu_config = working_dir / "assets" / "options" / "bbc_team_config_nomwu.json"
-        if nomwu_config.exists():
-            shutil.copy2(nomwu_config, install_path / "options" / "bbc_team_config.json")
-            nomwu_config.unlink()  # 删除源文件
+        nomwu_config_src = working_dir / "assets" / "options" / "bbc_team_config_nomwu.json"
+        nomwu_config_dst = install_path / "options" / "bbc_team_config_nomwu.json"
+        if nomwu_config_src.exists():
+            shutil.copy2(nomwu_config_src, install_path / "options" / "bbc_team_config.json")
+            # 删除目标目录中的 bbc_team_config_nomwu.json
+            if nomwu_config_dst.exists():
+                nomwu_config_dst.unlink()
     
     if (working_dir / "assets" / "i18n").exists():
         shutil.copytree(
