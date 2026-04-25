@@ -16,6 +16,20 @@
         "template": "公告.png",
         "threshold": 0.7
     },
+    "关闭观看": {
+        "next": [
+            "阶段判断循环"
+        ],
+        "recognition": "TemplateMatch",
+        "roi": [
+            382,
+            545,
+            117,
+            40
+        ],
+        "template": "不收看.png",
+        "action": "Click"
+    },
     "可能已经完成登录": {
         "next": [
             "回主界面"
@@ -134,18 +148,5 @@
         ],
         "post_wait_freezes": 2000,
         "recognition": "DirectHit"
-    },
-    "关闭观看": {
-        "recognition": "TemplateMatch",
-        "next": [
-            "阶段判断循环"
-        ],
-        "roi": [
-            382,
-            545,
-            117,
-            40
-        ],
-        "template": "不收看.png"
     }
 }
