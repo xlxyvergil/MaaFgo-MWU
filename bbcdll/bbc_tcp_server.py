@@ -424,8 +424,13 @@ class BattleSettingsAPI:
         try:
             # battle_type 直接是索引值 (0, 1, 2...)
             idx = int(battle_type)
-            if idx < 0 or idx >= len(CT.BATTLE_TYPE):
-                return {'success': False, 'error': f'Invalid battle type index: {idx}'}
+        except (ValueError, TypeError):
+            return {'success': False, 'error': f'Invalid battle type value: {battle_type}'}
+        
+        if idx < 0 or idx >= len(CT.BATTLE_TYPE):
+            return {'success': False, 'error': f'Battle type index out of range: {idx} (valid: 0-{len(CT.BATTLE_TYPE)-1})'}
+        
+        try:
             page.battletype.set(CT.BATTLE_TYPE[idx])
             _log('info', f'[Battle] Battle type set: index={idx}, name={CT.BATTLE_TYPE[idx]}')
             return {'success': True, 'battle_type_index': idx}
