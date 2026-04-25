@@ -38,7 +38,7 @@
         },
         "attach": {
             "apple_type": "铜苹果",
-            "battle_type": "continuous",
+            "battle_type": 0,
             "bbc_team_config": "",
             "run_count": 1,
             "support_order_mismatch": false,
