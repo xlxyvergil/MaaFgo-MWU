@@ -7,22 +7,77 @@
             "cases": [
                 {
                     "name": "连续出击",
-                    "label": "连续出击",
+                    "label": "连续出击(或强化本)",
                     "pipeline_override": {
                         "执行BBC任务": {
                             "attach": {
-                                "battle_type": "continuous"
+                                "battle_type": 0
                             }
                         }
                     }
                 },
                 {
-                    "name": "自动编队爬塔",
-                    "label": "自动编队爬塔",
+                    "name": "自动编队爬塔_应用操作序列",
+                    "label": "自动编队爬塔(应用操作序列设置)",
                     "pipeline_override": {
                         "执行BBC任务": {
                             "attach": {
-                                "battle_type": "tower"
+                                "battle_type": 1
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "自动编队爬塔_程序自主",
+                    "label": "自动编队爬塔(程序自主技能宝具)",
+                    "pipeline_override": {
+                        "执行BBC任务": {
+                            "attach": {
+                                "battle_type": 2
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "幕间物语",
+                    "label": "幕间物语(部分需手动)",
+                    "pipeline_override": {
+                        "执行BBC任务": {
+                            "attach": {
+                                "battle_type": 3
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "清自由本",
+                    "label": "清自由本(不包括2.7)",
+                    "pipeline_override": {
+                        "执行BBC任务": {
+                            "attach": {
+                                "battle_type": 4
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "类主线",
+                    "label": "类主线(部分情况手动)",
+                    "pipeline_override": {
+                        "执行BBC任务": {
+                            "attach": {
+                                "battle_type": 5
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "主线物语大奥",
+                    "label": "主线物语·大奥(部分情况手动)",
+                    "pipeline_override": {
+                        "执行BBC任务": {
+                            "attach": {
+                                "battle_type": 6
                             }
                         }
                     }

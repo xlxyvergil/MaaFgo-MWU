@@ -101,7 +101,15 @@ def ensure_imports():
             Copper = "copper"
             Blue = "blue"
             Colorful = "colorful"
-            BATTLE_TYPE = ['连续出击(或强化本)', '自动编队爬塔(应用操作序列设置)']
+            BATTLE_TYPE = [
+                '连续出击(或强化本)',
+                '自动编队爬塔(应用操作序列设置)',
+                '自动编队爬塔(程序自主技能宝具)',
+                '幕间物语(部分需手动)',
+                '清自由本(不包括2.7)',
+                '类主线(部分情况手动)',
+                '主线物语·大奥(部分情况手动)'
+            ]
         CT = MockCT()
     try:
         from device import Windows, LDdevice, Mumudevice
@@ -372,20 +380,7 @@ class ConfigAPI:
 
 
 class BattleSettingsAPI:
-    APPLE_MAP = {
-        "gold": "gold",
-        "silver": "silver",
-        "blue": "blue",
-        "copper": "copper",
-        "colorful": "colorful"
-    }
-
-    BATTLE_TYPE_MAP = {
-        "continuous": 0,
-        "tower": 1,
-        "连续出击": 0,
-        "自动编队爬塔": 1
-    }
+    VALID_APPLE_TYPES = {"gold", "silver", "blue", "copper", "colorful"}
 
     @staticmethod
     def set_apple_type(apple_type):
@@ -393,7 +388,7 @@ class BattleSettingsAPI:
         page = get_bb_page()
         if page is None:
             return {'success': False, 'error': 'BBC window not ready'}
-        if apple_type not in BattleSettingsAPI.APPLE_MAP:
+        if apple_type not in BattleSettingsAPI.VALID_APPLE_TYPES:
             return {'success': False, 'error': f'Unknown apple type: {apple_type}'}
         try:
             page.appleSet.appleType = CT.Gold if apple_type == "gold" else getattr(CT, apple_type.capitalize(), CT.Gold)
@@ -426,13 +421,14 @@ class BattleSettingsAPI:
         page = get_bb_page()
         if page is None:
             return {'success': False, 'error': 'BBC window not ready'}
-        if battle_type not in BattleSettingsAPI.BATTLE_TYPE_MAP:
-            return {'success': False, 'error': f'Unknown battle type: {battle_type}'}
         try:
-            idx = BattleSettingsAPI.BATTLE_TYPE_MAP[battle_type]
+            # battle_type 直接是索引值 (0, 1, 2...)
+            idx = int(battle_type)
+            if idx < 0 or idx >= len(CT.BATTLE_TYPE):
+                return {'success': False, 'error': f'Invalid battle type index: {idx}'}
             page.battletype.set(CT.BATTLE_TYPE[idx])
-            _log('info', f'[Battle] Battle type set: {battle_type}')
-            return {'success': True, 'battle_type': battle_type}
+            _log('info', f'[Battle] Battle type set: index={idx}, name={CT.BATTLE_TYPE[idx]}')
+            return {'success': True, 'battle_type_index': idx}
         except Exception as e:
             return {'success': False, 'error': str(e)}
 
