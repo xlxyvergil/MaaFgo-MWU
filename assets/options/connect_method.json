@@ -28,7 +28,7 @@
                     "pipeline_override": {
                         "启动bbc": {
                             "attach": {
-                                "connect": "mumu"
+                                "connect": "connect_mumu"
                             }
                         }
                     }
@@ -43,7 +43,7 @@
                     "pipeline_override": {
                         "启动bbc": {
                             "attach": {
-                                "connect": "ldplayer"
+                                "connect": "connect_ld"
                             }
                         }
                     }
@@ -57,7 +57,7 @@
                     "pipeline_override": {
                         "启动bbc": {
                             "attach": {
-                                "connect": "manual"
+                                "connect": "connect_adb"
                             }
                         }
                     }

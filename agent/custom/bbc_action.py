@@ -83,7 +83,7 @@ class ExecuteBbcTask(CustomAction):
             team_config = attach_data.get('bbc_team_config', '')
             run_count = attach_data.get('run_count')
             apple_type = attach_data.get('apple_type')
-            battle_type = attach_data.get('battle_type', '连续出击')
+            battle_type = attach_data.get('battle_type', 0)  # 直接使用索引值 (0, 1, 2...)
             
             # 直接使用配置文件中的布尔值（BBC Server 需要 True/False）
             support_order_mismatch = attach_data.get('support_order_mismatch', False)
@@ -264,17 +264,8 @@ class ExecuteBbcTask(CustomAction):
         emulator_params = device_info.get('emulator_params', {})
         
         if emulator_params:
-            # 提取用户配置的参数
-            connect = attach_data.get('connect', 'auto')
-            connect_cmd_map = {
-                'mumu': 'connect_mumu',
-                'ld': 'connect_ld',
-                'adb': 'connect_adb',
-                'connect_mumu': 'connect_mumu',
-                'connect_ld': 'connect_ld',
-                'connect_adb': 'connect_adb'
-            }
-            connect_cmd = connect_cmd_map.get(connect, connect)
+            # 提取用户配置的参数（直接使用标准命令名）
+            connect_cmd = attach_data.get('connect', 'auto')  # connect_mumu / connect_ld / connect_adb / auto
             
             expected_args = {}
             if connect_cmd == 'connect_mumu':
@@ -304,17 +295,8 @@ class ExecuteBbcTask(CustomAction):
         
         mfaalog.warning("[ExecuteBbcTask] 模拟器未连接或参数不匹配，调用Manager重启BBC...")
         
-        # 提取连接参数
-        connect = attach_data.get('connect', 'auto')
-        connect_cmd_map = {
-            'mumu': 'connect_mumu',
-            'ld': 'connect_ld',
-            'adb': 'connect_adb',
-            'connect_mumu': 'connect_mumu',
-            'connect_ld': 'connect_ld',
-            'connect_adb': 'connect_adb'
-        }
-        connect_cmd = connect_cmd_map.get(connect, connect)
+        # 提取连接参数（直接使用标准命令名）
+        connect_cmd = attach_data.get('connect', 'auto')  # connect_mumu / connect_ld / connect_adb / auto
         
         connect_args = {}
         if connect_cmd == 'connect_mumu':

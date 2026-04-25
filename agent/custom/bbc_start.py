@@ -28,8 +28,8 @@ class StartBbc(CustomAction):
             
             attach_data = node_data.get('attach', {})
             
-            # 提取连接相关参数
-            connect = attach_data.get('connect', 'auto')
+            # 提取连接相关参数（直接使用标准命令名）
+            connect_cmd = attach_data.get('connect', 'auto')  # connect_mumu / connect_ld / connect_adb / auto
             mumu_path = attach_data.get('mumu_path', '')
             mumu_index = attach_data.get('mumu_index', 0)
             mumu_pkg = attach_data.get('mumu_pkg', 'com.bilibili.fatego')
@@ -37,19 +37,6 @@ class StartBbc(CustomAction):
             ld_path = attach_data.get('ld_path', '')
             ld_index = attach_data.get('ld_index', 0)
             manual_port = attach_data.get('manual_port', '')
-            
-            # 将连接类型转换为 BBC 服务端命令
-            connect_cmd_map = {
-                'mumu': 'connect_mumu',
-                'ld': 'connect_ld',
-                'ldplayer': 'connect_ld', 
-                'adb': 'connect_adb',
-                'manual': 'connect_adb',
-                'connect_mumu': 'connect_mumu',
-                'connect_ld': 'connect_ld',
-                'connect_adb': 'connect_adb'
-            }
-            connect_cmd = connect_cmd_map.get(connect, connect)
             
             # 构建连接参数
             connect_args = {}
