@@ -103,6 +103,12 @@ def install_resource():
             install_path / "options",
             dirs_exist_ok=True,
         )
+        
+        # MWU: 删除 bbc_team_config_nomwu.json
+        nomwu_config = install_path / "options" / "bbc_team_config_nomwu.json"
+        if nomwu_config.exists():
+            nomwu_config.unlink()
+    
     if (working_dir / "assets" / "i18n").exists():
         shutil.copytree(
             working_dir / "assets" / "i18n",

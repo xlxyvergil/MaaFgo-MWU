@@ -17,7 +17,8 @@
     "作战成功": {
         "action": "Click",
         "next": [
-            "好友申请界面"
+            "好友申请界面",
+            "关闭连续出击"
         ],
         "recognition": "TemplateMatch",
         "template": [
@@ -26,13 +27,13 @@
         "threshold": 0.8
     },
     "关闭连续出击": {
+        "action": "Click",
         "next": [
             "回主界面"
         ],
         "recognition": "TemplateMatch",
         "template": "close_botton.png",
-        "threshold": 0.8,
-        "action": "Click"
+        "threshold": 0.8
     },
     "可能已经结束战斗": {
         "green_mask": true,
