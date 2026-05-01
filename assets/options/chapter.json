@@ -553,8 +553,13 @@
                         "章节导航": {
                             "next": "纳维米克特兰"
                         },
+                        "地图坐标导航": {
+                            "action": "mictlan_navigation",
+                            "attach": {
+                                "chapter": "纳维米克特兰"
+                            }
+                        },
                         "无主线记录通用识别": {
-                            "next": "纳维米克特兰导航",
                             "template": [
                                 "CitLostbelt/纳维米克特兰.png"
                             ]
