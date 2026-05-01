@@ -1,10 +1,7 @@
 {
     "关闭游戏": {
-        "action": {
-            "type": "StopApp",
-            "param": {
-                "package": "com.aniplex.fategrandorder"
-            }
-        }
+        "action": "StopApp",
+        "package": "com.aniplex.fategrandorder",
+        "recognition": "DirectHit"
     }
 }

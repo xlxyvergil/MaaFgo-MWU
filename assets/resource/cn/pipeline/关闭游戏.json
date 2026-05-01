@@ -1,27 +1,15 @@
 {
+    "关闭bbc": {
+        "action": "Custom",
+        "recognition": "DirectHit",
+        "custom_action": "stop_bbc"
+    },
     "关闭游戏": {
-        "action": {
-            "type": "StopApp",
-            "param": {
-                "package": "com.bilibili.fatego"
-            }
-        },
-        "recognition": {
-            "type": "DirectHit"
-        },
+        "action": "StopApp",
         "next": [
             "关闭bbc"
-        ]
-    },
-    "关闭bbc": {
-        "recognition": {
-            "type": "DirectHit"
-        },
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "stop_bbc"
-            }
-        }
+        ],
+        "recognition": "DirectHit",
+        "package": "com.bilibili.fatego"
     }
 }
