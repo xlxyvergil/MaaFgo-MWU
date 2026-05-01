@@ -17,6 +17,7 @@
         "threshold": 0.7
     },
     "关闭观看": {
+        "action": "Click",
         "next": [
             "阶段判断循环"
         ],
@@ -27,8 +28,7 @@
             117,
             40
         ],
-        "template": "不收看.png",
-        "action": "Click"
+        "template": "不收看.png"
     },
     "可能已经完成登录": {
         "next": [
@@ -59,7 +59,9 @@
         "action": "Click",
         "method": 5,
         "next": [
-            "登录"
+            "登录",
+            "关闭公告",
+            "[JumpBack]等待登录"
         ],
         "post_wait_freezes": 2000,
         "recognition": "TemplateMatch",
@@ -95,7 +97,8 @@
         "action": "Click",
         "method": 5,
         "next": [
-            "关闭公告"
+            "关闭公告",
+            "[JumpBack]等待登录"
         ],
         "post_wait_freezes": 2000,
         "recognition": "TemplateMatch",
