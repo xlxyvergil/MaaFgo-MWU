@@ -1,18 +1,39 @@
 {
+    "Ordeal二次点击": {
+        "action": "Click",
+        "next": [
+            "地图坐标导航"
+        ],
+        "recognition": "TemplateMatch",
+        "roi": [
+            656,
+            82,
+            574,
+            489
+        ],
+        "template": "ordealcall/平面之月.png"
+    },
     "无主线滑动": {
         "action": "Swipe",
         "begin": [
-            1229,
-            544,
-            6,
-            5
+            1198,
+            557,
+            19,
+            21
         ],
+        "duration": 100,
         "end": [
-            1228,
-            283,
-            9,
-            9
+            1192,
+            275,
+            24,
+            27
         ],
+        "next": [
+            "无主线滑动等待"
+        ],
+        "recognition": "DirectHit"
+    },
+    "无主线滑动等待": {
         "recognition": "DirectHit"
     },
     "无主线记录": {
@@ -32,8 +53,9 @@
     "无主线记录通用识别": {
         "action": "Click",
         "next": [
-            "地图坐标导航"
+            "无主线识别通过"
         ],
+        "post_wait_freezes": 1000,
         "recognition": "TemplateMatch",
         "roi": [
             656,
@@ -43,25 +65,17 @@
         ],
         "template": "CitLostbelt/阿纳斯塔西娅.png"
     },
+    "无主线识别通过": {
+        "next": [
+            "地图坐标导航"
+        ],
+        "recognition": "DirectHit"
+    },
     "需要回归主界面": {
-        "max_hit": 2,
+        "max_hit": 1,
         "next": [
             "回主界面"
         ],
         "recognition": "DirectHit"
-    },
-    "Ordeal二次点击": {
-        "recognition": "TemplateMatch",
-        "action": "Click",
-        "next": [
-            "地图坐标导航"
-        ],
-        "roi": [
-            656,
-            82,
-            574,
-            489
-        ],
-        "template": "ordealcall/平面之月.png"
     }
 }
