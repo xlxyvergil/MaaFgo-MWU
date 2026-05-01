@@ -6,14 +6,17 @@
         "recognition": "DirectHit"
     },
     "SIN": {
+        "next": [
+            "无主线记录通用导航"
+        ],
         "recognition": "DirectHit"
     },
     "Traum": {
-        "recognition": "DirectHit",
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
-        ]
+        ],
+        "recognition": "DirectHit"
     },
     "七丘之城": {
         "next": [
@@ -30,6 +33,9 @@
         "recognition": "DirectHit"
     },
     "亚特兰蒂斯": {
+        "next": [
+            "无主线记录通用导航"
+        ],
         "recognition": "DirectHit"
     },
     "伦敦": {
@@ -82,6 +88,9 @@
         "recognition": "DirectHit"
     },
     "奥林波斯": {
+        "next": [
+            "无主线记录通用导航"
+        ],
         "recognition": "DirectHit"
     },
     "巴比伦尼亚": {
@@ -92,13 +101,16 @@
         "recognition": "DirectHit"
     },
     "平安京": {
-        "recognition": "DirectHit",
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
-        ]
+        ],
+        "recognition": "DirectHit"
     },
     "平面之月": {
+        "next": [
+            "无主线记录通用导航"
+        ],
         "recognition": "DirectHit"
     },
     "新宿": {
@@ -109,6 +121,9 @@
         "recognition": "DirectHit"
     },
     "由伽刹多罗": {
+        "next": [
+            "无主线记录通用导航"
+        ],
         "recognition": "DirectHit"
     },
     "章节导航": {
@@ -118,15 +133,27 @@
         "recognition": "DirectHit"
     },
     "纳维米克特兰": {
+        "next": [
+            "无主线记录通用导航"
+        ],
         "recognition": "DirectHit"
     },
     "诸神黄昏": {
+        "next": [
+            "无主线记录通用导航"
+        ],
         "recognition": "DirectHit"
     },
     "阿瓦隆勒菲": {
+        "next": [
+            "无主线记录通用导航"
+        ],
         "recognition": "DirectHit"
     },
     "阿纳斯塔西娅": {
+        "next": [
+            "无主线记录通用导航"
+        ],
         "recognition": "DirectHit"
     },
     "雅戈泰": {
@@ -135,5 +162,23 @@
             "[JumpBack]主线记录导航"
         ],
         "recognition": "DirectHit"
+    },
+    "伊底": {
+        "recognition": "DirectHit",
+        "next": [
+            "无主线记录通用导航"
+        ]
+    },
+    "原型肇始": {
+        "recognition": "DirectHit",
+        "next": [
+            "无主线记录通用导航"
+        ]
+    },
+    "梅塔特洛尼俄斯": {
+        "recognition": "DirectHit",
+        "next": [
+            "无主线记录通用导航"
+        ]
     }
 }

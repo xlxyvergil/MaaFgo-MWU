@@ -656,6 +656,101 @@
                             "attach": {
                                 "chapter": "平面之月"
                             }
+                        },
+                        "无主线记录通用识别": {
+                            "next": "Ordeal二次点击",
+                            "template": [
+                                "ordealcall/平面之月.png"
+                            ]
+                        },
+                        "Ordeal二次点击": {
+                            "template": [
+                                "ordealcall/平面之月.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "伊底",
+                    "label": "伊底",
+                    "option": [
+                        "伊底"
+                    ],
+                    "pipeline_override": {
+                        "章节导航": {
+                            "next": "伊底"
+                        },
+                        "地图坐标导航": {
+                            "attach": {
+                                "chapter": "伊底"
+                            }
+                        },
+                        "无主线记录通用识别": {
+                            "next": "Ordeal二次点击",
+                            "template": [
+                                "ordealcall/伊底.png"
+                            ]
+                        },
+                        "Ordeal二次点击": {
+                            "template": [
+                                "ordealcall/伊底.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "原型肇始",
+                    "label": "原型肇始",
+                    "option": [
+                        "原型肇始"
+                    ],
+                    "pipeline_override": {
+                        "章节导航": {
+                            "next": "原型肇始"
+                        },
+                        "地图坐标导航": {
+                            "attach": {
+                                "chapter": "原型肇始"
+                            }
+                        },
+                        "无主线记录通用识别": {
+                            "next": "Ordeal二次点击",
+                            "template": [
+                                "ordealcall/原型肇始.png"
+                            ]
+                        },
+                        "Ordeal二次点击": {
+                            "template": [
+                                "ordealcall/原型肇始.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "梅塔特洛尼俄斯",
+                    "label": "梅塔特洛尼俄斯",
+                    "option": [
+                        "梅塔特洛尼俄斯"
+                    ],
+                    "pipeline_override": {
+                        "章节导航": {
+                            "next": "梅塔特洛尼俄斯"
+                        },
+                        "地图坐标导航": {
+                            "attach": {
+                                "chapter": "梅塔特洛尼俄斯"
+                            }
+                        },
+                        "无主线记录通用识别": {
+                            "next": "Ordeal二次点击",
+                            "template": [
+                                "ordealcall/梅塔特洛尼俄斯.png"
+                            ]
+                        },
+                        "Ordeal二次点击": {
+                            "template": [
+                                "ordealcall/梅塔特洛尼俄斯.png"
+                            ]
                         }
                     }
                 }
