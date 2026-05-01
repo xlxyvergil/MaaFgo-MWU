@@ -3,228 +3,228 @@
         "卡美洛": {
             "type": "select",
             "label": "关卡",
-            "default": "沙尘暴的沙漠",
+            "default": "神兽之庭",
             "cases": [
                 {
-                    "name": "沙尘暴的沙漠",
-                    "label": "沙尘暴的沙漠",
+                    "name": "神兽之庭",
+                    "label": "神兽之庭",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "沙尘暴的沙漠"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/神兽之庭.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "黎明的沙丘",
-                    "label": "黎明的沙丘",
+                    "name": "灼热之巅",
+                    "label": "灼热之巅",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "黎明的沙丘"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/灼热之巅.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "死之荒野",
-                    "label": "死之荒野",
+                    "name": "热血沸腾的狂宴",
+                    "label": "热血沸腾的狂宴",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "死之荒野"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/热血沸腾的狂宴.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "东之村",
-                    "label": "东之村",
+                    "name": "已然枯萎的山脊",
+                    "label": "已然枯萎的山脊",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "东之村"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/已然枯萎的山脊.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "圆桌要塞",
-                    "label": "圆桌要塞",
+                    "name": "游击骑士队",
+                    "label": "游击骑士队",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "圆桌要塞"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/游击骑士队.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "晚钟庙",
-                    "label": "晚钟庙",
+                    "name": "宣告死亡的天使",
+                    "label": "宣告死亡的天使",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "晚钟庙"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/宣告死亡的天使.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "西之村遗迹",
-                    "label": "西之村遗迹",
+                    "name": "无情的残影",
+                    "label": "无情的残影",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "西之村遗迹"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/无情的残影.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "阿特拉斯院",
-                    "label": "阿特拉斯院",
+                    "name": "巨人的地窖",
+                    "label": "巨人的地窖",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "阿特拉斯院"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/巨人的地窖.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "隐秘之村",
-                    "label": "隐秘之村",
+                    "name": "梦幻的海市蜃楼",
+                    "label": "梦幻的海市蜃楼",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "隐秘之村"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/梦幻的海市蜃楼.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "大神殿",
-                    "label": "大神殿",
+                    "name": "太阳王的居城",
+                    "label": "太阳王的居城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "大神殿"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/太阳王的居城.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "圣都正门",
-                    "label": "圣都正门",
+                    "name": "祝圣之门",
+                    "label": "祝圣之门",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "圣都正门"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/祝圣之门.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "圣都市街",
-                    "label": "圣都市街",
+                    "name": "理想都市",
+                    "label": "理想都市",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "圣都市街"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/理想都市.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "王城",
-                    "label": "王城",
+                    "name": "千年王国",
+                    "label": "千年王国",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "王城"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/千年王国.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "无之大地",
-                    "label": "无之大地",
+                    "name": "荒凉世界",
+                    "label": "荒凉世界",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "无之大地"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Camelot/荒凉世界.png"
                             ]
                         }
                     }

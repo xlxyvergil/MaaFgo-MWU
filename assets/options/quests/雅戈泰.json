@@ -3,164 +3,164 @@
         "雅戈泰": {
             "type": "select",
             "label": "关卡",
-            "default": "地底平原",
+            "default": "光藓照耀的原野",
             "cases": [
                 {
-                    "name": "地底平原",
-                    "label": "地底平原",
+                    "name": "光藓照耀的原野",
+                    "label": "光藓照耀的原野",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "地底平原"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/光藓照耀的原野.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "野营地",
-                    "label": "野营地",
+                    "name": "战士的狩猎场",
+                    "label": "战士的狩猎场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "野营地"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/战士的狩猎场.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "河边城市",
-                    "label": "河边城市",
+                    "name": "亚马逊人之宴",
+                    "label": "亚马逊人之宴",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "河边城市"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/亚马逊人之宴.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "桃源乡",
-                    "label": "桃源乡",
+                    "name": "梦想之村",
+                    "label": "梦想之村",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "桃源乡"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/梦想之村.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "伊苏",
-                    "label": "伊苏",
+                    "name": "背德之都",
+                    "label": "背德之都",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "伊苏"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/背德之都.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "北部断崖",
-                    "label": "北部断崖",
+                    "name": "罪人废弃场",
+                    "label": "罪人废弃场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "北部断崖"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/罪人废弃场.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "不夜城",
-                    "label": "不夜城",
+                    "name": "无眠之城",
+                    "label": "无眠之城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "不夜城"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/无眠之城.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "山脚密林",
-                    "label": "山脚密林",
+                    "name": "密林远足",
+                    "label": "密林远足",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "山脚密林"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/密林远足.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "地底大河",
-                    "label": "地底大河",
+                    "name": "密林观光",
+                    "label": "密林观光",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "地底大河"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/密林观光.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "龙宫城",
-                    "label": "龙宫城",
+                    "name": "湖中楼阁",
+                    "label": "湖中楼阁",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "龙宫城"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/湖中楼阁.png"
                             ]
                         }
                     }
@@ -171,28 +171,28 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "黄金国"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/黄金国.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "大地裂隙",
-                    "label": "大地裂隙",
+                    "name": "钻石之谷",
+                    "label": "钻石之谷",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "大地裂隙"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Agartha/钻石之谷.png"
                             ]
                         }
                     }

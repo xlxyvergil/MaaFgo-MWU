@@ -3,228 +3,228 @@
         "巴比伦尼亚": {
             "type": "select",
             "label": "关卡",
-            "default": "废都巴比伦",
+            "default": "遗失之都",
             "cases": [
                 {
-                    "name": "废都巴比伦",
-                    "label": "废都巴比伦",
+                    "name": "遗失之都",
+                    "label": "遗失之都",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "废都巴比伦"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/遗失之都.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "北之高台",
-                    "label": "北之高台",
+                    "name": "战祸的眺望",
+                    "label": "战祸的眺望",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "北之高台"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/战祸的眺望.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "黑色杉木林",
-                    "label": "黑色杉木林",
+                    "name": "魔兽的居所",
+                    "label": "魔兽的居所",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "黑色杉木林"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/魔兽的居所.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "高原",
-                    "label": "高原",
+                    "name": "旅行者的捷径",
+                    "label": "旅行者的捷径",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "高原"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/旅行者的捷径.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "湿地",
-                    "label": "湿地",
+                    "name": "川间大地",
+                    "label": "川间大地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "湿地"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/川间大地.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "乌尔",
-                    "label": "乌尔",
+                    "name": "豹子乐园",
+                    "label": "豹子乐园",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "乌尔"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/豹子乐园.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "埃里都",
-                    "label": "埃里都",
+                    "name": "王权之地",
+                    "label": "王权之地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "埃里都"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/王权之地.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "观测所",
-                    "label": "观测所",
+                    "name": "母亲之海",
+                    "label": "母亲之海",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "观测所"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/母亲之海.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "芦苇原",
-                    "label": "芦苇原",
+                    "name": "丰收祈愿",
+                    "label": "丰收祈愿",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "芦苇原"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/丰收祈愿.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "库撒",
-                    "label": "库撒",
+                    "name": "冥界入口",
+                    "label": "冥界入口",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "库撒"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/冥界入口.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "北壁",
-                    "label": "北壁",
+                    "name": "魔兽战线旧址",
+                    "label": "魔兽战线旧址",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "北壁"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/魔兽战线旧址.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "尼普尔",
-                    "label": "尼普尔",
+                    "name": "天地连接之所",
+                    "label": "天地连接之所",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "尼普尔"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/天地连接之所.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "艾比夫山",
-                    "label": "艾比夫山",
+                    "name": "颤抖的灵峰",
+                    "label": "颤抖的灵峰",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "艾比夫山"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/颤抖的灵峰.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "鲜血神殿",
-                    "label": "鲜血神殿",
+                    "name": "先兆之山",
+                    "label": "先兆之山",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "鲜血神殿"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Babylonia/先兆之山.png"
                             ]
                         }
                     }

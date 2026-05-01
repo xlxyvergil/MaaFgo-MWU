@@ -3,180 +3,180 @@
         "塞勒姆": {
             "type": "select",
             "label": "关卡",
-            "default": "寂静之森",
+            "default": "狼之地盘",
             "cases": [
                 {
-                    "name": "寂静之森",
-                    "label": "寂静之森",
+                    "name": "狼之地盘",
+                    "label": "狼之地盘",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "寂静之森"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/狼之地盘.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "卡特家",
-                    "label": "卡特家",
+                    "name": "乌鸦之巢",
+                    "label": "乌鸦之巢",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "卡特家"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/乌鸦之巢.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "公众集会堂",
-                    "label": "公众集会堂",
+                    "name": "审判房间",
+                    "label": "审判房间",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "公众集会堂"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/审判房间.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "码头",
-                    "label": "码头",
+                    "name": "德比码头",
+                    "label": "德比码头",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "码头"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/德比码头.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "郊外的宅邸",
-                    "label": "郊外的宅邸",
+                    "name": "七个尖角阁的房子",
+                    "label": "七个尖角阁的房子",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "郊外的宅邸"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/七个尖角阁的房子.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "维特利家",
-                    "label": "维特利家",
+                    "name": "炼金术之地",
+                    "label": "炼金术之地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "维特利家"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/炼金术之地.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "牧草地",
-                    "label": "牧草地",
+                    "name": "公共眺望台",
+                    "label": "公共眺望台",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "牧草地"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/公共眺望台.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "加罗丘陵",
-                    "label": "加罗丘陵",
+                    "name": "行刑之地",
+                    "label": "行刑之地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "加罗丘陵"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/行刑之地.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "隐匿处",
-                    "label": "隐匿处",
+                    "name": "安全屋",
+                    "label": "安全屋",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "隐匿处"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/安全屋.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "空房",
-                    "label": "空房",
+                    "name": "纯洁领域",
+                    "label": "纯洁领域",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "空房"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/纯洁领域.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "拘留所",
-                    "label": "拘留所",
+                    "name": "魔女迷宫",
+                    "label": "魔女迷宫",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "拘留所"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Salem/魔女迷宫.png"
                             ]
                         }
                     }

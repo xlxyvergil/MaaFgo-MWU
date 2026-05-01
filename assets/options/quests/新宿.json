@@ -3,164 +3,164 @@
         "新宿": {
             "type": "select",
             "label": "关卡",
-            "default": "代代木二丁目",
+            "default": "杂居楼街",
             "cases": [
                 {
-                    "name": "代代木二丁目",
-                    "label": "代代木二丁目",
+                    "name": "杂居楼街",
+                    "label": "杂居楼街",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "代代木二丁目"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/杂居楼街.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "国道20号",
-                    "label": "国道20号",
+                    "name": "势力范围",
+                    "label": "势力范围",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "国道20号"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/势力范围.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "新宿站",
-                    "label": "新宿站",
+                    "name": "水泥迷宫",
+                    "label": "水泥迷宫",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "新宿站"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/水泥迷宫.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "新宿四丁目",
-                    "label": "新宿四丁目",
+                    "name": "旅馆街",
+                    "label": "旅馆街",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "新宿四丁目"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/旅馆街.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "歌舞伎町",
-                    "label": "歌舞戏町",
+                    "name": "不夜城",
+                    "label": "不夜城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "歌舞伎町"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/不夜城.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "枪身塔",
-                    "label": "枪身塔",
+                    "name": "膛线大厅",
+                    "label": "膛线大厅",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "枪身塔"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/膛线大厅.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "舞会会场",
-                    "label": "舞会会场",
+                    "name": "杀戮舞会",
+                    "label": "杀戮舞会",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "舞会会场"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/杀戮舞会.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "塔顶楼",
-                    "label": "塔顶楼",
+                    "name": "后膛枪",
+                    "label": "后膛枪",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "塔顶楼"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/后膛枪.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "新宿御苑",
-                    "label": "新宿御苑",
+                    "name": "恶魔花园",
+                    "label": "恶魔花园",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "新宿御苑"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/恶魔花园.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "新宿二丁目",
-                    "label": "新宿二丁目",
+                    "name": "彩虹城",
+                    "label": "彩虹城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "新宿二丁目"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shinjuku/彩虹城.png"
                             ]
                         }
                     }

@@ -3,148 +3,148 @@
         "下总国": {
             "type": "select",
             "label": "关卡",
-            "default": "农田",
+            "default": "田园风景",
             "cases": [
                 {
-                    "name": "农田",
-                    "label": "农田",
+                    "name": "田园风景",
+                    "label": "田园风景",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "农田"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shimousa/田园风景.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "村落",
-                    "label": "村落",
+                    "name": "寂寥村落",
+                    "label": "寂寥村落",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "村落"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shimousa/寂寥村落.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "草庵",
-                    "label": "草庵",
+                    "name": "千手千眼",
+                    "label": "千手千眼",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "草庵"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shimousa/千手千眼.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "城下町",
-                    "label": "城下町",
+                    "name": "枯荣盛衰",
+                    "label": "枯荣盛衰",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "城下町"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shimousa/枯荣盛衰.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "战役之地",
-                    "label": "战役之地",
+                    "name": "士兵们的梦之痕迹",
+                    "label": "士兵们的梦之痕迹",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "战役之地"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shimousa/士兵们的梦之痕迹.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "土气城",
-                    "label": "土气城",
+                    "name": "贵船之城",
+                    "label": "贵船之城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "土气城"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shimousa/贵船之城.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "后山无名灵峰",
-                    "label": "后山无名灵峰",
+                    "name": "无名灵峰",
+                    "label": "无名灵峰",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "后山"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shimousa/无名灵峰.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "后山战战兢兢",
-                    "label": "后山战战兢兢",
+                    "name": "战战兢兢",
+                    "label": "战战兢兢",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "后山"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shimousa/战战兢兢.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "荒川之原",
-                    "label": "荒川之原",
+                    "name": "古战场",
+                    "label": "古战场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "荒川之原"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Shimousa/古战场.png"
                             ]
                         }
                     }
