@@ -25,10 +25,10 @@
             "冠位戴冠战-进入副本"
         ],
         "recognition": "TemplateMatch",
-        "timeout": 2000,
         "template": [
             "grand/grand_lancer.png"
-        ]
+        ],
+        "timeout": 2000
     },
     "冠位戴冠战-职介开始": {
         "next": [
@@ -47,10 +47,10 @@
             "Node.Action.Succeeded": "进入副本完成"
         },
         "recognition": "TemplateMatch",
-        "timeout": 3000,
         "template": [
             "dungeon_enter.png"
-        ]
+        ],
+        "timeout": 3000
     },
     "冠位戴冠战-进入副本": {
         "action": "Click",
@@ -69,14 +69,13 @@
             "冠位戴冠战-职介开始"
         ],
         "recognition": "TemplateMatch",
-        "timeout": 2000,
         "template": [
             "grand/grand001.png"
-        ]
+        ],
+        "timeout": 2000
     },
     "右侧下滑-冠位戴冠战列表": {
         "action": "Swipe",
-        "max_hit": 10,
         "begin": [
             925,
             354,
@@ -84,13 +83,12 @@
             1
         ],
         "end": [
-            [
-                929,
-                30,
-                1,
-                1
-            ]
+            929,
+            30,
+            1,
+            1
         ],
+        "max_hit": 10,
         "recognition": "DirectHit"
     },
     "如果需要关闭弹窗": {
@@ -103,10 +101,6 @@
     },
     "戴冠战-不匹配上滑": {
         "action": "Swipe",
-        "max_hit": 15,
-        "next": [
-            "戴冠战-尝试进入副本"
-        ],
         "begin": [
             1014,
             212,
@@ -117,12 +111,14 @@
             1000
         ],
         "end": [
-            [
-                1010,
-                402,
-                1,
-                1
-            ]
+            1010,
+            402,
+            1,
+            1
+        ],
+        "max_hit": 15,
+        "next": [
+            "戴冠战-尝试进入副本"
         ],
         "recognition": "DirectHit"
     },
@@ -154,11 +150,6 @@
     },
     "戴冠战-先下滑到最下面": {
         "action": "Swipe",
-        "next": [
-            "戴冠战-尝试进入副本"
-        ],
-        "post_delay": 3000,
-        "repeat": 4,
         "begin": [
             929,
             583,
@@ -166,14 +157,17 @@
             1
         ],
         "end": [
-            [
-                929,
-                100,
-                1,
-                1
-            ]
+            929,
+            100,
+            1,
+            1
         ],
-        "recognition": "DirectHit"
+        "next": [
+            "戴冠战-尝试进入副本"
+        ],
+        "post_delay": 3000,
+        "recognition": "DirectHit",
+        "repeat": 4
     },
     "戴冠战-匹配检测": {
         "focus": {
@@ -199,13 +193,13 @@
             "戴冠战-匹配检测",
             "戴冠战-不匹配关闭"
         ],
+        "recognition": "DirectHit",
         "target": [
             849,
             139,
             143,
             79
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "戴冠战-错误": {
         "focus": {
@@ -219,10 +213,10 @@
         },
         "rate_limit": 10000,
         "recognition": "TemplateMatch",
-        "timeout": 2000,
         "template": [
             "grand/grand001.png"
-        ]
+        ],
+        "timeout": 2000
     },
     "未找到戴冠战入口2": {
         "focus": {

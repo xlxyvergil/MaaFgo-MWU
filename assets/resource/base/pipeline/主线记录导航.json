@@ -1,55 +1,53 @@
 {
-  "主线记录导航": {
-    "next": [
-      "点击主线记录",
-      "[JumpBack]寻找主线记录"
-    ],
-    "recognition": "DirectHit"
-  },
-  "完成点击主线记录": {
-    "recognition": "DirectHit"
-  },
-  "寻找主线记录": {
-    "action": "Swipe",
-    "begin": [
-      1198,
-      557,
-      19,
-      21
-    ],
-    "duration": [
-      100
-    ],
-    "end": [
-      [
-        1192,
-        275,
-        24,
-        27
-      ]
-    ],
-    "next": [
-      "找到主线记录"
-    ],
-    "recognition": "DirectHit"
-  },
-  "找到主线记录": {
-    "recognition": "DirectHit"
-  },
-  "点击主线记录": {
-    "action": "Click",
-    "next": [
-      "完成点击主线记录"
-    ],
-    "recognition": "TemplateMatch",
-    "roi": [
-      647,
-      101,
-      586,
-      482
-    ],
-    "template": [
-      "OoTTemple/主线记录1.png"
-    ]
-  }
+    "主线记录导航": {
+        "next": [
+            "点击主线记录",
+            "[JumpBack]寻找主线记录"
+        ],
+        "recognition": "DirectHit"
+    },
+    "完成点击主线记录": {
+        "recognition": "DirectHit"
+    },
+    "寻找主线记录": {
+        "action": "Swipe",
+        "begin": [
+            1198,
+            557,
+            19,
+            21
+        ],
+        "duration": [
+            100
+        ],
+        "end": [
+            1192,
+            275,
+            24,
+            27
+        ],
+        "next": [
+            "找到主线记录"
+        ],
+        "recognition": "DirectHit"
+    },
+    "找到主线记录": {
+        "recognition": "DirectHit"
+    },
+    "点击主线记录": {
+        "action": "Click",
+        "next": [
+            "完成点击主线记录"
+        ],
+        "recognition": "TemplateMatch",
+        "roi": [
+            647,
+            101,
+            586,
+            482
+        ],
+        "template": [
+            "OoTTemple/主线记录1.png"
+        ]
+    }
 }

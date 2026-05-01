@@ -20,8 +20,6 @@
     },
     "迦门-不匹配下滑": {
         "action": "Swipe",
-        "max_hit": 20,
-        "post_delay": 1000,
         "begin": [
             1014,
             602,
@@ -32,13 +30,13 @@
             1000
         ],
         "end": [
-            [
-                1010,
-                212,
-                1,
-                1
-            ]
+            1010,
+            212,
+            1,
+            1
         ],
+        "max_hit": 20,
+        "post_delay": 1000,
         "recognition": "DirectHit"
     },
     "迦门-修炼场选择": {
@@ -46,11 +44,6 @@
     },
     "迦门-先上滑到最上面": {
         "action": "Swipe",
-        "next": [
-            "迦门-种火副本选择"
-        ],
-        "post_delay": 3000,
-        "repeat": 4,
         "begin": [
             929,
             100,
@@ -58,14 +51,17 @@
             1
         ],
         "end": [
-            [
-                929,
-                583,
-                1,
-                1
-            ]
+            929,
+            583,
+            1,
+            1
         ],
-        "recognition": "DirectHit"
+        "next": [
+            "迦门-种火副本选择"
+        ],
+        "post_delay": 3000,
+        "recognition": "DirectHit",
+        "repeat": 4
     },
     "迦门-副本未找到": {
         "focus": {
@@ -95,11 +91,11 @@
     },
     "迦门-种火-选择职介和等级": {
         "action": "Click",
+        "green_mask": true,
         "next": [
             "迦门-副本选择完毕"
         ],
         "recognition": "TemplateMatch",
-        "green_mask": true,
         "template": [
             "chaldea_gate/剑骑60.png"
         ]

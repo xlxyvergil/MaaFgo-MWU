@@ -34,7 +34,7 @@ CHAPTER_MAP = {
     "平面之月": "PaperMoon",
     "原型肇始": "Gehenna",
     "伊底": "Archetype",
-    "梅塔特罗诺斯": "Metatronius",
+    "梅塔特洛尼俄斯": "Metatronius",
 }
 
 @AgentServer.custom_action("general_navigation")
