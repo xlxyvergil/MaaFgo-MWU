@@ -3,244 +3,244 @@
         "阿瓦隆勒菲": {
             "type": "select",
             "label": "关卡",
-            "default": "雾之海岸",
+            "default": "遗忘之沙滩",
             "cases": [
                 {
-                    "name": "雾之海岸",
-                    "label": "雾之海岸",
+                    "name": "遗忘之沙滩",
+                    "label": "遗忘之沙滩",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "雾之海岸"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/遗忘之沙滩.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "康沃尔之村",
-                    "label": "康沃尔之村",
+                    "name": "无名之森",
+                    "label": "无名之森",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "康沃尔之村"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/无名之森.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "索尔兹伯里",
-                    "label": "索尔兹伯里",
+                    "name": "星光圣堂",
+                    "label": "星光圣堂",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "索尔兹伯里"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/星光圣堂.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "格洛斯特",
-                    "label": "格洛斯特",
+                    "name": "妖精们的拍卖会",
+                    "label": "妖精们的拍卖会",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "格洛斯特"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/妖精们的拍卖会.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "泪之河",
-                    "label": "泪之河",
+                    "name": "许愿之渊",
+                    "label": "许愿之渊",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "泪之河"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/许愿之渊.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "诺里奇",
-                    "label": "诺里奇",
+                    "name": "铁之都煤之海",
+                    "label": "铁之都煤之海",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "诺里奇"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/铁之都煤之海.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "卡美洛",
-                    "label": "卡美洛",
+                    "name": "赦免之城",
+                    "label": "赦免之城",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "卡美洛"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/赦免之城.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "伦蒂尼恩",
-                    "label": "伦蒂尼恩",
+                    "name": "希望之废都",
+                    "label": "希望之废都",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "伦蒂尼恩"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/希望之废都.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "曼彻斯特",
-                    "label": "曼彻斯特",
+                    "name": "弱肉强食",
+                    "label": "弱肉强食",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "曼彻斯特"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/弱肉强食.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "湖区",
-                    "label": "湖区",
+                    "name": "边界之森",
+                    "label": "边界之森",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "湖区"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/边界之森.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "尽头海岸",
-                    "label": "尽头海岸",
+                    "name": "大地的尽头",
+                    "label": "大地的尽头",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "尽头海岸"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/大地的尽头.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "奥克尼",
-                    "label": "奥克尼",
+                    "name": "雨之都",
+                    "label": "雨之都",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "奥克尼"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/雨之都.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "爱丁堡",
-                    "label": "爱丁堡",
+                    "name": "甜蜜厨房",
+                    "label": "甜蜜厨房",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "爱丁堡"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/甜蜜厨房.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "新达灵顿",
-                    "label": "新达灵顿",
+                    "name": "杀戮剧场",
+                    "label": "杀戮剧场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "新达灵顿"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/杀戮剧场.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "牛津",
-                    "label": "牛津",
+                    "name": "餐馆街",
+                    "label": "餐馆街",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "牛津"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/餐馆街.png"
                             ]
                         }
                     }
@@ -251,12 +251,12 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "多佛宅邸"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/AvalonleFae/多佛宅邸.png"
                             ]
                         }
                     }

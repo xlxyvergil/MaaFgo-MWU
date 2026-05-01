@@ -3,180 +3,180 @@
         "诸神黄昏": {
             "type": "select",
             "label": "关卡",
-            "default": "登陆点",
+            "default": "平稳的雪原",
             "cases": [
                 {
-                    "name": "登陆点",
-                    "label": "登陆点",
+                    "name": "平稳的雪原",
+                    "label": "平稳的雪原",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "登陆点"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/平稳的雪原.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "薄冰之丘",
-                    "label": "薄冰之丘",
+                    "name": "银世界",
+                    "label": "银世界",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "薄冰之丘"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/银世界.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "巨人的花园",
-                    "label": "巨人的花园",
+                    "name": "炎与冰的狭缝间",
+                    "label": "炎与冰的狭缝间",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "巨人的花园"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/炎与冰的狭缝间.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "第23村落",
-                    "label": "第23村落",
+                    "name": "封闭庇护所",
+                    "label": "封闭庇护所",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "第23村落"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/封闭庇护所.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "英雄的地窖",
-                    "label": "英雄的地窖",
+                    "name": "皇帝寝床",
+                    "label": "皇帝寝床",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "英雄的地窖"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/皇帝寝床.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "雪与冰之城",
-                    "label": "雪与冰之城",
+                    "name": "寒冰架桥",
+                    "label": "寒冰架桥",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "雪与冰之城"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/寒冰架桥.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "通往尽头之路",
-                    "label": "通往尽头之路",
+                    "name": "绝佳峡谷",
+                    "label": "绝佳峡谷",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "通往尽头之路"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/绝佳峡谷.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "炎之馆",
-                    "label": "炎之馆",
+                    "name": "霜息吹拂山脉",
+                    "label": "霜息吹拂山脉",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "炎之馆"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/霜息吹拂山脉.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "第67村落",
-                    "label": "第67村落",
+                    "name": "复制庇护所",
+                    "label": "复制庇护所",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "第67村落"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/复制庇护所.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "北之境界",
-                    "label": "北之境界",
+                    "name": "极限领域",
+                    "label": "极限领域",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "北之境界"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/极限领域.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "被遗忘的神殿",
-                    "label": "被遗忘的神殿",
+                    "name": "逝去战士们的武器库",
+                    "label": "逝去战士们的武器库",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "被遗忘的神殿"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Gotterdammerung/逝去战士们的武器库.png"
                             ]
                         }
                     }

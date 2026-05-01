@@ -3,164 +3,164 @@
         "由伽刹多罗": {
             "type": "select",
             "label": "关卡",
-            "default": "起始点",
+            "default": "修行的旅途",
             "cases": [
                 {
-                    "name": "起始点",
-                    "label": "起始点",
+                    "name": "修行的旅途",
+                    "label": "修行的旅途",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "起始点"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/修行的旅途.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "比丘",
-                    "label": "比丘",
+                    "name": "虔诚的城镇",
+                    "label": "虔诚的城镇",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "比丘"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/虔诚的城镇.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "隐遁窟",
-                    "label": "隐遁窟",
+                    "name": "冥想的岩室",
+                    "label": "冥想的岩室",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "隐遁窟"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/冥想的岩室.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "北之灵峰",
-                    "label": "北之灵峰",
+                    "name": "开悟之顶",
+                    "label": "开悟之顶",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "北之灵峰"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/开悟之顶.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "西之断层",
-                    "label": "西之断层",
+                    "name": "祈祷的广场",
+                    "label": "祈祷的广场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "西之断层"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/祈祷的广场.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "迪瓦尔",
-                    "label": "迪瓦尔",
+                    "name": "壁之村",
+                    "label": "壁之村",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "迪瓦尔"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/壁之村.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "神之空岩遗迹",
-                    "label": "神之空岩遗迹",
+                    "name": "恶魔的领地",
+                    "label": "恶魔的领地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "神之空岩遗迹"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/恶魔的领地.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "南之城镇",
-                    "label": "南之城镇",
+                    "name": "治愈的城镇",
+                    "label": "治愈的城镇",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "南之城镇"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/治愈的城镇.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "无穷之地",
-                    "label": "无穷之地",
+                    "name": "大龙的床铺",
+                    "label": "大龙的床铺",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "无穷之地"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/大龙的床铺.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "东之花园",
-                    "label": "东之花园",
+                    "name": "提婆界",
+                    "label": "提婆界",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "东之花园"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Yugakshetra/提婆界.png"
                             ]
                         }
                     }

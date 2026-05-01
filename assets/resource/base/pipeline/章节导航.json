@@ -3,179 +3,137 @@
         "next": [
             "寻找OrdealCall"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "SIN": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "Traum": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "next": [
+            "进入主线记录",
+            "[JumpBack]主线记录导航"
+        ]
     },
     "七丘之城": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "下总国": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "亚特兰蒂斯": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "伦敦": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "俄刻阿诺斯": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "冬木": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "卡美洛": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "合众为一": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "塞勒姆": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "奥尔良": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "奥林波斯": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "巴比伦尼亚": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "平安京": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "next": [
+            "进入主线记录",
+            "[JumpBack]主线记录导航"
+        ]
     },
     "平面之月": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "新宿": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "由伽刹多罗": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "章节导航": {
         "next": [
             "冬木"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "纳维米克特兰": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "诸神黄昏": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "阿瓦隆勒菲": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "阿纳斯塔西娅": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "雅戈泰": {
         "next": [
             "进入主线记录",
             "[JumpBack]主线记录导航"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     }
 }

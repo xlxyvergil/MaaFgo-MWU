@@ -3,14 +3,261 @@
         "纳维米克特兰": {
             "type": "select",
             "label": "关卡",
-            "default": "q奇科莫斯托克",
+            "default": "七座洞窟",
             "cases": [
                 {
-                    "name": "残留的神话",
-                    "label": "残留的神话",
+                    "name": "七座洞窟",
+                    "label": "七座洞窟",
                     "pipeline_override": {
-                        "OrdealCall关卡导航": {
-                            "next": "残留的神话"
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "奇科莫斯托克"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/七座洞窟.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "咏星之丘",
+                    "label": "咏星之丘",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "贤者的隐居之所"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/咏星之丘.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "伟大太阳的恩惠",
+                    "label": "伟大太阳的恩惠",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "玉米地"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/伟大太阳的恩惠.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "没有尽头之河",
+                    "label": "没有尽头之河",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "特拉特拉乌基"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/没有尽头之河.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "硕果之大平原",
+                    "label": "硕果之大平原",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "大平原"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/硕果之大平原.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "黄金都市",
+                    "label": "黄金都市",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "奇琴伊察"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/黄金都市.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "豹之力量",
+                    "label": "豹之力量",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "坠机点"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/豹之力量.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "神话的王国",
+                    "label": "神话的王国",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "卡恩的废墟"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/神话的王国.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "刃与风之谷",
+                    "label": "刃与风之谷",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "伊斯塔乌基"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/刃与风之谷.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "血与鸟之湖",
+                    "label": "血与鸟之湖",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "墨西哥城"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/血与鸟之湖.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "神之肉",
+                    "label": "神之肉",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "烤玉米地"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/神之肉.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "银河沙丘",
+                    "label": "银河沙丘",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "索索亚乌基"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/银河沙丘.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "歌唱的伊鲁维卡亚特尔",
+                    "label": "歌唱的伊鲁维卡亚特尔",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "梅兹蒂特兰"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/歌唱的伊鲁维卡亚特尔.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "蝙蝠的宫殿",
+                    "label": "蝙蝠的宫殿",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "蒂卡尔遗迹"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/蝙蝠的宫殿.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "没有太阳的地底山脉",
+                    "label": "没有太阳的地底山脉",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "亚亚乌基"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/没有太阳的地底山脉.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "水之废都",
+                    "label": "水之废都",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "卡拉克穆尔"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/水之废都.png"
+                            ]
                         }
                     }
                 }

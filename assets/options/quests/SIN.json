@@ -3,180 +3,180 @@
         "SIN": {
             "type": "select",
             "label": "关卡",
-            "default": "播种地",
+            "default": "收获日子",
             "cases": [
                 {
-                    "name": "播种地",
-                    "label": "播种地",
+                    "name": "收获日子",
+                    "label": "收获日子",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "播种地"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/收获日子.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "邻村",
-                    "label": "邻村",
+                    "name": "凄凄切切",
+                    "label": "凄凄切切",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "邻村"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/凄凄切切.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "冰冷窟",
-                    "label": "冰冷窟",
+                    "name": "不入虎穴焉得虎子",
+                    "label": "不入虎穴焉得虎子",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "冰冷窟"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/不入虎穴焉得虎子.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "芥之阵营",
-                    "label": "芥之阵营",
+                    "name": "雏芥子之园",
+                    "label": "雏芥子之园",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "芥之阵营"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/雏芥子之园.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "景阳原",
-                    "label": "景阳原",
+                    "name": "仰不愧天",
+                    "label": "仰不愧天",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "景阳原"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/仰不愧天.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "山阳丘",
-                    "label": "山阳丘",
+                    "name": "有朋远来",
+                    "label": "有朋远来",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "山阳丘"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/有朋远来.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "收容所",
-                    "label": "收容所",
+                    "name": "青天白日",
+                    "label": "青天白日",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "收容所"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/青天白日.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "石泉峡",
-                    "label": "石泉峡",
+                    "name": "水紫山明",
+                    "label": "水紫山明",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "石泉峡"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/水紫山明.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "大坪峪",
-                    "label": "大坪峪",
+                    "name": "白黑分明",
+                    "label": "白黑分明",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "大坪峪"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/白黑分明.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "咸阳",
-                    "label": "咸阳",
+                    "name": "凤鸣朝阳",
+                    "label": "凤鸣朝阳",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "咸阳"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/凤鸣朝阳.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "八门洞",
-                    "label": "八门洞",
+                    "name": "地下锻炼场",
+                    "label": "地下锻炼场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "八门洞"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/SIN/地下锻炼场.png"
                             ]
                         }
                     }

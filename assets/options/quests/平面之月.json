@@ -3,180 +3,180 @@
         "平面之月": {
             "type": "select",
             "label": "关卡",
-            "default": "修理部郊外",
+            "default": "隔离设施",
             "cases": [
                 {
-                    "name": "修理部郊外",
-                    "label": "修理部郊外",
+                    "name": "隔离设施",
+                    "label": "隔离设施",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "修理部郊外"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/隔离设施.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "修理部本部",
-                    "label": "修理部本部",
+                    "name": "急救讲座",
+                    "label": "急救讲座",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "修理部总部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/急救讲座.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "警防部本部",
-                    "label": "警防部本部",
+                    "name": "中央教会",
+                    "label": "中央教会",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "警防部总部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/中央教会.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "生产部农地",
-                    "label": "生产部农地",
+                    "name": "素材农场",
+                    "label": "素材农场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "生产部农地"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/素材农场.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "警防部广场",
-                    "label": "警防部广场",
+                    "name": "警备训练程序",
+                    "label": "警备训练程序",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "警防部广场"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/警备训练程序.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "维持部本部",
-                    "label": "维持部本部",
+                    "name": "战斗厨房",
+                    "label": "战斗厨房",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "维持部本部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/战斗厨房.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "外围部",
-                    "label": "外围部",
+                    "name": "建设中",
+                    "label": "建设中",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "外围部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/建设中.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "转运部本部",
-                    "label": "转运部本部",
+                    "name": "车库区域",
+                    "label": "车库区域",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "转运部本部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/车库区域.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "维持部商业街",
-                    "label": "维持部商业街",
+                    "name": "摊贩一条街",
+                    "label": "摊贩一条街",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "维持部商业街"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/摊贩一条街.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "构筑部本部",
-                    "label": "构筑部本部",
+                    "name": "错误修正",
+                    "label": "错误修正",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "构筑部本部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/错误修正.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "生产部本部",
-                    "label": "生产部本部",
+                    "name": "巨型仓储",
+                    "label": "巨型仓储",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "生产部本部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/PaperMoon/巨型仓储.png"
                             ]
                         }
                     }

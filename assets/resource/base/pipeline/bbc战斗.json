@@ -1,41 +1,41 @@
 {
     "bbc任务完成": {
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "bbc战斗": {
         "next": [
             "执行BBC任务"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "使用chaldea队伍": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "import_chaldea_team"
-            }
-        },
+        "action": "Custom",
         "attach": {
             "chaldea_import_source": ""
         },
         "next": [
             "执行BBC任务"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "custom_action": "import_chaldea_team"
+    },
+    "启动bbc": {
+        "action": "Custom",
+        "attach": {
+            "connect": "auto",
+            "ld_index": 0,
+            "ld_path": "",
+            "manual_port": "",
+            "mumu_app_index": 0,
+            "mumu_index": 0,
+            "mumu_path": "",
+            "mumu_pkg": "com.bilibili.fatego"
+        },
+        "recognition": "DirectHit",
+        "custom_action": "start_bbc"
     },
     "执行BBC任务": {
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "execute_bbc_task"
-            }
-        },
+        "action": "Custom",
         "attach": {
             "apple_type": "铜苹果",
             "battle_type": 0,
@@ -47,29 +47,7 @@
         "next": [
             "bbc任务完成"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
-    },
-    "启动bbc": {
-        "recognition": {
-            "type": "DirectHit"
-        },
-        "action": {
-            "type": "Custom",
-            "param": {
-                "custom_action": "start_bbc"
-            }
-        },
-        "attach": {
-            "connect": "auto",
-            "ld_index": 0,
-            "ld_path": "",
-            "manual_port": "",
-            "mumu_app_index": 0,
-            "mumu_index": 0,
-            "mumu_path": "",
-            "mumu_pkg": "com.bilibili.fatego"
-        }
+        "recognition": "DirectHit",
+        "custom_action": "execute_bbc_task"
     }
 }

@@ -1,1415 +1,997 @@
 {
     "OrdealCall-滑动": {
-        "action": {
-            "type": "Swipe",
-            "param": {
-                "begin": [
-                    1220,
-                    524,
-                    1,
-                    1
-                ],
-                "end": [
-                    [
-                        1230,
-                        369,
-                        1,
-                        1
-                    ]
-                ]
-            }
-        },
+        "action": "Swipe",
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "begin": [
+            1220,
+            524,
+            1,
+            1
+        ],
+        "end": [
+            [
+                1230,
+                369,
+                1,
+                1
+            ]
+        ]
     },
     "OrdealCall-识别": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "奏1基准点"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    655,
-                    96,
-                    580,
-                    498
-                ],
-                "template": [
-                    "ordealcall/OrdealCall-识别.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            655,
+            96,
+            580,
+            498
+        ],
+        "template": [
+            "ordealcall/OrdealCall-识别.png"
+        ]
     },
     "OrdealCall关卡导航": {
         "next": [
             "残留的神话"
         ],
         "post_wait_freezes": 5000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "举世之飞将军": {
         "next": [
             "举世之飞将军-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "举世之飞将军-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    907,
-                    239,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "举世之飞将军-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            907,
+            239,
+            1,
+            1
+        ]
     },
     "举世之飞将军-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    902,
-                    167,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/举世之飞将军.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/举世之飞将军.png"
+        ],
+        "target": [
+            902,
+            167,
+            1,
+            1
+        ]
     },
     "久远的微笑": {
         "next": [
             "久远的微笑-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "久远的微笑-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    404,
-                    203,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "归位2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            404,
+            203,
+            1,
+            1
+        ]
     },
     "久远的微笑-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    913,
-                    351,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/久远的微笑.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/久远的微笑.png"
+        ],
+        "target": [
+            913,
+            351,
+            1,
+            1
+        ]
     },
     "于荒野萌芽的王之花": {
         "next": [
             "于荒野萌芽的王之花-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "于荒野萌芽的王之花-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    605,
-                    642,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "于荒野萌芽的王之花-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            605,
+            642,
+            1,
+            1
+        ]
     },
     "于荒野萌芽的王之花-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    924,
-                    166,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/于荒野萌芽的王之花.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/于荒野萌芽的王之花.png"
+        ],
+        "target": [
+            924,
+            166,
+            1,
+            1
+        ]
     },
     "任务开始": {
-        "action": {
-            "type": "Click"
-        },
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/任务开始.png"
-                ]
-            }
-        }
+        "action": "Click",
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/任务开始.png"
+        ]
     },
     "光之丝线引导的迷宫": {
         "next": [
             "光之丝线引导的迷宫-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "光之丝线引导的迷宫-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    403,
-                    200,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "归位1"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            403,
+            200,
+            1,
+            1
+        ]
     },
     "光之丝线引导的迷宫-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    925,
-                    178,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/光之丝线引导的迷宫.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/光之丝线引导的迷宫.png"
+        ],
+        "target": [
+            925,
+            178,
+            1,
+            1
+        ]
     },
     "冻土的试炼": {
         "next": [
             "冻土的试炼-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "冻土的试炼-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    653,
-                    186,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "冻土的试炼-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            653,
+            186,
+            1,
+            1
+        ]
     },
     "冻土的试炼-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    929,
-                    177,
-                    0,
-                    2
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/冻土的试炼.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/冻土的试炼.png"
+        ],
+        "target": [
+            929,
+            177,
+            0,
+            2
+        ]
     },
     "噩梦的南瓜": {
         "next": [
             "噩梦的南瓜-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "噩梦的南瓜-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    597,
-                    220,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "噩梦的南瓜-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            597,
+            220,
+            1,
+            1
+        ]
     },
     "噩梦的南瓜-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    921,
-                    177,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/噩梦的南瓜.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/噩梦的南瓜.png"
+        ],
+        "target": [
+            921,
+            177,
+            1,
+            1
+        ]
     },
     "基准返回": {
-        "action": {
-            "type": "ClickKey",
-            "param": {
-                "key": [
-                    111
-                ]
-            }
-        },
+        "action": "ClickKey",
         "next": [
             "OrdealCall关卡导航"
         ],
         "post_wait_freezes": 5000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "key": [
+            111
+        ]
     },
     "复活的黄金都市": {
         "next": [
             "复活的黄金都市-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "复活的黄金都市-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    432,
-                    402,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "复活的黄金都市-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            432,
+            402,
+            1,
+            1
+        ]
     },
     "复活的黄金都市-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    929,
-                    180,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/复活的黄金都市.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/复活的黄金都市.png"
+        ],
+        "target": [
+            929,
+            180,
+            1,
+            1
+        ]
     },
     "复苏的远古浪漫": {
         "next": [
             "复苏的远古浪漫-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "复苏的远古浪漫-1": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [
-                    1232,
-                    511,
-                    1,
-                    1
-                ],
-                "duration": 390
-            }
-        },
+        "action": "LongPress",
         "next": [
             "复苏的远古浪漫-2"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "duration": 390,
+        "target": [
+            1232,
+            511,
+            1,
+            1
+        ]
     },
     "复苏的远古浪漫-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    661,
-                    337,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "复苏的远古浪漫-3"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            661,
+            337,
+            1,
+            1
+        ]
     },
     "复苏的远古浪漫-3": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/复苏的远古浪漫.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/复苏的远古浪漫.png"
+        ]
     },
     "大堡礁之卵": {
         "next": [
             "大堡礁之卵-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "大堡礁之卵-1": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [
-                    1232,
-                    511,
-                    1,
-                    1
-                ],
-                "duration": 1000
-            }
-        },
+        "action": "LongPress",
         "next": [
             "大堡礁之卵-2"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "duration": 1000,
+        "target": [
+            1232,
+            511,
+            1,
+            1
+        ]
     },
     "大堡礁之卵-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    689,
-                    608,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "大堡礁之卵-3"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            689,
+            608,
+            1,
+            1
+        ]
     },
     "大堡礁之卵-3": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/大堡礁之卵.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/大堡礁之卵.png"
+        ]
     },
     "奏1基准点": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "基准返回"
         ],
         "post_wait_freezes": 5000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/奏章1基准点.png"
-                ],
-                "threshold": [
-                    0.85
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/奏章1基准点.png"
+        ],
+        "threshold": [
+            0.85
+        ]
     },
     "寻找OrdealCall": {
         "next": [
             "OrdealCall-识别",
             "[JumpBack]OrdealCall-滑动"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "寻求女神像": {
         "next": [
             "寻求女神像-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "寻求女神像-1": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [
-                    1232,
-                    511,
-                    1,
-                    1
-                ],
-                "duration": 390
-            }
-        },
+        "action": "LongPress",
         "next": [
             "寻求女神像-2"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "duration": 390,
+        "target": [
+            1232,
+            511,
+            1,
+            1
+        ]
     },
     "寻求女神像-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    740,
-                    269,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "寻求女神像-3"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            740,
+            269,
+            1,
+            1
+        ]
     },
     "寻求女神像-3": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/寻求女神像.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/寻求女神像.png"
+        ]
     },
     "常夏展销会场": {
         "next": [
             "常夏展销会场-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "常夏展销会场-1": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [
-                    1232,
-                    511,
-                    1,
-                    1
-                ],
-                "duration": 390
-            }
-        },
+        "action": "LongPress",
         "next": [
             "常夏展销会场-2"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "duration": 390,
+        "target": [
+            1232,
+            511,
+            1,
+            1
+        ]
     },
     "常夏展销会场-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    362,
-                    316,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "归位6"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            362,
+            316,
+            1,
+            1
+        ]
     },
     "常夏展销会场-3": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/常夏展销会场.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/常夏展销会场.png"
+        ]
     },
     "常夏的休假": {
         "next": [
             "常夏的休假-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "常夏的休假-1": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [
-                    1232,
-                    511,
-                    1,
-                    1
-                ],
-                "duration": 390
-            }
-        },
+        "action": "LongPress",
         "next": [
             "常夏的休假-2"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "duration": 390,
+        "target": [
+            1232,
+            511,
+            1,
+            1
+        ]
     },
     "常夏的休假-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    362,
-                    316,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "归位5"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            362,
+            316,
+            1,
+            1
+        ]
     },
     "常夏的休假-3": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/常夏的休假.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/常夏的休假.png"
+        ]
     },
     "归位1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1257,
-                    109,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "光之丝线引导的迷宫-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    799,
-                    1,
-                    481,
-                    84
-                ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            799,
+            1,
+            481,
+            84
+        ],
+        "template": [
+            "ordealcall/oc.png"
+        ],
+        "target": [
+            1257,
+            109,
+            1,
+            1
+        ]
     },
     "归位2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1257,
-                    109,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "久远的微笑-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    799,
-                    1,
-                    481,
-                    84
-                ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            799,
+            1,
+            481,
+            84
+        ],
+        "template": [
+            "ordealcall/oc.png"
+        ],
+        "target": [
+            1257,
+            109,
+            1,
+            1
+        ]
     },
     "归位3": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1257,
-                    109,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "赏金猎人数光年-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    799,
-                    1,
-                    481,
-                    84
-                ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            799,
+            1,
+            481,
+            84
+        ],
+        "template": [
+            "ordealcall/oc.png"
+        ],
+        "target": [
+            1257,
+            109,
+            1,
+            1
+        ]
     },
     "归位4": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1257,
-                    109,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "月光矿区-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    799,
-                    1,
-                    481,
-                    84
-                ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            799,
+            1,
+            481,
+            84
+        ],
+        "template": [
+            "ordealcall/oc.png"
+        ],
+        "target": [
+            1257,
+            109,
+            1,
+            1
+        ]
     },
     "归位5": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1257,
-                    109,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "常夏的休假-3"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    799,
-                    1,
-                    481,
-                    84
-                ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            799,
+            1,
+            481,
+            84
+        ],
+        "template": [
+            "ordealcall/oc.png"
+        ],
+        "target": [
+            1257,
+            109,
+            1,
+            1
+        ]
     },
     "归位6": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    1257,
-                    109,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "常夏展销会场-3"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    799,
-                    1,
-                    481,
-                    84
-                ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "roi": [
+            799,
+            1,
+            481,
+            84
+        ],
+        "template": [
+            "ordealcall/oc.png"
+        ],
+        "target": [
+            1257,
+            109,
+            1,
+            1
+        ]
     },
     "月光矿区": {
         "next": [
             "月光矿区-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "月光矿区-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    767,
-                    370,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "归位4"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            767,
+            370,
+            1,
+            1
+        ]
     },
     "月光矿区-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    906,
-                    347,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/月光矿区.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/月光矿区.png"
+        ],
+        "target": [
+            906,
+            347,
+            1,
+            1
+        ]
     },
     "残留的神话": {
         "next": [
             "残留的神话-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "残留的神话-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    570,
-                    164,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "残留的神话-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            570,
+            164,
+            1,
+            1
+        ]
     },
     "残留的神话-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    908,
-                    178,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/残留的神话.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/残留的神话.png"
+        ],
+        "target": [
+            908,
+            178,
+            1,
+            1
+        ]
     },
     "神秘主义者与魂之故乡": {
         "next": [
             "神秘主义者与魂之故乡-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "神秘主义者与魂之故乡-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    879,
-                    358,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "神秘主义者与魂之故乡-2"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            879,
+            358,
+            1,
+            1
+        ]
     },
     "神秘主义者与魂之故乡-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    925,
-                    169,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/神秘主义者与魂之故乡.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/神秘主义者与魂之故乡.png"
+        ],
+        "target": [
+            925,
+            169,
+            1,
+            1
+        ]
     },
     "荒野的欢乐": {
         "next": [
             "荒野的欢乐-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "荒野的欢乐-1": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [
-                    1232,
-                    511,
-                    1,
-                    1
-                ],
-                "duration": 390
-            }
-        },
+        "action": "LongPress",
         "next": [
             "荒野的欢乐-2"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "duration": 390,
+        "target": [
+            1232,
+            511,
+            1,
+            1
+        ]
     },
     "荒野的欢乐-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    543,
-                    297,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "荒野的欢乐-3"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            543,
+            297,
+            1,
+            1
+        ]
     },
     "荒野的欢乐-3": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/荒野的欢乐.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/荒野的欢乐.png"
+        ]
     },
     "蛇龙的恶作剧": {
         "next": [
             "蛇龙的恶作剧-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "蛇龙的恶作剧-1": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [
-                    1232,
-                    511,
-                    1,
-                    1
-                ],
-                "duration": 1000
-            }
-        },
+        "action": "LongPress",
         "next": [
             "蛇龙的恶作剧-2"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "duration": 1000,
+        "target": [
+            1232,
+            511,
+            1,
+            1
+        ]
     },
     "蛇龙的恶作剧-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    636,
-                    659,
-                    1,
-                    0
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "蛇龙的恶作剧-3"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            636,
+            659,
+            1,
+            0
+        ]
     },
     "蛇龙的恶作剧-3": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/蛇龙的恶作剧.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/蛇龙的恶作剧.png"
+        ]
     },
     "赏金猎人数光年": {
         "next": [
             "赏金猎人数光年-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "赏金猎人数光年-1": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    767,
-                    370,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "归位3"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            767,
+            370,
+            1,
+            1
+        ]
     },
     "赏金猎人数光年-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    922,
-                    167,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/赏金猎人数光年.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/赏金猎人数光年.png"
+        ],
+        "target": [
+            922,
+            167,
+            1,
+            1
+        ]
     },
     "高贵的海盗": {
         "next": [
             "高贵的海盗-1"
         ],
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit"
     },
     "高贵的海盗-1": {
-        "action": {
-            "type": "LongPress",
-            "param": {
-                "target": [
-                    1232,
-                    511,
-                    1,
-                    1
-                ],
-                "duration": 390
-            }
-        },
+        "action": "LongPress",
         "next": [
             "高贵的海盗-2"
         ],
         "post_wait_freezes": 2000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "duration": 390,
+        "target": [
+            1232,
+            511,
+            1,
+            1
+        ]
     },
     "高贵的海盗-2": {
-        "action": {
-            "type": "Click",
-            "param": {
-                "target": [
-                    754,
-                    437,
-                    1,
-                    1
-                ]
-            }
-        },
+        "action": "Click",
         "next": [
             "高贵的海盗-3"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "DirectHit"
-        }
+        "recognition": "DirectHit",
+        "target": [
+            754,
+            437,
+            1,
+            1
+        ]
     },
     "高贵的海盗-3": {
-        "action": {
-            "type": "Click"
-        },
+        "action": "Click",
         "next": [
             "任务开始"
         ],
         "post_wait_freezes": 1000,
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "template": [
-                    "ordealcall/高贵的海盗.png"
-                ]
-            }
-        }
+        "recognition": "TemplateMatch",
+        "template": [
+            "ordealcall/高贵的海盗.png"
+        ]
     }
 }
