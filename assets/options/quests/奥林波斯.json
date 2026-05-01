@@ -3,180 +3,180 @@
         "奥林波斯": {
             "type": "select",
             "label": "关卡",
-            "default": "滑翔点",
+            "default": "不为人知的边境",
             "cases": [
                 {
-                    "name": "滑翔点",
-                    "label": "滑翔点",
+                    "name": "不为人知的边境",
+                    "label": "不为人知的边境",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "滑翔点"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/不为人知的边境.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "星间都市西部",
-                    "label": "星间都市西部",
+                    "name": "仰望大神殿之都市",
+                    "label": "仰望大神殿之都市",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "星间都市西部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/仰望大神殿之都市.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "星间都市南部",
-                    "label": "星间都市南部",
+                    "name": "大地与丰饶之都市",
+                    "label": "大地与丰饶之都市",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "星间都市南部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/大地与丰饶之都市.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "星间都市东部",
-                    "label": "星间都市东部",
+                    "name": "美与爱之都市",
+                    "label": "美与爱之都市",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "星间都市东部"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/美与爱之都市.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "祭坛街",
-                    "label": "祭坛街",
+                    "name": "神之膝下",
+                    "label": "神之膝下",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "祭坛街"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/神之膝下.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "破神同盟基地",
-                    "label": "破神同盟基地",
+                    "name": "前线地下",
+                    "label": "前线地下",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "破神同盟基地"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/前线地下.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "大工房",
-                    "label": "大工房",
+                    "name": "黎明的锻造场",
+                    "label": "黎明的锻造场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "大工房"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/黎明的锻造场.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "空中庭园",
-                    "label": "空中庭园",
+                    "name": "诸神庭园",
+                    "label": "诸神庭园",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "空中庭园"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/诸神庭园.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "机神回廊",
-                    "label": "机神回廊",
+                    "name": "巨神通道",
+                    "label": "巨神通道",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "机神回廊"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/巨神通道.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "大祭坛",
-                    "label": "大祭坛",
+                    "name": "神谕祭坛",
+                    "label": "神谕祭坛",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "大祭坛"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/神谕祭坛.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "地下机构带外围",
-                    "label": "地下机构带外围",
+                    "name": "秘密机库",
+                    "label": "秘密机库",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "地下机构带外围"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Olympus/秘密机库.png"
                             ]
                         }
                     }

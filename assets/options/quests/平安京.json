@@ -3,212 +3,212 @@
         "平安京": {
             "type": "select",
             "label": "关卡",
-            "default": "七条四坊",
+            "default": "侍从池领",
             "cases": [
                 {
-                    "name": "七条四坊",
-                    "label": "七条四坊",
+                    "name": "侍从池领",
+                    "label": "侍从池领",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "七条四坊"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/侍从池领.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "七条二坊",
-                    "label": "七条二坊",
+                    "name": "西七条",
+                    "label": "西七条",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "七条二坊"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/西七条.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "六条大路",
-                    "label": "六条大路",
+                    "name": "游街之刑",
+                    "label": "游街之刑",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "六条大路"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/游街之刑.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "贵族宅邸",
-                    "label": "贵族宅邸",
+                    "name": "中川附近",
+                    "label": "中川附近",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "贵族宅邸"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/中川附近.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "朱雀门",
-                    "label": "朱雀门",
+                    "name": "天子南面",
+                    "label": "天子南面",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "朱雀门"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/天子南面.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "平安宫",
-                    "label": "平安宫",
+                    "name": "宴之松原",
+                    "label": "宴之松原",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "平安宫"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/宴之松原.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "朱雀大路",
-                    "label": "朱雀大路",
+                    "name": "千本通",
+                    "label": "千本通",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "朱雀大路"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/千本通.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "稻荷神社",
-                    "label": "稻荷神社",
+                    "name": "狐之洞窟",
+                    "label": "狐之洞窟",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "稻荷神社"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/狐之洞窟.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "大宫大路",
-                    "label": "大宫大路",
+                    "name": "百鬼夜行",
+                    "label": "百鬼夜行",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "大宫大路"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/百鬼夜行.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "赖光的宅邸",
-                    "label": "赖光的宅邸",
+                    "name": "一条宅邸",
+                    "label": "一条宅邸",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "赖光的宅邸"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/一条宅邸.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "五条大桥",
-                    "label": "五条大桥",
+                    "name": "邂逅之桥",
+                    "label": "邂逅之桥",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "五条大桥"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/邂逅之桥.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "大江山",
-                    "label": "大江山",
+                    "name": "鬼之栖所",
+                    "label": "鬼之栖所",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "大江山"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/鬼之栖所.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "三条三坊",
-                    "label": "三条三坊",
+                    "name": "鬼之游乐场",
+                    "label": "鬼之游乐场",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "三条三坊"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Heiankyo/鬼之游乐场.png"
                             ]
                         }
                     }

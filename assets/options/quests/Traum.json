@@ -3,260 +3,260 @@
         "Traum": {
             "type": "select",
             "label": "关卡",
-            "default": "边界城镇",
+            "default": "阵地建造",
             "cases": [
                 {
-                    "name": "边界城镇",
-                    "label": "边界城镇",
+                    "name": "阵地建造",
+                    "label": "阵地建造",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "边界城镇"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/阵地建造.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "破晓平原",
-                    "label": "破晓平原",
+                    "name": "愚者的岔路",
+                    "label": "愚者的岔路",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "破晓平原"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/愚者的岔路.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "中部森林",
-                    "label": "中部森林",
+                    "name": "三界分立",
+                    "label": "三界分立",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "中部森林"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/三界分立.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "黄昏之森",
-                    "label": "黄昏之森",
+                    "name": "隐者的退路",
+                    "label": "隐者的退路",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "黄昏之森"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/隐者的退路.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "天崄山脉",
-                    "label": "天崄山脉",
+                    "name": "要害之堡垒",
+                    "label": "要害之堡垒",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "天崄山脉"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/要害之堡垒.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "王道界域据点",
-                    "label": "王道界域据点",
+                    "name": "遍历之都",
+                    "label": "遍历之都",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "王道界域据点"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/遍历之都.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "克桑滕之塔",
-                    "label": "克桑滕之塔",
+                    "name": "月光大炮增幅装置",
+                    "label": "月光大炮增幅装置",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "克桑滕之塔"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/月光大炮增幅装置.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "阿查果克堡垒",
-                    "label": "阿查果克堡垒",
+                    "name": "傀儡的根据地",
+                    "label": "傀儡的根据地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "阿查果克堡垒"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/傀儡的根据地.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "湖畔平原",
-                    "label": "湖畔平原",
+                    "name": "柔和的残响",
+                    "label": "柔和的残响",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "湖畔平原"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/柔和的残响.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "锡尔米乌姆",
-                    "label": "锡尔米乌姆",
+                    "name": "一夜要塞",
+                    "label": "一夜要塞",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "锡尔米乌姆"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/一夜要塞.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "复权界域据点",
-                    "label": "复权界域据点",
+                    "name": "赎罪之都",
+                    "label": "赎罪之都",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "复权界域据点"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/赎罪之都.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "门前平原",
-                    "label": "门前平原",
+                    "name": "赤空之地",
+                    "label": "赤空之地",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "门前平原"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/赤空之地.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "复仇界域据点",
-                    "label": "复仇界域据点",
+                    "name": "鲜红的绚烂与漆黑的疯狂",
+                    "label": "鲜红的绚烂与漆黑的疯狂",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "复仇界域据点"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/鲜红的绚烂与漆黑的疯狂.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "莱辛巴赫",
-                    "label": "莱辛巴赫",
+                    "name": "失落的瀑布",
+                    "label": "失落的瀑布",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "莱辛巴赫"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/失落的瀑布.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "止境荒野",
-                    "label": "止境荒野",
+                    "name": "未确认领域",
+                    "label": "未确认领域",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "止境荒野"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/未确认领域.png"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "约维努斯堡垒",
-                    "label": "约维努斯堡垒",
+                    "name": "外墙修补中",
+                    "label": "外墙修补中",
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "q变动坐标点0号"
+                                "quests": "约维努斯堡垒"
                             }
                         },
                         "关卡选择": {
                             "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
+                                "map/Traum/外墙修补中.png"
                             ]
                         }
                     }

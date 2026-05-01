@@ -1,0 +1,67 @@
+{
+    "无主线滑动": {
+        "action": "Swipe",
+        "begin": [
+            1229,
+            544,
+            6,
+            5
+        ],
+        "end": [
+            1228,
+            283,
+            9,
+            9
+        ],
+        "recognition": "DirectHit"
+    },
+    "无主线记录": {
+        "next": [
+            "无主线记录通用识别",
+            "[JumpBack]无主线滑动"
+        ],
+        "recognition": "DirectHit"
+    },
+    "无主线记录通用导航": {
+        "next": [
+            "[JumpBack]需要回归主界面",
+            "无主线记录"
+        ],
+        "recognition": "DirectHit"
+    },
+    "无主线记录通用识别": {
+        "action": "Click",
+        "next": [
+            "地图坐标导航"
+        ],
+        "recognition": "TemplateMatch",
+        "roi": [
+            656,
+            114,
+            569,
+            490
+        ],
+        "template": "CitLostbelt/阿纳斯塔西娅.png"
+    },
+    "需要回归主界面": {
+        "max_hit": 2,
+        "next": [
+            "回主界面"
+        ],
+        "recognition": "DirectHit"
+    },
+    "Ordeal二次点击": {
+        "recognition": "TemplateMatch",
+        "action": "Click",
+        "next": [
+            "地图坐标导航"
+        ],
+        "roi": [
+            656,
+            82,
+            574,
+            489
+        ],
+        "template": "ordealcall/平面之月.png"
+    }
+}

@@ -403,6 +403,11 @@
                             "attach": {
                                 "chapter": "阿纳斯塔西娅"
                             }
+                        },
+                        "无主线记录通用识别": {
+                            "template": [
+                                "CitLostbelt/阿纳斯塔西娅.png"
+                            ]
                         }
                     }
                 },
@@ -420,6 +425,11 @@
                             "attach": {
                                 "chapter": "诸神黄昏"
                             }
+                        },
+                        "无主线记录通用识别": {
+                            "template": [
+                                "CitLostbelt/诸神黄昏.png"
+                            ]
                         }
                     }
                 },
@@ -437,6 +447,11 @@
                             "attach": {
                                 "chapter": "SIN"
                             }
+                        },
+                        "无主线记录通用识别": {
+                            "template": [
+                                "CitLostbelt/SIN.png"
+                            ]
                         }
                     }
                 },
@@ -454,6 +469,11 @@
                             "attach": {
                                 "chapter": "由伽刹多罗"
                             }
+                        },
+                        "无主线记录通用识别": {
+                            "template": [
+                                "CitLostbelt/由伽刹多罗.png"
+                            ]
                         }
                     }
                 },
@@ -471,6 +491,11 @@
                             "attach": {
                                 "chapter": "亚特兰蒂斯"
                             }
+                        },
+                        "无主线记录通用识别": {
+                            "template": [
+                                "CitLostbelt/亚特兰蒂斯.png"
+                            ]
                         }
                     }
                 },
@@ -488,6 +513,11 @@
                             "attach": {
                                 "chapter": "奥林波斯"
                             }
+                        },
+                        "无主线记录通用识别": {
+                            "template": [
+                                "CitLostbelt/奥林波斯.png"
+                            ]
                         }
                     }
                 },
@@ -505,6 +535,11 @@
                             "attach": {
                                 "chapter": "阿瓦隆勒菲"
                             }
+                        },
+                        "无主线记录通用识别": {
+                            "template": [
+                                "CitLostbelt/阿瓦隆勒菲.png"
+                            ]
                         }
                     }
                 },
@@ -517,6 +552,12 @@
                     "pipeline_override": {
                         "章节导航": {
                             "next": "纳维米克特兰"
+                        },
+                        "无主线记录通用识别": {
+                            "next": "纳维米克特兰导航",
+                            "template": [
+                                "CitLostbelt/纳维米克特兰.png"
+                            ]
                         }
                     }
                 },
@@ -534,6 +575,21 @@
                             "attach": {
                                 "chapter": "平安京"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "CitLostbelt/平安京.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "CitLostbelt/主线物语-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "CitLostbelt/主线物语.png"
+                            ]
                         }
                     }
                 },
@@ -551,6 +607,21 @@
                             "attach": {
                                 "chapter": "Traum"
                             }
+                        },
+                        "找到进入主线记录章节": {
+                            "template": [
+                                "CitLostbelt/Traum.png"
+                            ]
+                        },
+                        "进入主线记录": {
+                            "template": [
+                                "CitLostbelt/主线物语-1.png"
+                            ]
+                        },
+                        "点击主线记录": {
+                            "template": [
+                                "CitLostbelt/主线物语.png"
+                            ]
                         }
                     }
                 },
