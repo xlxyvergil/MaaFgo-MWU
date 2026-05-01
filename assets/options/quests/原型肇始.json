@@ -1,0 +1,251 @@
+{
+    "option": {
+        "原型肇始": {
+            "type": "select",
+            "label": "关卡",
+            "default": "名流之船",
+            "cases": [
+                {
+                    "name": "名流之船",
+                    "label": "名流之船",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "特别航路"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/名流之船.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "奢华自助",
+                    "label": "奢华自助",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "马里昂酒店"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/奢华自助.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "幻想巡游",
+                    "label": "幻想巡游",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "千年城游乐园"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/幻想巡游.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "月球之巅",
+                    "label": "月球之巅",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "哈利法塔"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/月球之巅.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "月球巡航",
+                    "label": "月球巡航",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "迪拜云溪港"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/月球巡航.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "月球巴士岛",
+                    "label": "月球巴士岛",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "朱美拉棕榈岛"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/月球巴士岛.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "月球漫步",
+                    "label": "月球漫步",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "旧迪拜"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/月球漫步.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "月球街道",
+                    "label": "月球街道",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "市中心"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/月球街道.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "月球购物",
+                    "label": "月球购物",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "高扬购物中心"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/月球购物.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "月球迪拜喷泉",
+                    "label": "月球迪拜喷泉",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "喷泉广场"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/月球迪拜喷泉.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "机械城市",
+                    "label": "机械城市",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "机械工厂"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/机械城市.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "蛋糕桌之园",
+                    "label": "蛋糕桌之园",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "环形山中心区"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/蛋糕桌之园.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "蠕虫沙盒",
+                    "label": "蠕虫沙盒",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "沙上航线"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/蠕虫沙盒.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "运算都市",
+                    "label": "运算都市",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "商务区"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/运算都市.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "采集星辰",
+                    "label": "采集星辰",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "单元海滩"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Archetype/采集星辰.png"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

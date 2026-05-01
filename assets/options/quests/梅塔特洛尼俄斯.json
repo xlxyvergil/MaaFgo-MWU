@@ -1,0 +1,219 @@
+{
+    "option": {
+        "梅塔特洛尼俄斯": {
+            "type": "select",
+            "label": "关卡",
+            "default": "为色欲所笼罩之城",
+            "cases": [
+                {
+                    "name": "为色欲所笼罩之城",
+                    "label": "为色欲所笼罩之城",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "色欲区"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/为色欲所笼罩之城.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "久居则安的格拉纳特",
+                    "label": "久居则安的格拉纳特",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "格拉纳托"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/久居则安的格拉纳特.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "亡者聚集之河",
+                    "label": "亡者聚集之河",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "阿刻戎河"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/亡者聚集之河.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "回荡于冰原的叹息",
+                    "label": "回荡于冰原的叹息",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "永恒的冰狱"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/回荡于冰原的叹息.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "恶意翻涌的交锋",
+                    "label": "恶意翻涌的交锋",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "罪人的战场"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/恶意翻涌的交锋.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "悔悟的祈祷",
+                    "label": "悔悟的祈祷",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "愤怒区"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/悔悟的祈祷.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "惩戒邪恶之辈",
+                    "label": "惩戒邪恶之辈",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "大法庭"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/惩戒邪恶之辈.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "愤怒汇聚的死沼",
+                    "label": "愤怒汇聚的死沼",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "斯堤克斯沼泽"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/愤怒汇聚的死沼.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "楚楚可怜的贪婪城主",
+                    "label": "楚楚可怜的贪婪城主",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "贪婪圈的要塞"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/楚楚可怜的贪婪城主.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "沉溺于爱的罪人们",
+                    "label": "沉溺于爱的罪人们",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "色欲圈的城市"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/沉溺于爱的罪人们.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "狱犬的地盘",
+                    "label": "狱犬的地盘",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "暴食圈的要塞"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/狱犬的地盘.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "禁果之园",
+                    "label": "禁果之园",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "暴食区"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/禁果之园.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "魅惑的绝对支配",
+                    "label": "魅惑的绝对支配",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "暴力圈的城市"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Metatronius/魅惑的绝对支配.png"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

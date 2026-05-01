@@ -1,0 +1,203 @@
+{
+    "option": {
+        "伊底": {
+            "type": "select",
+            "label": "关卡",
+            "default": "不作美的天气",
+            "cases": [
+                {
+                    "name": "不作美的天气",
+                    "label": "不作美的天气",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "御台场"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/不作美的天气.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "习以为常的道路",
+                    "label": "习以为常的道路",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "上学路"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/习以为常的道路.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "伫立的摩天大楼",
+                    "label": "伫立的摩天大楼",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "西新宿"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/伫立的摩天大楼.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "启程的车站",
+                    "label": "启程的车站",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "东京站"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/启程的车站.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "宁静的放学后",
+                    "label": "宁静的放学后",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "学校"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/宁静的放学后.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "留校特训",
+                    "label": "留校特训",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "学校"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/留校特训.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "相遇的十字路口",
+                    "label": "相遇的十字路口",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "西新宿"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/相遇的十字路口.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "秘密的碰头",
+                    "label": "秘密的碰头",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "自家"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/秘密的碰头.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "突然叫出",
+                    "label": "突然叫出",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "学校"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/突然叫出.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "调查七大不可思议",
+                    "label": "调查七大不可思议",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "学校"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/调查七大不可思议.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "购物后归程",
+                    "label": "购物后归程",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "闹市区"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/购物后归程.png"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "鸟类观赏",
+                    "label": "鸟类观赏",
+                    "pipeline_override": {
+                        "地图坐标导航": {
+                            "attach": {
+                                "quests": "新宿御苑"
+                            }
+                        },
+                        "关卡选择": {
+                            "template": [
+                                "map/Gehenna/鸟类观赏.png"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
