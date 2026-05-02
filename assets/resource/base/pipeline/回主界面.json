@@ -12,9 +12,7 @@
             183,
             84
         ],
-        "template": [
-            "main_ui.png"
-        ],
+        "template": "main_ui.png",
         "threshold": 0.8
     },
     "主界面判断-返回": {
@@ -48,9 +46,7 @@
             53,
             62
         ],
-        "template": [
-            "回主界面/判断是否要初始化_1.png"
-        ]
+        "template": "回主界面/判断是否要初始化_1.png"
     },
     "回主界面": {
         "next": [

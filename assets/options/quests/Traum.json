@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/阵地建造.png"
-                            ]
+                            "template": "map/Traum/阵地建造.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/愚者的岔路.png"
-                            ]
+                            "template": "map/Traum/愚者的岔路.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/三界分立.png"
-                            ]
+                            "template": "map/Traum/三界分立.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/隐者的退路.png"
-                            ]
+                            "template": "map/Traum/隐者的退路.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/要害之堡垒.png"
-                            ]
+                            "template": "map/Traum/要害之堡垒.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/遍历之都.png"
-                            ]
+                            "template": "map/Traum/遍历之都.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/月光大炮增幅装置.png"
-                            ]
+                            "template": "map/Traum/月光大炮增幅装置.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/傀儡的根据地.png"
-                            ]
+                            "template": "map/Traum/傀儡的根据地.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/柔和的残响.png"
-                            ]
+                            "template": "map/Traum/柔和的残响.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/一夜要塞.png"
-                            ]
+                            "template": "map/Traum/一夜要塞.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/赎罪之都.png"
-                            ]
+                            "template": "map/Traum/赎罪之都.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/赤空之地.png"
-                            ]
+                            "template": "map/Traum/赤空之地.png"
                         }
                     }
                 },
@@ -207,9 +183,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/鲜红的绚烂与漆黑的疯狂.png"
-                            ]
+                            "template": "map/Traum/鲜红的绚烂与漆黑的疯狂.png"
                         }
                     }
                 },
@@ -223,9 +197,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/失落的瀑布.png"
-                            ]
+                            "template": "map/Traum/失落的瀑布.png"
                         }
                     }
                 },
@@ -239,9 +211,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/未确认领域.png"
-                            ]
+                            "template": "map/Traum/未确认领域.png"
                         }
                     }
                 },
@@ -255,9 +225,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Traum/外墙修补中.png"
-                            ]
+                            "template": "map/Traum/外墙修补中.png"
                         }
                     }
                 }

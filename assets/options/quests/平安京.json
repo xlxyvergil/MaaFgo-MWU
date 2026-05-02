@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/侍从池领.png"
-                            ]
+                            "template": "map/Heiankyo/侍从池领.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/西七条.png"
-                            ]
+                            "template": "map/Heiankyo/西七条.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/游街之刑.png"
-                            ]
+                            "template": "map/Heiankyo/游街之刑.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/中川附近.png"
-                            ]
+                            "template": "map/Heiankyo/中川附近.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/天子南面.png"
-                            ]
+                            "template": "map/Heiankyo/天子南面.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/宴之松原.png"
-                            ]
+                            "template": "map/Heiankyo/宴之松原.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/千本通.png"
-                            ]
+                            "template": "map/Heiankyo/千本通.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/狐之洞窟.png"
-                            ]
+                            "template": "map/Heiankyo/狐之洞窟.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/百鬼夜行.png"
-                            ]
+                            "template": "map/Heiankyo/百鬼夜行.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/一条宅邸.png"
-                            ]
+                            "template": "map/Heiankyo/一条宅邸.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/邂逅之桥.png"
-                            ]
+                            "template": "map/Heiankyo/邂逅之桥.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/鬼之栖所.png"
-                            ]
+                            "template": "map/Heiankyo/鬼之栖所.png"
                         }
                     }
                 },
@@ -207,9 +183,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Heiankyo/鬼之游乐场.png"
-                            ]
+                            "template": "map/Heiankyo/鬼之游乐场.png"
                         }
                     }
                 }

@@ -21,9 +21,7 @@
             "关闭连续出击"
         ],
         "recognition": "TemplateMatch",
-        "template": [
-            "下一步.png"
-        ],
+        "template": "下一步.png",
         "threshold": 0.8
     },
     "关闭连续出击": {
@@ -55,9 +53,7 @@
             "撤退"
         ],
         "recognition": "TemplateMatch",
-        "template": [
-            "撤退决定.png"
-        ],
+        "template": "撤退决定.png",
         "threshold": 0.8
     },
     "好友申请界面": {
@@ -73,9 +69,7 @@
             399,
             187
         ],
-        "template": [
-            "关闭好友申请.png"
-        ],
+        "template": "关闭好友申请.png",
         "threshold": 0.8
     },
     "完成": {
@@ -94,9 +88,7 @@
             "失败2"
         ],
         "recognition": "TemplateMatch",
-        "template": [
-            "撤退.png"
-        ],
+        "template": "撤退.png",
         "threshold": 0.8
     },
     "战斗结束-主界面": {
@@ -110,9 +102,7 @@
             208,
             155
         ],
-        "template": [
-            "菜单.png"
-        ]
+        "template": "菜单.png"
     },
     "战斗结束关闭": {
         "action": "Click",
@@ -120,9 +110,7 @@
             "回主界面"
         ],
         "recognition": "TemplateMatch",
-        "template": [
-            "close_botton.png"
-        ],
+        "template": "close_botton.png",
         "threshold": 0.8
     },
     "撤退": {
@@ -131,9 +119,7 @@
             "回主界面"
         ],
         "recognition": "TemplateMatch",
-        "template": [
-            "close_botton.png"
-        ]
+        "template": "close_botton.png"
     },
     "结束战斗": {
         "next": [

@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Fuyuki/宅邸残迹.png"
-                            ]
+                            "template": "map/Fuyuki/宅邸残迹.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Fuyuki/爆炸中心地.png"
-                            ]
+                            "template": "map/Fuyuki/爆炸中心地.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Fuyuki/大桥.png"
-                            ]
+                            "template": "map/Fuyuki/大桥.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Fuyuki/鲜红港口.png"
-                            ]
+                            "template": "map/Fuyuki/鲜红港口.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Fuyuki/骸骨彷徨的教会.png"
-                            ]
+                            "template": "map/Fuyuki/骸骨彷徨的教会.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Fuyuki/烧尽崩塌的校舍.png"
-                            ]
+                            "template": "map/Fuyuki/烧尽崩塌的校舍.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Fuyuki/大空洞.png"
-                            ]
+                            "template": "map/Fuyuki/大空洞.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Fuyuki/熊熊燃烧的森林.png"
-                            ]
+                            "template": "map/Fuyuki/熊熊燃烧的森林.png"
                         }
                     }
                 }

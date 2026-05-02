@@ -8,9 +8,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "chaldea_gate/主界面页签-迦勒底之门.png"
-                ]
+                "template": "chaldea_gate/主界面页签-迦勒底之门.png"
             }
         },
         "action": {
@@ -40,9 +38,7 @@
                         1
                     ]
                 ],
-                "duration": [
-                    1000
-                ]
+                "duration": 1000
             }
         },
         "post_delay": 1000
@@ -92,9 +88,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "chaldea_gate/日常副本.png"
-                ]
+                "template": "chaldea_gate/日常副本.png"
             }
         },
         "action": {
@@ -108,9 +102,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "chaldea_gate/剑骑60.png"
-                ],
+                "template": "chaldea_gate/剑骑60.png",
                 "green_mask": true
             }
         },

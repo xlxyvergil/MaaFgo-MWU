@@ -16,9 +16,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "grand/grand_down.png"
-                ]
+                "template": "grand/grand_down.png"
             }
         },
         "action": {
@@ -29,9 +27,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "grand/grand_lancer.png"
-                ]
+                "template": "grand/grand_lancer.png"
             }
         },
         "timeout": 2000,
@@ -53,9 +49,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "dungeon_enter.png"
-                ]
+                "template": "dungeon_enter.png"
             }
         },
         "action": {
@@ -70,9 +64,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "grand/grand_enter.png"
-                ]
+                "template": "grand/grand_enter.png"
             }
         },
         "action": {
@@ -87,9 +79,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "grand/grand001.png"
-                ]
+                "template": "grand/grand001.png"
             }
         },
         "action": {
@@ -126,9 +116,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "close_botton.png"
-                ]
+                "template": "close_botton.png"
             }
         },
         "action": {
@@ -155,9 +143,7 @@
                         1
                     ]
                 ],
-                "duration": [
-                    1000
-                ]
+                "duration": 1000
             }
         },
         "next": [
@@ -168,9 +154,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "grand/grand_cancel.png"
-                ]
+                "template": "grand/grand_cancel.png"
             }
         },
         "action": {
@@ -187,9 +171,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "back.png"
-                ]
+                "template": "back.png"
             }
         },
         "action": {
@@ -232,9 +214,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "grand/grand_7.png"
-                ],
+                "template": "grand/grand_7.png",
                 "threshold": [
                     0.8
                 ]
@@ -276,9 +256,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "grand/grand001.png"
-                ]
+                "template": "grand/grand001.png"
             }
         },
         "timeout": 2000,

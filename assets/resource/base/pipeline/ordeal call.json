@@ -31,9 +31,7 @@
                     580,
                     498
                 ],
-                "template": [
-                    "ordealcall/OrdealCall-识别.png"
-                ]
+                "template": "ordealcall/OrdealCall-识别.png"
             }
         },
         "action": {
@@ -76,9 +74,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/举世之飞将军.png"
-                ]
+                "template": "ordealcall/举世之飞将军.png"
             }
         },
         "action": {
@@ -123,9 +119,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/久远的微笑.png"
-                ]
+                "template": "ordealcall/久远的微笑.png"
             }
         },
         "action": {
@@ -170,9 +164,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/于荒野萌芽的王之花.png"
-                ]
+                "template": "ordealcall/于荒野萌芽的王之花.png"
             }
         },
         "action": {
@@ -195,9 +187,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/任务开始.png"
-                ]
+                "template": "ordealcall/任务开始.png"
             }
         },
         "action": {
@@ -230,9 +220,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/光之丝线引导的迷宫.png"
-                ]
+                "template": "ordealcall/光之丝线引导的迷宫.png"
             }
         },
         "action": {
@@ -277,9 +265,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/冻土的试炼.png"
-                ]
+                "template": "ordealcall/冻土的试炼.png"
             }
         },
         "action": {
@@ -324,9 +310,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/噩梦的南瓜.png"
-                ]
+                "template": "ordealcall/噩梦的南瓜.png"
             }
         },
         "action": {
@@ -385,9 +369,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/复活的黄金都市.png"
-                ]
+                "template": "ordealcall/复活的黄金都市.png"
             }
         },
         "action": {
@@ -450,9 +432,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/复苏的远古浪漫.png"
-                ]
+                "template": "ordealcall/复苏的远古浪漫.png"
             }
         },
         "action": {
@@ -507,9 +487,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/大堡礁之卵.png"
-                ]
+                "template": "ordealcall/大堡礁之卵.png"
             }
         },
         "action": {
@@ -524,9 +502,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/奏章1基准点.png"
-                ],
+                "template": "ordealcall/奏章1基准点.png",
                 "threshold": [
                     0.85
                 ]
@@ -590,9 +566,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/寻求女神像.png"
-                ]
+                "template": "ordealcall/寻求女神像.png"
             }
         },
         "action": {
@@ -647,9 +621,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/常夏展销会场.png"
-                ]
+                "template": "ordealcall/常夏展销会场.png"
             }
         },
         "action": {
@@ -704,9 +676,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/常夏的休假.png"
-                ]
+                "template": "ordealcall/常夏的休假.png"
             }
         },
         "action": {
@@ -727,9 +697,7 @@
                     481,
                     84
                 ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
+                "template": "ordealcall/oc.png"
             }
         },
         "action": {
@@ -758,9 +726,7 @@
                     481,
                     84
                 ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
+                "template": "ordealcall/oc.png"
             }
         },
         "action": {
@@ -789,9 +755,7 @@
                     481,
                     84
                 ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
+                "template": "ordealcall/oc.png"
             }
         },
         "action": {
@@ -820,9 +784,7 @@
                     481,
                     84
                 ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
+                "template": "ordealcall/oc.png"
             }
         },
         "action": {
@@ -851,9 +813,7 @@
                     481,
                     84
                 ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
+                "template": "ordealcall/oc.png"
             }
         },
         "action": {
@@ -882,9 +842,7 @@
                     481,
                     84
                 ],
-                "template": [
-                    "ordealcall/oc.png"
-                ]
+                "template": "ordealcall/oc.png"
             }
         },
         "action": {
@@ -929,9 +887,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/月光矿区.png"
-                ]
+                "template": "ordealcall/月光矿区.png"
             }
         },
         "action": {
@@ -976,9 +932,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/残留的神话.png"
-                ]
+                "template": "ordealcall/残留的神话.png"
             }
         },
         "action": {
@@ -1023,9 +977,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/神秘主义者与魂之故乡.png"
-                ]
+                "template": "ordealcall/神秘主义者与魂之故乡.png"
             }
         },
         "action": {
@@ -1088,9 +1040,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/荒野的欢乐.png"
-                ]
+                "template": "ordealcall/荒野的欢乐.png"
             }
         },
         "action": {
@@ -1145,9 +1095,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/蛇龙的恶作剧.png"
-                ]
+                "template": "ordealcall/蛇龙的恶作剧.png"
             }
         },
         "action": {
@@ -1184,9 +1132,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/赏金猎人数光年.png"
-                ]
+                "template": "ordealcall/赏金猎人数光年.png"
             }
         },
         "action": {
@@ -1249,9 +1195,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "template": [
-                    "ordealcall/高贵的海盗.png"
-                ]
+                "template": "ordealcall/高贵的海盗.png"
             }
         },
         "action": {

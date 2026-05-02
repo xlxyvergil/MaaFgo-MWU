@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/隔离设施.png"
-                            ]
+                            "template": "map/PaperMoon/隔离设施.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/急救讲座.png"
-                            ]
+                            "template": "map/PaperMoon/急救讲座.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/中央教会.png"
-                            ]
+                            "template": "map/PaperMoon/中央教会.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/素材农场.png"
-                            ]
+                            "template": "map/PaperMoon/素材农场.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/警备训练程序.png"
-                            ]
+                            "template": "map/PaperMoon/警备训练程序.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/战斗厨房.png"
-                            ]
+                            "template": "map/PaperMoon/战斗厨房.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/建设中.png"
-                            ]
+                            "template": "map/PaperMoon/建设中.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/车库区域.png"
-                            ]
+                            "template": "map/PaperMoon/车库区域.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/摊贩一条街.png"
-                            ]
+                            "template": "map/PaperMoon/摊贩一条街.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/错误修正.png"
-                            ]
+                            "template": "map/PaperMoon/错误修正.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/PaperMoon/巨型仓储.png"
-                            ]
+                            "template": "map/PaperMoon/巨型仓储.png"
                         }
                     }
                 }

@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/遗忘之沙滩.png"
-                            ]
+                            "template": "map/AvalonleFae/遗忘之沙滩.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/无名之森.png"
-                            ]
+                            "template": "map/AvalonleFae/无名之森.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/星光圣堂.png"
-                            ]
+                            "template": "map/AvalonleFae/星光圣堂.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/妖精们的拍卖会.png"
-                            ]
+                            "template": "map/AvalonleFae/妖精们的拍卖会.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/许愿之渊.png"
-                            ]
+                            "template": "map/AvalonleFae/许愿之渊.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/铁之都煤之海.png"
-                            ]
+                            "template": "map/AvalonleFae/铁之都煤之海.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/赦免之城.png"
-                            ]
+                            "template": "map/AvalonleFae/赦免之城.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/希望之废都.png"
-                            ]
+                            "template": "map/AvalonleFae/希望之废都.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/弱肉强食.png"
-                            ]
+                            "template": "map/AvalonleFae/弱肉强食.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/边界之森.png"
-                            ]
+                            "template": "map/AvalonleFae/边界之森.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/大地的尽头.png"
-                            ]
+                            "template": "map/AvalonleFae/大地的尽头.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/雨之都.png"
-                            ]
+                            "template": "map/AvalonleFae/雨之都.png"
                         }
                     }
                 },
@@ -207,9 +183,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/甜蜜厨房.png"
-                            ]
+                            "template": "map/AvalonleFae/甜蜜厨房.png"
                         }
                     }
                 },
@@ -223,9 +197,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/杀戮剧场.png"
-                            ]
+                            "template": "map/AvalonleFae/杀戮剧场.png"
                         }
                     }
                 },
@@ -239,9 +211,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/餐馆街.png"
-                            ]
+                            "template": "map/AvalonleFae/餐馆街.png"
                         }
                     }
                 },
@@ -255,9 +225,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/AvalonleFae/多佛宅邸.png"
-                            ]
+                            "template": "map/AvalonleFae/多佛宅邸.png"
                         }
                     }
                 }

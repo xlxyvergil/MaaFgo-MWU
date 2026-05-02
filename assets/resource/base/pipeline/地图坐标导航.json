@@ -89,9 +89,7 @@
                     460,
                     484
                 ],
-                "template": [
-                    "map/关卡选择占位图.png"
-                ],
+                "template": "map/关卡选择占位图.png",
                 "count": 12
             }
         },

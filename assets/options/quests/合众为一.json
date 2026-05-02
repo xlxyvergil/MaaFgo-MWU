@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/圣山.png"
-                            ]
+                            "template": "map/Unum/圣山.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/巨大河床.png"
-                            ]
+                            "template": "map/Unum/巨大河床.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/里高之城.png"
-                            ]
+                            "template": "map/Unum/里高之城.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/新芝加哥.png"
-                            ]
+                            "template": "map/Unum/新芝加哥.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/德州骑警.png"
-                            ]
+                            "template": "map/Unum/德州骑警.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/牛镇体育馆.png"
-                            ]
+                            "template": "map/Unum/牛镇体育馆.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/威克斯岛.png"
-                            ]
+                            "template": "map/Unum/威克斯岛.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/监狱岛.png"
-                            ]
+                            "template": "map/Unum/监狱岛.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/监视据点.png"
-                            ]
+                            "template": "map/Unum/监视据点.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/大平原.png"
-                            ]
+                            "template": "map/Unum/大平原.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/南国医恋.png"
-                            ]
+                            "template": "map/Unum/南国医恋.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/淘金热.png"
-                            ]
+                            "template": "map/Unum/淘金热.png"
                         }
                     }
                 },
@@ -207,9 +183,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/特别行政区.png"
-                            ]
+                            "template": "map/Unum/特别行政区.png"
                         }
                     }
                 },
@@ -223,9 +197,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Unum/风之城.png"
-                            ]
+                            "template": "map/Unum/风之城.png"
                         }
                     }
                 }

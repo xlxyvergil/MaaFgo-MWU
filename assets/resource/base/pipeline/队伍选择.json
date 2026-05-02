@@ -12,9 +12,7 @@
             598,
             526
         ],
-        "template": [
-            "team/点击队伍编制.png"
-        ],
+        "template": "team/点击队伍编制.png",
         "target_offset": [
             17,
             25,
@@ -35,9 +33,7 @@
             174,
             174
         ],
-        "template": [
-            "team/编队.png"
-        ]
+        "template": "team/编队.png"
     },
     "菜单": {
         "action": "Click",
@@ -51,9 +47,7 @@
             191,
             86
         ],
-        "template": [
-            "菜单.png"
-        ],
+        "template": "菜单.png",
         "threshold": 0.55,
         "target_offset": [
             50,
@@ -349,9 +343,7 @@
             208,
             93
         ],
-        "template": [
-            "team/队伍点击决定.png"
-        ],
+        "template": "team/队伍点击决定.png",
         "threshold": 0.6,
         "target_offset": [
             58,
@@ -381,9 +373,7 @@
             191,
             86
         ],
-        "template": [
-            "菜单.png"
-        ],
+        "template": "菜单.png",
         "threshold": 0.6
     },
     "队伍编制": {
@@ -404,9 +394,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D1.png"
-        ],
+        "template": "team/D1.png",
         "threshold": 0.85
     },
     "队伍编制10": {
@@ -421,9 +409,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D10.png"
-        ],
+        "template": "team/D10.png",
         "threshold": 0.85
     },
     "队伍编制11": {
@@ -438,9 +424,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D11.png"
-        ],
+        "template": "team/D11.png",
         "threshold": 0.85
     },
     "队伍编制12": {
@@ -455,9 +439,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D12.png"
-        ],
+        "template": "team/D12.png",
         "threshold": 0.85
     },
     "队伍编制13": {
@@ -472,9 +454,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D13.png"
-        ],
+        "template": "team/D13.png",
         "threshold": 0.8
     },
     "队伍编制14": {
@@ -489,9 +469,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D14.png"
-        ],
+        "template": "team/D14.png",
         "threshold": 0.85
     },
     "队伍编制15": {
@@ -506,9 +484,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D15.png"
-        ],
+        "template": "team/D15.png",
         "threshold": 0.85
     },
     "队伍编制2": {
@@ -523,9 +499,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D2.png"
-        ],
+        "template": "team/D2.png",
         "threshold": 0.85
     },
     "队伍编制3": {
@@ -540,9 +514,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D3.png"
-        ],
+        "template": "team/D3.png",
         "threshold": 0.85
     },
     "队伍编制4": {
@@ -557,9 +529,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D4.png"
-        ],
+        "template": "team/D4.png",
         "threshold": 0.85
     },
     "队伍编制5": {
@@ -574,9 +544,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D5.png"
-        ],
+        "template": "team/D5.png",
         "threshold": 0.85
     },
     "队伍编制6": {
@@ -591,9 +559,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D6.png"
-        ],
+        "template": "team/D6.png",
         "threshold": 0.85
     },
     "队伍编制7": {
@@ -608,9 +574,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D7.png"
-        ],
+        "template": "team/D7.png",
         "threshold": 0.85
     },
     "队伍编制8": {
@@ -625,9 +589,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D8.png"
-        ],
+        "template": "team/D8.png",
         "threshold": 0.85
     },
     "队伍编制9": {
@@ -642,9 +604,7 @@
             67,
             38
         ],
-        "template": [
-            "team/D9.png"
-        ],
+        "template": "team/D9.png",
         "threshold": 0.85
     },
     "队伍选择": {

@@ -10,9 +10,7 @@
                     572,
                     485
                 ],
-                "template": [
-                    "OoTTemple/冬木.png"
-                ],
+                "template": "OoTTemple/冬木.png",
                 "threshold": 0.7
             }
         },
@@ -59,9 +57,7 @@
                         1
                     ]
                 ],
-                "duration": [
-                    100
-                ]
+                "duration": 100
             }
         },
         "post_wait_freezes": 500,

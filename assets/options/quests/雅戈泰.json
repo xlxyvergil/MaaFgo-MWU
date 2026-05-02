@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/光藓照耀的原野.png"
-                            ]
+                            "template": "map/Agartha/光藓照耀的原野.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/战士的狩猎场.png"
-                            ]
+                            "template": "map/Agartha/战士的狩猎场.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/亚马逊人之宴.png"
-                            ]
+                            "template": "map/Agartha/亚马逊人之宴.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/梦想之村.png"
-                            ]
+                            "template": "map/Agartha/梦想之村.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/背德之都.png"
-                            ]
+                            "template": "map/Agartha/背德之都.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/罪人废弃场.png"
-                            ]
+                            "template": "map/Agartha/罪人废弃场.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/无眠之城.png"
-                            ]
+                            "template": "map/Agartha/无眠之城.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/密林远足.png"
-                            ]
+                            "template": "map/Agartha/密林远足.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/密林观光.png"
-                            ]
+                            "template": "map/Agartha/密林观光.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/湖中楼阁.png"
-                            ]
+                            "template": "map/Agartha/湖中楼阁.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/黄金国.png"
-                            ]
+                            "template": "map/Agartha/黄金国.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Agartha/钻石之谷.png"
-                            ]
+                            "template": "map/Agartha/钻石之谷.png"
                         }
                     }
                 }

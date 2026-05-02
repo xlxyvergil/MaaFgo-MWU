@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/七座洞窟.png"
-                            ]
+                            "template": "map/Mictlan/七座洞窟.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/咏星之丘.png"
-                            ]
+                            "template": "map/Mictlan/咏星之丘.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/伟大太阳的恩惠.png"
-                            ]
+                            "template": "map/Mictlan/伟大太阳的恩惠.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/没有尽头之河.png"
-                            ]
+                            "template": "map/Mictlan/没有尽头之河.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/硕果之大平原.png"
-                            ]
+                            "template": "map/Mictlan/硕果之大平原.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/黄金都市.png"
-                            ]
+                            "template": "map/Mictlan/黄金都市.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/豹之力量.png"
-                            ]
+                            "template": "map/Mictlan/豹之力量.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/神话的王国.png"
-                            ]
+                            "template": "map/Mictlan/神话的王国.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/刃与风之谷.png"
-                            ]
+                            "template": "map/Mictlan/刃与风之谷.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/血与鸟之湖.png"
-                            ]
+                            "template": "map/Mictlan/血与鸟之湖.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/神之肉.png"
-                            ]
+                            "template": "map/Mictlan/神之肉.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/银河沙丘.png"
-                            ]
+                            "template": "map/Mictlan/银河沙丘.png"
                         }
                     }
                 },
@@ -207,9 +183,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/歌唱的伊鲁维卡亚特尔.png"
-                            ]
+                            "template": "map/Mictlan/歌唱的伊鲁维卡亚特尔.png"
                         }
                     }
                 },
@@ -223,9 +197,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/蝙蝠的宫殿.png"
-                            ]
+                            "template": "map/Mictlan/蝙蝠的宫殿.png"
                         }
                     }
                 },
@@ -239,9 +211,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/没有太阳的地底山脉.png"
-                            ]
+                            "template": "map/Mictlan/没有太阳的地底山脉.png"
                         }
                     }
                 },
@@ -255,9 +225,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Mictlan/水之废都.png"
-                            ]
+                            "template": "map/Mictlan/水之废都.png"
                         }
                     }
                 }

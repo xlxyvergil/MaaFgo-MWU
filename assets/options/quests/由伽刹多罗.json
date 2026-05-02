@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/修行的旅途.png"
-                            ]
+                            "template": "map/Yugakshetra/修行的旅途.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/虔诚的城镇.png"
-                            ]
+                            "template": "map/Yugakshetra/虔诚的城镇.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/冥想的岩室.png"
-                            ]
+                            "template": "map/Yugakshetra/冥想的岩室.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/开悟之顶.png"
-                            ]
+                            "template": "map/Yugakshetra/开悟之顶.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/祈祷的广场.png"
-                            ]
+                            "template": "map/Yugakshetra/祈祷的广场.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/壁之村.png"
-                            ]
+                            "template": "map/Yugakshetra/壁之村.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/恶魔的领地.png"
-                            ]
+                            "template": "map/Yugakshetra/恶魔的领地.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/治愈的城镇.png"
-                            ]
+                            "template": "map/Yugakshetra/治愈的城镇.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/大龙的床铺.png"
-                            ]
+                            "template": "map/Yugakshetra/大龙的床铺.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Yugakshetra/提婆界.png"
-                            ]
+                            "template": "map/Yugakshetra/提婆界.png"
                         }
                     }
                 }

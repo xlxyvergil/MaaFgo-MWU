@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shimousa/田园风景.png"
-                            ]
+                            "template": "map/Shimousa/田园风景.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shimousa/寂寥村落.png"
-                            ]
+                            "template": "map/Shimousa/寂寥村落.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shimousa/千手千眼.png"
-                            ]
+                            "template": "map/Shimousa/千手千眼.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shimousa/枯荣盛衰.png"
-                            ]
+                            "template": "map/Shimousa/枯荣盛衰.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shimousa/士兵们的梦之痕迹.png"
-                            ]
+                            "template": "map/Shimousa/士兵们的梦之痕迹.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shimousa/贵船之城.png"
-                            ]
+                            "template": "map/Shimousa/贵船之城.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shimousa/无名灵峰.png"
-                            ]
+                            "template": "map/Shimousa/无名灵峰.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shimousa/战战兢兢.png"
-                            ]
+                            "template": "map/Shimousa/战战兢兢.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shimousa/古战场.png"
-                            ]
+                            "template": "map/Shimousa/古战场.png"
                         }
                     }
                 }

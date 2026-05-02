@@ -32,9 +32,7 @@
             254,
             85
         ],
-        "template": [
-            "trees/1个直接交换.png"
-        ],
+        "template": "trees/1个直接交换.png",
         "threshold": 0.85
     },
     "1个苹果": {
@@ -75,9 +73,7 @@
             15,
             23
         ],
-        "template": [
-            "体力+.png"
-        ]
+        "template": "体力+.png"
     },
     "交换完成关闭": {
         "action": "Click",
@@ -92,9 +88,7 @@
             282,
             72
         ],
-        "template": [
-            "trees/交换完成关闭.png"
-        ],
+        "template": "trees/交换完成关闭.png",
         "threshold": 0.6
     },
     "多个苹果": {
@@ -134,9 +128,7 @@
             47,
             44
         ],
-        "template": [
-            "trees/青铜树苗.png"
-        ],
+        "template": "trees/青铜树苗.png",
         "threshold": 0.6
     },
     "确认完成种树点击": {
@@ -150,9 +142,7 @@
             109,
             106
         ],
-        "template": [
-            "trees/确认完成种树点击.png"
-        ]
+        "template": "trees/确认完成种树点击.png"
     },
     "种树": {
         "next": [
@@ -194,8 +184,6 @@
             20,
             26
         ],
-        "template": [
-            "trees/加号.png"
-        ]
+        "template": "trees/加号.png"
     }
 }

@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/街道女王.png"
-                            ]
+                            "template": "map/Septem/街道女王.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/罗马非一日建成.png"
-                            ]
+                            "template": "map/Septem/罗马非一日建成.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/花之都.png"
-                            ]
+                            "template": "map/Septem/花之都.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/平原中心.png"
-                            ]
+                            "template": "map/Septem/平原中心.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/远古的港口.png"
-                            ]
+                            "template": "map/Septem/远古的港口.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/燃烧的战火.png"
-                            ]
+                            "template": "map/Septem/燃烧的战火.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/女神的洞窟.png"
-                            ]
+                            "template": "map/Septem/女神的洞窟.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/罗马的地平线.png"
-                            ]
+                            "template": "map/Septem/罗马的地平线.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/沸腾的大地.png"
-                            ]
+                            "template": "map/Septem/沸腾的大地.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/浓雾深邃之森.png"
-                            ]
+                            "template": "map/Septem/浓雾深邃之森.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Septem/黑森林.png"
-                            ]
+                            "template": "map/Septem/黑森林.png"
                         }
                     }
                 }

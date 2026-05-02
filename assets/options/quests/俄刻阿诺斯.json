@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/私掠船团.png"
-                            ]
+                            "template": "map/Okeanos/私掠船团.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/海盗大本营.png"
-                            ]
+                            "template": "map/Okeanos/海盗大本营.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/被诅咒的海盗们.png"
-                            ]
+                            "template": "map/Okeanos/被诅咒的海盗们.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/公牛迷宫.png"
-                            ]
+                            "template": "map/Okeanos/公牛迷宫.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/自由的海原.png"
-                            ]
+                            "template": "map/Okeanos/自由的海原.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/龙群的乐园.png"
-                            ]
+                            "template": "map/Okeanos/龙群的乐园.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/彷徨的幽灵船.png"
-                            ]
+                            "template": "map/Okeanos/彷徨的幽灵船.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/寂静的入海口.png"
-                            ]
+                            "template": "map/Okeanos/寂静的入海口.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/隐藏之岛.png"
-                            ]
+                            "template": "map/Okeanos/隐藏之岛.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/船舶坟场.png"
-                            ]
+                            "template": "map/Okeanos/船舶坟场.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/无人发现的岛屿.png"
-                            ]
+                            "template": "map/Okeanos/无人发现的岛屿.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Okeanos/秘密航路.png"
-                            ]
+                            "template": "map/Okeanos/秘密航路.png"
                         }
                     }
                 }

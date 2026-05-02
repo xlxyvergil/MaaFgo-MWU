@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/London/马车与瓦斯灯.png"
-                            ]
+                            "template": "map/London/马车与瓦斯灯.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/London/贫民窟.png"
-                            ]
+                            "template": "map/London/贫民窟.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/London/伦敦金融城.png"
-                            ]
+                            "template": "map/London/伦敦金融城.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/London/魅惑的繁华街.png"
-                            ]
+                            "template": "map/London/魅惑的繁华街.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/London/苏格兰场.png"
-                            ]
+                            "template": "map/London/苏格兰场.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/London/王室的狩猎场.png"
-                            ]
+                            "template": "map/London/王室的狩猎场.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/London/治愈之井.png"
-                            ]
+                            "template": "map/London/治愈之井.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/London/博罗市场.png"
-                            ]
+                            "template": "map/London/博罗市场.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/London/水晶宫的残影.png"
-                            ]
+                            "template": "map/London/水晶宫的残影.png"
                         }
                     }
                 }

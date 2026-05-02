@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/不作美的天气.png"
-                            ]
+                            "template": "map/Gehenna/不作美的天气.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/习以为常的道路.png"
-                            ]
+                            "template": "map/Gehenna/习以为常的道路.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/伫立的摩天大楼.png"
-                            ]
+                            "template": "map/Gehenna/伫立的摩天大楼.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/启程的车站.png"
-                            ]
+                            "template": "map/Gehenna/启程的车站.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/宁静的放学后.png"
-                            ]
+                            "template": "map/Gehenna/宁静的放学后.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/留校特训.png"
-                            ]
+                            "template": "map/Gehenna/留校特训.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/相遇的十字路口.png"
-                            ]
+                            "template": "map/Gehenna/相遇的十字路口.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/秘密的碰头.png"
-                            ]
+                            "template": "map/Gehenna/秘密的碰头.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/突然叫出.png"
-                            ]
+                            "template": "map/Gehenna/突然叫出.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/调查七大不可思议.png"
-                            ]
+                            "template": "map/Gehenna/调查七大不可思议.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/购物后归程.png"
-                            ]
+                            "template": "map/Gehenna/购物后归程.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Gehenna/鸟类观赏.png"
-                            ]
+                            "template": "map/Gehenna/鸟类观赏.png"
                         }
                     }
                 }
