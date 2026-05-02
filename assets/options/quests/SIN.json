@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/收获日子.png"
-                            ]
+                            "template": "map/SIN/收获日子.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/凄凄切切.png"
-                            ]
+                            "template": "map/SIN/凄凄切切.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/不入虎穴焉得虎子.png"
-                            ]
+                            "template": "map/SIN/不入虎穴焉得虎子.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/雏芥子之园.png"
-                            ]
+                            "template": "map/SIN/雏芥子之园.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/仰不愧天.png"
-                            ]
+                            "template": "map/SIN/仰不愧天.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/有朋远来.png"
-                            ]
+                            "template": "map/SIN/有朋远来.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/青天白日.png"
-                            ]
+                            "template": "map/SIN/青天白日.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/水紫山明.png"
-                            ]
+                            "template": "map/SIN/水紫山明.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/白黑分明.png"
-                            ]
+                            "template": "map/SIN/白黑分明.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/凤鸣朝阳.png"
-                            ]
+                            "template": "map/SIN/凤鸣朝阳.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/SIN/地下锻炼场.png"
-                            ]
+                            "template": "map/SIN/地下锻炼场.png"
                         }
                     }
                 }

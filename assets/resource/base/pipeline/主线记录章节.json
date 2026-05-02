@@ -1,59 +1,68 @@
 {
-    "完成主线记录寻找章节": {
-        "recognition": "DirectHit"
-    },
+    "完成主线记录寻找章节": {},
     "找到进入主线记录章节": {
-        "action": "Click",
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    646,
+                    112,
+                    572,
+                    485
+                ],
+                "template": "OoTTemple/冬木.png",
+                "threshold": 0.7
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
         "next": [
             "地图坐标导航"
-        ],
-        "recognition": "TemplateMatch",
-        "roi": [
-            646,
-            112,
-            572,
-            485
-        ],
-        "template": [
-            "OoTTemple/冬木.png"
-        ],
-        "threshold": 0.7
+        ]
     },
     "进入主线记录": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    807,
+                    0,
+                    473,
+                    74
+                ],
+                "template": "OoTTemple/主线记录1-1.png"
+            }
+        },
         "next": [
             "找到进入主线记录章节",
             "[JumpBack]进入主线记录寻找章节"
-        ],
-        "recognition": "TemplateMatch",
-        "roi": [
-            807,
-            0,
-            473,
-            74
-        ],
-        "template": "OoTTemple/主线记录1-1.png"
+        ]
     },
     "进入主线记录寻找章节": {
-        "action": "Swipe",
-        "begin": [
-            1211,
-            459,
-            10,
-            13
-        ],
-        "duration": [
-            100
-        ],
-        "end": [
-            1209,
-            220,
-            17,
-            16
-        ],
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    1216,
+                    475,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        1216,
+                        226,
+                        1,
+                        1
+                    ]
+                ],
+                "duration": 100
+            }
+        },
+        "post_wait_freezes": 500,
         "next": [
             "完成主线记录寻找章节"
-        ],
-        "post_wait_freezes": 500,
-        "recognition": "DirectHit"
+        ]
     }
 }

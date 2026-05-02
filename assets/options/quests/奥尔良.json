@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/贞德诞生之地.png"
-                            ]
+                            "template": "map/Orleans/贞德诞生之地.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/起始的堡垒.png"
-                            ]
+                            "template": "map/Orleans/起始的堡垒.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/卢瓦尔河畔.png"
-                            ]
+                            "template": "map/Orleans/卢瓦尔河畔.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/太古之森.png"
-                            ]
+                            "template": "map/Orleans/太古之森.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/死者之城.png"
-                            ]
+                            "template": "map/Orleans/死者之城.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/刃物之镇.png"
-                            ]
+                            "template": "map/Orleans/刃物之镇.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/命运的堡垒.png"
-                            ]
+                            "template": "map/Orleans/命运的堡垒.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/艺术之都.png"
-                            ]
+                            "template": "map/Orleans/艺术之都.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/毗邻地中海.png"
-                            ]
+                            "template": "map/Orleans/毗邻地中海.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Orleans/美酒干杯.png"
-                            ]
+                            "template": "map/Orleans/美酒干杯.png"
                         }
                     }
                 }

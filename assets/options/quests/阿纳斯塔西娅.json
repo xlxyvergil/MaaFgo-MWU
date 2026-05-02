@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/中俄罗斯高地.png"
-                            ]
+                            "template": "map/Anastasia/中俄罗斯高地.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/兽镇.png"
-                            ]
+                            "template": "map/Anastasia/兽镇.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/地下冷冻库.png"
-                            ]
+                            "template": "map/Anastasia/地下冷冻库.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/崖上城堡.png"
-                            ]
+                            "template": "map/Anastasia/崖上城堡.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/枭之村.png"
-                            ]
+                            "template": "map/Anastasia/枭之村.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/埋入雪中的烧毁废墟.png"
-                            ]
+                            "template": "map/Anastasia/埋入雪中的烧毁废墟.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/被抛弃的村庄.png"
-                            ]
+                            "template": "map/Anastasia/被抛弃的村庄.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/边境之村.png"
-                            ]
+                            "template": "map/Anastasia/边境之村.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/冰冻教会.png"
-                            ]
+                            "template": "map/Anastasia/冰冻教会.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/巨象足迹.png"
-                            ]
+                            "template": "map/Anastasia/巨象足迹.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/雪溪城堡.png"
-                            ]
+                            "template": "map/Anastasia/雪溪城堡.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/沉睡都市.png"
-                            ]
+                            "template": "map/Anastasia/沉睡都市.png"
                         }
                     }
                 },
@@ -207,9 +183,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/分裂冻土.png"
-                            ]
+                            "template": "map/Anastasia/分裂冻土.png"
                         }
                     }
                 },
@@ -223,9 +197,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Anastasia/牢狱废墟.png"
-                            ]
+                            "template": "map/Anastasia/牢狱废墟.png"
                         }
                     }
                 }

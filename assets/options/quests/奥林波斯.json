@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/不为人知的边境.png"
-                            ]
+                            "template": "map/Olympus/不为人知的边境.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/仰望大神殿之都市.png"
-                            ]
+                            "template": "map/Olympus/仰望大神殿之都市.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/大地与丰饶之都市.png"
-                            ]
+                            "template": "map/Olympus/大地与丰饶之都市.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/美与爱之都市.png"
-                            ]
+                            "template": "map/Olympus/美与爱之都市.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/神之膝下.png"
-                            ]
+                            "template": "map/Olympus/神之膝下.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/前线地下.png"
-                            ]
+                            "template": "map/Olympus/前线地下.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/黎明的锻造场.png"
-                            ]
+                            "template": "map/Olympus/黎明的锻造场.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/诸神庭园.png"
-                            ]
+                            "template": "map/Olympus/诸神庭园.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/巨神通道.png"
-                            ]
+                            "template": "map/Olympus/巨神通道.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/神谕祭坛.png"
-                            ]
+                            "template": "map/Olympus/神谕祭坛.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Olympus/秘密机库.png"
-                            ]
+                            "template": "map/Olympus/秘密机库.png"
                         }
                     }
                 }

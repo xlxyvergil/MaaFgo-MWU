@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/名流之船.png"
-                            ]
+                            "template": "map/Archetype/名流之船.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/奢华自助.png"
-                            ]
+                            "template": "map/Archetype/奢华自助.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/幻想巡游.png"
-                            ]
+                            "template": "map/Archetype/幻想巡游.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/月球之巅.png"
-                            ]
+                            "template": "map/Archetype/月球之巅.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/月球巡航.png"
-                            ]
+                            "template": "map/Archetype/月球巡航.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/月球巴士岛.png"
-                            ]
+                            "template": "map/Archetype/月球巴士岛.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/月球漫步.png"
-                            ]
+                            "template": "map/Archetype/月球漫步.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/月球街道.png"
-                            ]
+                            "template": "map/Archetype/月球街道.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/月球购物.png"
-                            ]
+                            "template": "map/Archetype/月球购物.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/月球迪拜喷泉.png"
-                            ]
+                            "template": "map/Archetype/月球迪拜喷泉.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/机械城市.png"
-                            ]
+                            "template": "map/Archetype/机械城市.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/蛋糕桌之园.png"
-                            ]
+                            "template": "map/Archetype/蛋糕桌之园.png"
                         }
                     }
                 },
@@ -207,9 +183,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/蠕虫沙盒.png"
-                            ]
+                            "template": "map/Archetype/蠕虫沙盒.png"
                         }
                     }
                 },
@@ -223,9 +197,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/运算都市.png"
-                            ]
+                            "template": "map/Archetype/运算都市.png"
                         }
                     }
                 },
@@ -239,9 +211,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Archetype/采集星辰.png"
-                            ]
+                            "template": "map/Archetype/采集星辰.png"
                         }
                     }
                 }

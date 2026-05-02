@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/杂居楼街.png"
-                            ]
+                            "template": "map/Shinjuku/杂居楼街.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/势力范围.png"
-                            ]
+                            "template": "map/Shinjuku/势力范围.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/水泥迷宫.png"
-                            ]
+                            "template": "map/Shinjuku/水泥迷宫.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/旅馆街.png"
-                            ]
+                            "template": "map/Shinjuku/旅馆街.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/不夜城.png"
-                            ]
+                            "template": "map/Shinjuku/不夜城.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/膛线大厅.png"
-                            ]
+                            "template": "map/Shinjuku/膛线大厅.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/杀戮舞会.png"
-                            ]
+                            "template": "map/Shinjuku/杀戮舞会.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/后膛枪.png"
-                            ]
+                            "template": "map/Shinjuku/后膛枪.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/恶魔花园.png"
-                            ]
+                            "template": "map/Shinjuku/恶魔花园.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Shinjuku/彩虹城.png"
-                            ]
+                            "template": "map/Shinjuku/彩虹城.png"
                         }
                     }
                 }

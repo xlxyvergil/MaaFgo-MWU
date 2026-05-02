@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/为色欲所笼罩之城.png"
-                            ]
+                            "template": "map/Metatronius/为色欲所笼罩之城.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/久居则安的格拉纳特.png"
-                            ]
+                            "template": "map/Metatronius/久居则安的格拉纳特.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/亡者聚集之河.png"
-                            ]
+                            "template": "map/Metatronius/亡者聚集之河.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/回荡于冰原的叹息.png"
-                            ]
+                            "template": "map/Metatronius/回荡于冰原的叹息.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/恶意翻涌的交锋.png"
-                            ]
+                            "template": "map/Metatronius/恶意翻涌的交锋.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/悔悟的祈祷.png"
-                            ]
+                            "template": "map/Metatronius/悔悟的祈祷.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/惩戒邪恶之辈.png"
-                            ]
+                            "template": "map/Metatronius/惩戒邪恶之辈.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/愤怒汇聚的死沼.png"
-                            ]
+                            "template": "map/Metatronius/愤怒汇聚的死沼.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/楚楚可怜的贪婪城主.png"
-                            ]
+                            "template": "map/Metatronius/楚楚可怜的贪婪城主.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/沉溺于爱的罪人们.png"
-                            ]
+                            "template": "map/Metatronius/沉溺于爱的罪人们.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/狱犬的地盘.png"
-                            ]
+                            "template": "map/Metatronius/狱犬的地盘.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/禁果之园.png"
-                            ]
+                            "template": "map/Metatronius/禁果之园.png"
                         }
                     }
                 },
@@ -207,9 +183,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Metatronius/魅惑的绝对支配.png"
-                            ]
+                            "template": "map/Metatronius/魅惑的绝对支配.png"
                         }
                     }
                 }

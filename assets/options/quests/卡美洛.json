@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/神兽之庭.png"
-                            ]
+                            "template": "map/Camelot/神兽之庭.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/灼热之巅.png"
-                            ]
+                            "template": "map/Camelot/灼热之巅.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/热血沸腾的狂宴.png"
-                            ]
+                            "template": "map/Camelot/热血沸腾的狂宴.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/已然枯萎的山脊.png"
-                            ]
+                            "template": "map/Camelot/已然枯萎的山脊.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/游击骑士队.png"
-                            ]
+                            "template": "map/Camelot/游击骑士队.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/宣告死亡的天使.png"
-                            ]
+                            "template": "map/Camelot/宣告死亡的天使.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/无情的残影.png"
-                            ]
+                            "template": "map/Camelot/无情的残影.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/巨人的地窖.png"
-                            ]
+                            "template": "map/Camelot/巨人的地窖.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/梦幻的海市蜃楼.png"
-                            ]
+                            "template": "map/Camelot/梦幻的海市蜃楼.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/太阳王的居城.png"
-                            ]
+                            "template": "map/Camelot/太阳王的居城.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/祝圣之门.png"
-                            ]
+                            "template": "map/Camelot/祝圣之门.png"
                         }
                     }
                 },
@@ -191,9 +169,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/理想都市.png"
-                            ]
+                            "template": "map/Camelot/理想都市.png"
                         }
                     }
                 },
@@ -207,9 +183,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/千年王国.png"
-                            ]
+                            "template": "map/Camelot/千年王国.png"
                         }
                     }
                 },
@@ -223,9 +197,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Camelot/荒凉世界.png"
-                            ]
+                            "template": "map/Camelot/荒凉世界.png"
                         }
                     }
                 }

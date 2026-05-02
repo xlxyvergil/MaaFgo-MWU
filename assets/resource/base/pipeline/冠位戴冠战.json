@@ -10,219 +10,265 @@
         ],
         "on_error": [
             "未找到戴冠战入口"
-        ],
-        "recognition": "DirectHit"
-    },
-    "冠位戴冠战-查找职介": {
-        "action": "Click",
-        "recognition": "TemplateMatch",
-        "template": [
-            "grand/grand_down.png"
         ]
     },
+    "冠位戴冠战-查找职介": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "grand/grand_down.png"
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
+    },
     "冠位戴冠战-职介": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "grand/grand_lancer.png"
+            }
+        },
+        "timeout": 2000,
         "next": [
             "冠位戴冠战-进入副本"
-        ],
-        "recognition": "TemplateMatch",
-        "template": [
-            "grand/grand_lancer.png"
-        ],
-        "timeout": 2000
+        ]
     },
     "冠位戴冠战-职介开始": {
+        "post_delay": 3000,
         "next": [
             "冠位戴冠战-职介",
             "[JumpBack]冠位戴冠战-查找职介"
         ],
         "on_error": [
             "未找到戴冠战入口2"
-        ],
-        "post_delay": 3000,
-        "recognition": "DirectHit"
+        ]
     },
     "冠位戴冠战-进入1": {
-        "action": "Click",
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "dungeon_enter.png"
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "timeout": 3000,
         "focus": {
             "Node.Action.Succeeded": "进入副本完成"
-        },
-        "recognition": "TemplateMatch",
-        "template": [
-            "dungeon_enter.png"
-        ],
-        "timeout": 3000
+        }
     },
     "冠位戴冠战-进入副本": {
-        "action": "Click",
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "grand/grand_enter.png"
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 3000,
         "next": [
             "戴冠战-先下滑到最下面"
-        ],
-        "post_delay": 3000,
-        "recognition": "TemplateMatch",
-        "template": [
-            "grand/grand_enter.png"
         ]
     },
     "冠位戴冠战列表": {
-        "action": "Click",
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "grand/grand001.png"
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "timeout": 2000,
         "next": [
             "冠位戴冠战-职介开始"
-        ],
-        "recognition": "TemplateMatch",
-        "template": [
-            "grand/grand001.png"
-        ],
-        "timeout": 2000
-    },
-    "右侧下滑-冠位戴冠战列表": {
-        "action": "Swipe",
-        "begin": [
-            925,
-            354,
-            1,
-            1
-        ],
-        "end": [
-            929,
-            30,
-            1,
-            1
-        ],
-        "max_hit": 10,
-        "recognition": "DirectHit"
-    },
-    "如果需要关闭弹窗": {
-        "action": "Click",
-        "post_delay": 2000,
-        "recognition": "TemplateMatch",
-        "template": [
-            "close_botton.png"
         ]
     },
+    "右侧下滑-冠位戴冠战列表": {
+        "max_hit": 10,
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    925,
+                    354,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        929,
+                        30,
+                        1,
+                        1
+                    ]
+                ]
+            }
+        }
+    },
+    "如果需要关闭弹窗": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "close_botton.png"
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
+        "post_delay": 2000
+    },
     "戴冠战-不匹配上滑": {
-        "action": "Swipe",
-        "begin": [
-            1014,
-            212,
-            1,
-            1
-        ],
-        "duration": [
-            1000
-        ],
-        "end": [
-            1010,
-            402,
-            1,
-            1
-        ],
         "max_hit": 15,
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    1014,
+                    212,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        1010,
+                        402,
+                        1,
+                        1
+                    ]
+                ],
+                "duration": 1000
+            }
+        },
         "next": [
             "戴冠战-尝试进入副本"
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "戴冠战-不匹配关闭": {
-        "action": "Click",
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "grand/grand_cancel.png"
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
         "next": [
             "戴冠战-不匹配上滑",
             "戴冠战-不匹配重新开始",
             "戴冠战-错误"
-        ],
-        "recognition": "TemplateMatch",
-        "template": [
-            "grand/grand_cancel.png"
         ]
     },
     "戴冠战-不匹配重新开始": {
-        "action": "Click",
+        "max_hit": 1,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "back.png"
+            }
+        },
+        "action": {
+            "type": "Click"
+        },
         "focus": {
             "Node.Recognition.Starting": "未找到对应副本，重新进入查找！"
         },
-        "max_hit": 1,
         "next": [
             "冠位戴冠战-职介开始"
-        ],
-        "recognition": "TemplateMatch",
-        "template": [
-            "back.png"
         ]
     },
     "戴冠战-先下滑到最下面": {
-        "action": "Swipe",
-        "begin": [
-            929,
-            583,
-            1,
-            1
-        ],
-        "end": [
-            929,
-            100,
-            1,
-            1
-        ],
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    929,
+                    583,
+                    1,
+                    1
+                ],
+                "end": [
+                    [
+                        929,
+                        100,
+                        1,
+                        1
+                    ]
+                ]
+            }
+        },
+        "repeat": 4,
+        "post_delay": 3000,
         "next": [
             "戴冠战-尝试进入副本"
-        ],
-        "post_delay": 3000,
-        "recognition": "DirectHit",
-        "repeat": 4
+        ]
     },
     "戴冠战-匹配检测": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "grand/grand_7.png",
+                "threshold": [
+                    0.8
+                ]
+            }
+        },
         "focus": {
             "Node.Recognition.Failed": "副本不匹配"
         },
         "next": [
             "冠位戴冠战-进入1"
-        ],
-        "recognition": "TemplateMatch",
-        "template": [
-            "grand/grand_7.png"
-        ],
-        "threshold": [
-            0.8
         ]
     },
     "戴冠战-尝试进入副本": {
-        "action": "Click",
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    849,
+                    139,
+                    143,
+                    79
+                ]
+            }
+        },
         "focus": {
             "Node.Action.Succeeded": "点击确认副本是否匹配"
         },
         "next": [
             "戴冠战-匹配检测",
             "戴冠战-不匹配关闭"
-        ],
-        "recognition": "DirectHit",
-        "target": [
-            849,
-            139,
-            143,
-            79
         ]
     },
     "戴冠战-错误": {
         "focus": {
             "Node.Recognition.Starting": "未找到符合要求的副本！"
-        },
-        "recognition": "DirectHit"
+        }
     },
     "未找到戴冠战入口": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "grand/grand001.png"
+            }
+        },
+        "timeout": 2000,
+        "rate_limit": 10000,
         "focus": {
             "Node.Recognition.Failed": "未找到冠位入口！请检查"
-        },
-        "rate_limit": 10000,
-        "recognition": "TemplateMatch",
-        "template": [
-            "grand/grand001.png"
-        ],
-        "timeout": 2000
+        }
     },
     "未找到戴冠战入口2": {
+        "max_hit": 10,
         "focus": {
             "Node.Recognition.Starting": "未找到对应职介！脚本中止"
-        },
-        "max_hit": 10,
-        "recognition": "DirectHit"
+        }
     }
 }

@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/狼之地盘.png"
-                            ]
+                            "template": "map/Salem/狼之地盘.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/乌鸦之巢.png"
-                            ]
+                            "template": "map/Salem/乌鸦之巢.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/审判房间.png"
-                            ]
+                            "template": "map/Salem/审判房间.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/德比码头.png"
-                            ]
+                            "template": "map/Salem/德比码头.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/七个尖角阁的房子.png"
-                            ]
+                            "template": "map/Salem/七个尖角阁的房子.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/炼金术之地.png"
-                            ]
+                            "template": "map/Salem/炼金术之地.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/公共眺望台.png"
-                            ]
+                            "template": "map/Salem/公共眺望台.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/行刑之地.png"
-                            ]
+                            "template": "map/Salem/行刑之地.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/安全屋.png"
-                            ]
+                            "template": "map/Salem/安全屋.png"
                         }
                     }
                 },
@@ -159,9 +141,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/纯洁领域.png"
-                            ]
+                            "template": "map/Salem/纯洁领域.png"
                         }
                     }
                 },
@@ -175,9 +155,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Salem/魔女迷宫.png"
-                            ]
+                            "template": "map/Salem/魔女迷宫.png"
                         }
                     }
                 }

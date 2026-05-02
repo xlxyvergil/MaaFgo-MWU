@@ -15,9 +15,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Atlantis/幻之海洋.png"
-                            ]
+                            "template": "map/Atlantis/幻之海洋.png"
                         }
                     }
                 },
@@ -31,9 +29,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Atlantis/焚火海边.png"
-                            ]
+                            "template": "map/Atlantis/焚火海边.png"
                         }
                     }
                 },
@@ -47,9 +43,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Atlantis/三叉原野.png"
-                            ]
+                            "template": "map/Atlantis/三叉原野.png"
                         }
                     }
                 },
@@ -63,9 +57,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Atlantis/恐怖荒野.png"
-                            ]
+                            "template": "map/Atlantis/恐怖荒野.png"
                         }
                     }
                 },
@@ -79,9 +71,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Atlantis/正义神殿.png"
-                            ]
+                            "template": "map/Atlantis/正义神殿.png"
                         }
                     }
                 },
@@ -95,9 +85,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Atlantis/母亲沙滩.png"
-                            ]
+                            "template": "map/Atlantis/母亲沙滩.png"
                         }
                     }
                 },
@@ -111,9 +99,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Atlantis/纷争平原.png"
-                            ]
+                            "template": "map/Atlantis/纷争平原.png"
                         }
                     }
                 },
@@ -127,9 +113,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Atlantis/神罚狂海.png"
-                            ]
+                            "template": "map/Atlantis/神罚狂海.png"
                         }
                     }
                 },
@@ -143,9 +127,7 @@
                             }
                         },
                         "关卡选择": {
-                            "template": [
-                                "map/Atlantis/死之祭坛.png"
-                            ]
+                            "template": "map/Atlantis/死之祭坛.png"
                         }
                     }
                 }
