@@ -2,7 +2,7 @@
     "task": [
         {
             "name": "日常战斗",
-            "description": "由于导航功能尚未完善（基本的地图的导航都还没做），仅白纸化地球可用。bbchannel的安装方法请查看 <https://www.bilibili.com/video/BV1c3DgBWEjN> 。全版本使用bbc的方式一致。",
+            "description": "bbchannel的安装方法请查看 <https://www.bilibili.com/video/BV1c3DgBWEjN> 。全版本使用bbc的方式一致。",
             "label": "日常战斗",
             "entry": "日常战斗",
             "option": [
