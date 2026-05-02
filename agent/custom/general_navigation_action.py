@@ -32,8 +32,8 @@ CHAPTER_MAP = {
     "阿瓦隆勒菲": "AvalonleFae",
     "Traum": "Traum",
     "平面之月": "PaperMoon",
-    "原型肇始": "Gehenna",
-    "伊底": "Archetype",
+    "原型肇始": "Archetype",
+    "伊底": "Gehenna",
     "梅塔特洛尼俄斯": "Metatronius",
 }
 
