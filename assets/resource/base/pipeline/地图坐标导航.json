@@ -1,87 +1,117 @@
 {
     "UI隐藏": {
-        "action": "Click",
-        "recognition": "TemplateMatch",
-        "roi": [
-            1019,
-            619,
-            60,
-            62
-        ],
-        "target": [
-            1037,
-            645,
-            26,
-            18
-        ],
-        "template": "map/UI隐藏.png"
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1019,
+                    619,
+                    60,
+                    62
+                ],
+                "template": "map/UI隐藏.png"
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1037,
+                    645,
+                    26,
+                    18
+                ]
+            }
+        }
     },
     "关卡归位": {
-        "action": "Click",
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    611,
+                    78,
+                    663,
+                    543
+                ],
+                "template": [
+                    "map/关卡归位.png",
+                    "map/关卡归位2.png",
+                    "map/关卡归位3.png",
+                    "map/关卡归位4.png"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1252,
+                    114,
+                    11,
+                    8
+                ]
+            }
+        },
         "next": [
             "关卡选择",
             "[JumpBack]关卡滑动"
-        ],
-        "recognition": "TemplateMatch",
-        "roi": [
-            611,
-            78,
-            663,
-            543
-        ],
-        "target": [
-            1252,
-            114,
-            11,
-            8
-        ],
-        "template": [
-            "map/关卡归位.png",
-            "map/关卡归位2.png",
-            "map/关卡归位3.png",
-            "map/关卡归位4.png"
         ]
     },
     "关卡滑动": {
-        "action": "Swipe",
-        "begin": [
-            1249,
-            170,
-            14,
-            14
-        ],
-        "end": [
-            1250,
-            350,
-            13,
-            16
-        ],
-        "recognition": "DirectHit"
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    1216,
+                    502,
+                    8,
+                    13
+                ],
+                "end": [
+                    [
+                        1209,
+                        172,
+                        8,
+                        8
+                    ]
+                ]
+            }
+        }
     },
     "关卡选择": {
-        "action": "Click",
-        "recognition": "TemplateMatch",
-        "roi": [
-            622,
-            94,
-            456,
-            511
-        ],
-        "template": [
-            "map/关卡选择占位图.png"
-        ],
-        "threshold": 0.85
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    622,
+                    94,
+                    456,
+                    511
+                ],
+                "template": [
+                    "map/关卡选择占位图.png"
+                ],
+                "threshold": 0.85
+            }
+        },
+        "action": {
+            "type": "Click"
+        }
     },
     "地图坐标导航": {
-        "action": "Custom",
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "general_navigation"
+            }
+        },
         "attach": {
             "chapter": "c冬木",
             "quests": "宅邸残迹"
         },
-        "custom_action": "general_navigation",
         "next": [
             "关卡归位"
-        ],
-        "recognition": "DirectHit"
+        ]
     }
 }
