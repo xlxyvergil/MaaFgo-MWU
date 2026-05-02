@@ -81,18 +81,18 @@
     },
     "关卡选择": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "FeatureMatch",
             "param": {
                 "roi": [
-                    622,
-                    94,
-                    456,
-                    511
+                    765,
+                    105,
+                    460,
+                    484
                 ],
                 "template": [
                     "map/关卡选择占位图.png"
                 ],
-                "threshold": 0.85
+                "count": 12
             }
         },
         "action": {
