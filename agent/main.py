@@ -26,7 +26,7 @@ import general_navigation_action
 
 
 def main():
-    # 设置工作目录为项目根目录（兼容阿瓦隆）
+    # 设置工作目录为项目根目录
     project_root_dir = os.path.dirname(AGENT_ROOT)
     if os.getcwd() != project_root_dir:
         os.chdir(project_root_dir)

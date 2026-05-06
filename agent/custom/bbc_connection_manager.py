@@ -32,26 +32,34 @@ class BbcConnectionManager:
     """BBC 连接管理器 - 每次创建新实例"""
     
     def __init__(self):
+        """初始化 BBC 连接管理器
+        
+        初始化步骤：
+        1. 清理端口上的旧监听（防止端口占用）
+        2. 初始化 TCP socket、回调服务器、消息队列等
+        3. 创建线程锁和事件对象
+        4. 自动启动永久回调监听线程
+        """
         # 先尝试关闭端口上的旧监听（如果有）
         self._cleanup_port()
         
-        self._tcp_sock: Optional[socket.socket] = None
-        self._callback_server: Optional[socket.socket] = None
-        self._callback_thread: Optional[threading.Thread] = None
-        self._message_queue = []  # 消息队列
-        self._queue_lock = threading.Lock()
+        self._tcp_sock: Optional[socket.socket] = None  # TCP 命令通道 socket
+        self._callback_server: Optional[socket.socket] = None  # 回调监听服务器 socket
+        self._callback_thread: Optional[threading.Thread] = None  # 回调监听线程
+        self._message_queue = []  # 消息队列：缓存所有回调消息
+        self._queue_lock = threading.Lock()  # 消息队列锁
         self._popup_callback = None  # 弹窗回调函数
-        self._bbc_ready_event = threading.Event()  # BBC就绪事件
+        self._bbc_ready_event = threading.Event()  # BBC就绪事件：用于异步通知
         self._state = {
-            'connected': False,
-            'callback_listening': False,
+            'connected': False,  # TCP 连接状态
+            'callback_listening': False,  # 回调监听状态
             'bbc_process': None,  # BBC 进程对象
         }
-        self._state_lock = threading.Lock()
+        self._state_lock = threading.Lock()  # 状态锁
         
         mfaalog.info(f"[BbcConnectionManager] 创建新实例, ID: {id(self)}, Event ID: {id(self._bbc_ready_event)}")
         
-        # 自动启动回调监听
+        # 自动启动回调监听（后台线程持续监听端口 25002）
         self._start_permanent_listener()
     
     def _cleanup_port(self):
