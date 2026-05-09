@@ -62,7 +62,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/弓术60.png",
+                  "template": [
+                    "chaldea_gate/弓术60.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -77,7 +82,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/剑骑60.png",
+                  "template": [
+                    "chaldea_gate/剑骑60.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -92,7 +102,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/骑剑60.png",
+                  "template": [
+                    "chaldea_gate/骑剑60.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -107,7 +122,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/枪杀60.png",
+                  "template": [
+                    "chaldea_gate/枪杀60.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -122,7 +142,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/杀枪60.png",
+                  "template": [
+                    "chaldea_gate/杀枪60.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -137,7 +162,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/术弓60.png",
+                  "template": [
+                    "chaldea_gate/术弓60.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -152,7 +182,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/问号60.png",
+                  "template": [
+                    "chaldea_gate/问号60.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -174,7 +209,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/剑80.png",
+                  "template": [
+                    "chaldea_gate/剑80.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -189,7 +229,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/弓80.png",
+                  "template": [
+                    "chaldea_gate/弓80.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -204,7 +249,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/枪80.png",
+                  "template": [
+                    "chaldea_gate/枪80.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -219,7 +269,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/骑80.png",
+                  "template": [
+                    "chaldea_gate/骑80.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -234,7 +289,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/术80.png",
+                  "template": [
+                    "chaldea_gate/术80.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -249,7 +309,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/杀80.png",
+                  "template": [
+                    "chaldea_gate/杀80.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -264,7 +329,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/狂80.png",
+                  "template": [
+                    "chaldea_gate/狂80.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
@@ -286,7 +356,12 @@
               "recognition": {
                 "type": "TemplateMatch",
                 "param": {
-                  "template": "chaldea_gate/QP60.png",
+                  "template": [
+                    "chaldea_gate/QP60.png"
+                  ],
+                  "threshold": [
+                    0.72
+                  ],
                   "green_mask": true
                 }
               }
