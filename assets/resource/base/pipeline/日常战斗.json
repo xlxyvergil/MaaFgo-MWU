@@ -2,61 +2,52 @@
     "bbc弹窗信息输出": {
         "focus": {
             "Node.Recognition.Starting": "<span style=\"color: #FF0000;\">BBC任务正常完成！</span>"
-        },
-        "recognition": "DirectHit"
+        }
     },
     "冠位戴冠战": {
         "next": [
             "通用战斗调度"
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "战斗完成信息": {
         "next": [
             "bbc弹窗信息输出"
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "执行bbc战斗": {
         "max_hit": 1,
         "next": [
             "bbc战斗"
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "执行回主界面": {
         "max_hit": 1,
         "next": [
             "回主界面"
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "执行战斗结束": {
         "max_hit": 1,
         "next": [
             "结束战斗"
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "执行章节导航": {
         "max_hit": 1,
         "next": [
             "章节导航"
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "执行队伍选择": {
         "max_hit": 1,
         "next": [
             "队伍选择"
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "日常战斗": {
         "next": [
             "通用战斗调度"
-        ],
-        "recognition": "DirectHit"
+        ]
     },
     "通用战斗调度": {
         "next": [
@@ -66,7 +57,11 @@
             "[JumpBack]执行bbc战斗",
             "[JumpBack]执行战斗结束",
             "战斗完成信息"
-        ],
-        "recognition": "DirectHit"
+        ]
+    },
+    "迦勒底之门": {
+        "next": [
+            "通用战斗调度"
+        ]
     }
 }
