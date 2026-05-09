@@ -94,7 +94,7 @@
     "options/quests/梅塔特洛尼俄斯.json",
     "options/选择冠位难度.json",
     "options/选择冠位职介.json",
-    "options/迦勒底之门-副本类型.json",
+    "options/迦勒底之门-副本类型.json"
   ],
   "agent": {
     "child_exec": "python",
