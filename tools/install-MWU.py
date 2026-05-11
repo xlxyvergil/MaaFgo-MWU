@@ -182,6 +182,16 @@ def install_restart_files():
             json.dump(config, f, ensure_ascii=False, indent=2)
 
 
+def fix_cv2_path():
+    """修复 cv2 模块路径：从 deps/cv2 移动到根目录"""
+    cv2_src = install_path / "deps" / "cv2"
+    cv2_dst = install_path / "cv2"
+    
+    if cv2_src.exists() and not cv2_dst.exists():
+        print(f"Moving cv2 from {cv2_src} to {cv2_dst}")
+        shutil.move(str(cv2_src), str(cv2_dst))
+
+
 if __name__ == "__main__":
     install_deps()
     install_resource()
@@ -189,5 +199,6 @@ if __name__ == "__main__":
     install_bbcdll()  # 复制 bbcdll 目录
     install_tasks()  # 复制 tasks 目录
     install_restart_files()  # 复制 restart 文件
+    fix_cv2_path()  # 修复 cv2 模块路径
 
     print(f"Install to {install_path} successfully.")
