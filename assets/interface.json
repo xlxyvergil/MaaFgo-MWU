@@ -1,10 +1,10 @@
 {
   "interface_version": 2,
   "name": "MaaFgo",
-  "description": "FGO自动战斗工具,模拟器需要强制为1080*720模式",
+  "description": "FGO自动战斗工具,模拟器需要强制为1280*720模式",
   "contact": "QQ群: 无",
   "license": "MIT",
-  "welcome": "首次使用！欢迎使用 MaaFgo!模拟器需要强制为1080*720模式!",
+  "welcome": "首次使用！欢迎使用 MaaFgo!模拟器需要强制为1280*720模式!",
   "github": "https://github.com/xlxyvergil/MaaFgo",
   "mirrorchyan_rid": "MaaFgo",
   "mirrorchyan_multiplatform": true,
