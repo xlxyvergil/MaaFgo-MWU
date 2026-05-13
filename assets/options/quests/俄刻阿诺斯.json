@@ -109,7 +109,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "群岛寂静的入海口"
+                                "quests": "群岛"
                             }
                         },
                         "关卡选择": {
@@ -123,7 +123,7 @@
                     "pipeline_override": {
                         "地图坐标导航": {
                             "attach": {
-                                "quests": "群岛隐藏之岛"
+                                "quests": "群岛"
                             }
                         },
                         "关卡选择": {
