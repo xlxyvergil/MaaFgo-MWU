@@ -125,6 +125,18 @@ MaaFgo/
 - [BBchannel](https://github.com/Meowcolm024/FGO-Automata)  
   FGO 自动化战斗核心
 
+## 🙏 致谢
+
+### 开源项目
+
+| 项目 | 描述 |
+|:---|:---|
+| [**MaaFramework**](https://github.com/MaaXYZ/MaaFramework) | 图像识别自动化框架 |
+| [**MWU**](https://github.com/ravizhan/MWU) | 基于 Vue + FastAPI 的轻量级跨平台通用 WebUI |
+| [**MXU**](https://github.com/MistEO/MXU) | 基于 Tauri 2 + React 的轻量级跨平台通用 GUI |
+| [**BBchannel**](https://github.com/Meowcolm024/FGO-Automata) | FGO 自动化战斗核心 |
+| [**FGO-py**](https://github.com/hgjazhgj/FGO-py)  | **地图导航模块使用了其图像匹配算法、楼层导航逻辑及相关坐标参数。**|
+
 ### 开发者
 
 感谢以下开发者对本项目作出的贡献:
