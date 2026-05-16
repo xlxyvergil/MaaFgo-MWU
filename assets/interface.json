@@ -39,6 +39,7 @@
   "task": [],
   "option": {},
   "import": [
+    "tasks/preset/default.json",
     "tasks/登录.json",
     "tasks/更新settings.json",
     "tasks/启动bbc.json",
